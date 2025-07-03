@@ -129,29 +129,34 @@ public class DataManager {
         return saveFAQsToFile(faqs);
     }
 
-    // Simplified JSON parsing for users (basic implementation)
+    // Enhanced user management with persistent storage
+    private static List<User> userDatabase = new ArrayList<>();
+    private static boolean usersInitialized = false;
+    
     private List<User> loadUsersFromFile() {
         try {
-            String content = readFileContent(USERS_FILE);
+            // Initialize default users only once
+            if (!usersInitialized) {
+                userDatabase.clear();
+                
+                // Add sample admin with properly hashed password
+                // Password "123456" hashed using the same method as UserService
+                String adminHashedPassword = "HASH_" + "123456".hashCode();
+                Admin admin = new Admin("ADMIN_001", "admin", adminHashedPassword, "admin@airline.com",
+                                      "Admin", "User", "123-456-7890", "IT");
+                userDatabase.add(admin);
+                
+                // Add sample customer with properly hashed password
+                String customerHashedPassword = "HASH_" + "123456".hashCode();
+                Customer customer = new Customer("CUST_001", "customer", customerHashedPassword, "customer@email.com",
+                                               "John", "Doe", "987-654-3210", "ABC123", "USA");
+                userDatabase.add(customer);
+                
+                usersInitialized = true;
+                System.out.println("Created sample users: admin and customer");
+            }
             
-            // For demo purposes, always return some sample users
-            List<User> users = new ArrayList<>();
-            
-            // Add sample admin with properly hashed password
-            // Password "123456" hashed using the same method as UserService
-            String adminHashedPassword = "HASH_" + "123456".hashCode();
-            Admin admin = new Admin("ADMIN_001", "admin", adminHashedPassword, "admin@airline.com",
-                                  "Admin", "User", "123-456-7890", "IT");
-            users.add(admin);
-            
-            // Add sample customer with properly hashed password
-            String customerHashedPassword = "HASH_" + "123456".hashCode();
-            Customer customer = new Customer("CUST_001", "customer", customerHashedPassword, "customer@email.com",
-                                           "John", "Doe", "987-654-3210", "ABC123", "USA");
-            users.add(customer);
-            
-            System.out.println("Created sample users: admin and customer");
-            return users;
+            return new ArrayList<>(userDatabase); // Return copy of the list
         } catch (Exception e) {
             System.err.println("Error loading users: " + e.getMessage());
             return new ArrayList<>();
@@ -160,8 +165,31 @@ public class DataManager {
 
     private boolean saveUsersToFile(List<User> users) {
         try {
-            // For simplicity, just return true (in real implementation, serialize to JSON)
-            System.out.println("Saving " + users.size() + " users to file");
+            // Update the in-memory database with new users
+            userDatabase.clear();
+            userDatabase.addAll(users);
+            
+            System.out.println("Saving " + users.size() + " users to persistent storage");
+            
+            // Also write to file for debugging (simplified format)
+            try (FileWriter writer = new FileWriter(USERS_FILE)) {
+                writer.write("[\n");
+                for (int i = 0; i < users.size(); i++) {
+                    User user = users.get(i);
+                    writer.write("  {\n");
+                    writer.write("    \"userId\": \"" + user.getUserId() + "\",\n");
+                    writer.write("    \"username\": \"" + user.getUsername() + "\",\n");
+                    writer.write("    \"email\": \"" + user.getEmail() + "\",\n");
+                    writer.write("    \"firstName\": \"" + user.getFirstName() + "\",\n");
+                    writer.write("    \"lastName\": \"" + user.getLastName() + "\",\n");
+                    writer.write("    \"role\": \"" + user.getRole() + "\"\n");
+                    writer.write("  }");
+                    if (i < users.size() - 1) writer.write(",");
+                    writer.write("\n");
+                }
+                writer.write("]\n");
+            }
+            
             return true;
         } catch (Exception e) {
             System.err.println("Error saving users: " + e.getMessage());

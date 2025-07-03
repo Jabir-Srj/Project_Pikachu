@@ -34,10 +34,27 @@ import service.UserService;
 import util.DataManager;
 
 /**
- * Comprehensive Airline Customer Service Application
- * Implements all Figma design screens with full backend integration
+ * Pikachu Airlines - Premium Customer Service Application
+ * Modern design matching Figma specifications with professional airline aesthetics
  */
 public class AirlineApp extends Application {
+    
+    // Modern Color Palette - Pikachu Airlines Yellow Theme (Matching Figma Design)
+    private static final String PRIMARY_YELLOW = "#F4D03F";    // Main yellow color from Figma
+    private static final String SECONDARY_YELLOW = "#F5C842";  // Slightly darker yellow for accents
+    private static final String LIGHT_YELLOW = "#FEF9E7";      // Light yellow backgrounds
+    private static final String SUCCESS_GREEN = "#10B981";      // Success messages
+    private static final String WARNING_ORANGE = "#F59E0B";     // Warnings/pending
+    private static final String DANGER_RED = "#EF4444";        // Errors/cancellations
+    private static final String PURPLE_ACCENT = "#8B5CF6";     // Premium features
+    private static final String CREAM_50 = "#FFFACD";         // Light cream backgrounds
+    private static final String CREAM_100 = "#FEF5E7";        // Card backgrounds
+    private static final String GRAY_200 = "#E5E7EB";         // Borders
+    private static final String GRAY_400 = "#9CA3AF";         // Subtle text
+    private static final String GRAY_600 = "#4B5563";         // Secondary text
+    private static final String GRAY_800 = "#1F2937";         // Primary text
+    private static final String GRAY_900 = "#111827";         // Headers
+    private static final String WHITE = "#FFFFFF";            // Pure white
     
     private Stage primaryStage;
     private UserService userService;
@@ -52,10 +69,6 @@ public class AirlineApp extends Application {
     private Scene registrationScene;
     private Scene customerDashboardScene;
     private Scene adminDashboardScene;
-    private Scene flightDetailsScene;
-    private Scene bookingDetailsScene;
-    private Scene paymentScene;
-    private Scene ticketScene;
 
     @Override
     public void start(Stage primaryStage) {
@@ -71,237 +84,721 @@ public class AirlineApp extends Application {
         // Load sample data
         dataManager.loadSampleData();
         
-        // Set up the primary stage
-        primaryStage.setTitle("Pikachu Airlines - Customer Service System");
+        // Set up the primary stage with modern styling
+        primaryStage.setTitle("Pikachu Airlines - Premium Travel Experience");
         primaryStage.setResizable(true);
-        primaryStage.setMinWidth(1200);
-        primaryStage.setMinHeight(800);
+        primaryStage.setMinWidth(1400);
+        primaryStage.setMinHeight(900);
         
         // Show login screen
         showLoginScreen();
     }
     
     /**
-     * Login Screen - Based on Log In.png design
+     * Modern Login Screen - Premium Airline Design (Updated to match Figma yellow theme)
      */
     private void showLoginScreen() {
         BorderPane root = new BorderPane();
-        root.setStyle("-fx-background: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);");
+        root.setStyle("-fx-background-color: " + LIGHT_YELLOW + ";");
         
-        // Main container
-        VBox mainContainer = new VBox(40);
-        mainContainer.setAlignment(Pos.CENTER);
-        mainContainer.setPadding(new Insets(50));
+        // Top Navigation Bar
+        HBox topNav = createTopNavigationBar();
+        root.setTop(topNav);
         
-        // Logo and title
-        VBox logoSection = new VBox(10);
+        // Main Content Container
+        StackPane mainContainer = new StackPane();
+        mainContainer.setPadding(new Insets(60, 50, 60, 50));
+        
+        // Login Card Container
+        VBox loginCard = new VBox(35);
+        loginCard.setAlignment(Pos.CENTER);
+        loginCard.setPadding(new Insets(50, 60, 50, 60));
+        loginCard.setMaxWidth(480);
+        loginCard.setStyle(
+            "-fx-background-color: " + WHITE + ";" +
+            "-fx-background-radius: 20;" +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 30, 0, 0, 10);" +
+            "-fx-border-radius: 20;"
+        );
+        
+        // Header Section
+        VBox headerSection = new VBox(15);
+        headerSection.setAlignment(Pos.CENTER);
+        
+        // Logo Section
+        HBox logoSection = new HBox(12);
         logoSection.setAlignment(Pos.CENTER);
         
-        Label logoText = new Label("✈️ PIKACHU AIRLINES");
-        logoText.setStyle("-fx-font-size: 42px; -fx-font-weight: bold; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);");
+        Label logoIcon = new Label("✈️");
+        logoIcon.setStyle("-fx-font-size: 32px;");
         
-        Label tagline = new Label("Your Journey, Our Priority");
-        tagline.setStyle("-fx-font-size: 18px; -fx-text-fill: #E8E9F3; -fx-font-style: italic;");
+        Label logoText = new Label("Pikachu Airlines");
+        logoText.setStyle(
+            "-fx-font-size: 28px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-text-fill: " + PRIMARY_YELLOW + ";"
+        );
         
-        logoSection.getChildren().addAll(logoText, tagline);
+        logoSection.getChildren().addAll(logoIcon, logoText);
         
-        // Login form container
-        VBox loginForm = new VBox(25);
-        loginForm.setAlignment(Pos.CENTER);
-        loginForm.setPadding(new Insets(50, 60, 50, 60));
-        loginForm.setMaxWidth(450);
-        loginForm.setStyle("-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 20; " +
-                          "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 10);");
+        // Email and Password fields using yellow theme
+        VBox formSection = new VBox(25);
+        formSection.setAlignment(Pos.CENTER);
         
-        Label loginTitle = new Label("Welcome Back!");
-        loginTitle.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2D3748;");
+        // Email Field with yellow styling
+        VBox emailContainer = new VBox(8);
+        Label emailLabel = new Label("Email");
+        emailLabel.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-font-weight: 600;" +
+            "-fx-text-fill: " + GRAY_800 + ";"
+        );
         
-        // Demo credentials info
-        VBox credentialsInfo = new VBox(10);
-        credentialsInfo.setAlignment(Pos.CENTER);
-        credentialsInfo.setPadding(new Insets(15));
-        credentialsInfo.setStyle("-fx-background-color: #EBF8FF; -fx-background-radius: 10; -fx-border-color: #3182CE; -fx-border-width: 1; -fx-border-radius: 10;");
+        TextField emailField = createYellowTextField("Enter Your Email");
+        emailContainer.getChildren().addAll(emailLabel, emailField);
         
-        Label demoLabel = new Label("Demo Credentials");
-        demoLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2B6CB0;");
+        // Password Field with yellow styling
+        VBox passwordContainer = new VBox(8);
+        Label passwordLabel = new Label("Password");
+        passwordLabel.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-font-weight: 600;" +
+            "-fx-text-fill: " + GRAY_800 + ";"
+        );
         
-        Label adminDemo = new Label("Admin: admin / 123456");
-        adminDemo.setStyle("-fx-font-size: 12px; -fx-text-fill: #2D3748; -fx-font-family: 'Courier New';");
+        PasswordField passwordField = createYellowPasswordField("Enter Your Password");
+        passwordContainer.getChildren().addAll(passwordLabel, passwordField);
         
-        Label customerDemo = new Label("Customer: customer / 123456");
-        customerDemo.setStyle("-fx-font-size: 12px; -fx-text-fill: #2D3748; -fx-font-family: 'Courier New';");
+        // Sign In Button with yellow styling
+        Button signInButton = createYellowPrimaryButton("Sign In", 400);
+        signInButton.setOnAction(e -> handleLogin(emailField.getText(), passwordField.getText()));
+        passwordField.setOnAction(e -> signInButton.fire());
         
-        credentialsInfo.getChildren().addAll(demoLabel, adminDemo, customerDemo);
+        // Sign up link with yellow styling
+        HBox signUpRow = new HBox(5);
+        signUpRow.setAlignment(Pos.CENTER);
         
-        // Input fields
-        TextField usernameField = new TextField();
-        usernameField.setPromptText("Username");
-        usernameField.setStyle("-fx-font-size: 16px; -fx-padding: 15; -fx-background-radius: 10; " +
-                              "-fx-border-color: #E2E8F0; -fx-border-width: 2; -fx-border-radius: 10; " +
-                              "-fx-background-color: white;");
-        usernameField.setPrefHeight(50);
+        Label noAccountText = new Label("No Account? Sign Up");
+        noAccountText.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-text-fill: " + GRAY_600 + ";"
+        );
         
-        PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Password");
-        passwordField.setStyle("-fx-font-size: 16px; -fx-padding: 15; -fx-background-radius: 10; " +
-                              "-fx-border-color: #E2E8F0; -fx-border-width: 2; -fx-border-radius: 10; " +
-                              "-fx-background-color: white;");
-        passwordField.setPrefHeight(50);
+        Label signUpLink = new Label("here");
+        signUpLink.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-text-fill: " + PRIMARY_YELLOW + ";" +
+            "-fx-cursor: hand;" +
+            "-fx-font-weight: 600;" +
+            "-fx-underline: true;"
+        );
+        signUpLink.setOnMouseClicked(e -> showRegistrationScreen());
         
-        // Buttons
-        HBox buttonBox = new HBox(15);
-        buttonBox.setAlignment(Pos.CENTER);
+        signUpRow.getChildren().addAll(noAccountText, signUpLink);
         
-        Button loginButton = new Button("Sign In");
-        loginButton.setStyle("-fx-background-color: #667eea; -fx-text-fill: white; -fx-font-size: 16px; " +
-                            "-fx-font-weight: bold; -fx-padding: 15 30; -fx-background-radius: 10; " +
-                            "-fx-cursor: hand; -fx-border-width: 0;");
-        loginButton.setPrefWidth(120);
+        formSection.getChildren().addAll(emailContainer, passwordContainer, signInButton, signUpRow);
+        headerSection.getChildren().addAll(logoSection);
         
-        Button registerButton = new Button("Register");
-        registerButton.setStyle("-fx-background-color: #48BB78; -fx-text-fill: white; -fx-font-size: 16px; " +
-                               "-fx-font-weight: bold; -fx-padding: 15 30; -fx-background-radius: 10; " +
-                               "-fx-cursor: hand; -fx-border-width: 0;");
-        registerButton.setPrefWidth(120);
+        // Help section with default credentials
+        VBox helpSection = new VBox(10);
+        helpSection.setAlignment(Pos.CENTER);
+        helpSection.setPadding(new Insets(20, 0, 0, 0));
+        helpSection.setStyle("-fx-border-color: " + GRAY_200 + "; -fx-border-width: 1 0 0 0;");
         
-        buttonBox.getChildren().addAll(loginButton, registerButton);
+        Label helpTitle = new Label("Default Test Credentials:");
+        helpTitle.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_600 + ";");
         
-        // Event handlers
-        loginButton.setOnAction(e -> handleLogin(usernameField.getText(), passwordField.getText()));
-        registerButton.setOnAction(e -> showRegistrationScreen());
-        passwordField.setOnAction(e -> loginButton.fire());
+        Label adminCreds = new Label("Admin: username='admin', password='123456'");
+        adminCreds.setStyle("-fx-font-size: 11px; -fx-text-fill: " + GRAY_600 + ";");
         
-        // Add hover effects
-        addButtonHoverEffect(loginButton, "#667eea", "#5A67D8");
-        addButtonHoverEffect(registerButton, "#48BB78", "#38A169");
+        Label customerCreds = new Label("Customer: username='customer', password='123456'");
+        customerCreds.setStyle("-fx-font-size: 11px; -fx-text-fill: " + GRAY_600 + ";");
         
-        loginForm.getChildren().addAll(loginTitle, credentialsInfo, usernameField, passwordField, buttonBox);
-        mainContainer.getChildren().addAll(logoSection, loginForm);
+        helpSection.getChildren().addAll(helpTitle, adminCreds, customerCreds);
+        
+        loginCard.getChildren().addAll(headerSection, formSection, helpSection);
+        mainContainer.getChildren().add(loginCard);
         
         root.setCenter(mainContainer);
         
-        loginScene = new Scene(root, 1200, 800);
+        loginScene = new Scene(root, 1400, 900);
         primaryStage.setScene(loginScene);
         primaryStage.show();
     }
     
     /**
-     * Registration Screen - Based on Account Registration.png design
+     * Modern Registration Screen - Yellow Theme
      */
     private void showRegistrationScreen() {
         BorderPane root = new BorderPane();
-        root.setStyle("-fx-background: linear-gradient(to bottom, #48BB78 0%, #38A169 100%);");
+        root.setStyle("-fx-background-color: " + LIGHT_YELLOW + ";");
         
-        VBox mainContainer = new VBox(30);
-        mainContainer.setAlignment(Pos.CENTER);
-        mainContainer.setPadding(new Insets(40));
+        // Top Navigation Bar
+        HBox topNav = createTopNavigationBar();
+        root.setTop(topNav);
+        
+        // Main Container
+        StackPane mainContainer = new StackPane();
+        mainContainer.setPadding(new Insets(40, 50, 40, 50));
+        
+        // Registration Card
+        VBox registrationCard = new VBox(30);
+        registrationCard.setAlignment(Pos.CENTER);
+        registrationCard.setPadding(new Insets(40, 50, 40, 50));
+        registrationCard.setMaxWidth(600);
+        registrationCard.setStyle(
+            "-fx-background-color: " + WHITE + ";" +
+            "-fx-background-radius: 20;" +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 30, 0, 0, 10);"
+        );
         
         // Header
         VBox headerSection = new VBox(10);
         headerSection.setAlignment(Pos.CENTER);
         
-        Label titleLabel = new Label("Join Pikachu Airlines");
-        titleLabel.setStyle("-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: white;");
-        
-        Label subtitleLabel = new Label("Create your account to start flying with us");
-        subtitleLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #E6FFFA;");
-        
-        headerSection.getChildren().addAll(titleLabel, subtitleLabel);
-        
-        // Registration form
-        VBox regForm = new VBox(20);
-        regForm.setAlignment(Pos.CENTER);
-        regForm.setPadding(new Insets(40, 50, 40, 50));
-        regForm.setMaxWidth(500);
-        regForm.setStyle("-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 20; " +
-                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 10);");
-        
-        // Personal Information Section
-        Label personalInfoLabel = new Label("Personal Information");
-        personalInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2D3748;");
-        
-        HBox nameRow = new HBox(15);
-        TextField firstNameField = createStyledTextField("First Name", 200);
-        TextField lastNameField = createStyledTextField("Last Name", 200);
-        nameRow.getChildren().addAll(firstNameField, lastNameField);
-        
-        TextField emailField = createStyledTextField("Email Address", 415);
-        TextField phoneField = createStyledTextField("Phone Number", 415);
-        
-        // Account Information Section
-        Label accountInfoLabel = new Label("Account Information");
-        accountInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2D3748;");
-        
-        TextField regUsernameField = createStyledTextField("Username", 415);
-        
-        HBox passwordRow = new HBox(15);
-        PasswordField regPasswordField = createStyledPasswordField("Password", 200);
-        PasswordField confirmPasswordField = createStyledPasswordField("Confirm Password", 200);
-        passwordRow.getChildren().addAll(regPasswordField, confirmPasswordField);
-        
-        // Terms and conditions
-        CheckBox termsCheckBox = new CheckBox("I agree to the Terms and Conditions");
-        termsCheckBox.setStyle("-fx-font-size: 14px; -fx-text-fill: #4A5568;");
-        
-        // Buttons
-        HBox regButtonBox = new HBox(15);
-        regButtonBox.setAlignment(Pos.CENTER);
-        
-        Button createAccountButton = new Button("Create Account");
-        createAccountButton.setStyle("-fx-background-color: #48BB78; -fx-text-fill: white; -fx-font-size: 16px; " +
-                                    "-fx-font-weight: bold; -fx-padding: 15 25; -fx-background-radius: 10; " +
-                                    "-fx-cursor: hand; -fx-border-width: 0;");
-        createAccountButton.setPrefWidth(150);
-        
-        Button backToLoginButton = new Button("Back to Login");
-        backToLoginButton.setStyle("-fx-background-color: #A0AEC0; -fx-text-fill: white; -fx-font-size: 16px; " +
-                                  "-fx-font-weight: bold; -fx-padding: 15 25; -fx-background-radius: 10; " +
-                                  "-fx-cursor: hand; -fx-border-width: 0;");
-        backToLoginButton.setPrefWidth(150);
-        
-        regButtonBox.getChildren().addAll(backToLoginButton, createAccountButton);
-        
-        // Event handlers
-        createAccountButton.setOnAction(e -> handleRegistration(
-            firstNameField.getText(), lastNameField.getText(), emailField.getText(),
-            phoneField.getText(), regUsernameField.getText(), regPasswordField.getText(),
-            confirmPasswordField.getText(), termsCheckBox.isSelected()
-        ));
-        
-        backToLoginButton.setOnAction(e -> showLoginScreen());
-        
-        // Add hover effects
-        addButtonHoverEffect(createAccountButton, "#48BB78", "#38A169");
-        addButtonHoverEffect(backToLoginButton, "#A0AEC0", "#718096");
-        
-        regForm.getChildren().addAll(
-            personalInfoLabel, nameRow, emailField, phoneField,
-            accountInfoLabel, regUsernameField, passwordRow,
-            termsCheckBox, regButtonBox
+        Label titleLabel = new Label("Account Details");
+        titleLabel.setStyle(
+            "-fx-font-size: 28px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-text-fill: " + GRAY_900 + ";"
         );
         
-        mainContainer.getChildren().addAll(headerSection, regForm);
+        headerSection.getChildren().addAll(titleLabel);
+        
+        // Registration Form with yellow styling and proper validation
+        VBox formSection = new VBox(25);
+        formSection.setAlignment(Pos.CENTER);
+        
+        // Name fields
+        TextField firstNameField = createYellowTextField("First Name", 415);
+        TextField lastNameField = createYellowTextField("Last Name", 415);
+        
+        // Nationality dropdown
+        ComboBox<String> nationalityCombo = new ComboBox<>();
+        nationalityCombo.getItems().addAll("Malaysian", "Singaporean", "Indonesian", "Thai", "Other");
+        nationalityCombo.setPromptText("Nationality");
+        nationalityCombo.setPrefWidth(415);
+        nationalityCombo.setStyle("-fx-background-color: " + PRIMARY_YELLOW + "; -fx-font-size: 14px; -fx-padding: 12; -fx-text-fill: " + GRAY_900 + "; -fx-prompt-text-fill: " + GRAY_600 + ";");
+        
+        // DOB and Gender row
+        HBox dobGenderRow = new HBox(15);
+        DatePicker dobPicker = new DatePicker();
+        dobPicker.setPromptText("DOB");
+        dobPicker.setPrefWidth(200);
+        dobPicker.setStyle("-fx-background-color: " + PRIMARY_YELLOW + "; -fx-font-size: 14px; -fx-padding: 12; -fx-text-fill: " + GRAY_900 + "; -fx-prompt-text-fill: " + GRAY_600 + ";");
+        
+        ComboBox<String> genderCombo = new ComboBox<>();
+        genderCombo.getItems().addAll("Male", "Female", "Other");
+        genderCombo.setPromptText("Gender");
+        genderCombo.setPrefWidth(200);
+        genderCombo.setStyle("-fx-background-color: " + PRIMARY_YELLOW + "; -fx-font-size: 14px; -fx-padding: 12; -fx-text-fill: " + GRAY_900 + "; -fx-prompt-text-fill: " + GRAY_600 + ";");
+        
+        dobGenderRow.getChildren().addAll(dobPicker, genderCombo);
+        
+        // Contact fields
+        TextField emailField = createYellowTextField("Email", 415);
+        TextField phoneField = createYellowTextField("Phone Number", 415);
+        
+        // Password fields (ADDED BACK)
+        PasswordField passwordField = createYellowPasswordField("Password", 415);
+        PasswordField confirmPasswordField = createYellowPasswordField("Confirm Password", 415);
+        
+        // Action buttons row (Back + Sign Up)
+        HBox buttonRow = new HBox(15);
+        buttonRow.setAlignment(Pos.CENTER);
+        
+        // Back to Login button
+        Button backButton = createSecondaryButton("Back to Login", 200);
+        backButton.setOnAction(e -> showLoginScreen());
+        
+        // Sign Up Button with validation
+        Button signUpButton = createYellowPrimaryButton("Sign Up", 200);
+        signUpButton.setOnAction(e -> {
+            // Comprehensive validation
+            if (firstNameField.getText().trim().isEmpty() || 
+                lastNameField.getText().trim().isEmpty() || 
+                emailField.getText().trim().isEmpty() || 
+                phoneField.getText().trim().isEmpty() ||
+                passwordField.getText().trim().isEmpty() ||
+                confirmPasswordField.getText().trim().isEmpty() ||
+                nationalityCombo.getValue() == null ||
+                dobPicker.getValue() == null ||
+                genderCombo.getValue() == null) {
+                
+                showModernAlert("Error", "Please fill in all fields before creating an account.", "error");
+                return;
+            }
+            
+            if (!passwordField.getText().equals(confirmPasswordField.getText())) {
+                showModernAlert("Error", "Passwords do not match. Please try again.", "error");
+                return;
+            }
+            
+            if (passwordField.getText().length() < 6) {
+                showModernAlert("Error", "Password must be at least 6 characters long.", "error");
+                return;
+            }
+            
+            if (!emailField.getText().contains("@") || !emailField.getText().contains(".")) {
+                showModernAlert("Error", "Please enter a valid email address.", "error");
+                return;
+            }
+            
+            // Create new customer with all fields
+            Customer newCustomer = new Customer();
+            newCustomer.setFirstName(firstNameField.getText().trim());
+            newCustomer.setLastName(lastNameField.getText().trim());
+            newCustomer.setEmail(emailField.getText().trim());
+            newCustomer.setPhoneNumber(phoneField.getText().trim());
+            newCustomer.setUsername(emailField.getText().trim()); // Use email as username
+            newCustomer.setPassword(passwordField.getText());
+            
+            System.out.println("Attempting to register user: " + newCustomer.getUsername());
+            
+            if (userService.registerUser(newCustomer)) {
+                System.out.println("Registration successful for: " + newCustomer.getUsername());
+                showModernAlert("Success", 
+                    "Account created successfully!\n\n" +
+                    "Username: " + newCustomer.getEmail() + "\n" +
+                    "Password: " + passwordField.getText() + "\n\n" +
+                    "You can now log in with these credentials.", "success");
+                showLoginScreen();
+            } else {
+                System.out.println("Registration failed for: " + newCustomer.getUsername());
+                showModernAlert("Error", "Registration failed. Email may already be in use.", "error");
+            }
+        });
+        
+        buttonRow.getChildren().addAll(backButton, signUpButton);
+        
+        formSection.getChildren().addAll(firstNameField, lastNameField, nationalityCombo, dobGenderRow, emailField, phoneField, passwordField, confirmPasswordField, buttonRow);
+        
+        registrationCard.getChildren().addAll(headerSection, formSection);
+        mainContainer.getChildren().add(registrationCard);
+        
         root.setCenter(mainContainer);
         
-        registrationScene = new Scene(root, 1200, 800);
+        registrationScene = new Scene(root, 1400, 900);
         primaryStage.setScene(registrationScene);
     }
     
     /**
-     * Handle user login
+     * Create Yellow-themed Text Field (matching Figma design)
+     */
+    private TextField createYellowTextField(String promptText) {
+        return createYellowTextField(promptText, 400);
+    }
+    
+    private TextField createYellowTextField(String promptText, double width) {
+        TextField field = new TextField();
+        field.setPromptText(promptText);
+        field.setPrefWidth(width);
+        field.setPrefHeight(50);
+        field.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-padding: 15 18;" +
+            "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+            "-fx-background-radius: 8;" +
+            "-fx-border-width: 0;" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-prompt-text-fill: " + GRAY_600 + ";"
+        );
+        
+        return field;
+    }
+    
+    /**
+     * Create Yellow-themed Password Field (matching Figma design)
+     */
+    private PasswordField createYellowPasswordField(String promptText) {
+        return createYellowPasswordField(promptText, 400);
+    }
+    
+    private PasswordField createYellowPasswordField(String promptText, double width) {
+        PasswordField field = new PasswordField();
+        field.setPromptText(promptText);
+        field.setPrefWidth(width);
+        field.setPrefHeight(50);
+        field.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-padding: 15 18;" +
+            "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+            "-fx-background-radius: 8;" +
+            "-fx-border-width: 0;" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-prompt-text-fill: " + GRAY_600 + ";"
+        );
+        
+        return field;
+    }
+    
+    /**
+     * Create Yellow Primary Button (matching Figma design)
+     */
+    private Button createYellowPrimaryButton(String text, double width) {
+        Button button = new Button(text);
+        button.setPrefWidth(width);
+        button.setPrefHeight(50);
+        button.setStyle(
+            "-fx-background-color: " + SECONDARY_YELLOW + ";" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-background-radius: 8;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-width: 0;"
+        );
+        
+        // Hover effects
+        button.setOnMouseEntered(e -> button.setStyle(
+            "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-background-radius: 8;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-width: 0;"
+        ));
+        
+        button.setOnMouseExited(e -> button.setStyle(
+            "-fx-background-color: " + SECONDARY_YELLOW + ";" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-background-radius: 8;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-width: 0;"
+        ));
+        
+        return button;
+    }
+    
+    /**
+     * Create Top Navigation Bar
+     */
+    private HBox createTopNavigationBar() {
+        HBox topNav = new HBox();
+        topNav.setPadding(new Insets(20, 30, 20, 30));
+        topNav.setAlignment(Pos.CENTER_LEFT);
+        topNav.setStyle("-fx-background-color: rgba(255, 255, 255, 0.95); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);");
+        
+        // Logo Section
+        HBox logoSection = new HBox(12);
+        logoSection.setAlignment(Pos.CENTER_LEFT);
+        
+        Label logoIcon = new Label("✈️");
+        logoIcon.setStyle("-fx-font-size: 24px;");
+        
+        Label logoText = new Label("Pikachu Airlines");
+        logoText.setStyle(
+            "-fx-font-size: 22px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-text-fill: " + PRIMARY_YELLOW + ";"
+        );
+        
+        logoSection.getChildren().addAll(logoIcon, logoText);
+        
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        
+        // Navigation Links
+        HBox navLinks = new HBox(30);
+        navLinks.setAlignment(Pos.CENTER_RIGHT);
+        
+        Label homeLink = createNavLink("Home");
+        Label aboutLink = createNavLink("About");
+        Label servicesLink = createNavLink("Services");
+        Label contactLink = createNavLink("Contact");
+        
+        navLinks.getChildren().addAll(homeLink, aboutLink, servicesLink, contactLink);
+        
+        topNav.getChildren().addAll(logoSection, spacer, navLinks);
+        return topNav;
+    }
+    
+    private Label createNavLink(String text) {
+        Label link = new Label(text);
+        link.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-text-fill: " + GRAY_600 + ";" +
+            "-fx-cursor: hand;" +
+            "-fx-font-weight: 500;"
+        );
+        
+        link.setOnMouseEntered(e -> link.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-text-fill: " + PRIMARY_YELLOW + ";" +
+            "-fx-cursor: hand;" +
+            "-fx-font-weight: 500;"
+        ));
+        
+        link.setOnMouseExited(e -> link.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-text-fill: " + GRAY_600 + ";" +
+            "-fx-cursor: hand;" +
+            "-fx-font-weight: 500;"
+        ));
+        
+        return link;
+    }
+    
+    /**
+     * Create Modern Text Field
+     */
+    private TextField createModernTextField(String promptText) {
+        return createModernTextField(promptText, 400);
+    }
+    
+    private TextField createModernTextField(String promptText, double width) {
+        TextField field = new TextField();
+        field.setPromptText(promptText);
+        field.setPrefWidth(width);
+        field.setPrefHeight(50);
+        field.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-padding: 15 18;" +
+            "-fx-background-color: " + WHITE + ";" +
+            "-fx-background-radius: 12;" +
+            "-fx-border-color: " + GRAY_200 + ";" +
+            "-fx-border-width: 2;" +
+            "-fx-border-radius: 12;" +
+            "-fx-text-fill: " + GRAY_800 + ";"
+        );
+        
+        // Focus effects
+        field.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                field.setStyle(
+                    "-fx-font-size: 14px;" +
+                    "-fx-padding: 15 18;" +
+                    "-fx-background-color: " + WHITE + ";" +
+                    "-fx-background-radius: 12;" +
+                    "-fx-border-color: " + SECONDARY_YELLOW + ";" +
+                    "-fx-border-width: 2;" +
+                    "-fx-border-radius: 12;" +
+                    "-fx-text-fill: " + GRAY_800 + ";" +
+                    "-fx-effect: dropshadow(" + SECONDARY_YELLOW + "44, 8, 0, 0, 0);"
+                );
+            } else {
+                field.setStyle(
+                    "-fx-font-size: 14px;" +
+                    "-fx-padding: 15 18;" +
+                    "-fx-background-color: " + WHITE + ";" +
+                    "-fx-background-radius: 12;" +
+                    "-fx-border-color: " + GRAY_200 + ";" +
+                    "-fx-border-width: 2;" +
+                    "-fx-border-radius: 12;" +
+                    "-fx-text-fill: " + GRAY_800 + ";"
+                );
+            }
+        });
+        
+        return field;
+    }
+    
+    /**
+     * Create Modern Password Field
+     */
+    private PasswordField createModernPasswordField(String promptText) {
+        return createModernPasswordField(promptText, 400);
+    }
+    
+    private PasswordField createModernPasswordField(String promptText, double width) {
+        PasswordField field = new PasswordField();
+        field.setPromptText(promptText);
+        field.setPrefWidth(width);
+        field.setPrefHeight(50);
+        field.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-padding: 15 18;" +
+            "-fx-background-color: " + WHITE + ";" +
+            "-fx-background-radius: 12;" +
+            "-fx-border-color: " + GRAY_200 + ";" +
+            "-fx-border-width: 2;" +
+            "-fx-border-radius: 12;" +
+            "-fx-text-fill: " + GRAY_800 + ";"
+        );
+        
+        // Focus effects with yellow theme
+        field.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                field.setStyle(
+                    "-fx-font-size: 14px;" +
+                    "-fx-padding: 15 18;" +
+                    "-fx-background-color: " + WHITE + ";" +
+                    "-fx-background-radius: 12;" +
+                    "-fx-border-color: " + SECONDARY_YELLOW + ";" +
+                    "-fx-border-width: 2;" +
+                    "-fx-border-radius: 12;" +
+                    "-fx-text-fill: " + GRAY_800 + ";" +
+                    "-fx-effect: dropshadow(gaussian, " + SECONDARY_YELLOW + "44, 8, 0, 0, 0);"
+                );
+            } else {
+                field.setStyle(
+                    "-fx-font-size: 14px;" +
+                    "-fx-padding: 15 18;" +
+                    "-fx-background-color: " + WHITE + ";" +
+                    "-fx-background-radius: 12;" +
+                    "-fx-border-color: " + GRAY_200 + ";" +
+                    "-fx-border-width: 2;" +
+                    "-fx-border-radius: 12;" +
+                    "-fx-text-fill: " + GRAY_800 + ";"
+                );
+            }
+        });
+        
+        return field;
+    }
+    
+    /**
+     * Create Primary Button (Updated for yellow theme)
+     */
+    private Button createPrimaryButton(String text, double width) {
+        Button button = new Button(text);
+        button.setPrefWidth(width);
+        button.setPrefHeight(50);
+        button.setStyle(
+            "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-background-radius: 12;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-width: 0;" +
+            "-fx-effect: dropshadow(gaussian, rgba(244,208,63,0.3), 15, 0, 0, 5);"
+        );
+        
+        // Hover effects
+        button.setOnMouseEntered(e -> button.setStyle(
+            "-fx-background-color: " + SECONDARY_YELLOW + ";" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-background-radius: 12;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-width: 0;" +
+            "-fx-effect: dropshadow(gaussian, rgba(245,200,66,0.4), 20, 0, 0, 8);" +
+            "-fx-scale-y: 1.02;"
+        ));
+        
+        button.setOnMouseExited(e -> button.setStyle(
+            "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-background-radius: 12;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-width: 0;" +
+            "-fx-effect: dropshadow(gaussian, rgba(244,208,63,0.3), 15, 0, 0, 5);"
+        ));
+        
+        return button;
+    }
+    
+    /**
+     * Create Secondary Button (Updated for yellow theme)
+     */
+    private Button createSecondaryButton(String text, double width) {
+        Button button = new Button(text);
+        button.setPrefWidth(width);
+        button.setPrefHeight(50);
+        button.setStyle(
+            "-fx-background-color: " + WHITE + ";" +
+            "-fx-text-fill: " + GRAY_600 + ";" +
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: 600;" +
+            "-fx-background-radius: 12;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-color: " + GRAY_200 + ";" +
+            "-fx-border-width: 2;" +
+            "-fx-border-radius: 12;"
+        );
+        
+        // Hover effects
+        button.setOnMouseEntered(e -> button.setStyle(
+            "-fx-background-color: " + CREAM_50 + ";" +
+            "-fx-text-fill: " + GRAY_800 + ";" +
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: 600;" +
+            "-fx-background-radius: 12;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-color: " + GRAY_400 + ";" +
+            "-fx-border-width: 2;" +
+            "-fx-border-radius: 12;"
+        ));
+        
+        button.setOnMouseExited(e -> button.setStyle(
+            "-fx-background-color: " + WHITE + ";" +
+            "-fx-text-fill: " + GRAY_600 + ";" +
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: 600;" +
+            "-fx-background-radius: 12;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-color: " + GRAY_200 + ";" +
+            "-fx-border-width: 2;" +
+            "-fx-border-radius: 12;"
+        ));
+        
+        return button;
+    }
+    
+    /**
+     * Create Modern Alert Dialog
+     */
+    private void showModernAlert(String title, String message, String type) {
+        Alert alert;
+        switch (type.toLowerCase()) {
+            case "error":
+                alert = new Alert(Alert.AlertType.ERROR);
+                break;
+            case "success":
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                break;
+            case "warning":
+                alert = new Alert(Alert.AlertType.WARNING);
+                break;
+            default:
+                alert = new Alert(Alert.AlertType.INFORMATION);
+        }
+        
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        
+        // Style the alert to match our design
+        alert.getDialogPane().setStyle(
+            "-fx-background-color: " + WHITE + ";" +
+            "-fx-font-family: 'Segoe UI';" +
+            "-fx-border-radius: 12;" +
+            "-fx-background-radius: 12;"
+        );
+        
+        alert.showAndWait();
+    }
+    
+    /**
+     * Handle user login with enhanced feedback
      */
     private void handleLogin(String username, String password) {
         if (username.trim().isEmpty() || password.trim().isEmpty()) {
-            showAlert("Error", "Please enter both username and password.");
+            showModernAlert("Error", "Please enter both username and password.", "error");
             return;
         }
+        
+        System.out.println("Login attempt - Username: " + username);
         
         User user = userService.authenticate(username, password);
         if (user != null) {
             currentUser = user;
+            System.out.println("Login successful for user: " + user.getUsername() + " (" + user.getRole() + ")");
+            showModernAlert("Success", "Welcome back, " + user.getFirstName() + "!", "success");
             showDashboard(user);
         } else {
-            showAlert("Login Failed", "Invalid username or password. Please try again.");
+            System.out.println("Login failed for username: " + username);
+            showModernAlert("Login Failed", 
+                "Invalid username or password.\n\n" +
+                "Tip: Try the default credentials shown below the login form,\n" +
+                "or create a new account and log in with those credentials.", "error");
         }
     }
     
@@ -313,17 +810,17 @@ public class AirlineApp extends Application {
         // Validation
         if (firstName.trim().isEmpty() || lastName.trim().isEmpty() || email.trim().isEmpty() ||
             phone.trim().isEmpty() || username.trim().isEmpty() || password.trim().isEmpty()) {
-            showAlert("Error", "Please fill in all fields.");
+            showModernAlert("Error", "Please fill in all fields.", "error");
             return;
         }
         
         if (!password.equals(confirmPassword)) {
-            showAlert("Error", "Passwords do not match.");
+            showModernAlert("Error", "Passwords do not match.", "error");
             return;
         }
         
         if (!termsAccepted) {
-            showAlert("Error", "Please accept the Terms and Conditions.");
+            showModernAlert("Error", "Please accept the Terms and Conditions.", "error");
             return;
         }
         
@@ -337,10 +834,10 @@ public class AirlineApp extends Application {
         newCustomer.setPassword(password);
         
         if (userService.registerUser(newCustomer)) {
-            showAlert("Success", "Account created successfully! You can now log in.");
+            showModernAlert("Success", "Account created successfully! You can now log in.", "success");
             showLoginScreen();
         } else {
-            showAlert("Error", "Registration failed. Username or email may already exist.");
+            showModernAlert("Error", "Registration failed. Username or email may already exist.", "error");
         }
     }
     
@@ -359,31 +856,32 @@ public class AirlineApp extends Application {
                 showAirlineManagementDashboard();
                 break;
             default:
-                showAlert("Error", "Unknown user role: " + user.getRole());
+                showModernAlert("Error", "Unknown user role: " + user.getRole(), "error");
         }
     }
     
     /**
-     * Customer Dashboard - Based on Customer Overview.png and other customer screens
+     * Modern Customer Dashboard - Premium Design
      */
     private void showCustomerDashboard() {
         BorderPane root = new BorderPane();
-        root.setStyle("-fx-background: linear-gradient(to bottom, #F7FAFC, #EDF2F7);");
+        root.setStyle("-fx-background-color: " + CREAM_50 + ";");
         
-        // Header
-        HBox header = createMainHeader("Customer Portal", currentUser.getFirstName() + " " + currentUser.getLastName());
+        // Modern Header
+        HBox header = createDashboardHeader("Customer Portal", currentUser.getFirstName() + " " + currentUser.getLastName());
         root.setTop(header);
         
-        // Navigation sidebar
-        VBox sidebar = createCustomerSidebar(root);
+        // Modern Navigation sidebar
+        VBox sidebar = createModernCustomerSidebar(root);
         root.setLeft(sidebar);
         
-        // Main content area
+        // Main content area with modern styling
         StackPane contentArea = new StackPane();
-        contentArea.setPadding(new Insets(20));
+        contentArea.setPadding(new Insets(30));
+        contentArea.setStyle("-fx-background-color: " + CREAM_50 + ";");
         
-        // Default content - Flight Search
-        VBox defaultContent = createFlightSearchContent();
+        // Default content - Modern Flight Search
+        VBox defaultContent = createModernFlightSearchContent();
         contentArea.getChildren().add(defaultContent);
         
         root.setCenter(contentArea);
@@ -392,338 +890,427 @@ public class AirlineApp extends Application {
         primaryStage.setScene(customerDashboardScene);
         primaryStage.setTitle("Pikachu Airlines - Customer Portal");
     }
-    
+
     /**
-     * Customer Sidebar Navigation
+     * Create Modern Dashboard Header
      */
-    private VBox createCustomerSidebar(BorderPane parentRoot) {
-        VBox sidebar = new VBox(5);
-        sidebar.setPadding(new Insets(20));
-        sidebar.setPrefWidth(280);
-        sidebar.setStyle("-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 2, 0);");
+    private HBox createDashboardHeader(String title, String username) {
+        HBox header = new HBox();
+        header.setPadding(new Insets(20, 40, 20, 40));
+        header.setAlignment(Pos.CENTER_LEFT);
+        header.setStyle(
+            "-fx-background-color: " + WHITE + ";" +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0, 0, 2);" +
+            "-fx-border-color: " + GRAY_200 + ";" +
+            "-fx-border-width: 0 0 1 0;"
+        );
         
+        // Logo and Title Section
+        HBox logoTitleSection = new HBox(20);
+        logoTitleSection.setAlignment(Pos.CENTER_LEFT);
+        
+        Label logoIcon = new Label("✈️");
+        logoIcon.setStyle("-fx-font-size: 28px;");
+        
+        VBox titleSection = new VBox(2);
+        Label titleLabel = new Label(title);
+        titleLabel.setStyle(
+            "-fx-font-size: 24px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-text-fill: " + GRAY_900 + ";"
+        );
+        
+        Label subtitleLabel = new Label("Pikachu Airlines Premium Experience");
+        subtitleLabel.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-text-fill: " + GRAY_600 + ";"
+        );
+        
+        titleSection.getChildren().addAll(titleLabel, subtitleLabel);
+        logoTitleSection.getChildren().addAll(logoIcon, titleSection);
+        
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        
+        // User Section
+        HBox userSection = new HBox(20);
+        userSection.setAlignment(Pos.CENTER_RIGHT);
+        
+        VBox userInfo = new VBox(2);
+        userInfo.setAlignment(Pos.CENTER_RIGHT);
+        
+        Label welcomeLabel = new Label("Welcome back,");
+        welcomeLabel.setStyle(
+            "-fx-font-size: 12px;" +
+            "-fx-text-fill: " + GRAY_600 + ";"
+        );
+        
+        Label userLabel = new Label(username);
+        userLabel.setStyle(
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: 600;" +
+            "-fx-text-fill: " + GRAY_800 + ";"
+        );
+        
+        userInfo.getChildren().addAll(welcomeLabel, userLabel);
+        
+        // User Avatar
+        Label avatar = new Label("👤");
+        avatar.setStyle(
+            "-fx-font-size: 24px;" +
+            "-fx-background-color: " + LIGHT_YELLOW + ";" +
+            "-fx-background-radius: 50;" +
+            "-fx-padding: 8;"
+        );
+        
+        Button logoutButton = new Button("Logout");
+        logoutButton.setStyle(
+            "-fx-background-color: " + DANGER_RED + ";" +
+            "-fx-text-fill: " + WHITE + ";" +
+            "-fx-font-size: 14px;" +
+            "-fx-font-weight: 600;" +
+            "-fx-padding: 8 16;" +
+            "-fx-background-radius: 8;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-width: 0;"
+        );
+        logoutButton.setOnAction(e -> showLoginScreen());
+        
+        // Add hover effect
+        logoutButton.setOnMouseEntered(e -> logoutButton.setStyle(
+            "-fx-background-color: #DC2626;" +
+            "-fx-text-fill: " + WHITE + ";" +
+            "-fx-font-size: 14px;" +
+            "-fx-font-weight: 600;" +
+            "-fx-padding: 8 16;" +
+            "-fx-background-radius: 8;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-width: 0;"
+        ));
+        
+        logoutButton.setOnMouseExited(e -> logoutButton.setStyle(
+            "-fx-background-color: " + DANGER_RED + ";" +
+            "-fx-text-fill: " + WHITE + ";" +
+            "-fx-font-size: 14px;" +
+            "-fx-font-weight: 600;" +
+            "-fx-padding: 8 16;" +
+            "-fx-background-radius: 8;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-width: 0;"
+        ));
+        
+        userSection.getChildren().addAll(userInfo, avatar, logoutButton);
+        header.getChildren().addAll(logoTitleSection, spacer, userSection);
+        return header;
+    }
+
+    /**
+     * Create Modern Customer Sidebar
+     */
+    private VBox createModernCustomerSidebar(BorderPane parentRoot) {
+        VBox sidebar = new VBox(10);
+        sidebar.setPadding(new Insets(30, 0, 30, 0));
+        sidebar.setPrefWidth(260);
+        sidebar.setStyle("-fx-background-color: " + WHITE + "; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 2, 0); -fx-border-color: " + GRAY_200 + "; -fx-border-width: 0 1 0 0;");
+
         // Profile section
         VBox profileSection = new VBox(10);
-        profileSection.setPadding(new Insets(0, 0, 20, 0));
-        profileSection.setStyle("-fx-border-color: #E2E8F0; -fx-border-width: 0 0 1 0;");
-        
+        profileSection.setPadding(new Insets(0, 0, 30, 0));
+        profileSection.setAlignment(Pos.CENTER);
+        profileSection.setStyle("-fx-border-color: " + GRAY_200 + "; -fx-border-width: 0 0 1 0;");
+
         Label profilePic = new Label("👤");
-        profilePic.setStyle("-fx-font-size: 48px;");
+        profilePic.setStyle("-fx-font-size: 48px; -fx-background-color: " + LIGHT_YELLOW + "; -fx-background-radius: 50; -fx-padding: 12;");
         profilePic.setAlignment(Pos.CENTER);
-        
+
         Label userName = new Label(currentUser.getFirstName() + " " + currentUser.getLastName());
-        userName.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2D3748;");
-        
+        userName.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_900 + ";");
+
         Label userEmail = new Label(currentUser.getEmail());
-        userEmail.setStyle("-fx-font-size: 12px; -fx-text-fill: #718096;");
-        
+        userEmail.setStyle("-fx-font-size: 12px; -fx-text-fill: " + GRAY_600 + ";");
+
         profileSection.getChildren().addAll(profilePic, userName, userEmail);
-        
+
         // Navigation menu
-        VBox menuSection = new VBox(8);
-        menuSection.setPadding(new Insets(20, 0, 0, 0));
-        
+        VBox menuSection = new VBox(12);
+        menuSection.setPadding(new Insets(30, 0, 0, 0));
+
         Label menuTitle = new Label("Menu");
-        menuTitle.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #A0AEC0; -fx-padding: 0 0 10 0;");
-        
+        menuTitle.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_400 + "; -fx-padding: 0 0 10 0;");
+
         // Menu buttons
-        Button flightSearchBtn = createSidebarButton("✈️", "Flight Search", "#667eea");
-        Button bookingsBtn = createSidebarButton("📋", "My Bookings", "#48BB78");
-        Button flightInfoBtn = createSidebarButton("ℹ️", "Flight Information", "#4299E1");
-        Button supportBtn = createSidebarButton("💬", "Support & Chat", "#9F7AEA");
-        Button ticketsBtn = createSidebarButton("🎫", "My Tickets", "#ED8936");
-        Button profileBtn = createSidebarButton("⚙️", "Profile Settings", "#38B2AC");
-        
+        Button flightSearchBtn = createSidebarButton("✈️", "Flight Search", SECONDARY_YELLOW);
+        Button bookingsBtn = createSidebarButton("📋", "My Bookings", SUCCESS_GREEN);
+        Button flightInfoBtn = createSidebarButton("ℹ️", "Flight Information", PRIMARY_YELLOW);
+        Button supportBtn = createSidebarButton("💬", "Support & Chat", PURPLE_ACCENT);
+        Button ticketsBtn = createSidebarButton("🎫", "My Tickets", WARNING_ORANGE);
+        Button profileBtn = createSidebarButton("⚙️", "Profile Settings", LIGHT_YELLOW);
+
         // Event handlers for navigation
-        flightSearchBtn.setOnAction(e -> switchContent(parentRoot, createFlightSearchContent()));
+        flightSearchBtn.setOnAction(e -> switchContent(parentRoot, createModernFlightSearchContent()));
         bookingsBtn.setOnAction(e -> switchContent(parentRoot, createBookingOverviewContent()));
         flightInfoBtn.setOnAction(e -> switchContent(parentRoot, createFlightInformationContent()));
         supportBtn.setOnAction(e -> switchContent(parentRoot, createSupportChatContent()));
         ticketsBtn.setOnAction(e -> switchContent(parentRoot, createTicketOverviewContent()));
         profileBtn.setOnAction(e -> switchContent(parentRoot, createCustomerDetailsContent()));
-        
+
         menuSection.getChildren().addAll(menuTitle, flightSearchBtn, bookingsBtn, flightInfoBtn, 
                                         supportBtn, ticketsBtn, profileBtn);
-        
+
         sidebar.getChildren().addAll(profileSection, menuSection);
         return sidebar;
     }
-    
-    private Button createSidebarButton(String icon, String text, String accentColor) {
-        Button button = new Button();
-        
-        HBox content = new HBox(12);
-        content.setAlignment(Pos.CENTER_LEFT);
-        
-        Label iconLabel = new Label(icon);
-        iconLabel.setStyle("-fx-font-size: 16px;");
-        
-        Label textLabel = new Label(text);
-        textLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #4A5568;");
-        
-        content.getChildren().addAll(iconLabel, textLabel);
-        button.setGraphic(content);
-        
-        button.setPrefWidth(240);
-        button.setPrefHeight(45);
-        button.setAlignment(Pos.CENTER_LEFT);
-        button.setStyle("-fx-background-color: transparent; -fx-border-width: 0; " +
-                      "-fx-padding: 8 12; -fx-background-radius: 8; -fx-cursor: hand;");
-        
-        // Hover effects
-        button.setOnMouseEntered(e -> {
-            button.setStyle("-fx-background-color: " + accentColor + "22; -fx-border-width: 0; " +
-                          "-fx-padding: 8 12; -fx-background-radius: 8; -fx-cursor: hand;");
-            textLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: " + accentColor + ";");
-        });
-        
-        button.setOnMouseExited(e -> {
-            button.setStyle("-fx-background-color: transparent; -fx-border-width: 0; " +
-                          "-fx-padding: 8 12; -fx-background-radius: 8; -fx-cursor: hand;");
-            textLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #4A5568;");
-        });
-        
-        return button;
-    }
-    
-    private void switchContent(BorderPane root, VBox newContent) {
-        root.setCenter(newContent);
-    }
-    
+
     /**
-     * Flight Search Content - Based on Flight Information.png designs
+     * Modern Flight Search Content - Card-based, premium design
      */
-    private VBox createFlightSearchContent() {
-        VBox content = new VBox(25);
-        content.setPadding(new Insets(30));
-        
+    private VBox createModernFlightSearchContent() {
+        VBox content = new VBox(30);
+        content.setPadding(new Insets(20, 40, 20, 40));
+        content.setStyle("-fx-background-color: " + CREAM_50 + ";");
+
         // Title section
-        VBox titleSection = new VBox(10);
+        VBox titleSection = new VBox(8);
         Label title = new Label("Search Flights");
-        title.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #2D3748;");
-        
+        title.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: " + PRIMARY_YELLOW + ";");
+
         Label subtitle = new Label("Find and book your perfect flight");
-        subtitle.setStyle("-fx-font-size: 16px; -fx-text-fill: #718096;");
-        
+        subtitle.setStyle("-fx-font-size: 16px; -fx-text-fill: " + GRAY_600 + ";");
+
         titleSection.getChildren().addAll(title, subtitle);
-        
-        // Search form
-        VBox searchForm = new VBox(20);
-        searchForm.setPadding(new Insets(30));
-        searchForm.setStyle("-fx-background-color: white; -fx-background-radius: 15; " +
-                           "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);");
-        
+
+        // Search form card
+        VBox searchForm = new VBox(25);
+        searchForm.setPadding(new Insets(35, 40, 35, 40));
+        searchForm.setStyle("-fx-background-color: " + WHITE + "; -fx-background-radius: 18; -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.08), 18, 0, 0, 6);");
+
         // First row - Trip type and passengers
-        HBox firstRow = new HBox(20);
-        
+        HBox firstRow = new HBox(24);
+
         VBox tripTypeBox = new VBox(5);
         Label tripTypeLabel = new Label("Trip Type");
-        tripTypeLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #4A5568;");
-        
+        tripTypeLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_800 + ";");
+
         ComboBox<String> tripTypeCombo = new ComboBox<>();
         tripTypeCombo.getItems().addAll("Round Trip", "One Way", "Multi-city");
         tripTypeCombo.setValue("Round Trip");
         tripTypeCombo.setPrefWidth(150);
-        tripTypeCombo.setStyle("-fx-font-size: 14px; -fx-padding: 10;");
-        
+        tripTypeCombo.setStyle("-fx-font-size: 14px; -fx-padding: 10; -fx-background-radius: 10; -fx-border-color: " + GRAY_200 + ";");
+
         tripTypeBox.getChildren().addAll(tripTypeLabel, tripTypeCombo);
-        
+
         VBox passengersBox = new VBox(5);
         Label passengersLabel = new Label("Passengers");
-        passengersLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #4A5568;");
-        
+        passengersLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_800 + ";");
+
         ComboBox<String> passengersCombo = new ComboBox<>();
         passengersCombo.getItems().addAll("1 Adult", "2 Adults", "3 Adults", "4 Adults", "5+ Adults");
         passengersCombo.setValue("1 Adult");
         passengersCombo.setPrefWidth(150);
-        passengersCombo.setStyle("-fx-font-size: 14px; -fx-padding: 10;");
-        
+        passengersCombo.setStyle("-fx-font-size: 14px; -fx-padding: 10; -fx-background-radius: 10; -fx-border-color: " + GRAY_200 + ";");
+
         passengersBox.getChildren().addAll(passengersLabel, passengersCombo);
-        
+
         VBox classBox = new VBox(5);
         Label classLabel = new Label("Class");
-        classLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #4A5568;");
-        
+        classLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_800 + ";");
+
         ComboBox<String> classCombo = new ComboBox<>();
         classCombo.getItems().addAll("Economy", "Premium Economy", "Business", "First Class");
         classCombo.setValue("Economy");
         classCombo.setPrefWidth(150);
-        classCombo.setStyle("-fx-font-size: 14px; -fx-padding: 10;");
-        
+        classCombo.setStyle("-fx-font-size: 14px; -fx-padding: 10; -fx-background-radius: 10; -fx-border-color: " + GRAY_200 + ";");
+
         classBox.getChildren().addAll(classLabel, classCombo);
-        
+
         firstRow.getChildren().addAll(tripTypeBox, passengersBox, classBox);
-        
+
         // Second row - Origin and destination
         HBox secondRow = new HBox(30);
         secondRow.setAlignment(Pos.CENTER);
-        
-        VBox fromBox = new VBox(5);
+
+        VBox fromBox = new VBox(8);
         Label fromLabel = new Label("FROM");
-        fromLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #A0AEC0;");
-        
-        HBox fromContent = new HBox(10);
-        fromContent.setAlignment(Pos.CENTER_LEFT);
-        fromContent.setPadding(new Insets(15));
-        fromContent.setStyle("-fx-background-color: #F7FAFC; -fx-background-radius: 12; " +
-                            "-fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-border-radius: 12;");
-        fromContent.setPrefWidth(200);
-        
-        Label fromIcon = new Label("🛫");
-        fromIcon.setStyle("-fx-font-size: 20px;");
-        
-        VBox fromDetails = new VBox(2);
-        TextField fromCode = new TextField("KUL");
-        fromCode.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-background-color: transparent; " +
-                         "-fx-border-width: 0; -fx-text-fill: #2D3748;");
-        fromCode.setPrefWidth(120);
-        
-        Label fromCity = new Label("Kuala Lumpur");
-        fromCity.setStyle("-fx-font-size: 12px; -fx-text-fill: #718096;");
-        
-        fromDetails.getChildren().addAll(fromCode, fromCity);
-        fromContent.getChildren().addAll(fromIcon, fromDetails);
-        fromBox.getChildren().addAll(fromLabel, fromContent);
-        
+        fromLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_400 + ";");
+
+        ComboBox<String> fromCombo = new ComboBox<>();
+        fromCombo.getItems().addAll(
+            "Tokyo (NRT) - Japan", "Seoul (ICN) - South Korea", "Singapore (SIN) - Singapore",
+            "Kuala Lumpur (KUL) - Malaysia", "Bangkok (BKK) - Thailand", "Manila (MNL) - Philippines", 
+            "Hong Kong (HKG) - Hong Kong", "Taipei (TPE) - Taiwan", "Jakarta (CGK) - Indonesia",
+            "Ho Chi Minh City (SGN) - Vietnam", "Beijing (PEK) - China", "Shanghai (PVG) - China",
+            "Mumbai (BOM) - India", "Delhi (DEL) - India", "Osaka (KIX) - Japan", "Busan (PUS) - South Korea",
+            "Colombo (CMB) - Sri Lanka", "Chennai (MAA) - India", "Dhaka (DAC) - Bangladesh",
+            "Kathmandu (KTM) - Nepal", "Yangon (RGN) - Myanmar", "Hanoi (HAN) - Vietnam",
+            "Phnom Penh (PNH) - Cambodia", "Vientiane (VTE) - Laos", "Macau (MFM) - Macau",
+            "Guangzhou (CAN) - China"
+        );
+        fromCombo.setValue("Tokyo (NRT) - Japan");
+        fromCombo.setPrefWidth(260);
+        fromCombo.setStyle("-fx-font-size: 14px; -fx-padding: 12; -fx-background-radius: 12; -fx-border-color: " + GRAY_200 + "; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-color: " + CREAM_50 + ";");
+
+        fromCombo.setButtonCell(new javafx.scene.control.ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText("🛫 " + item);
+                    setStyle("-fx-font-size: 14px; -fx-text-fill: " + GRAY_900 + "; -fx-font-weight: 500;");
+                }
+            }
+        });
+
+        fromBox.getChildren().addAll(fromLabel, fromCombo);
+
+        VBox toBox = new VBox(8);
+        Label toLabel = new Label("TO");
+        toLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_400 + ";");
+
+        ComboBox<String> toCombo = new ComboBox<>();
+        toCombo.getItems().addAll(
+            "Tokyo (NRT) - Japan", "Seoul (ICN) - South Korea", "Singapore (SIN) - Singapore",
+            "Kuala Lumpur (KUL) - Malaysia", "Bangkok (BKK) - Thailand", "Manila (MNL) - Philippines", 
+            "Hong Kong (HKG) - Hong Kong", "Taipei (TPE) - Taiwan", "Jakarta (CGK) - Indonesia",
+            "Ho Chi Minh City (SGN) - Vietnam", "Beijing (PEK) - China", "Shanghai (PVG) - China",
+            "Mumbai (BOM) - India", "Delhi (DEL) - India", "Osaka (KIX) - Japan", "Busan (PUS) - South Korea",
+            "Colombo (CMB) - Sri Lanka", "Chennai (MAA) - India", "Dhaka (DAC) - Bangladesh",
+            "Kathmandu (KTM) - Nepal", "Yangon (RGN) - Myanmar", "Hanoi (HAN) - Vietnam",
+            "Phnom Penh (PNH) - Cambodia", "Vientiane (VTE) - Laos", "Macau (MFM) - Macau",
+            "Guangzhou (CAN) - China"
+        );
+        toCombo.setValue("Seoul (ICN) - South Korea");
+        toCombo.setPrefWidth(260);
+        toCombo.setStyle("-fx-font-size: 14px; -fx-padding: 12; -fx-background-radius: 12; -fx-border-color: " + GRAY_200 + "; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-color: " + CREAM_50 + ";");
+
+        toCombo.setButtonCell(new javafx.scene.control.ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText("🛬 " + item);
+                    setStyle("-fx-font-size: 14px; -fx-text-fill: " + GRAY_900 + "; -fx-font-weight: 500;");
+                }
+            }
+        });
+
+        toBox.getChildren().addAll(toLabel, toCombo);
+
         // Swap button
         Button swapButton = new Button("⇄");
-        swapButton.setStyle("-fx-background-color: #667eea; -fx-text-fill: white; -fx-font-size: 18px; " +
-                           "-fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 50; " +
-                           "-fx-cursor: hand; -fx-border-width: 0;");
+        swapButton.setStyle("-fx-background-color: " + PRIMARY_YELLOW + "; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 50; -fx-cursor: hand; -fx-border-width: 0; -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.10), 8, 0, 0, 2);");
         swapButton.setPrefSize(45, 45);
-        
-        VBox toBox = new VBox(5);
-        Label toLabel = new Label("TO");
-        toLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #A0AEC0;");
-        
-        HBox toContent = new HBox(10);
-        toContent.setAlignment(Pos.CENTER_LEFT);
-        toContent.setPadding(new Insets(15));
-        toContent.setStyle("-fx-background-color: #F7FAFC; -fx-background-radius: 12; " +
-                          "-fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-border-radius: 12;");
-        toContent.setPrefWidth(200);
-        
-        Label toIcon = new Label("🛬");
-        toIcon.setStyle("-fx-font-size: 20px;");
-        
-        VBox toDetails = new VBox(2);
-        TextField toCode = new TextField("SIN");
-        toCode.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-background-color: transparent; " +
-                       "-fx-border-width: 0; -fx-text-fill: #2D3748;");
-        toCode.setPrefWidth(120);
-        
-        Label toCity = new Label("Singapore");
-        toCity.setStyle("-fx-font-size: 12px; -fx-text-fill: #718096;");
-        
-        toDetails.getChildren().addAll(toCode, toCity);
-        toContent.getChildren().addAll(toIcon, toDetails);
-        toBox.getChildren().addAll(toLabel, toContent);
-        
+        swapButton.setOnAction(e -> {
+            String fromValue = fromCombo.getValue();
+            String toValue = toCombo.getValue();
+            fromCombo.setValue(toValue);
+            toCombo.setValue(fromValue);
+        });
+        swapButton.setOnMouseEntered(e -> swapButton.setStyle("-fx-background-color: " + SECONDARY_YELLOW + "; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 50; -fx-cursor: hand; -fx-border-width: 0; -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.18), 12, 0, 0, 3);"));
+        swapButton.setOnMouseExited(e -> swapButton.setStyle("-fx-background-color: " + PRIMARY_YELLOW + "; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 50; -fx-cursor: hand; -fx-border-width: 0; -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.10), 8, 0, 0, 2);"));
+
         secondRow.getChildren().addAll(fromBox, swapButton, toBox);
-        
+
         // Third row - Dates
-        HBox thirdRow = new HBox(20);
-        
+        HBox thirdRow = new HBox(24);
+
         VBox departureBox = new VBox(5);
         Label departureLabel = new Label("DEPARTURE");
-        departureLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #A0AEC0;");
-        
+        departureLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_400 + ";");
+
         HBox departureContent = new HBox(10);
         departureContent.setAlignment(Pos.CENTER_LEFT);
         departureContent.setPadding(new Insets(15));
-        departureContent.setStyle("-fx-background-color: #F7FAFC; -fx-background-radius: 12; " +
-                                 "-fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-border-radius: 12;");
+        departureContent.setStyle("-fx-background-color: " + CREAM_50 + "; -fx-background-radius: 12; -fx-border-color: " + GRAY_200 + "; -fx-border-width: 1; -fx-border-radius: 12;");
         departureContent.setPrefWidth(200);
-        
+
         Label calIcon1 = new Label("📅");
         calIcon1.setStyle("-fx-font-size: 16px;");
-        
+
         VBox departureDetails = new VBox(2);
         DatePicker departurePicker = new DatePicker(LocalDate.now().plusDays(1));
         departurePicker.setStyle("-fx-font-size: 14px; -fx-background-color: transparent; -fx-border-width: 0;");
-        
+
         departureDetails.getChildren().add(departurePicker);
         departureContent.getChildren().addAll(calIcon1, departureDetails);
         departureBox.getChildren().addAll(departureLabel, departureContent);
-        
+
         VBox returnBox = new VBox(5);
         Label returnLabel = new Label("RETURN");
-        returnLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #A0AEC0;");
-        
+        returnLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_400 + ";");
+
         HBox returnContent = new HBox(10);
         returnContent.setAlignment(Pos.CENTER_LEFT);
         returnContent.setPadding(new Insets(15));
-        returnContent.setStyle("-fx-background-color: #F7FAFC; -fx-background-radius: 12; " +
-                              "-fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-border-radius: 12;");
+        returnContent.setStyle("-fx-background-color: " + CREAM_50 + "; -fx-background-radius: 12; -fx-border-color: " + GRAY_200 + "; -fx-border-width: 1; -fx-border-radius: 12;");
         returnContent.setPrefWidth(200);
-        
+
         Label calIcon2 = new Label("📅");
         calIcon2.setStyle("-fx-font-size: 16px;");
-        
+
         VBox returnDetails = new VBox(2);
         DatePicker returnPicker = new DatePicker(LocalDate.now().plusDays(8));
         returnPicker.setStyle("-fx-font-size: 14px; -fx-background-color: transparent; -fx-border-width: 0;");
-        
+
         returnDetails.getChildren().add(returnPicker);
         returnContent.getChildren().addAll(calIcon2, returnDetails);
         returnBox.getChildren().addAll(returnLabel, returnContent);
-        
+
         thirdRow.getChildren().addAll(departureBox, returnBox);
-        
+
         // Search button
-        Button searchFlightsBtn = new Button("Search Flights");
-        searchFlightsBtn.setStyle("-fx-background-color: #667eea; -fx-text-fill: white; -fx-font-size: 18px; " +
-                                 "-fx-font-weight: bold; -fx-padding: 15 40; -fx-background-radius: 12; " +
-                                 "-fx-cursor: hand; -fx-border-width: 0;");
-        searchFlightsBtn.setPrefWidth(250);
-        
+        Button searchFlightsBtn = createPrimaryButton("Search Flights", 250);
         HBox searchButtonBox = new HBox();
         searchButtonBox.setAlignment(Pos.CENTER);
         searchButtonBox.getChildren().add(searchFlightsBtn);
-        
+
         // Search results area
         VBox resultsArea = new VBox(15);
         resultsArea.setPadding(new Insets(20, 0, 0, 0));
-        
+
         Label resultsTitle = new Label("Available Flights");
-        resultsTitle.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2D3748;");
+        resultsTitle.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: " + PRIMARY_YELLOW + ";");
         resultsTitle.setVisible(false);
-        
+
         VBox flightResults = new VBox(15);
-        
+
         // Event handler for search
         searchFlightsBtn.setOnAction(e -> {
-            String from = fromCode.getText();
-            String to = toCode.getText();
+            String fromSelection = fromCombo.getValue();
+            String toSelection = toCombo.getValue();
+            String from = fromSelection.split(" - ")[0];
+            String to = toSelection.split(" - ")[0];
             LocalDate depDate = departurePicker.getValue();
             int passengers = Integer.parseInt(passengersCombo.getValue().split(" ")[0]);
-            
-            // Search flights using FlightService
+
             List<Flight> flights = flightService.searchFlights(from, to, depDate, passengers);
-            
-            // Clear previous results
+
             flightResults.getChildren().clear();
-            
+
             if (flights.isEmpty()) {
                 Label noFlights = new Label("No flights found for the selected criteria.");
-                noFlights.setStyle("-fx-font-size: 16px; -fx-text-fill: #718096;");
+                noFlights.setStyle("-fx-font-size: 16px; -fx-text-fill: " + GRAY_600 + ";");
                 flightResults.getChildren().add(noFlights);
             } else {
-                // Display flight results
                 for (Flight flight : flights) {
                     VBox flightCard = createFlightResultCard(flight);
                     flightResults.getChildren().add(flightCard);
                 }
             }
-            
+
             resultsTitle.setVisible(true);
         });
-        
+
         resultsArea.getChildren().addAll(resultsTitle, flightResults);
-        
+
         searchForm.getChildren().addAll(firstRow, secondRow, thirdRow, searchButtonBox);
         content.getChildren().addAll(titleSection, searchForm, resultsArea);
-        
+
         return content;
     }
     
@@ -888,25 +1475,26 @@ public class AirlineApp extends Application {
     }
     
     /**
-     * Admin Dashboard - Based on Admin Dashboard.png design
+     * Modern Admin Dashboard - Premium Design
      */
     private void showAdminDashboard() {
         BorderPane root = new BorderPane();
-        root.setStyle("-fx-background: linear-gradient(to bottom, #F7FAFC, #EDF2F7);");
+        root.setStyle("-fx-background-color: " + CREAM_50 + ";");
         
-        // Header
-        HBox header = createMainHeader("Admin Dashboard", currentUser.getFirstName() + " " + currentUser.getLastName());
+        // Modern Header
+        HBox header = createDashboardHeader("Admin Dashboard", currentUser.getFirstName() + " " + currentUser.getLastName());
         root.setTop(header);
         
-        // Navigation sidebar
-        VBox sidebar = createAdminSidebar(root);
+        // Modern Navigation sidebar
+        VBox sidebar = createModernAdminSidebar(root);
         root.setLeft(sidebar);
         
-        // Main content area - Dashboard Overview
+        // Main content area with modern styling
         StackPane contentArea = new StackPane();
-        contentArea.setPadding(new Insets(20));
+        contentArea.setPadding(new Insets(30));
+        contentArea.setStyle("-fx-background-color: " + CREAM_50 + ";");
         
-        VBox dashboardContent = createAdminDashboardContent();
+        VBox dashboardContent = createModernAdminDashboardContent();
         contentArea.getChildren().add(dashboardContent);
         
         root.setCenter(contentArea);
@@ -916,47 +1504,51 @@ public class AirlineApp extends Application {
         primaryStage.setTitle("Pikachu Airlines - Admin Dashboard");
     }
     
-    private VBox createAdminSidebar(BorderPane parentRoot) {
-        VBox sidebar = new VBox(5);
-        sidebar.setPadding(new Insets(20));
-        sidebar.setPrefWidth(280);
-        sidebar.setStyle("-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 2, 0);");
+    /**
+     * Create Modern Admin Sidebar
+     */
+    private VBox createModernAdminSidebar(BorderPane parentRoot) {
+        VBox sidebar = new VBox(10);
+        sidebar.setPadding(new Insets(30, 0, 30, 0));
+        sidebar.setPrefWidth(260);
+        sidebar.setStyle("-fx-background-color: " + WHITE + "; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 2, 0); -fx-border-color: " + GRAY_200 + "; -fx-border-width: 0 1 0 0;");
         
         // Profile section
         VBox profileSection = new VBox(10);
-        profileSection.setPadding(new Insets(0, 0, 20, 0));
-        profileSection.setStyle("-fx-border-color: #E2E8F0; -fx-border-width: 0 0 1 0;");
+        profileSection.setPadding(new Insets(0, 0, 30, 0));
+        profileSection.setAlignment(Pos.CENTER);
+        profileSection.setStyle("-fx-border-color: " + GRAY_200 + "; -fx-border-width: 0 0 1 0;");
         
         Label profilePic = new Label("👨‍💼");
-        profilePic.setStyle("-fx-font-size: 48px;");
+        profilePic.setStyle("-fx-font-size: 48px; -fx-background-color: " + DANGER_RED + "22; -fx-background-radius: 50; -fx-padding: 12;");
         profilePic.setAlignment(Pos.CENTER);
         
         Label userName = new Label(currentUser.getFirstName() + " " + currentUser.getLastName());
-        userName.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2D3748;");
+        userName.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_900 + ";");
         
         Label userRole = new Label("Administrator");
-        userRole.setStyle("-fx-font-size: 12px; -fx-text-fill: #E53E3E; -fx-font-weight: bold;");
+        userRole.setStyle("-fx-font-size: 12px; -fx-text-fill: " + DANGER_RED + "; -fx-font-weight: bold; -fx-background-color: " + DANGER_RED + "22; -fx-padding: 4 8; -fx-background-radius: 12;");
         
         profileSection.getChildren().addAll(profilePic, userName, userRole);
         
         // Navigation menu
-        VBox menuSection = new VBox(8);
-        menuSection.setPadding(new Insets(20, 0, 0, 0));
+        VBox menuSection = new VBox(12);
+        menuSection.setPadding(new Insets(30, 0, 0, 0));
         
         Label menuTitle = new Label("Admin Menu");
-        menuTitle.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #A0AEC0; -fx-padding: 0 0 10 0;");
+        menuTitle.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_400 + "; -fx-padding: 0 0 10 0;");
         
-        // Menu buttons
-        Button overviewBtn = createSidebarButton("📊", "Dashboard", "#667eea");
-        Button flightsBtn = createSidebarButton("✈️", "Manage Flights", "#4299E1");
-        Button bookingsBtn = createSidebarButton("📋", "All Bookings", "#48BB78");
-        Button customersBtn = createSidebarButton("👥", "Customers", "#9F7AEA");
-        Button ticketsBtn = createSidebarButton("🎫", "Support Tickets", "#ED8936");
-        Button refundsBtn = createSidebarButton("💰", "Refund Approvals", "#38B2AC");
-        Button reportsBtn = createSidebarButton("📈", "Reports", "#A0AEC0");
+        // Menu buttons with modern colors
+        Button overviewBtn = createSidebarButton("📊", "Dashboard", PRIMARY_YELLOW);
+        Button flightsBtn = createSidebarButton("✈️", "Manage Flights", SECONDARY_YELLOW);
+        Button bookingsBtn = createSidebarButton("📋", "All Bookings", SUCCESS_GREEN);
+        Button customersBtn = createSidebarButton("👥", "Customers", PURPLE_ACCENT);
+        Button ticketsBtn = createSidebarButton("🎫", "Support Tickets", WARNING_ORANGE);
+        Button refundsBtn = createSidebarButton("💰", "Refund Approvals", DANGER_RED);
+        Button reportsBtn = createSidebarButton("📈", "Reports", GRAY_600);
         
         // Event handlers for navigation
-        overviewBtn.setOnAction(e -> switchContent(parentRoot, createAdminDashboardContent()));
+        overviewBtn.setOnAction(e -> switchContent(parentRoot, createModernAdminDashboardContent()));
         flightsBtn.setOnAction(e -> switchContent(parentRoot, createFlightManagementContent()));
         bookingsBtn.setOnAction(e -> switchContent(parentRoot, createAllBookingsContent()));
         customersBtn.setOnAction(e -> switchContent(parentRoot, createCustomerManagementContent()));
@@ -971,51 +1563,118 @@ public class AirlineApp extends Application {
         return sidebar;
     }
     
-    private VBox createAdminDashboardContent() {
-        VBox content = new VBox(25);
-        content.setPadding(new Insets(30));
+    /**
+     * Create Modern Admin Dashboard Content
+     */
+    private VBox createModernAdminDashboardContent() {
+        VBox content = new VBox(30);
+        content.setPadding(new Insets(20, 40, 20, 40));
+        content.setStyle("-fx-background-color: " + CREAM_50 + ";");
         
         // Title section
-        VBox titleSection = new VBox(5);
-        Label title = new Label("Admin Dashboard Overview");
-        title.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #2D3748;");
+        VBox titleSection = new VBox(8);
+        Label title = new Label("Admin Dashboard");
+        title.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: " + PRIMARY_YELLOW + ";");
         
         Label subtitle = new Label("Monitor and manage airline operations");
-        subtitle.setStyle("-fx-font-size: 16px; -fx-text-fill: #718096;");
+        subtitle.setStyle("-fx-font-size: 16px; -fx-text-fill: " + GRAY_600 + ";");
         
         titleSection.getChildren().addAll(title, subtitle);
         
-        // Statistics cards
-        HBox statsRow = new HBox(20);
+        // Statistics cards with modern design
+        HBox statsRow = new HBox(24);
         
-        VBox totalFlights = createStatCard("✈️", "Total Flights", "125", "#4299E1");
-        VBox totalBookings = createStatCard("📋", "Active Bookings", "89", "#48BB78");
-        VBox totalCustomers = createStatCard("👥", "Customers", "342", "#9F7AEA");
-        VBox pendingTickets = createStatCard("🎫", "Pending Tickets", "12", "#ED8936");
+        VBox totalFlights = createModernStatCard("✈️", "Total Flights", "125", SECONDARY_YELLOW);
+        VBox totalBookings = createModernStatCard("📋", "Active Bookings", "89", SUCCESS_GREEN);
+        VBox totalCustomers = createModernStatCard("👥", "Customers", "342", PURPLE_ACCENT);
+        VBox pendingTickets = createModernStatCard("🎫", "Pending Tickets", "12", WARNING_ORANGE);
         
         statsRow.getChildren().addAll(totalFlights, totalBookings, totalCustomers, pendingTickets);
         
-        // Recent activity section
-        VBox recentActivity = new VBox(15);
-        recentActivity.setPadding(new Insets(25));
-        recentActivity.setStyle("-fx-background-color: white; -fx-background-radius: 12; " +
-                               "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);");
+        // Recent activity section with modern styling
+        VBox recentActivity = new VBox(20);
+        recentActivity.setPadding(new Insets(30));
+        recentActivity.setStyle("-fx-background-color: " + WHITE + "; -fx-background-radius: 18; -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.08), 18, 0, 0, 6);");
         
         Label activityTitle = new Label("Recent Activity");
-        activityTitle.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2D3748;");
+        activityTitle.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_900 + ";");
         
-        VBox activityList = new VBox(10);
+        VBox activityList = new VBox(12);
         activityList.getChildren().addAll(
-            createActivityItem("New booking #BK2024001 created", "2 minutes ago", "#48BB78"),
-            createActivityItem("Flight AA123 status updated to Delayed", "15 minutes ago", "#ED8936"),
-            createActivityItem("Support ticket #T001 submitted", "32 minutes ago", "#9F7AEA"),
-            createActivityItem("Refund approved for booking #BK2024000", "1 hour ago", "#38B2AC")
+            createModernActivityItem("New booking #BK2024001 created", "2 minutes ago", SUCCESS_GREEN),
+            createModernActivityItem("Flight AA123 status updated to Delayed", "15 minutes ago", WARNING_ORANGE),
+            createModernActivityItem("Support ticket #T001 submitted", "32 minutes ago", PURPLE_ACCENT),
+            createModernActivityItem("Refund approved for booking #BK2024000", "1 hour ago", SECONDARY_YELLOW)
         );
         
         recentActivity.getChildren().addAll(activityTitle, activityList);
         
         content.getChildren().addAll(titleSection, statsRow, recentActivity);
         return content;
+    }
+    
+    /**
+     * Create Modern Stat Card
+     */
+    private VBox createModernStatCard(String icon, String title, String value, String color) {
+        VBox card = new VBox(15);
+        card.setPadding(new Insets(25));
+        card.setPrefWidth(200);
+        card.setStyle(
+            "-fx-background-color: " + WHITE + ";" +
+            "-fx-background-radius: 16;" +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 12, 0, 0, 4);" +
+            "-fx-border-color: " + CREAM_100 + ";" +
+            "-fx-border-width: 1;" +
+            "-fx-border-radius: 16;"
+        );
+        
+        HBox iconTitleRow = new HBox(12);
+        iconTitleRow.setAlignment(Pos.CENTER_LEFT);
+        
+        Label iconLabel = new Label(icon);
+        iconLabel.setStyle(
+            "-fx-font-size: 24px;" +
+            "-fx-background-color: " + color + "22;" +
+            "-fx-background-radius: 12;" +
+            "-fx-padding: 8;"
+        );
+        
+        Label titleLabel = new Label(title);
+        titleLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: " + GRAY_600 + "; -fx-font-weight: 500;");
+        
+        iconTitleRow.getChildren().addAll(iconLabel, titleLabel);
+        
+        Label valueLabel = new Label(value);
+        valueLabel.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: " + color + ";");
+        
+        card.getChildren().addAll(iconTitleRow, valueLabel);
+        return card;
+    }
+    
+    /**
+     * Create Modern Activity Item
+     */
+    private HBox createModernActivityItem(String message, String time, String color) {
+        HBox item = new HBox(15);
+        item.setAlignment(Pos.CENTER_LEFT);
+        item.setPadding(new Insets(12));
+        item.setStyle("-fx-background-color: " + CREAM_50 + "; -fx-background-radius: 10;");
+        
+        Label dot = new Label("●");
+        dot.setStyle("-fx-font-size: 12px; -fx-text-fill: " + color + ";");
+        
+        VBox messageBox = new VBox(2);
+        Label messageLabel = new Label(message);
+        messageLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: " + GRAY_900 + "; -fx-font-weight: 500;");
+        
+        Label timeLabel = new Label(time);
+        timeLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + GRAY_400 + ";");
+        
+        messageBox.getChildren().addAll(messageLabel, timeLabel);
+        
+        item.getChildren().addAll(dot, messageBox);
+        return item;
     }
     
     private VBox createStatCard(String icon, String title, String value, String color) {
@@ -1065,99 +1724,183 @@ public class AirlineApp extends Application {
         showAlert("Info", "Airline Management Dashboard - Implementation in progress");
     }
     
-    // Additional Content Methods (placeholders for navigation)
+    /**
+     * Modern Booking Overview Content
+     */
     private VBox createBookingOverviewContent() {
-        VBox content = new VBox(20);
-        content.setPadding(new Insets(30));
+        VBox content = new VBox(30);
+        content.setPadding(new Insets(20, 40, 20, 40));
+        content.setStyle("-fx-background-color: " + CREAM_50 + ";");
         
+        // Title section
+        VBox titleSection = new VBox(8);
         Label title = new Label("My Bookings");
-        title.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #2D3748;");
+        title.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: " + PRIMARY_YELLOW + ";");
         
         Label subtitle = new Label("Manage your flight reservations");
-        subtitle.setStyle("-fx-font-size: 16px; -fx-text-fill: #718096;");
+        subtitle.setStyle("-fx-font-size: 16px; -fx-text-fill: " + GRAY_600 + ";");
+        
+        titleSection.getChildren().addAll(title, subtitle);
         
         // Get customer bookings
         if (currentUser instanceof Customer) {
             List<Booking> bookings = bookingService.getCustomerBookings(currentUser.getUserId());
             
             if (bookings.isEmpty()) {
-                Label noBookings = new Label("No bookings found. Start by searching for flights!");
-                noBookings.setStyle("-fx-font-size: 16px; -fx-text-fill: #718096; -fx-padding: 40;");
-                content.getChildren().addAll(title, subtitle, noBookings);
+                VBox emptyState = new VBox(20);
+                emptyState.setAlignment(Pos.CENTER);
+                emptyState.setPadding(new Insets(60));
+                emptyState.setStyle("-fx-background-color: " + WHITE + "; -fx-background-radius: 18; -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.08), 18, 0, 0, 6);");
+                
+                Label emptyIcon = new Label("✈️");
+                emptyIcon.setStyle("-fx-font-size: 48px; -fx-opacity: 0.5;");
+                
+                Label noBookings = new Label("No bookings found");
+                noBookings.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_800 + ";");
+                
+                Label suggestion = new Label("Start by searching for flights to book your first trip!");
+                suggestion.setStyle("-fx-font-size: 14px; -fx-text-fill: " + GRAY_600 + ";");
+                
+                Button searchFlightsBtn = createPrimaryButton("Search Flights", 200);
+                searchFlightsBtn.setOnAction(e -> switchContent((BorderPane) content.getParent().getParent(), createModernFlightSearchContent()));
+                
+                emptyState.getChildren().addAll(emptyIcon, noBookings, suggestion, searchFlightsBtn);
+                content.getChildren().addAll(titleSection, emptyState);
             } else {
-                VBox bookingsContainer = new VBox(15);
+                VBox bookingsContainer = new VBox(20);
                 for (Booking booking : bookings) {
-                    VBox bookingCard = createBookingCard(booking);
+                    VBox bookingCard = createModernBookingCard(booking);
                     bookingsContainer.getChildren().add(bookingCard);
                 }
-                content.getChildren().addAll(title, subtitle, bookingsContainer);
+                content.getChildren().addAll(titleSection, bookingsContainer);
             }
         }
         
         return content;
     }
     
-    private VBox createBookingCard(Booking booking) {
-        VBox card = new VBox(15);
-        card.setPadding(new Insets(20));
-        card.setStyle("-fx-background-color: white; -fx-background-radius: 12; " +
-                     "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3); " +
-                     "-fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-border-radius: 12;");
+    /**
+     * Create Modern Booking Card
+     */
+    private VBox createModernBookingCard(Booking booking) {
+        VBox card = new VBox(20);
+        card.setPadding(new Insets(25));
+        card.setStyle(
+            "-fx-background-color: " + WHITE + ";" +
+            "-fx-background-radius: 16;" +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 12, 0, 0, 4);" +
+            "-fx-border-color: " + CREAM_100 + ";" +
+            "-fx-border-width: 1;" +
+            "-fx-border-radius: 16;"
+        );
         
         // Header
         HBox header = new HBox();
         header.setAlignment(Pos.CENTER_LEFT);
         
+        VBox bookingInfo = new VBox(5);
         Label bookingId = new Label("Booking #" + booking.getBookingId());
-        bookingId.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2D3748;");
+        bookingId.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_900 + ";");
+        
+        Label bookingDate = new Label("Booked on " + booking.getBookingDate().toLocalDate().toString());
+        bookingDate.setStyle("-fx-font-size: 12px; -fx-text-fill: " + GRAY_600 + ";");
+        
+        bookingInfo.getChildren().addAll(bookingId, bookingDate);
         
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         
         Label status = new Label(booking.getStatus().toString());
-        String statusColor = getStatusColor(booking.getStatus());
-        status.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: " + statusColor + "; " +
-                       "-fx-background-color: " + statusColor + "22; -fx-padding: 5 10; -fx-background-radius: 15;");
+        String statusColor = getModernStatusColor(booking.getStatus());
+        status.setStyle(
+            "-fx-font-size: 12px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-text-fill: " + statusColor + ";" +
+            "-fx-background-color: " + statusColor + "22;" +
+            "-fx-padding: 6 12;" +
+            "-fx-background-radius: 12;"
+        );
         
-        header.getChildren().addAll(bookingId, spacer, status);
+        header.getChildren().addAll(bookingInfo, spacer, status);
         
-        // Booking details
-        VBox details = new VBox(8);
+        // Booking details with modern styling
+        HBox details = new HBox(30);
+        details.setAlignment(Pos.CENTER_LEFT);
         
-        Label passengers = new Label("Passengers: " + booking.getPassengers().size());
-        passengers.setStyle("-fx-font-size: 14px; -fx-text-fill: #4A5568;");
+        VBox passengersInfo = new VBox(3);
+        Label passengersLabel = new Label("Passengers");
+        passengersLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + GRAY_400 + "; -fx-font-weight: 600;");
+        Label passengersValue = new Label(String.valueOf(booking.getPassengers().size()));
+        passengersValue.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_800 + ";");
+        passengersInfo.getChildren().addAll(passengersLabel, passengersValue);
         
-        Label bookingDate = new Label("Booked: " + booking.getBookingDate().toLocalDate().toString());
-        bookingDate.setStyle("-fx-font-size: 14px; -fx-text-fill: #4A5568;");
+        VBox priceInfo = new VBox(3);
+        Label priceLabel = new Label("Total Price");
+        priceLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + GRAY_400 + "; -fx-font-weight: 600;");
+        Label priceValue = new Label("$" + String.format("%.2f", booking.getTotalPrice()));
+        priceValue.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + SECONDARY_YELLOW + ";");
+        priceInfo.getChildren().addAll(priceLabel, priceValue);
         
-        Label totalPrice = new Label("Total: $" + String.format("%.2f", booking.getTotalPrice()));
-        totalPrice.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #667eea;");
+        details.getChildren().addAll(passengersInfo, priceInfo);
         
-        details.getChildren().addAll(passengers, bookingDate, totalPrice);
-        
-        // Action buttons
-        HBox actions = new HBox(10);
+        // Action buttons with modern styling
+        HBox actions = new HBox(12);
         
         Button viewBtn = new Button("View Details");
-        viewBtn.setStyle("-fx-background-color: #4299E1; -fx-text-fill: white; -fx-padding: 8 16; " +
-                        "-fx-background-radius: 6; -fx-cursor: hand; -fx-border-width: 0;");
+        viewBtn.setStyle(
+            "-fx-background-color: " + SECONDARY_YELLOW + ";" +
+            "-fx-text-fill: " + WHITE + ";" +
+            "-fx-font-size: 14px;" +
+            "-fx-font-weight: 600;" +
+            "-fx-padding: 10 20;" +
+            "-fx-background-radius: 8;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-width: 0;"
+        );
         viewBtn.setOnAction(e -> showBookingDetailsScreen(booking));
         
-        Button cancelBtn = new Button("Cancel");
+        Button cancelBtn = new Button("Cancel Booking");
         if (booking.getStatus() == BookingStatus.CONFIRMED) {
-            cancelBtn.setStyle("-fx-background-color: #E53E3E; -fx-text-fill: white; -fx-padding: 8 16; " +
-                              "-fx-background-radius: 6; -fx-cursor: hand; -fx-border-width: 0;");
+            cancelBtn.setStyle(
+                "-fx-background-color: " + DANGER_RED + ";" +
+                "-fx-text-fill: " + WHITE + ";" +
+                "-fx-font-size: 14px;" +
+                "-fx-font-weight: 600;" +
+                "-fx-padding: 10 20;" +
+                "-fx-background-radius: 8;" +
+                "-fx-cursor: hand;" +
+                "-fx-border-width: 0;"
+            );
             cancelBtn.setOnAction(e -> handleBookingCancellation(booking));
         } else {
             cancelBtn.setDisable(true);
-            cancelBtn.setStyle("-fx-background-color: #E2E8F0; -fx-text-fill: #A0AEC0; -fx-padding: 8 16; " +
-                              "-fx-background-radius: 6; -fx-border-width: 0;");
+            cancelBtn.setStyle(
+                "-fx-background-color: " + GRAY_200 + ";" +
+                "-fx-text-fill: " + GRAY_400 + ";" +
+                "-fx-font-size: 14px;" +
+                "-fx-font-weight: 600;" +
+                "-fx-padding: 10 20;" +
+                "-fx-background-radius: 8;" +
+                "-fx-border-width: 0;"
+            );
         }
         
         actions.getChildren().addAll(viewBtn, cancelBtn);
         
         card.getChildren().addAll(header, details, actions);
         return card;
+    }
+    
+    /**
+     * Get modern status colors
+     */
+    private String getModernStatusColor(BookingStatus status) {
+        switch (status) {
+            case CONFIRMED: return SUCCESS_GREEN;
+            case PENDING: return WARNING_ORANGE;
+            case CANCELLED: return DANGER_RED;
+            default: return GRAY_600;
+        }
     }
     
     private String getStatusColor(BookingStatus status) {
@@ -1842,8 +2585,67 @@ public class AirlineApp extends Application {
                            "-fx-cursor: hand; -fx-border-width: 0;");
         bookButton.setPrefWidth(415);
         bookButton.setOnAction(e -> {
-            // Create booking (simplified)
-            showAlert("Booking Confirmed", "Your flight has been booked successfully!\nBooking reference: BK" + System.currentTimeMillis());
+            // Comprehensive validation for all customer details
+            StringBuilder validationErrors = new StringBuilder();
+            
+            // Validate passenger information
+            if (firstNameField.getText().trim().isEmpty()) {
+                validationErrors.append("• First Name is required\n");
+            }
+            if (lastNameField.getText().trim().isEmpty()) {
+                validationErrors.append("• Last Name is required\n");
+            }
+            if (emailField.getText().trim().isEmpty()) {
+                validationErrors.append("• Email Address is required\n");
+            } else if (!emailField.getText().contains("@") || !emailField.getText().contains(".")) {
+                validationErrors.append("• Please enter a valid email address\n");
+            }
+            if (phoneField.getText().trim().isEmpty()) {
+                validationErrors.append("• Phone Number is required\n");
+            }
+            if (dobPicker.getValue() == null) {
+                validationErrors.append("• Date of Birth is required\n");
+            } else if (dobPicker.getValue().isAfter(LocalDate.now().minusYears(12))) {
+                validationErrors.append("• Passenger must be at least 12 years old\n");
+            }
+            
+            // Validate payment information
+            if (cardNumberField.getText().trim().isEmpty()) {
+                validationErrors.append("• Card Number is required\n");
+            } else if (cardNumberField.getText().replaceAll("\\s", "").length() < 13) {
+                validationErrors.append("• Please enter a valid card number\n");
+            }
+            if (expiryField.getText().trim().isEmpty()) {
+                validationErrors.append("• Card Expiry Date is required\n");
+            } else if (!expiryField.getText().matches("\\d{2}/\\d{2}")) {
+                validationErrors.append("• Expiry date must be in MM/YY format\n");
+            }
+            if (cvvField.getText().trim().isEmpty()) {
+                validationErrors.append("• CVV is required\n");
+            } else if (cvvField.getText().length() < 3) {
+                validationErrors.append("• CVV must be at least 3 digits\n");
+            }
+            if (cardNameField.getText().trim().isEmpty()) {
+                validationErrors.append("• Cardholder Name is required\n");
+            }
+            if (billingAddressField.getText().trim().isEmpty()) {
+                validationErrors.append("• Billing Address is required\n");
+            }
+            
+            // If there are validation errors, show them
+            if (validationErrors.length() > 0) {
+                showAlert("Incomplete Information", 
+                    "Please complete all required fields before proceeding:\n\n" + validationErrors.toString());
+                return;
+            }
+            
+            // All validation passed - create booking
+            showAlert("Booking Confirmed", 
+                "Your flight has been booked successfully!\n\n" +
+                "Booking Reference: BK" + System.currentTimeMillis() + "\n" +
+                "Flight: " + flight.getFlightNumber() + "\n" +
+                "Passenger: " + firstNameField.getText() + " " + lastNameField.getText() + "\n" +
+                "Email confirmation sent to: " + emailField.getText());
             showCustomerDashboard();
         });
         
@@ -2540,6 +3342,42 @@ public class AirlineApp extends Application {
         
         card.getChildren().addAll(iconLabel, titleLabel, descLabel, generateBtn);
         return card;
+    }
+    
+    /**
+     * Modern Sidebar Button
+     */
+    private Button createSidebarButton(String icon, String text, String accentColor) {
+        Button button = new Button();
+        HBox content = new HBox(12);
+        content.setAlignment(Pos.CENTER_LEFT);
+        Label iconLabel = new Label(icon);
+        iconLabel.setStyle("-fx-font-size: 16px;");
+        Label textLabel = new Label(text);
+        textLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: " + GRAY_800 + ";");
+        content.getChildren().addAll(iconLabel, textLabel);
+        button.setGraphic(content);
+        button.setPrefWidth(220);
+        button.setPrefHeight(44);
+        button.setAlignment(Pos.CENTER_LEFT);
+        button.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 8 16; -fx-background-radius: 10; -fx-cursor: hand;");
+        // Hover effects
+        button.setOnMouseEntered(e -> {
+            button.setStyle("-fx-background-color: " + accentColor + "22; -fx-border-width: 0; -fx-padding: 8 16; -fx-background-radius: 10; -fx-cursor: hand;");
+            textLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: " + accentColor + ";");
+        });
+        button.setOnMouseExited(e -> {
+            button.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 8 16; -fx-background-radius: 10; -fx-cursor: hand;");
+            textLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: " + GRAY_800 + ";");
+        });
+        return button;
+    }
+
+    /**
+     * Switches the main content area in the dashboard
+     */
+    private void switchContent(BorderPane root, VBox newContent) {
+        root.setCenter(newContent);
     }
     
     public static void main(String[] args) {
