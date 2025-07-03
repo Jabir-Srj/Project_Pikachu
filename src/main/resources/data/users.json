@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "userId": "ADMIN_001",
+    "username": "admin",
+    "email": "admin@airline.com",
+    "firstName": "Admin",
+    "lastName": "User",
+    "role": "Admin"
+  },
+  {
+    "userId": "CUST_001",
+    "username": "customer",
+    "email": "customer@email.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "role": "Customer"
+  }
+]
