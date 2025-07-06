@@ -3,27 +3,27 @@
 ## Project Overview
 This is a comprehensive JavaFX-based desktop application for airline customer service that provides a complete solution for flight booking, customer management, support ticketing, and AI-powered customer assistance. The application implements a modern, user-friendly interface based on professional Figma designs and follows enterprise-level software architecture patterns.
 
-## 🎯 Key Features
+## Key Features
 
-### 👤 User Management
+### User Management
 - **Account Registration**: Secure user registration with role assignment
 - **Authentication**: Secure login system with role-based access control
 - **User Roles**: Customer, Admin, and Airline Management with different access levels
 - **Customer Profile Management**: View and edit customer details
 
-### ✈️ Flight Management
+### Flight Management
 - **Flight Search**: Advanced search with filters for destination, date, and preferences
 - **Flight Information**: Detailed flight schedules, pricing, and availability
 - **Flight Details**: Comprehensive flight information including routes, timing, and aircraft details
 - **Real-time Updates**: Flight status tracking and notifications
 
-### 📝 Booking System
+### Booking System
 - **Flight Booking**: Complete booking process with passenger details
 - **Booking Overview**: Comprehensive view of all customer bookings
 - **Booking Details**: Detailed booking information with passenger and payment details
 - **Booking Management**: Modify, cancel, or view booking history
 
-### 💳 Payment Processing
+### Payment Processing
 - **Payment Gateway**: Secure payment processing for bookings
 - **Payment Details**: Comprehensive payment information and history
 - **Multiple Payment Methods**: Support for various payment options
@@ -36,26 +36,26 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 - **Ticket Management**: View, reply, and manage customer support requests
 - **Email Integration**: Automated ticket replies via email
 
-### 🤖 AI-Powered Customer Support
+### AI-Powered Customer Support
 - **AI Chatbot**: Intelligent customer support using Langchain4j
 - **Natural Language Processing**: Smart responses to customer queries
 - **24/7 Availability**: Round-the-clock automated customer assistance
 - **FAQ Integration**: Automated responses based on frequently asked questions
 
-### 💰 Refund Management
+### Refund Management
 - **Refund Requests**: Easy refund request submission
 - **Refund Approval System**: Admin approval workflow for refund requests
 - **Refund Tracking**: Status tracking for refund requests
 - **Automated Processing**: Streamlined refund processing system
 
-### 🛠️ Admin Dashboard
+### Admin Dashboard
 - **Customer Management**: Comprehensive customer database management
 - **Flight Administration**: Flight scheduling, pricing, and management
 - **Ticket Management**: Support ticket oversight and resolution
 - **System Analytics**: Performance metrics and reporting
 - **FAQ Management**: Maintain and update frequently asked questions
 
-## 🏗️ Technical Architecture
+## Technical Architecture
 
 ### Design Pattern
 - **Model-View-Controller (MVC)**: Clean separation of concerns
@@ -75,7 +75,7 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 - **Intuitive Navigation**: User-friendly interface with clear navigation patterns
 - **Consistent Styling**: Uniform design language across all screens
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Project_Pikachu/
@@ -120,7 +120,7 @@ Project_Pikachu/
 └── README.md                      # Project documentation
 ```
 
-## 🚀 Setup and Installation
+## Setup and Installation
 
 ### Prerequisites
 - **Java Development Kit (JDK)**: Version 11 or higher
@@ -170,7 +170,7 @@ Project_Pikachu/
    java --module-path "path/to/javafx/lib" --add-modules javafx.controls,javafx.fxml -cp target/classes AirlineApp
    ```
 
-## 🎮 Usage Instructions
+## Usage Instructions
 
 ### Getting Started
 1. **Launch the Application**: Run `AirlineApp.java`
@@ -214,7 +214,7 @@ The AI chatbot uses Langchain4j for intelligent responses. Configuration include
 - Natural language processing for user interactions
 - Automated response generation based on context
 
-## 👥 Team Members
+## Team Members
 - **Ishaq Arham Mujthaba** (Group Leader) - 0378327
 - **Jabir Iliyas Suraj-Deen** - 0377741
 - **Isabel Sonja Tanudjaja** - 0373125
@@ -222,7 +222,7 @@ The AI chatbot uses Langchain4j for intelligent responses. Configuration include
 - **Jin Jianuo** - 0376898
 - **Feliz Nicole Perez Rigor** - 0361983
 
-## 📄 License
+## License
 This project is developed as part of an academic assignment for ITS66704 course.
 
 ## 🤝 Contributing
