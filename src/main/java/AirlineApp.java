@@ -3,6 +3,10 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.application.Application;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +17,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -32,10 +37,12 @@ import service.FlightService;
 import service.TicketService;
 import service.UserService;
 import util.DataManager;
+import ai.AirlineAIService;
 
 /**
  * Pikachu Airlines - Premium Customer Service Application
  * Modern design matching Figma specifications with professional airline aesthetics
+ * Enhanced with proper menu bar and scaling
  */
 public class AirlineApp extends Application {
     
@@ -63,6 +70,7 @@ public class AirlineApp extends Application {
     private TicketService ticketService;
     private DataManager dataManager;
     private User currentUser;
+    private AirlineAIService aiService;
     
     // Screen management
     private Scene loginScene;
@@ -84,36 +92,134 @@ public class AirlineApp extends Application {
         // Load sample data
         dataManager.loadSampleData();
         
-        // Set up the primary stage with modern styling
+        // Initialize AI service
+        this.aiService = AirlineAIService.getInstance();
+        aiService.initialize().thenAccept(success -> {
+            if (success) {
+                System.out.println("AI Service initialized successfully!");
+            } else {
+                System.err.println("AI Service initialization failed!");
+            }
+        });
+        
+        // Set up the primary stage with proper scaling and menu bar
         primaryStage.setTitle("Pikachu Airlines - Premium Travel Experience");
         primaryStage.setResizable(true);
-        primaryStage.setMinWidth(1400);
-        primaryStage.setMinHeight(900);
+        
+        // Windowed mode with reasonable dimensions
+        primaryStage.setMinWidth(1200);
+        primaryStage.setMinHeight(800);
+        primaryStage.setMaximized(false);
+        primaryStage.setResizable(true);
+        
+        // Set preferred windowed size
+        primaryStage.setWidth(1400);
+        primaryStage.setHeight(900);
+        
+        // Center the window on screen
+        primaryStage.centerOnScreen();
         
         // Show login screen
         showLoginScreen();
     }
     
     /**
-     * Modern Login Screen - Premium Airline Design (Updated to match Figma yellow theme)
+     * Create Application Menu Bar
+     */
+    private MenuBar createApplicationMenuBar() {
+        MenuBar menuBar = new MenuBar();
+        
+        // Application Menu
+        Menu appMenu = new Menu("Application");
+        MenuItem aboutItem = new MenuItem("About Pikachu Airlines");
+        aboutItem.setOnAction(e -> showAboutDialog());
+        MenuItem exitItem = new MenuItem("Exit");
+        exitItem.setOnAction(e -> primaryStage.close());
+        appMenu.getItems().addAll(aboutItem, new SeparatorMenuItem(), exitItem);
+        
+        // View Menu
+        Menu viewMenu = new Menu("View");
+        MenuItem loginItem = new MenuItem("Login Screen");
+        loginItem.setOnAction(e -> showLoginScreen());
+        MenuItem registerItem = new MenuItem("Register");
+        registerItem.setOnAction(e -> showRegistrationScreen());
+        viewMenu.getItems().addAll(loginItem, registerItem);
+        
+        // Help Menu
+        Menu helpMenu = new Menu("Help");
+        MenuItem supportItem = new MenuItem("Customer Support");
+        supportItem.setOnAction(e -> showSupportInfo());
+        MenuItem faqItem = new MenuItem("FAQ");
+        faqItem.setOnAction(e -> showFAQDialog());
+        helpMenu.getItems().addAll(supportItem, faqItem);
+        
+        menuBar.getMenus().addAll(appMenu, viewMenu, helpMenu);
+        
+        // Style the menu bar
+        menuBar.setStyle(
+            "-fx-background-color: " + WHITE + ";" +
+            "-fx-border-color: " + GRAY_200 + ";" +
+            "-fx-border-width: 0 0 1 0;"
+        );
+        
+        return menuBar;
+    }
+    
+    /**
+     * Show About Dialog
+     */
+    private void showAboutDialog() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About Pikachu Airlines");
+        alert.setHeaderText("Pikachu Airlines Management System");
+        alert.setContentText("Version 1.0\n\nA comprehensive airline management system with modern UI design.\n\nFeatures:\n- Flight booking and management\n- Customer support ticketing\n- Admin dashboard\n- Real-time flight information");
+        alert.showAndWait();
+    }
+    
+    /**
+     * Show Support Info
+     */
+    private void showSupportInfo() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Customer Support");
+        alert.setHeaderText("Need Help?");
+        alert.setContentText("Contact our 24/7 customer support:\n\nPhone: +60 3-1234-5678\nEmail: support@pikachuairlines.com\nLive Chat: Available in the application");
+        alert.showAndWait();
+    }
+    
+    /**
+     * Show FAQ Dialog
+     */
+    private void showFAQDialog() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Frequently Asked Questions");
+        alert.setHeaderText("Quick Help");
+        alert.setContentText("Common Questions:\n\n1. How do I book a flight?\n   - Login and use the flight search feature\n\n2. How do I cancel my booking?\n   - Go to 'My Bookings' and select cancel\n\n3. How do I contact support?\n   - Use the support chat or ticket system\n\n4. Test Credentials:\n   - Admin: admin / 123456\n   - Customer: customer / 123456");
+        alert.showAndWait();
+    }
+    
+    /**
+     * Modern Login Screen - Premium Airline Design (Enhanced with menu bar)
      */
     private void showLoginScreen() {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: " + LIGHT_YELLOW + ";");
         
-        // Top Navigation Bar
-        HBox topNav = createTopNavigationBar();
-        root.setTop(topNav);
+        // Add Application Menu Bar
+        MenuBar menuBar = createApplicationMenuBar();
+        root.setTop(menuBar);
         
-        // Main Content Container
+        // Main Content Container with improved scaling
         StackPane mainContainer = new StackPane();
-        mainContainer.setPadding(new Insets(60, 50, 60, 50));
+        mainContainer.setPadding(new Insets(40, 50, 40, 50));
         
-        // Login Card Container
-        VBox loginCard = new VBox(35);
+        // Responsive Login Card Container
+        VBox loginCard = new VBox(30);
         loginCard.setAlignment(Pos.CENTER);
-        loginCard.setPadding(new Insets(50, 60, 50, 60));
-        loginCard.setMaxWidth(480);
+        loginCard.setPadding(new Insets(60, 80, 60, 80));
+        loginCard.setMaxWidth(550);
+        loginCard.setMinWidth(400);
+        loginCard.prefWidthProperty().bind(mainContainer.widthProperty().multiply(0.4));
         loginCard.setStyle(
             "-fx-background-color: " + WHITE + ";" +
             "-fx-background-radius: 20;" +
@@ -122,71 +228,79 @@ public class AirlineApp extends Application {
         );
         
         // Header Section
-        VBox headerSection = new VBox(15);
+        VBox headerSection = new VBox(20);
         headerSection.setAlignment(Pos.CENTER);
         
-        // Logo Section
-        HBox logoSection = new HBox(12);
+        // Logo Section with better scaling
+        HBox logoSection = new HBox(15);
         logoSection.setAlignment(Pos.CENTER);
         
         Label logoIcon = new Label("✈️");
-        logoIcon.setStyle("-fx-font-size: 32px;");
+        logoIcon.setStyle("-fx-font-size: 36px;");
         
         Label logoText = new Label("Pikachu Airlines");
         logoText.setStyle(
-            "-fx-font-size: 28px;" +
+            "-fx-font-size: 32px;" +
             "-fx-font-weight: bold;" +
             "-fx-text-fill: " + PRIMARY_YELLOW + ";"
         );
         
         logoSection.getChildren().addAll(logoIcon, logoText);
         
-        // Email and Password fields using yellow theme
-        VBox formSection = new VBox(25);
-        formSection.setAlignment(Pos.CENTER);
-        
-        // Email Field with yellow styling
-        VBox emailContainer = new VBox(8);
-        Label emailLabel = new Label("Email");
-        emailLabel.setStyle(
-            "-fx-font-size: 14px;" +
-            "-fx-font-weight: 600;" +
-            "-fx-text-fill: " + GRAY_800 + ";"
-        );
-        
-        TextField emailField = createYellowTextField("Enter Your Email");
-        emailContainer.getChildren().addAll(emailLabel, emailField);
-        
-        // Password Field with yellow styling
-        VBox passwordContainer = new VBox(8);
-        Label passwordLabel = new Label("Password");
-        passwordLabel.setStyle(
-            "-fx-font-size: 14px;" +
-            "-fx-font-weight: 600;" +
-            "-fx-text-fill: " + GRAY_800 + ";"
-        );
-        
-        PasswordField passwordField = createYellowPasswordField("Enter Your Password");
-        passwordContainer.getChildren().addAll(passwordLabel, passwordField);
-        
-        // Sign In Button with yellow styling
-        Button signInButton = createYellowPrimaryButton("Sign In", 400);
-        signInButton.setOnAction(e -> handleLogin(emailField.getText(), passwordField.getText()));
-        passwordField.setOnAction(e -> signInButton.fire());
-        
-        // Sign up link with yellow styling
-        HBox signUpRow = new HBox(5);
-        signUpRow.setAlignment(Pos.CENTER);
-        
-        Label noAccountText = new Label("No Account? Sign Up");
-        noAccountText.setStyle(
-            "-fx-font-size: 14px;" +
+        Label welcomeText = new Label("Welcome Back!");
+        welcomeText.setStyle(
+            "-fx-font-size: 18px;" +
             "-fx-text-fill: " + GRAY_600 + ";"
         );
         
-        Label signUpLink = new Label("here");
+        headerSection.getChildren().addAll(logoSection, welcomeText);
+        
+        // Enhanced form section with better scaling
+        VBox formSection = new VBox(25);
+        formSection.setAlignment(Pos.CENTER);
+        
+        // Email Field with enhanced styling
+        VBox emailContainer = new VBox(10);
+        Label emailLabel = new Label("Email Address");
+        emailLabel.setStyle(
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: 600;" +
+            "-fx-text-fill: " + GRAY_800 + ";"
+        );
+        
+        TextField emailField = createEnhancedTextField("Enter your email address");
+        emailContainer.getChildren().addAll(emailLabel, emailField);
+        
+        // Password Field with enhanced styling
+        VBox passwordContainer = new VBox(10);
+        Label passwordLabel = new Label("Password");
+        passwordLabel.setStyle(
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: 600;" +
+            "-fx-text-fill: " + GRAY_800 + ";"
+        );
+        
+        PasswordField passwordField = createEnhancedPasswordField("Enter your password");
+        passwordContainer.getChildren().addAll(passwordLabel, passwordField);
+        
+        // Enhanced Sign In Button
+        Button signInButton = createEnhancedPrimaryButton("Sign In", 450);
+        signInButton.setOnAction(e -> handleLogin(emailField.getText(), passwordField.getText()));
+        passwordField.setOnAction(e -> signInButton.fire());
+        
+        // Registration link section
+        HBox signUpRow = new HBox(8);
+        signUpRow.setAlignment(Pos.CENTER);
+        
+        Label noAccountText = new Label("Don't have an account?");
+        noAccountText.setStyle(
+            "-fx-font-size: 15px;" +
+            "-fx-text-fill: " + GRAY_600 + ";"
+        );
+        
+        Label signUpLink = new Label("Sign Up");
         signUpLink.setStyle(
-            "-fx-font-size: 14px;" +
+            "-fx-font-size: 15px;" +
             "-fx-text-fill: " + PRIMARY_YELLOW + ";" +
             "-fx-cursor: hand;" +
             "-fx-font-weight: 600;" +
@@ -197,22 +311,36 @@ public class AirlineApp extends Application {
         signUpRow.getChildren().addAll(noAccountText, signUpLink);
         
         formSection.getChildren().addAll(emailContainer, passwordContainer, signInButton, signUpRow);
-        headerSection.getChildren().addAll(logoSection);
         
-        // Help section with default credentials
-        VBox helpSection = new VBox(10);
+        // Enhanced help section with default credentials
+        VBox helpSection = new VBox(12);
         helpSection.setAlignment(Pos.CENTER);
-        helpSection.setPadding(new Insets(20, 0, 0, 0));
-        helpSection.setStyle("-fx-border-color: " + GRAY_200 + "; -fx-border-width: 1 0 0 0;");
+        helpSection.setPadding(new Insets(25, 0, 0, 0));
+        helpSection.setStyle(
+            "-fx-border-color: " + GRAY_200 + ";" +
+            "-fx-border-width: 1 0 0 0;" +
+            "-fx-background-color: " + CREAM_50 + ";" +
+            "-fx-background-radius: 0 0 20 20;"
+        );
         
-        Label helpTitle = new Label("Default Test Credentials:");
-        helpTitle.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: " + GRAY_600 + ";");
+        Label helpTitle = new Label("Test Credentials");
+        helpTitle.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-text-fill: " + GRAY_800 + ";"
+        );
         
-        Label adminCreds = new Label("Admin: username='admin', password='123456'");
-        adminCreds.setStyle("-fx-font-size: 11px; -fx-text-fill: " + GRAY_600 + ";");
+        Label adminCreds = new Label("Admin: username = 'admin', password = '123456'");
+        adminCreds.setStyle(
+            "-fx-font-size: 12px;" +
+            "-fx-text-fill: " + GRAY_600 + ";"
+        );
         
-        Label customerCreds = new Label("Customer: username='customer', password='123456'");
-        customerCreds.setStyle("-fx-font-size: 11px; -fx-text-fill: " + GRAY_600 + ";");
+        Label customerCreds = new Label("Customer: username = 'customer', password = '123456'");
+        customerCreds.setStyle(
+            "-fx-font-size: 12px;" +
+            "-fx-text-fill: " + GRAY_600 + ";"
+        );
         
         helpSection.getChildren().addAll(helpTitle, adminCreds, customerCreds);
         
@@ -221,98 +349,253 @@ public class AirlineApp extends Application {
         
         root.setCenter(mainContainer);
         
+        // Windowed scene with appropriate scaling
         loginScene = new Scene(root, 1400, 900);
         primaryStage.setScene(loginScene);
         primaryStage.show();
     }
     
     /**
-     * Modern Registration Screen - Yellow Theme
+     * Create Enhanced Text Field with Responsive Design
+     */
+    private TextField createEnhancedTextField(String promptText) {
+        TextField field = new TextField();
+        field.setPromptText(promptText);
+        field.setMaxWidth(450);
+        field.setMinWidth(300);
+        field.setPrefHeight(55);
+        field.setStyle(
+            "-fx-font-size: 15px;" +
+            "-fx-padding: 18 20;" +
+            "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+            "-fx-background-radius: 10;" +
+            "-fx-border-width: 2;" +
+            "-fx-border-color: transparent;" +
+            "-fx-border-radius: 10;" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-prompt-text-fill: " + GRAY_600 + ";"
+        );
+        
+        // Enhanced focus effects
+        field.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused) {
+                field.setStyle(
+                    "-fx-font-size: 15px;" +
+                    "-fx-padding: 18 20;" +
+                    "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+                    "-fx-background-radius: 10;" +
+                    "-fx-border-width: 2;" +
+                    "-fx-border-color: " + SECONDARY_YELLOW + ";" +
+                    "-fx-border-radius: 10;" +
+                    "-fx-text-fill: " + GRAY_900 + ";" +
+                    "-fx-prompt-text-fill: " + GRAY_600 + ";"
+                );
+            } else {
+                field.setStyle(
+                    "-fx-font-size: 15px;" +
+                    "-fx-padding: 18 20;" +
+                    "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+                    "-fx-background-radius: 10;" +
+                    "-fx-border-width: 2;" +
+                    "-fx-border-color: transparent;" +
+                    "-fx-border-radius: 10;" +
+                    "-fx-text-fill: " + GRAY_900 + ";" +
+                    "-fx-prompt-text-fill: " + GRAY_600 + ";"
+                );
+            }
+        });
+        
+        return field;
+    }
+    
+    /**
+     * Create Enhanced Password Field
+     */
+    private PasswordField createEnhancedPasswordField(String promptText) {
+        PasswordField field = new PasswordField();
+        field.setPromptText(promptText);
+        field.setPrefWidth(450);
+        field.setPrefHeight(55);
+        field.setStyle(
+            "-fx-font-size: 15px;" +
+            "-fx-padding: 18 20;" +
+            "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+            "-fx-background-radius: 10;" +
+            "-fx-border-width: 2;" +
+            "-fx-border-color: transparent;" +
+            "-fx-border-radius: 10;" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-prompt-text-fill: " + GRAY_600 + ";"
+        );
+        
+        // Enhanced focus effects
+        field.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused) {
+                field.setStyle(
+                    "-fx-font-size: 15px;" +
+                    "-fx-padding: 18 20;" +
+                    "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+                    "-fx-background-radius: 10;" +
+                    "-fx-border-width: 2;" +
+                    "-fx-border-color: " + SECONDARY_YELLOW + ";" +
+                    "-fx-border-radius: 10;" +
+                    "-fx-text-fill: " + GRAY_900 + ";" +
+                    "-fx-prompt-text-fill: " + GRAY_600 + ";"
+                );
+            } else {
+                field.setStyle(
+                    "-fx-font-size: 15px;" +
+                    "-fx-padding: 18 20;" +
+                    "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+                    "-fx-background-radius: 10;" +
+                    "-fx-border-width: 2;" +
+                    "-fx-border-color: transparent;" +
+                    "-fx-border-radius: 10;" +
+                    "-fx-text-fill: " + GRAY_900 + ";" +
+                    "-fx-prompt-text-fill: " + GRAY_600 + ";"
+                );
+            }
+        });
+        
+        return field;
+    }
+    
+    /**
+     * Create Enhanced Primary Button
+     */
+    private Button createEnhancedPrimaryButton(String text, double width) {
+        Button button = new Button(text);
+        button.setPrefWidth(width);
+        button.setPrefHeight(55);
+        button.setStyle(
+            "-fx-background-color: " + SECONDARY_YELLOW + ";" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-background-radius: 10;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-width: 0;" +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"
+        );
+        
+        // Enhanced hover effects
+        button.setOnMouseEntered(e -> button.setStyle(
+            "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-background-radius: 10;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-width: 0;" +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3);"
+        ));
+        
+        button.setOnMouseExited(e -> button.setStyle(
+            "-fx-background-color: " + SECONDARY_YELLOW + ";" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-background-radius: 10;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-width: 0;" +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"
+        ));
+        
+        return button;
+    }
+    
+    /**
+     * Enhanced Registration Screen - Better scaling and menu bar
      */
     private void showRegistrationScreen() {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: " + LIGHT_YELLOW + ";");
         
-        // Top Navigation Bar
-        HBox topNav = createTopNavigationBar();
-        root.setTop(topNav);
+        // Add Application Menu Bar
+        MenuBar menuBar = createApplicationMenuBar();
+        root.setTop(menuBar);
         
-        // Main Container
+        // Main Container with improved scaling
         StackPane mainContainer = new StackPane();
-        mainContainer.setPadding(new Insets(40, 50, 40, 50));
+        mainContainer.setPadding(new Insets(30, 50, 30, 50));
         
-        // Registration Card
-        VBox registrationCard = new VBox(30);
+        // Responsive Registration Card
+        VBox registrationCard = new VBox(25);
         registrationCard.setAlignment(Pos.CENTER);
-        registrationCard.setPadding(new Insets(40, 50, 40, 50));
-        registrationCard.setMaxWidth(600);
+        registrationCard.setPadding(new Insets(50, 60, 50, 60));
+        registrationCard.setMaxWidth(750);
+        registrationCard.setMinWidth(500);
+        registrationCard.prefWidthProperty().bind(mainContainer.widthProperty().multiply(0.6));
         registrationCard.setStyle(
             "-fx-background-color: " + WHITE + ";" +
             "-fx-background-radius: 20;" +
             "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 30, 0, 0, 10);"
         );
         
-        // Header
-        VBox headerSection = new VBox(10);
+        // Header with better styling
+        VBox headerSection = new VBox(15);
         headerSection.setAlignment(Pos.CENTER);
         
-        Label titleLabel = new Label("Account Details");
+        Label titleLabel = new Label("Create Account");
         titleLabel.setStyle(
-            "-fx-font-size: 28px;" +
+            "-fx-font-size: 32px;" +
             "-fx-font-weight: bold;" +
             "-fx-text-fill: " + GRAY_900 + ";"
         );
         
-        headerSection.getChildren().addAll(titleLabel);
+        Label subtitleLabel = new Label("Join Pikachu Airlines today");
+        subtitleLabel.setStyle(
+            "-fx-font-size: 16px;" +
+            "-fx-text-fill: " + GRAY_600 + ";"
+        );
         
-        // Registration Form with yellow styling and proper validation
-        VBox formSection = new VBox(25);
+        headerSection.getChildren().addAll(titleLabel, subtitleLabel);
+        
+        // Enhanced Registration Form
+        VBox formSection = new VBox(20);
         formSection.setAlignment(Pos.CENTER);
         
-        // Name fields
-        TextField firstNameField = createYellowTextField("First Name", 415);
-        TextField lastNameField = createYellowTextField("Last Name", 415);
+        // Name fields with better layout
+        HBox nameRow = new HBox(15);
+        nameRow.setAlignment(Pos.CENTER);
+        TextField firstNameField = createEnhancedTextField("First Name");
+        firstNameField.setPrefWidth(300);
+        TextField lastNameField = createEnhancedTextField("Last Name");
+        lastNameField.setPrefWidth(300);
+        nameRow.getChildren().addAll(firstNameField, lastNameField);
         
-        // Nationality dropdown
-        ComboBox<String> nationalityCombo = new ComboBox<>();
+        // Enhanced nationality dropdown
+        ComboBox<String> nationalityCombo = createEnhancedComboBox("Nationality");
         nationalityCombo.getItems().addAll("Malaysian", "Singaporean", "Indonesian", "Thai", "Other");
-        nationalityCombo.setPromptText("Nationality");
-        nationalityCombo.setPrefWidth(415);
-        nationalityCombo.setStyle("-fx-background-color: " + PRIMARY_YELLOW + "; -fx-font-size: 14px; -fx-padding: 12; -fx-text-fill: " + GRAY_900 + "; -fx-prompt-text-fill: " + GRAY_600 + ";");
         
-        // DOB and Gender row
+        // DOB and Gender row with better styling
         HBox dobGenderRow = new HBox(15);
-        DatePicker dobPicker = new DatePicker();
-        dobPicker.setPromptText("DOB");
-        dobPicker.setPrefWidth(200);
-        dobPicker.setStyle("-fx-background-color: " + PRIMARY_YELLOW + "; -fx-font-size: 14px; -fx-padding: 12; -fx-text-fill: " + GRAY_900 + "; -fx-prompt-text-fill: " + GRAY_600 + ";");
-        
-        ComboBox<String> genderCombo = new ComboBox<>();
+        dobGenderRow.setAlignment(Pos.CENTER);
+        DatePicker dobPicker = createEnhancedDatePicker("Date of Birth");
+        dobPicker.setPrefWidth(300);
+        ComboBox<String> genderCombo = createEnhancedComboBox("Gender");
+        genderCombo.setPrefWidth(300);
         genderCombo.getItems().addAll("Male", "Female", "Other");
-        genderCombo.setPromptText("Gender");
-        genderCombo.setPrefWidth(200);
-        genderCombo.setStyle("-fx-background-color: " + PRIMARY_YELLOW + "; -fx-font-size: 14px; -fx-padding: 12; -fx-text-fill: " + GRAY_900 + "; -fx-prompt-text-fill: " + GRAY_600 + ";");
-        
         dobGenderRow.getChildren().addAll(dobPicker, genderCombo);
         
-        // Contact fields
-        TextField emailField = createYellowTextField("Email", 415);
-        TextField phoneField = createYellowTextField("Phone Number", 415);
+        // Contact fields with enhanced styling
+        TextField emailField = createEnhancedTextField("Email Address");
+        TextField phoneField = createEnhancedTextField("Phone Number");
         
-        // Password fields (ADDED BACK)
-        PasswordField passwordField = createYellowPasswordField("Password", 415);
-        PasswordField confirmPasswordField = createYellowPasswordField("Confirm Password", 415);
+        // Password fields with enhanced styling
+        PasswordField passwordField = createEnhancedPasswordField("Password");
+        PasswordField confirmPasswordField = createEnhancedPasswordField("Confirm Password");
         
         // Action buttons row (Back + Sign Up)
-        HBox buttonRow = new HBox(15);
+        HBox buttonRow = new HBox(20);
         buttonRow.setAlignment(Pos.CENTER);
         
         // Back to Login button
-        Button backButton = createSecondaryButton("Back to Login", 200);
+        Button backButton = createSecondaryButton("Back to Login", 250);
         backButton.setOnAction(e -> showLoginScreen());
         
         // Sign Up Button with validation
-        Button signUpButton = createYellowPrimaryButton("Sign Up", 200);
+        Button signUpButton = createEnhancedPrimaryButton("Create Account", 250);
         signUpButton.setOnAction(e -> {
             // Comprehensive validation
             if (firstNameField.getText().trim().isEmpty() || 
@@ -371,15 +654,59 @@ public class AirlineApp extends Application {
         
         buttonRow.getChildren().addAll(backButton, signUpButton);
         
-        formSection.getChildren().addAll(firstNameField, lastNameField, nationalityCombo, dobGenderRow, emailField, phoneField, passwordField, confirmPasswordField, buttonRow);
+        formSection.getChildren().addAll(nameRow, nationalityCombo, dobGenderRow, emailField, phoneField, passwordField, confirmPasswordField, buttonRow);
         
         registrationCard.getChildren().addAll(headerSection, formSection);
         mainContainer.getChildren().add(registrationCard);
         
         root.setCenter(mainContainer);
         
+        // Windowed scene with appropriate scaling
         registrationScene = new Scene(root, 1400, 900);
         primaryStage.setScene(registrationScene);
+    }
+    
+    /**
+     * Create Enhanced ComboBox
+     */
+    private ComboBox<String> createEnhancedComboBox(String promptText) {
+        ComboBox<String> comboBox = new ComboBox<>();
+        comboBox.setPromptText(promptText);
+        comboBox.setPrefWidth(450);
+        comboBox.setPrefHeight(55);
+        comboBox.setStyle(
+            "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+            "-fx-font-size: 15px;" +
+            "-fx-padding: 18 20;" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-prompt-text-fill: " + GRAY_600 + ";" +
+            "-fx-background-radius: 10;" +
+            "-fx-border-width: 2;" +
+            "-fx-border-color: transparent;" +
+            "-fx-border-radius: 10;"
+        );
+        return comboBox;
+    }
+    
+    /**
+     * Create Enhanced DatePicker
+     */
+    private DatePicker createEnhancedDatePicker(String promptText) {
+        DatePicker datePicker = new DatePicker();
+        datePicker.setPromptText(promptText);
+        datePicker.setPrefHeight(55);
+        datePicker.setStyle(
+            "-fx-background-color: " + PRIMARY_YELLOW + ";" +
+            "-fx-font-size: 15px;" +
+            "-fx-padding: 18 20;" +
+            "-fx-text-fill: " + GRAY_900 + ";" +
+            "-fx-prompt-text-fill: " + GRAY_600 + ";" +
+            "-fx-background-radius: 10;" +
+            "-fx-border-width: 2;" +
+            "-fx-border-color: transparent;" +
+            "-fx-border-radius: 10;"
+        );
+        return datePicker;
     }
     
     /**
@@ -861,34 +1188,101 @@ public class AirlineApp extends Application {
     }
     
     /**
-     * Modern Customer Dashboard - Premium Design
+     * Enhanced Customer Dashboard - Premium Design with Menu Bar
      */
     private void showCustomerDashboard() {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: " + CREAM_50 + ";");
         
-        // Modern Header
-        HBox header = createDashboardHeader("Customer Portal", currentUser.getFirstName() + " " + currentUser.getLastName());
-        root.setTop(header);
+        // Enhanced top section with menu bar and header
+        VBox topSection = new VBox();
         
-        // Modern Navigation sidebar
+        // Customer-specific Menu Bar
+        MenuBar menuBar = createCustomerMenuBar();
+        topSection.getChildren().add(menuBar);
+        
+        // Enhanced Header
+        HBox header = createDashboardHeader("Customer Portal", currentUser.getFirstName() + " " + currentUser.getLastName());
+        topSection.getChildren().add(header);
+        
+        root.setTop(topSection);
+        
+        // Responsive Navigation sidebar
         VBox sidebar = createModernCustomerSidebar(root);
+        sidebar.prefWidthProperty().bind(root.widthProperty().multiply(0.2));
+        sidebar.setMinWidth(250);
+        sidebar.setMaxWidth(350);
         root.setLeft(sidebar);
         
-        // Main content area with modern styling
+        // Responsive Main content area
         StackPane contentArea = new StackPane();
-        contentArea.setPadding(new Insets(30));
+        contentArea.setPadding(new Insets(20));
         contentArea.setStyle("-fx-background-color: " + CREAM_50 + ";");
+        HBox.setHgrow(contentArea, Priority.ALWAYS);
         
-        // Default content - Modern Flight Search
+        // Default content - Modern Flight Search with ScrollPane
         VBox defaultContent = createModernFlightSearchContent();
-        contentArea.getChildren().add(defaultContent);
+        ScrollPane scrollPane = new ScrollPane(defaultContent);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setStyle("-fx-background-color: " + CREAM_50 + "; -fx-background: " + CREAM_50 + ";");
+        contentArea.getChildren().add(scrollPane);
         
         root.setCenter(contentArea);
         
+        // Windowed scene with appropriate scaling
         customerDashboardScene = new Scene(root, 1400, 900);
         primaryStage.setScene(customerDashboardScene);
         primaryStage.setTitle("Pikachu Airlines - Customer Portal");
+    }
+    
+    /**
+     * Create Customer-specific Menu Bar
+     */
+    private MenuBar createCustomerMenuBar() {
+        MenuBar menuBar = new MenuBar();
+        
+        // Account Menu
+        Menu accountMenu = new Menu("Account");
+        MenuItem profileItem = new MenuItem("My Profile");
+        profileItem.setOnAction(e -> showModernAlert("Profile", "Profile management feature coming soon!", "info"));
+        MenuItem logoutItem = new MenuItem("Logout");
+        logoutItem.setOnAction(e -> {
+            currentUser = null;
+            showLoginScreen();
+        });
+        accountMenu.getItems().addAll(profileItem, new SeparatorMenuItem(), logoutItem);
+        
+        // Bookings Menu
+        Menu bookingsMenu = new Menu("Bookings");
+        MenuItem myBookingsItem = new MenuItem("My Bookings");
+        myBookingsItem.setOnAction(e -> switchContent((BorderPane) customerDashboardScene.getRoot(), createBookingOverviewContent()));
+        MenuItem newBookingItem = new MenuItem("Search Flights");
+        newBookingItem.setOnAction(e -> switchContent((BorderPane) customerDashboardScene.getRoot(), createModernFlightSearchContent()));
+        bookingsMenu.getItems().addAll(myBookingsItem, newBookingItem);
+        
+        // Support Menu
+        Menu supportMenu = new Menu("Support");
+        MenuItem chatItem = new MenuItem("Live Chat");
+        chatItem.setOnAction(e -> switchContent((BorderPane) customerDashboardScene.getRoot(), createSupportChatContent()));
+        MenuItem ticketItem = new MenuItem("Submit Ticket");
+        ticketItem.setOnAction(e -> showTicketSubmissionScreen());
+        MenuItem faqItem = new MenuItem("FAQ");
+        faqItem.setOnAction(e -> showFAQDialog());
+        supportMenu.getItems().addAll(chatItem, ticketItem, faqItem);
+        
+        menuBar.getMenus().addAll(accountMenu, bookingsMenu, supportMenu);
+        
+        // Style the menu bar
+        menuBar.setStyle(
+            "-fx-background-color: " + WHITE + ";" +
+            "-fx-border-color: " + GRAY_200 + ";" +
+            "-fx-border-width: 0 0 1 0;"
+        );
+        
+        return menuBar;
     }
 
     /**
@@ -1009,8 +1403,9 @@ public class AirlineApp extends Application {
      */
     private VBox createModernCustomerSidebar(BorderPane parentRoot) {
         VBox sidebar = new VBox(10);
-        sidebar.setPadding(new Insets(30, 0, 30, 0));
-        sidebar.setPrefWidth(260);
+        sidebar.setPadding(new Insets(30, 20, 30, 20));
+        sidebar.setMinWidth(250);
+        sidebar.setMaxWidth(350);
         sidebar.setStyle("-fx-background-color: " + WHITE + "; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 2, 0); -fx-border-color: " + GRAY_200 + "; -fx-border-width: 0 1 0 0;");
 
         // Profile section
@@ -1066,8 +1461,9 @@ public class AirlineApp extends Application {
      */
     private VBox createModernFlightSearchContent() {
         VBox content = new VBox(30);
-        content.setPadding(new Insets(20, 40, 20, 40));
+        content.setPadding(new Insets(20));
         content.setStyle("-fx-background-color: " + CREAM_50 + ";");
+        VBox.setVgrow(content, Priority.ALWAYS);
 
         // Title section
         VBox titleSection = new VBox(8);
@@ -1481,27 +1877,94 @@ public class AirlineApp extends Application {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: " + CREAM_50 + ";");
         
-        // Modern Header
-        HBox header = createDashboardHeader("Admin Dashboard", currentUser.getFirstName() + " " + currentUser.getLastName());
-        root.setTop(header);
+        // Enhanced top section with menu bar and header
+        VBox topSection = new VBox();
         
-        // Modern Navigation sidebar
+        // Admin-specific Menu Bar
+        MenuBar menuBar = createAdminMenuBar();
+        topSection.getChildren().add(menuBar);
+        
+        // Enhanced Header
+        HBox header = createDashboardHeader("Admin Dashboard", currentUser.getFirstName() + " " + currentUser.getLastName());
+        topSection.getChildren().add(header);
+        
+        root.setTop(topSection);
+        
+        // Responsive Navigation sidebar
         VBox sidebar = createModernAdminSidebar(root);
+        sidebar.prefWidthProperty().bind(root.widthProperty().multiply(0.2));
+        sidebar.setMinWidth(250);
+        sidebar.setMaxWidth(350);
         root.setLeft(sidebar);
         
-        // Main content area with modern styling
+        // Responsive Main content area
         StackPane contentArea = new StackPane();
-        contentArea.setPadding(new Insets(30));
+        contentArea.setPadding(new Insets(20));
         contentArea.setStyle("-fx-background-color: " + CREAM_50 + ";");
+        HBox.setHgrow(contentArea, Priority.ALWAYS);
         
         VBox dashboardContent = createModernAdminDashboardContent();
         contentArea.getChildren().add(dashboardContent);
         
         root.setCenter(contentArea);
         
+        // Windowed scene with appropriate scaling
         adminDashboardScene = new Scene(root, 1400, 900);
         primaryStage.setScene(adminDashboardScene);
         primaryStage.setTitle("Pikachu Airlines - Admin Dashboard");
+    }
+    
+    /**
+     * Create Admin-specific Menu Bar
+     */
+    private MenuBar createAdminMenuBar() {
+        MenuBar menuBar = new MenuBar();
+        
+        // Admin Menu
+        Menu adminMenu = new Menu("Admin");
+        MenuItem dashboardItem = new MenuItem("Dashboard");
+        dashboardItem.setOnAction(e -> switchContent((BorderPane) adminDashboardScene.getRoot(), createModernAdminDashboardContent()));
+        MenuItem logoutItem = new MenuItem("Logout");
+        logoutItem.setOnAction(e -> {
+            currentUser = null;
+            showLoginScreen();
+        });
+        adminMenu.getItems().addAll(dashboardItem, new SeparatorMenuItem(), logoutItem);
+        
+        // Management Menu
+        Menu managementMenu = new Menu("Management");
+        MenuItem flightMgmtItem = new MenuItem("Flight Management");
+        flightMgmtItem.setOnAction(e -> switchContent((BorderPane) adminDashboardScene.getRoot(), createFlightManagementContent()));
+        MenuItem bookingMgmtItem = new MenuItem("Booking Management");
+        bookingMgmtItem.setOnAction(e -> switchContent((BorderPane) adminDashboardScene.getRoot(), createAllBookingsContent()));
+        MenuItem customerMgmtItem = new MenuItem("Customer Management");
+        customerMgmtItem.setOnAction(e -> switchContent((BorderPane) adminDashboardScene.getRoot(), createCustomerManagementContent()));
+        managementMenu.getItems().addAll(flightMgmtItem, bookingMgmtItem, customerMgmtItem);
+        
+        // Support Menu
+        Menu supportMenu = new Menu("Support");
+        MenuItem ticketMgmtItem = new MenuItem("Ticket Management");
+        ticketMgmtItem.setOnAction(e -> switchContent((BorderPane) adminDashboardScene.getRoot(), createAdminTicketManagementContent()));
+        MenuItem refundMgmtItem = new MenuItem("Refund Management");
+        refundMgmtItem.setOnAction(e -> switchContent((BorderPane) adminDashboardScene.getRoot(), createRefundApprovalContent()));
+        supportMenu.getItems().addAll(ticketMgmtItem, refundMgmtItem);
+        
+        // Reports Menu
+        Menu reportsMenu = new Menu("Reports");
+        MenuItem analyticsItem = new MenuItem("Analytics & Reports");
+        analyticsItem.setOnAction(e -> switchContent((BorderPane) adminDashboardScene.getRoot(), createReportsContent()));
+        reportsMenu.getItems().add(analyticsItem);
+        
+        menuBar.getMenus().addAll(adminMenu, managementMenu, supportMenu, reportsMenu);
+        
+        // Style the menu bar
+        menuBar.setStyle(
+            "-fx-background-color: " + WHITE + ";" +
+            "-fx-border-color: " + GRAY_200 + ";" +
+            "-fx-border-width: 0 0 1 0;"
+        );
+        
+        return menuBar;
     }
     
     /**
@@ -1509,8 +1972,9 @@ public class AirlineApp extends Application {
      */
     private VBox createModernAdminSidebar(BorderPane parentRoot) {
         VBox sidebar = new VBox(10);
-        sidebar.setPadding(new Insets(30, 0, 30, 0));
-        sidebar.setPrefWidth(260);
+        sidebar.setPadding(new Insets(30, 20, 30, 20));
+        sidebar.setMinWidth(250);
+        sidebar.setMaxWidth(350);
         sidebar.setStyle("-fx-background-color: " + WHITE + "; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 2, 0); -fx-border-color: " + GRAY_200 + "; -fx-border-width: 0 1 0 0;");
         
         // Profile section
@@ -2137,20 +2601,68 @@ public class AirlineApp extends Application {
         
         chatInput.getChildren().addAll(messageField, sendBtn);
         
-        // Chat event handler
+        // Enhanced Chat event handler with LangChain4j AI
         sendBtn.setOnAction(e -> {
             String message = messageField.getText().trim();
             if (!message.isEmpty()) {
-                // Add user message
+                messageField.clear();
+                
+                // Disable send button during AI processing
+                sendBtn.setDisable(true);
+                sendBtn.setText("Processing...");
+                
+                // Check if AI service is ready
+                if (!aiService.isReady()) {
+                    // Fallback to basic response if AI not ready
+                    VBox userMessage = createChatMessage("You", message, false);
+                    chatMessages.getChildren().add(userMessage);
+                    
+                    String fallbackResponse = "I'm currently initializing my AI capabilities. Please try again in a moment, or contact our customer service at 1-800-PIKACHU for immediate assistance.";
+                    VBox aiMessage = createChatMessage("AI Assistant", fallbackResponse, true);
+                    chatMessages.getChildren().add(aiMessage);
+                    
+                    // Re-enable send button
+                    sendBtn.setDisable(false);
+                    sendBtn.setText("Send");
+                    return;
+                }
+                
+                // Add user message to chat
                 VBox userMessage = createChatMessage("You", message, false);
                 chatMessages.getChildren().add(userMessage);
                 
-                // Add AI response (simplified)
-                String aiResponse = generateAIResponse(message);
-                VBox aiMessage = createChatMessage("AI Assistant", aiResponse, true);
-                chatMessages.getChildren().add(aiMessage);
+                // Create a TextArea for streaming AI response
+                javafx.scene.control.TextArea streamingArea = new javafx.scene.control.TextArea();
+                streamingArea.setEditable(false);
+                streamingArea.setWrapText(true);
+                streamingArea.setPrefRowCount(3);
+                streamingArea.setStyle(
+                    "-fx-font-size: 14px;" +
+                    "-fx-text-fill: #2D3748;" +
+                    "-fx-background-color: #F0F4FF;" +
+                    "-fx-border-width: 0;" +
+                    "-fx-background-radius: 8;"
+                );
                 
-                messageField.clear();
+                // Create streaming message container
+                VBox streamingMessage = new VBox(5);
+                streamingMessage.setPadding(new Insets(8, 12, 8, 12));
+                streamingMessage.setAlignment(Pos.CENTER_LEFT);
+                
+                Label aiSenderLabel = new Label("🤖 Pikachu Airlines AI Assistant");
+                aiSenderLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #667eea;");
+                
+                streamingMessage.getChildren().addAll(aiSenderLabel, streamingArea);
+                chatMessages.getChildren().add(streamingMessage);
+                
+                // Send message to AI service with streaming response
+                aiService.sendMessage(message, streamingArea, () -> {
+                    // Re-enable send button when response is complete
+                    javafx.application.Platform.runLater(() -> {
+                        sendBtn.setDisable(false);
+                        sendBtn.setText("Send");
+                    });
+                });
             }
         });
         
@@ -3377,7 +3889,22 @@ public class AirlineApp extends Application {
      * Switches the main content area in the dashboard
      */
     private void switchContent(BorderPane root, VBox newContent) {
-        root.setCenter(newContent);
+        // Wrap content in ScrollPane for better responsiveness
+        ScrollPane scrollPane = new ScrollPane(newContent);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setStyle("-fx-background-color: " + CREAM_50 + "; -fx-background: " + CREAM_50 + ";");
+        
+        // Create responsive container
+        StackPane contentContainer = new StackPane();
+        contentContainer.setPadding(new Insets(20));
+        contentContainer.setStyle("-fx-background-color: " + CREAM_50 + ";");
+        HBox.setHgrow(contentContainer, Priority.ALWAYS);
+        contentContainer.getChildren().add(scrollPane);
+        
+        root.setCenter(contentContainer);
     }
     
     public static void main(String[] args) {

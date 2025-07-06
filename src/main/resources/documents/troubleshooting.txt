@@ -1,0 +1,192 @@
+Pikachu Airlines - Technical Support & Troubleshooting Guide
+
+WEBSITE & BOOKING ISSUES:
+
+Problem: Cannot complete online booking
+Solutions:
+- Clear your browser cache and cookies
+- Try using a different browser (Chrome, Firefox, Safari, Edge)
+- Disable browser extensions that might block payments
+- Ensure JavaScript is enabled
+- Try using incognito/private browsing mode
+- Check if your payment method is accepted in your region
+- Try booking from a different device or network
+
+Problem: Website is loading slowly or not at all
+Solutions:
+- Check your internet connection
+- Try refreshing the page (Ctrl+F5 or Cmd+Shift+R)
+- Clear browser cache and restart browser
+- Try accessing from a different device or network
+- Check if there's scheduled maintenance on our status page
+- Use our mobile app as an alternative
+
+Problem: Online check-in not working
+Solutions:
+- Verify your booking reference and last name are correct
+- Ensure you're within the check-in window (24 hours to 2 hours before departure)
+- Clear browser cache and try again
+- Try the mobile app instead of website
+- Check if your flight has any special restrictions
+- Contact customer service if traveling with infants or special assistance
+
+MOBILE APP ISSUES:
+
+Problem: App won't install or update
+Solutions:
+- Ensure you have sufficient storage space (at least 500MB free)
+- Check your device's operating system version (iOS 12+ or Android 8+)
+- Try restarting your device
+- Download from official app stores only (Apple App Store, Google Play Store)
+- Check for pending system updates on your device
+- Clear app store cache and try again
+
+Problem: App crashes or freezes
+Solutions:
+- Force close the app and restart it
+- Restart your device
+- Check for app updates in the app store
+- Clear the app's cache (Android: Settings > Apps > Pikachu Airlines > Storage > Clear Cache)
+- Reinstall the app if problems persist
+- Ensure you have stable internet connection
+
+Problem: Cannot log into mobile app
+Solutions:
+- Verify your email/username and password are correct
+- Try password reset if you've forgotten it
+- Check if your account is locked (contact customer service)
+- Ensure you're using the latest version of the app
+- Try logging in from the website to verify account status
+- Clear app data and log in again
+
+PAYMENT ISSUES:
+
+Problem: Payment declined or failed
+Solutions:
+- Verify all payment details are correct (card number, expiry, CVV, billing address)
+- Check if you have sufficient funds or credit limit
+- Contact your bank to ensure international transactions are allowed
+- Try a different payment method (different card, PayPal, bank transfer)
+- Ensure your card hasn't expired
+- Check if your card issuer has fraud protection that might be blocking the transaction
+
+Problem: Payment processed but no booking confirmation
+Solutions:
+- Check your email (including spam folder) for confirmation
+- Wait up to 30 minutes for processing delays
+- Log into your account to check booking history
+- Check your bank statement to confirm if payment was actually charged
+- Contact customer service with payment reference number
+- Save your payment confirmation/receipt
+
+Problem: Duplicate charges on payment method
+Solutions:
+- Check if you accidentally submitted payment multiple times
+- Verify if charges are pending (may drop off automatically)
+- Contact customer service immediately with booking references
+- Contact your bank to dispute unauthorized charges
+- Keep records of all transaction confirmations
+
+BOARDING PASS & CHECK-IN ISSUES:
+
+Problem: Cannot download or print boarding pass
+Solutions:
+- Ensure online check-in is completed successfully
+- Check your email for boarding pass attachment
+- Try downloading from different browser or device
+- Use the mobile app to access digital boarding pass
+- Clear browser cache and try again
+- Check printer settings and ink/paper levels
+
+Problem: Boarding pass shows wrong information
+Solutions:
+- Contact customer service immediately
+- Do not attempt to travel with incorrect boarding pass
+- Bring valid ID matching your booking name
+- Arrive at airport early for manual correction
+- Screenshot the error for customer service reference
+
+Problem: QR code or barcode not scanning
+Solutions:
+- Ensure screen brightness is at maximum
+- Clean your phone screen
+- Try zooming in/out on the barcode
+- Use printed boarding pass instead
+- Ask gate agent to manually enter confirmation code
+- Check if your phone's screen protector is interfering
+
+TECHNICAL REQUIREMENTS:
+
+Browser Requirements:
+- Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- JavaScript enabled
+- Cookies enabled
+- Pop-up blocker disabled for our site
+- Screen resolution: minimum 1024x768
+
+Mobile Requirements:
+- iOS 12.0+ or Android 8.0+
+- Minimum 2GB RAM recommended
+- GPS enabled for location services
+- Camera access for document scanning
+- Notification permissions for flight updates
+
+Internet Connection:
+- Minimum broadband speed: 1 Mbps
+- Recommended: 5+ Mbps for optimal experience
+- Stable connection required during booking process
+- Public WiFi may have restrictions - try mobile data
+
+ACCOUNT ISSUES:
+
+Problem: Forgot password
+Solutions:
+- Use "Forgot Password" link on login page
+- Check email (including spam) for reset instructions
+- Reset link expires in 24 hours
+- Contact customer service if email isn't received
+- Ensure you're using the correct email address
+
+Problem: Account locked or suspended
+Solutions:
+- Wait 30 minutes and try again (temporary lockouts)
+- Contact customer service for permanent lockouts
+- Provide identification for account verification
+- Check if there are security concerns with your account
+- Review terms of service for potential violations
+
+Problem: Cannot update account information
+Solutions:
+- Ensure all required fields are completed
+- Check data format (phone numbers, dates, etc.)
+- Try updating one field at a time
+- Clear browser cache and try again
+- Use different browser or device
+- Contact customer service for assistance
+
+GENERAL TROUBLESHOOTING STEPS:
+
+1. Clear browser cache and cookies
+2. Restart your browser or app
+3. Try a different browser or device
+4. Check internet connection stability
+5. Disable browser extensions temporarily
+6. Update browser or app to latest version
+7. Try using mobile data instead of WiFi
+8. Check our system status page for known issues
+9. Contact customer service if problems persist
+
+EMERGENCY CONTACT:
+For urgent technical issues affecting imminent travel:
+- Call: 1-800-PIKACHU (24/7 technical support)
+- Live chat: Available on website and mobile app
+- Email: techsupport@pikachuairlines.com
+- Social media: @PikachuAirlines for quick responses
+
+REPORTING BUGS:
+To report website or app bugs:
+- Email: bugs@pikachuairlines.com
+- Include: Device type, browser/app version, steps to reproduce
+- Screenshots or screen recordings helpful
+- Your booking reference if applicable
+- We respond to bug reports within 24 hours 
