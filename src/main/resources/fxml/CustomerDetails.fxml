@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+         <Button fx:id="backButton" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="← Back to Customers" />
+         <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="👤 Customer Details">
+            <font>
+               <Font name="System Bold" size="28.0" />
+            </font>
+         </Text>
+         <Region HBox.hgrow="ALWAYS" />
+         <HBox spacing="10">
+            <Button fx:id="editCustomerButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="✏️ Edit" />
+            <Button fx:id="blockCustomerButton" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="🚫 Block" />
+            <Button fx:id="exportButton" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="📊 Export" />
+         </HBox>
+      </HBox>
+   </top>
+   
+   <center>
+      <ScrollPane fitToWidth="true" style="-fx-background-color: #ecf0f1;">
+         <VBox spacing="25" style="-fx-background-color: #ecf0f1;">
+            <padding>
+               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
+            
+            <!-- Customer Profile Header -->
+            <HBox spacing="25" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
+               <!-- Profile Picture Section -->
+               <VBox alignment="CENTER" spacing="15">
+                  <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #ecf0f1; -fx-background-radius: 50; -fx-padding: 30;">
+                     <Text fill="#3498db" strokeType="OUTSIDE" strokeWidth="0.0" text="👤">
+                        <font>
+                           <Font size="48.0" />
+                        </font>
+                     </Text>
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="5">
+                     <Text fx:id="customerNameLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="John Smith" textAlignment="CENTER">
+                        <font>
+                           <Font name="System Bold" size="20.0" />
+                        </font>
+                     </Text>
+                     <Label fx:id="customerTypeLabel" style="-fx-background-color: #3498db; -fx-background-radius: 12; -fx-text-fill: white; -fx-padding: 4 12;" text="VIP Member">
+                        <font>
+                           <Font name="System Bold" size="10.0" />
+                        </font>
+                     </Label>
+                  </VBox>
+                  <VBox spacing="8">
+                     <Button fx:id="upgradeButton" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-padding: 8; -fx-background-radius: 5;" text="⭐ Upgrade Membership">
+                        <font>
+                           <Font size="10.0" />
+                        </font>
+                     </Button>
+                     <Button fx:id="sendEmailButton" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 8; -fx-background-radius: 5;" text="📧 Send Email">
+                        <font>
+                           <Font size="10.0" />
+                        </font>
+                     </Button>
+                  </VBox>
+               </VBox>
+               
+               <!-- Customer Information -->
+               <VBox spacing="20" HBox.hgrow="ALWAYS">
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="📋 Personal Information">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Text>
+                  
+                  <GridPane hgap="20" vgap="15">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" maxWidth="120.0" minWidth="120.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="NEVER" maxWidth="120.0" minWidth="120.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                     </columnConstraints>
+                     
+                     <Label text="Customer ID:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Label>
+                     <Text fx:id="customerIdLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="CUST-2024-001234" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Text>
+                     
+                     <Label text="Email:" textFill="#7f8c8d" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Label>
+                     <Text fx:id="emailLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="john.smith@email.com" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Text>
+                     
+                     <Label text="Phone:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Label>
+                     <Text fx:id="phoneLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="+1 (555) 123-4567" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Text>
+                     
+                     <Label text="Date of Birth:" textFill="#7f8c8d" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Label>
+                     <Text fx:id="dobLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="January 15, 1985" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Text>
+                     
+                     <Label text="Registration:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Label>
+                     <Text fx:id="registrationLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="March 10, 2022" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Text>
+                     
+                     <Label text="Last Activity:" textFill="#7f8c8d" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Label>
+                     <Text fx:id="lastActivityLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="2 hours ago" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Text>
+                  </GridPane>
+               </VBox>
+            </HBox>
+            
+            <!-- Statistics Cards -->
+            <HBox spacing="20">
+               <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 20;" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <Text fill="#3498db" strokeType="OUTSIDE" strokeWidth="0.0" text="📋">
+                        <font>
+                           <Font size="20.0" />
+                        </font>
+                     </Text>
+                     <VBox spacing="2">
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Bookings">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="totalBookingsLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="24">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+               </VBox>
+               
+               <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 20;" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <Text fill="#27ae60" strokeType="OUTSIDE" strokeWidth="0.0" text="💰">
+                        <font>
+                           <Font size="20.0" />
+                        </font>
+                     </Text>
+                     <VBox spacing="2">
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Spent">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="totalSpentLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="$12,450">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+               </VBox>
+               
+               <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 20;" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <Text fill="#f39c12" strokeType="OUTSIDE" strokeWidth="0.0" text="🎫">
+                        <font>
+                           <Font size="20.0" />
+                        </font>
+                     </Text>
+                     <VBox spacing="2">
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Support Tickets">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="supportTicketsLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="7">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+               </VBox>
+               
+               <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 20;" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <Text fill="#9b59b6" strokeType="OUTSIDE" strokeWidth="0.0" text="⭐">
+                        <font>
+                           <Font size="20.0" />
+                        </font>
+                     </Text>
+                     <VBox spacing="2">
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Loyalty Points">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="loyaltyPointsLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="15,230">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+               </VBox>
+            </HBox>
+            
+            <!-- Booking History -->
+            <VBox spacing="15" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
+               <HBox alignment="CENTER_LEFT" spacing="15">
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="📋 Booking History">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button fx:id="viewAllBookingsButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 8; -fx-background-radius: 5;" text="View All">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Button>
+               </HBox>
+               
+               <TableView fx:id="bookingHistoryTableView" maxHeight="300.0" style="-fx-background-color: transparent;">
+                  <columns>
+                     <TableColumn fx:id="bookingDateColumn" minWidth="100.0" text="Booking Date" />
+                     <TableColumn fx:id="flightNumberColumn" minWidth="100.0" text="Flight" />
+                     <TableColumn fx:id="routeColumn" minWidth="150.0" text="Route" />
+                     <TableColumn fx:id="departDateColumn" minWidth="100.0" text="Departure" />
+                     <TableColumn fx:id="passengersColumn" minWidth="80.0" text="Passengers" />
+                     <TableColumn fx:id="amountColumn" minWidth="80.0" text="Amount" />
+                     <TableColumn fx:id="statusColumn" minWidth="80.0" text="Status" />
+                     <TableColumn fx:id="actionsColumn" minWidth="100.0" text="Actions" />
+                  </columns>
+               </TableView>
+            </VBox>
+            
+            <!-- Communication History -->
+            <VBox spacing="15" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
+               <HBox alignment="CENTER_LEFT" spacing="15">
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="💬 Communication History">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button fx:id="newMessageButton" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 8; -fx-background-radius: 5;" text="+ New Message">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Button>
+               </HBox>
+               
+               <ListView fx:id="communicationListView" maxHeight="200.0" style="-fx-background-color: transparent; -fx-border-color: #e0e6ed; -fx-border-radius: 5;" />
+            </VBox>
+         </VBox>
+      </ScrollPane>
+   </center>
+</BorderPane> 

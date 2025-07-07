@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+         <Button fx:id="backButton" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="← Back to Flights" />
+         <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="✈️ Flight Details">
+            <font>
+               <Font name="System Bold" size="28.0" />
+            </font>
+         </Text>
+         <Region HBox.hgrow="ALWAYS" />
+         <HBox spacing="10">
+            <Button fx:id="editFlightButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="✏️ Edit Flight" />
+            <Button fx:id="cancelFlightButton" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="❌ Cancel" />
+            <Button fx:id="printButton" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="🖨️ Print" />
+         </HBox>
+      </HBox>
+   </top>
+   
+   <center>
+      <ScrollPane fitToWidth="true" style="-fx-background-color: #ecf0f1;">
+         <VBox spacing="25" style="-fx-background-color: #ecf0f1;">
+            <padding>
+               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
+            
+            <!-- Flight Status Header -->
+            <HBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
+               <VBox spacing="5">
+                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Flight Number">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="flightNumberLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="AA-1234">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Text>
+               </VBox>
+               <Separator orientation="VERTICAL" />
+               <VBox spacing="5">
+                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Aircraft">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="aircraftLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Boeing 787-9">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Text>
+               </VBox>
+               <Separator orientation="VERTICAL" />
+               <VBox spacing="5">
+                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="statusLabel" style="-fx-background-color: #27ae60; -fx-background-radius: 15; -fx-text-fill: white; -fx-padding: 5 15;" text="ON TIME">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </VBox>
+               <Region HBox.hgrow="ALWAYS" />
+               <VBox alignment="CENTER_RIGHT" spacing="5">
+                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Available Seats">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="availableSeatsLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="47 / 350">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+               </VBox>
+            </HBox>
+            
+            <!-- Flight Route Information -->
+            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 30;">
+               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="🛫 Flight Information">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Text>
+               
+               <HBox spacing="40" alignment="CENTER">
+                  <!-- Departure -->
+                  <VBox spacing="15" alignment="CENTER" HBox.hgrow="ALWAYS">
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="DEPARTURE">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="08:30">
+                        <font>
+                           <Font name="System Bold" size="36.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Monday, March 25, 2024">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </Text>
+                     <VBox alignment="CENTER" spacing="5">
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="New York (JFK)">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="John F. Kennedy International Airport">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Terminal 4 • Gate A12">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </VBox>
+                  
+                  <!-- Flight Path -->
+                  <VBox spacing="10" alignment="CENTER">
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="FLIGHT TIME">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="6h 45m">
+                        <font>
+                           <Font name="System Bold" size="20.0" />
+                        </font>
+                     </Text>
+                     <Line endX="120.0" stroke="#3498db" strokeWidth="3.0" />
+                     <Text fill="#3498db" strokeType="OUTSIDE" strokeWidth="0.0" text="✈️">
+                        <font>
+                           <Font size="24.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Direct Flight">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="3,500 miles">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Text>
+                  </VBox>
+                  
+                  <!-- Arrival -->
+                  <VBox spacing="15" alignment="CENTER" HBox.hgrow="ALWAYS">
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="ARRIVAL">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="11:15">
+                        <font>
+                           <Font name="System Bold" size="36.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Monday, March 25, 2024">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </Text>
+                     <VBox alignment="CENTER" spacing="5">
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Los Angeles (LAX)">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Los Angeles International Airport">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Terminal 1 • Gate B15">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </VBox>
+               </HBox>
+            </VBox>
+            
+            <!-- Pricing and Classes -->
+            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
+               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="💺 Seating Classes & Pricing">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Text>
+               
+               <HBox spacing="20">
+                  <!-- Economy Class -->
+                  <VBox spacing="15" style="-fx-background-color: #f8f9fa; -fx-background-radius: 10; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+                     <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Text fill="#95a5a6" strokeType="OUTSIDE" strokeWidth="0.0" text="💺">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Economy">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Text>
+                     </HBox>
+                     <VBox spacing="8">
+                        <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• Standard seat (31-32 inch pitch)">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• Complimentary snacks & beverages">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• Personal entertainment screen">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                     <VBox spacing="5">
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="$299">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#27ae60" strokeType="OUTSIDE" strokeWidth="0.0" text="42 seats available">
+                           <font>
+                              <Font name="System Bold" size="10.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                     <Button fx:id="selectEconomyButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="Select Economy">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Button>
+                  </VBox>
+                  
+                  <!-- Business Class -->
+                  <VBox spacing="15" style="-fx-background-color: #f8f9fa; -fx-background-radius: 10; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+                     <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Text fill="#f39c12" strokeType="OUTSIDE" strokeWidth="0.0" text="🛋️">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Business">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Text>
+                     </HBox>
+                     <VBox spacing="8">
+                        <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• Lie-flat seats (76 inch pitch)">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• Premium dining & bar service">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• Priority boarding & lounge access">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                     <VBox spacing="5">
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="$1,299">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#27ae60" strokeType="OUTSIDE" strokeWidth="0.0" text="5 seats available">
+                           <font>
+                              <Font name="System Bold" size="10.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                     <Button fx:id="selectBusinessButton" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="Select Business">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Button>
+                  </VBox>
+                  
+                  <!-- First Class -->
+                  <VBox spacing="15" style="-fx-background-color: #f8f9fa; -fx-background-radius: 10; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+                     <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Text fill="#9b59b6" strokeType="OUTSIDE" strokeWidth="0.0" text="👑">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="First Class">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Text>
+                     </HBox>
+                     <VBox spacing="8">
+                        <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• Private suites with sliding doors">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• Chef-curated meals & premium wines">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• Dedicated concierge service">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                     <VBox spacing="5">
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="$2,999">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#e74c3c" strokeType="OUTSIDE" strokeWidth="0.0" text="Sold out">
+                           <font>
+                              <Font name="System Bold" size="10.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                     <Button fx:id="selectFirstButton" disable="true" style="-fx-background-color: #bdc3c7; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="Sold Out">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Button>
+                  </VBox>
+               </HBox>
+            </VBox>
+            
+            <!-- Additional Information -->
+            <HBox spacing="25">
+               <!-- Flight Details -->
+               <VBox spacing="15" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;" HBox.hgrow="ALWAYS">
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="ℹ️ Flight Details">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Text>
+                  
+                  <GridPane hgap="15" vgap="10">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" maxWidth="120.0" minWidth="120.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                     </columnConstraints>
+                     
+                     <Label text="Baggage:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Label>
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Carry-on included, checked bag from $35" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Text>
+                     
+                     <Label text="Meals:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Label>
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Complimentary snacks, meals available for purchase" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Text>
+                     
+                     <Label text="Wi-Fi:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Label>
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Available for $12 (full flight)" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Text>
+                     
+                     <Label text="Check-in:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Label>
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Opens 24 hours before departure" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Text>
+                  </GridPane>
+               </VBox>
+               
+               <!-- Weather Information -->
+               <VBox spacing="15" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;" HBox.hgrow="ALWAYS">
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="🌤️ Weather Forecast">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Text>
+                  
+                  <HBox spacing="20">
+                     <VBox alignment="CENTER" spacing="8">
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Departure">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#3498db" strokeType="OUTSIDE" strokeWidth="0.0" text="☀️">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="New York">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="72°F • Clear">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                     
+                     <VBox alignment="CENTER" spacing="8">
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrival">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#3498db" strokeType="OUTSIDE" strokeWidth="0.0" text="⛅">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Los Angeles">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="78°F • Partly Cloudy">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+               </VBox>
+            </HBox>
+         </VBox>
+      </ScrollPane>
+   </center>
+</BorderPane> 
