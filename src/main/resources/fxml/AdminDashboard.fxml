@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <!-- Top Navigation Bar -->
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 15;">
+         <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Airline Admin Dashboard">
+            <font>
+               <Font name="System Bold" size="20.0" />
+            </font>
+         </Text>
+         <Region HBox.hgrow="ALWAYS" />
+         <HBox alignment="CENTER_RIGHT" spacing="15">
+            <Button fx:id="notificationsButton" style="-fx-background-color: transparent; -fx-text-fill: white;" text="🔔 Notifications" />
+            <MenuButton style="-fx-background-color: transparent; -fx-text-fill: white;" text="👤 Admin">
+               <items>
+                  <MenuItem fx:id="profileMenuItem" text="Profile" />
+                  <MenuItem fx:id="settingsMenuItem" text="Settings" />
+                  <SeparatorMenuItem />
+                  <MenuItem fx:id="logoutMenuItem" text="Logout" />
+               </items>
+            </MenuButton>
+         </HBox>
+      </HBox>
+   </top>
+   
+   <!-- Left Sidebar Navigation -->
+   <left>
+      <VBox spacing="5" style="-fx-background-color: #34495e; -fx-padding: 20; -fx-min-width: 200;">
+         <Button fx:id="dashboardBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="📊 Dashboard" />
+         <Button fx:id="flightsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="✈️ Flights" />
+         <Button fx:id="bookingsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="📋 Bookings" />
+         <Button fx:id="customersBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="👥 Customers" />
+         <Button fx:id="ticketsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="🎫 Support Tickets" />
+         <Button fx:id="refundsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="💰 Refunds" />
+         <Button fx:id="reportsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="📈 Reports" />
+         <Button fx:id="settingsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="⚙️ Settings" />
+      </VBox>
+   </left>
+   
+   <!-- Main Content Area -->
+   <center>
+      <ScrollPane fitToWidth="true" style="-fx-background-color: #ecf0f1;">
+         <VBox spacing="20" style="-fx-background-color: #ecf0f1;">
+            <padding>
+               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
+            
+            <!-- Header -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+               <VBox spacing="5">
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard Overview">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Monitor your airline operations in real-time">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+               </VBox>
+               <Region HBox.hgrow="ALWAYS" />
+               <Button fx:id="refreshButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="🔄 Refresh" />
+            </HBox>
+            
+            <!-- Statistics Cards -->
+            <GridPane hgap="20" vgap="20">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+               </columnConstraints>
+               
+               <!-- Total Flights Card -->
+               <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);" GridPane.columnIndex="0">
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <Text fill="#3498db" strokeType="OUTSIDE" strokeWidth="0.0" text="✈️">
+                        <font>
+                           <Font size="24.0" />
+                        </font>
+                     </Text>
+                     <VBox spacing="2">
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Flights">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="totalFlightsLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="1,247">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+               </VBox>
+               
+               <!-- Active Bookings Card -->
+               <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);" GridPane.columnIndex="1">
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <Text fill="#27ae60" strokeType="OUTSIDE" strokeWidth="0.0" text="📋">
+                        <font>
+                           <Font size="24.0" />
+                        </font>
+                     </Text>
+                     <VBox spacing="2">
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Active Bookings">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="activeBookingsLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="3,891">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+               </VBox>
+               
+               <!-- Total Customers Card -->
+               <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);" GridPane.columnIndex="2">
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <Text fill="#e74c3c" strokeType="OUTSIDE" strokeWidth="0.0" text="👥">
+                        <font>
+                           <Font size="24.0" />
+                        </font>
+                     </Text>
+                     <VBox spacing="2">
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Customers">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="totalCustomersLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="15,642">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+               </VBox>
+               
+               <!-- Pending Tickets Card -->
+               <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);" GridPane.columnIndex="3">
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <Text fill="#f39c12" strokeType="OUTSIDE" strokeWidth="0.0" text="🎫">
+                        <font>
+                           <Font size="24.0" />
+                        </font>
+                     </Text>
+                     <VBox spacing="2">
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Pending Tickets">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="pendingTicketsLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="23">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+               </VBox>
+            </GridPane>
+            
+            <!-- Quick Actions and Recent Activity -->
+            <HBox spacing="20">
+               <!-- Quick Actions -->
+               <VBox spacing="15" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);" HBox.hgrow="ALWAYS">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Actions">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <VBox spacing="10">
+                     <Button fx:id="addFlightBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="+ Add New Flight" />
+                     <Button fx:id="viewBookingsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="📋 View All Bookings" />
+                     <Button fx:id="manageUsersBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="👥 Manage Users" />
+                     <Button fx:id="generateReportBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="📊 Generate Report" />
+                  </VBox>
+               </VBox>
+               
+               <!-- Recent Activity -->
+               <VBox spacing="15" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);" HBox.hgrow="ALWAYS">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent Activity">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <ListView fx:id="activityListView" maxHeight="200.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" />
+               </VBox>
+            </HBox>
+         </VBox>
+      </ScrollPane>
+   </center>
+</BorderPane> 

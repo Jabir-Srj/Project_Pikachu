@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+         <Button fx:id="backButton" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="← Back" />
+         <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="💳 Payment Details">
+            <font>
+               <Font name="System Bold" size="28.0" />
+            </font>
+         </Text>
+         <Region HBox.hgrow="ALWAYS" />
+         <HBox alignment="CENTER_RIGHT" spacing="10">
+            <Text fill="#bdc3c7" strokeType="OUTSIDE" strokeWidth="0.0" text="🔒 Secure Payment">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Text>
+         </HBox>
+      </HBox>
+   </top>
+   
+   <center>
+      <ScrollPane fitToWidth="true" style="-fx-background-color: #ecf0f1;">
+         <VBox spacing="25" style="-fx-background-color: #ecf0f1;">
+            <padding>
+               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
+            
+            <!-- Booking Summary -->
+            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
+               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="✈️ Booking Summary">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Text>
+               
+               <HBox spacing="20">
+                  <VBox spacing="10" HBox.hgrow="ALWAYS">
+                     <HBox alignment="CENTER_LEFT" spacing="15">
+                        <VBox alignment="CENTER" spacing="2">
+                           <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="08:30">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                           </Text>
+                           <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="NYC">
+                              <font>
+                                 <Font size="10.0" />
+                              </font>
+                           </Text>
+                        </VBox>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="→">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <VBox alignment="CENTER" spacing="2">
+                           <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="11:15">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                           </Text>
+                           <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="LAX">
+                              <font>
+                                 <Font size="10.0" />
+                              </font>
+                           </Text>
+                        </VBox>
+                     </HBox>
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Flight AA-1234 • March 25, 2024 • 2 Passengers">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Text>
+                  </VBox>
+                  
+                  <VBox alignment="CENTER_RIGHT" spacing="5">
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="$598.00">
+                        <font>
+                           <Font name="System Bold" size="20.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount">
+                        <font>
+                           <Font size="10.0" />
+                        </font>
+                     </Text>
+                  </VBox>
+               </HBox>
+            </VBox>
+            
+            <!-- Payment Method Selection -->
+            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
+               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="💳 Payment Method">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Text>
+               
+               <VBox spacing="15">
+                  <RadioButton fx:id="creditCardRadio" selected="true" text="Credit/Debit Card" textFill="#2c3e50">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="paymentMethodGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+                  
+                  <!-- Credit Card Form -->
+                  <VBox fx:id="creditCardForm" spacing="15" style="-fx-background-color: #f8f9fa; -fx-background-radius: 8; -fx-padding: 20;">
+                     <HBox spacing="15">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                           <Label text="Card Number *" textFill="#2c3e50">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <TextField fx:id="cardNumberField" promptText="1234 5678 9012 3456" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12;">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </TextField>
+                        </VBox>
+                        <VBox spacing="5">
+                           <Label text="Card Type" textFill="#2c3e50">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <HBox spacing="10">
+                              <Text fill="#3498db" strokeType="OUTSIDE" strokeWidth="0.0" text="💳">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#e74c3c" strokeType="OUTSIDE" strokeWidth="0.0" text="💳">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                           </HBox>
+                        </VBox>
+                     </HBox>
+                     
+                     <HBox spacing="15">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                           <Label text="Cardholder Name *" textFill="#2c3e50">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <TextField fx:id="cardholderNameField" promptText="John Smith" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12;">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </TextField>
+                        </VBox>
+                        <VBox spacing="5">
+                           <Label text="Expiry Date *" textFill="#2c3e50">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <TextField fx:id="expiryDateField" promptText="MM/YY" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12; -fx-max-width: 100;">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </TextField>
+                        </VBox>
+                        <VBox spacing="5">
+                           <Label text="CVV *" textFill="#2c3e50">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <TextField fx:id="cvvField" promptText="123" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12; -fx-max-width: 80;">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </TextField>
+                        </VBox>
+                     </HBox>
+                  </VBox>
+                  
+                  <RadioButton fx:id="paypalRadio" text="PayPal" textFill="#2c3e50" toggleGroup="$paymentMethodGroup">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </RadioButton>
+                  
+                  <RadioButton fx:id="bankTransferRadio" text="Bank Transfer" textFill="#2c3e50" toggleGroup="$paymentMethodGroup">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </RadioButton>
+               </VBox>
+            </VBox>
+            
+            <!-- Billing Address -->
+            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
+               <HBox alignment="CENTER_LEFT" spacing="15">
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="🏠 Billing Address">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <CheckBox fx:id="sameAsContactCheckBox" selected="true" text="Same as contact information" textFill="#2c3e50">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </CheckBox>
+               </HBox>
+               
+               <GridPane hgap="15" vgap="15" fx:id="billingAddressGrid">
+                  <columnConstraints>
+                     <ColumnConstraints hgrow="ALWAYS" />
+                     <ColumnConstraints hgrow="ALWAYS" />
+                  </columnConstraints>
+                  
+                  <VBox spacing="5" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
+                     <Label text="Street Address *" textFill="#2c3e50">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="streetAddressField" promptText="123 Main Street" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12;">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </TextField>
+                  </VBox>
+                  
+                  <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                     <Label text="City *" textFill="#2c3e50">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="cityField" promptText="New York" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12;">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </TextField>
+                  </VBox>
+                  
+                  <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <Label text="State/Province *" textFill="#2c3e50">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <ComboBox fx:id="stateComboBox" maxWidth="1.7976931348623157E308" promptText="Select State" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5;">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </ComboBox>
+                  </VBox>
+                  
+                  <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                     <Label text="ZIP/Postal Code *" textFill="#2c3e50">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="zipCodeField" promptText="10001" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12;">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </TextField>
+                  </VBox>
+                  
+                  <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <Label text="Country *" textFill="#2c3e50">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <ComboBox fx:id="countryComboBox" maxWidth="1.7976931348623157E308" promptText="Select Country" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5;">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </ComboBox>
+                  </VBox>
+               </GridPane>
+            </VBox>
+            
+            <!-- Terms and Complete Payment -->
+            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
+               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="📋 Terms and Conditions">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Text>
+               
+               <VBox spacing="10">
+                  <CheckBox fx:id="termsCheckBox" text="I agree to the Terms of Service and Conditions of Carriage" textFill="#2c3e50">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="privacyCheckBox" text="I agree to the Privacy Policy and data processing terms" textFill="#2c3e50">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="refundCheckBox" text="I understand the refund and cancellation policies" textFill="#2c3e50">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </CheckBox>
+               </VBox>
+               
+               <Separator />
+               
+               <HBox spacing="15">
+                  <Button fx:id="cancelButton" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-padding: 15; -fx-background-radius: 5;" text="Cancel Booking" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="completePaymentButton" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 15; -fx-background-radius: 5;" text="Complete Payment - $598.00" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </HBox>
+               
+               <HBox alignment="CENTER" spacing="10">
+                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="🔒 Your payment is secured with 256-bit SSL encryption">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+               </HBox>
+            </VBox>
+         </VBox>
+      </ScrollPane>
+   </center>
+</BorderPane> 

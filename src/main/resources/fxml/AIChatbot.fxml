@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+         <Button fx:id="backButton" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="← Back" />
+         <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="🤖 AI Assistant">
+            <font>
+               <Font name="System Bold" size="24.0" />
+            </font>
+         </Text>
+         <Text fill="#bdc3c7" strokeType="OUTSIDE" strokeWidth="0.0" text="How can I help you today?">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Text>
+         <Region HBox.hgrow="ALWAYS" />
+         <Button fx:id="clearChatButton" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="🗑️ Clear Chat">
+            <font>
+               <Font size="12.0" />
+            </font>
+         </Button>
+      </HBox>
+   </top>
+   
+   <center>
+      <VBox style="-fx-background-color: #ecf0f1;">
+         <!-- Chat Area -->
+         <ScrollPane fx:id="chatScrollPane" fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+            <VBox fx:id="chatContainer" spacing="15" style="-fx-background-color: transparent;">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               
+               <!-- Welcome Message -->
+               <VBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20;">
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <Text fill="#3498db" strokeType="OUTSIDE" strokeWidth="0.0" text="🤖">
+                        <font>
+                           <Font size="20.0" />
+                        </font>
+                     </Text>
+                     <VBox spacing="2">
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="AI Assistant">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Just now">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello! I'm your airline AI assistant. I can help you with:" wrappingWidth="600.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <VBox spacing="8">
+                     <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• Flight bookings and reservations">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• Flight status and schedule information">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• Baggage policies and regulations">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• Check-in assistance and seat selection">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#34495e" strokeType="OUTSIDE" strokeWidth="0.0" text="• General airline policies and FAQs">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Text>
+                  </VBox>
+                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="What would you like to know?" wrappingWidth="600.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+               </VBox>
+               
+               <!-- Quick Action Buttons -->
+               <HBox spacing="10">
+                  <Button fx:id="flightStatusButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 8 15; -fx-background-radius: 15;" text="✈️ Flight Status">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="bookingHelpButton" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 8 15; -fx-background-radius: 15;" text="📋 Booking Help">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="baggageInfoButton" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-padding: 8 15; -fx-background-radius: 15;" text="🧳 Baggage Info">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="checkInButton" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-padding: 8 15; -fx-background-radius: 15;" text="✅ Check-in">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Button>
+               </HBox>
+            </VBox>
+         </ScrollPane>
+         
+         <!-- Message Input Area -->
+         <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 20;">
+            <Separator />
+            <HBox alignment="CENTER_LEFT" spacing="15">
+               <VBox spacing="5" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="💬">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Type your message here...">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Text>
+                  </HBox>
+                  <TextArea fx:id="messageTextArea" maxHeight="80.0" minHeight="40.0" promptText="Ask me anything about flights, bookings, or airline services..." style="-fx-background-radius: 10; -fx-border-color: #e0e6ed; -fx-border-radius: 10;" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextArea>
+               </VBox>
+               <VBox alignment="BOTTOM_CENTER" spacing="10">
+                  <Button fx:id="sendButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 10;" text="Send 📤">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="voiceButton" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 8; -fx-background-radius: 10;" text="🎤">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Button>
+               </VBox>
+            </HBox>
+            
+            <!-- Typing Indicator -->
+            <HBox alignment="CENTER_LEFT" spacing="5" visible="false" fx:id="typingIndicator">
+               <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="🤖 AI Assistant is typing">
+                  <font>
+                     <Font size="12.0" />
+                  </font>
+               </Text>
+               <ProgressIndicator maxHeight="15.0" maxWidth="15.0" />
+            </HBox>
+            
+            <!-- Suggested Responses -->
+            <VBox spacing="8" fx:id="suggestedResponsesContainer">
+               <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="💡 Suggested questions:">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Text>
+               <HBox spacing="8">
+                  <Button fx:id="suggestion1Button" style="-fx-background-color: #ecf0f1; -fx-text-fill: #2c3e50; -fx-padding: 5 10; -fx-background-radius: 12; -fx-border-color: #bdc3c7; -fx-border-radius: 12;" text="What are your baggage allowances?">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="suggestion2Button" style="-fx-background-color: #ecf0f1; -fx-text-fill: #2c3e50; -fx-padding: 5 10; -fx-background-radius: 12; -fx-border-color: #bdc3c7; -fx-border-radius: 12;" text="How do I check in online?">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="suggestion3Button" style="-fx-background-color: #ecf0f1; -fx-text-fill: #2c3e50; -fx-padding: 5 10; -fx-background-radius: 12; -fx-border-color: #bdc3c7; -fx-border-radius: 12;" text="Can I change my flight?">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Button>
+               </HBox>
+            </VBox>
+         </VBox>
+      </VBox>
+   </center>
+</BorderPane> 
