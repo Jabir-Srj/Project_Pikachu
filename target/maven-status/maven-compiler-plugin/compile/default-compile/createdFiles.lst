@@ -4,12 +4,14 @@ model\PaymentStatus.class
 model\TicketStatus.class
 model\TicketPriority.class
 model\ManagementLevel.class
+ai\AirlineAIService.class
 dao\BookingDAO.class
 model\FAQ.class
 dao\UserDAO.class
 model\PaymentDetails.class
 model\UserRole.class
 AirlineApp$3.class
+AirlineApp.class
 model\Customer.class
 model\User.class
 ai\AirlineAssistant.class
