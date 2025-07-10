@@ -1,12 +1,13 @@
 package util;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * NavigationManager handles all screen transitions in the Pikachu Airlines application.
@@ -162,5 +163,77 @@ public class NavigationManager {
      */
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+    
+    // Convenience navigation methods
+    
+    public void showLogin() {
+        navigateTo(LOGIN_SCREEN);
+    }
+    
+    public void showRegistration() {
+        navigateTo(REGISTRATION_SCREEN);
+    }
+    
+    public void showAdminDashboard() {
+        navigateTo(ADMIN_DASHBOARD);
+    }
+    
+    public void showCustomerOverview() {
+        navigateTo(CUSTOMER_OVERVIEW);
+    }
+    
+    public void showFlightInformation() {
+        navigateTo(FLIGHT_INFORMATION);
+    }
+    
+    public void showFlightDetails(model.Flight flight) {
+        setSharedData("selectedFlight", flight);
+        navigateTo(FLIGHT_DETAILS);
+    }
+    
+    public void showPaymentDetails(model.Flight flight) {
+        setSharedData("selectedFlight", flight);
+        navigateTo(PAYMENT_DETAILS);
+    }
+    
+    public void showBookingOverview() {
+        navigateTo(BOOKING_OVERVIEW);
+    }
+    
+    public void showBookingDetails(model.Booking booking) {
+        setSharedData("selectedBooking", booking);
+        navigateTo(BOOKING_DETAILS);
+    }
+    
+    public void showTicketSubmission() {
+        navigateTo(TICKET_SUBMISSION);
+    }
+    
+    public void showTicketOverview() {
+        navigateTo(TICKET_OVERVIEW);
+    }
+    
+    public void showTicketStatus(model.Ticket ticket) {
+        setSharedData("selectedTicket", ticket);
+        navigateTo(TICKET_STATUS);
+    }
+    
+    public void showAIChatbot() {
+        navigateTo(AI_CHATBOT);
+    }
+    
+    public void showCustomerDetails(model.Customer customer) {
+        setSharedData("selectedCustomer", customer);
+        navigateTo(CUSTOMER_DETAILS);
+    }
+    
+    public void showRefundApproval(model.RefundRequest refund) {
+        setSharedData("selectedRefund", refund);
+        navigateTo(REFUND_APPROVAL);
+    }
+    
+    public void setSelectedFlightClass(String flightClass) {
+        setSharedData("selectedFlightClass", flightClass);
     }
 } 

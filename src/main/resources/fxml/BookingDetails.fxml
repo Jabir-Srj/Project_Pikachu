@@ -8,6 +8,7 @@
 <?import javafx.scene.shape.Line?>
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="controller.BookingController"
            stylesheets="@../css/application.css">
    <top>
       <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header-gradient">

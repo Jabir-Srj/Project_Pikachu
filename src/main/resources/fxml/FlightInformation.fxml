@@ -8,6 +8,7 @@
 <?import javafx.scene.shape.Line?>
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="controller.FlightSearchController"
            stylesheets="@../css/application.css">
    <top>
       <VBox spacing="25" styleClass="header-top-gradient">
@@ -23,7 +24,7 @@
          </HBox>
          
          <!-- Search Filters -->
-         <VBox spacing="20" styleClass="content-card,shadow-card-medium">
+         <VBox spacing="20" styleClass="content-card shadow-card-medium">
             <HBox alignment="CENTER_LEFT" spacing="15">
                <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="✈️ Search Flights">
                   <font>
@@ -45,7 +46,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="fromComboBox" maxWidth="1.7976931348623157E308" promptText="Select departure city" styleClass="border-gray-light,padding-12">
+                  <ComboBox fx:id="fromComboBox" maxWidth="1.7976931348623157E308" promptText="Select departure city" styleClass="border-gray-light padding-12">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -58,7 +59,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="toComboBox" maxWidth="1.7976931348623157E308" promptText="Select destination city" styleClass="border-gray-light,padding-12">
+                  <ComboBox fx:id="toComboBox" maxWidth="1.7976931348623157E308" promptText="Select destination city" styleClass="border-gray-light padding-12">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -71,7 +72,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="departureDatePicker" maxWidth="1.7976931348623157E308" promptText="Select date" styleClass="border-gray-light,padding-12">
+                  <DatePicker fx:id="departureDatePicker" maxWidth="1.7976931348623157E308" promptText="Select date" styleClass="border-gray-light padding-12">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -84,7 +85,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="passengersComboBox" maxWidth="1.7976931348623157E308" promptText="Select passengers" styleClass="border-gray-light,padding-12">
+                  <ComboBox fx:id="passengersComboBox" maxWidth="1.7976931348623157E308" promptText="Select passengers" styleClass="border-gray-light padding-12">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -93,7 +94,7 @@
                
                <VBox alignment="BOTTOM_CENTER" spacing="8">
                   <Label text=" " />
-                  <Button fx:id="searchButton" styleClass="button-primary,shadow-subtle" text="🔍 Search Flights">
+                  <Button fx:id="searchButton" styleClass="button-primary shadow-subtle" text="🔍 Search Flights">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -150,7 +151,7 @@
          <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
             <VBox fx:id="flightResultsContainer" spacing="20">
                <!-- Sample Flight Card -->
-               <VBox spacing="18" styleClass="content-card,shadow-card-medium,border-yellow-light">
+               <VBox spacing="18" styleClass="content-card shadow-card-medium border-yellow-light">
                   <padding>
                      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                   </padding>
@@ -261,7 +262,7 @@
                               </font>
                            </Text>
                         </VBox>
-                        <Button styleClass="button-primary,shadow-subtle" text="⚡ Select Flight">
+                        <Button styleClass="button-primary shadow-subtle" text="⚡ Select Flight">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

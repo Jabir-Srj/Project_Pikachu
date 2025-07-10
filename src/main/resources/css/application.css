@@ -87,11 +87,12 @@
 
 .content-card {
     -fx-background-color: white;
-    -fx-background-radius: 12;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 3);
+    -fx-background-radius: 15;
+    -fx-padding: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 3);
     -fx-border-color: #E5E7EB;
     -fx-border-width: 1;
-    -fx-border-radius: 12;
+    -fx-border-radius: 15;
 }
 
 .stats-card {
@@ -991,4 +992,51 @@
 
 .radius-25 {
     -fx-background-radius: 25;
+}
+
+/* ==== CUSTOMER OVERVIEW STAT ICONS ==== */
+.stat-icon-yellow {
+    -fx-background: linear-gradient(to bottom right, #F4D03F, #F7DC6F);
+    -fx-background-radius: 12;
+    -fx-padding: 12;
+}
+
+.stat-icon-green {
+    -fx-background: linear-gradient(to bottom right, #2ECC71, #58D68D);
+    -fx-background-radius: 12;
+    -fx-padding: 12;
+}
+
+.stat-icon-orange {
+    -fx-background: linear-gradient(to bottom right, #F39C12, #F7C52A);
+    -fx-background-radius: 12;
+    -fx-padding: 12;
+}
+
+.stat-icon-purple {
+    -fx-background: linear-gradient(to bottom right, #9B59B6, #BB8FCE);
+    -fx-background-radius: 12;
+    -fx-padding: 12;
+}
+
+.border-green-light {
+    -fx-border-color: rgba(46, 204, 113, 0.3);
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+}
+
+.border-orange-light {
+    -fx-border-color: rgba(243, 156, 18, 0.3);
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+}
+
+.border-purple-light {
+    -fx-border-color: rgba(155, 89, 182, 0.3);
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+}
+
+.padding-8 {
+    -fx-padding: 8;
 }

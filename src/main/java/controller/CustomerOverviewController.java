@@ -1,15 +1,14 @@
 package controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import model.User;
 import util.NavigationManager;
-import util.ServiceLocator;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Controller for the Customer Overview screen
@@ -19,9 +18,16 @@ public class CustomerOverviewController implements Initializable {
     @FXML private Label usernameLabel;
     @FXML private Button logoutButton;
     @FXML private Button searchFlightsButton;
-    @FXML private Button myBookingsButton;
+    @FXML private Button viewBookingsButton;
     @FXML private Button submitTicketButton;
     @FXML private Button aiChatButton;
+    @FXML private Button viewProfileButton;
+    
+    // Quick action buttons (duplicate buttons in the cards)
+    @FXML private Button searchFlightsAction;
+    @FXML private Button viewBookingsAction;
+    @FXML private Button submitTicketAction;
+    @FXML private Button aiChatAction;
     
     private NavigationManager navigationManager;
     private User currentUser;
@@ -52,8 +58,8 @@ public class CustomerOverviewController implements Initializable {
             searchFlightsButton.setOnAction(e -> navigateToFlightSearch());
         }
         
-        if (myBookingsButton != null) {
-            myBookingsButton.setOnAction(e -> navigateToBookings());
+        if (viewBookingsButton != null) {
+            viewBookingsButton.setOnAction(e -> navigateToBookings());
         }
         
         if (submitTicketButton != null) {
@@ -62,6 +68,27 @@ public class CustomerOverviewController implements Initializable {
         
         if (aiChatButton != null) {
             aiChatButton.setOnAction(e -> navigateToAIChat());
+        }
+        
+        if (viewProfileButton != null) {
+            viewProfileButton.setOnAction(e -> handleViewProfile());
+        }
+        
+        // Quick action buttons
+        if (searchFlightsAction != null) {
+            searchFlightsAction.setOnAction(e -> navigateToFlightSearch());
+        }
+        
+        if (viewBookingsAction != null) {
+            viewBookingsAction.setOnAction(e -> navigateToBookings());
+        }
+        
+        if (submitTicketAction != null) {
+            submitTicketAction.setOnAction(e -> navigateToTicketSubmission());
+        }
+        
+        if (aiChatAction != null) {
+            aiChatAction.setOnAction(e -> navigateToAIChat());
         }
     }
     
@@ -77,27 +104,35 @@ public class CustomerOverviewController implements Initializable {
      * Navigate to flight search
      */
     private void navigateToFlightSearch() {
-        navigationManager.navigateTo(NavigationManager.FLIGHT_INFORMATION);
+        navigationManager.showFlightInformation();
     }
     
     /**
      * Navigate to bookings
      */
     private void navigateToBookings() {
-        navigationManager.navigateTo(NavigationManager.BOOKING_OVERVIEW);
+        navigationManager.showBookingOverview();
     }
     
     /**
      * Navigate to ticket submission
      */
     private void navigateToTicketSubmission() {
-        navigationManager.navigateTo(NavigationManager.TICKET_SUBMISSION);
+        navigationManager.showTicketSubmission();
     }
     
     /**
      * Navigate to AI chat
      */
     private void navigateToAIChat() {
-        navigationManager.navigateTo(NavigationManager.AI_CHATBOT);
+        navigationManager.showAIChatbot();
+    }
+    
+    /**
+     * Handle view profile
+     */
+    private void handleViewProfile() {
+        // For now, just stay on customer overview as profile isn't implemented yet
+        navigationManager.showCustomerOverview();
     }
 }

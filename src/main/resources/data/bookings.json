@@ -1,1 +1,292 @@
-[]
+[
+  {
+    "bookingId": "PKA240001",
+    "userId": "CUST001",
+    "flightId": "PKA101",
+    "bookingDate": "2024-12-15T10:30:00",
+    "status": "CONFIRMED",
+    "totalAmount": 344.99,
+    "passengers": [
+      {
+        "passengerId": "PASS001",
+        "name": "John Smith",
+        "email": "john.smith@email.com",
+        "phoneNumber": "+1-555-0123",
+        "dateOfBirth": "1985-06-15",
+        "passengerType": "Adult",
+        "seatNumber": "12A",
+        "ticketNumber": "TKT240001001"
+      }
+    ],
+    "paymentDetails": {
+      "cardNumber": "**** **** **** 4567",
+      "cardHolderName": "John Smith",
+      "expiryMonth": "12",
+      "expiryYear": "2026",
+      "amount": 344.99,
+      "paymentDate": "2024-12-15T10:30:00",
+      "paymentStatus": "CONFIRMED"
+    }
+  },
+  {
+    "bookingId": "PKA240002",
+    "userId": "CUST002",
+    "flightId": "PKA201",
+    "bookingDate": "2024-12-16T14:45:00",
+    "status": "CONFIRMED",
+    "totalAmount": 103.49,
+    "passengers": [
+      {
+        "passengerId": "PASS002",
+        "name": "Sarah Johnson",
+        "email": "sarah.johnson@email.com",
+        "phoneNumber": "+1-555-0456",
+        "dateOfBirth": "1990-03-22",
+        "passengerType": "Adult",
+        "seatNumber": "8C",
+        "ticketNumber": "TKT240002001"
+      }
+    ],
+    "paymentDetails": {
+      "cardNumber": "**** **** **** 8901",
+      "cardHolderName": "Sarah Johnson",
+      "expiryMonth": "09",
+      "expiryYear": "2027",
+      "amount": 103.49,
+      "paymentDate": "2024-12-16T14:45:00",
+      "paymentStatus": "CONFIRMED"
+    }
+  },
+  {
+    "bookingId": "PKA240003",
+    "userId": "CUST003",
+    "flightId": "PKA301",
+    "bookingDate": "2024-12-17T09:20:00",
+    "status": "PENDING",
+    "totalAmount": 229.99,
+    "passengers": [
+      {
+        "passengerId": "PASS003",
+        "name": "Michael Chen",
+        "email": "michael.chen@email.com",
+        "phoneNumber": "+1-555-0789",
+        "dateOfBirth": "1978-11-08",
+        "passengerType": "Adult",
+        "seatNumber": "15F",
+        "ticketNumber": "TKT240003001"
+      }
+    ],
+    "paymentDetails": {
+      "cardNumber": "**** **** **** 2345",
+      "cardHolderName": "Michael Chen",
+      "expiryMonth": "06",
+      "expiryYear": "2025",
+      "amount": 229.99,
+      "paymentDate": "2024-12-17T09:20:00",
+      "paymentStatus": "PENDING"
+    }
+  },
+  {
+    "bookingId": "PKA240004",
+    "userId": "CUST004",
+    "flightId": "PKA401",
+    "bookingDate": "2024-12-18T16:10:00",
+    "status": "CONFIRMED",
+    "totalAmount": 172.49,
+    "passengers": [
+      {
+        "passengerId": "PASS004",
+        "name": "Emily Rodriguez",
+        "email": "emily.rodriguez@email.com",
+        "phoneNumber": "+1-555-0234",
+        "dateOfBirth": "1992-07-30",
+        "passengerType": "Adult",
+        "seatNumber": "6B",
+        "ticketNumber": "TKT240004001"
+      }
+    ],
+    "paymentDetails": {
+      "cardNumber": "**** **** **** 6789",
+      "cardHolderName": "Emily Rodriguez",
+      "expiryMonth": "03",
+      "expiryYear": "2028",
+      "amount": 172.49,
+      "paymentDate": "2024-12-18T16:10:00",
+      "paymentStatus": "CONFIRMED"
+    }
+  },
+  {
+    "bookingId": "PKA240005",
+    "userId": "CUST005",
+    "flightId": "PKA501",
+    "bookingDate": "2024-12-19T11:30:00",
+    "status": "CANCELLED",
+    "totalAmount": 206.99,
+    "passengers": [
+      {
+        "passengerId": "PASS005",
+        "name": "David Wilson",
+        "email": "david.wilson@email.com",
+        "phoneNumber": "+1-555-0567",
+        "dateOfBirth": "1983-12-14",
+        "passengerType": "Adult",
+        "seatNumber": "20D",
+        "ticketNumber": "TKT240005001"
+      }
+    ],
+    "paymentDetails": {
+      "cardNumber": "**** **** **** 1234",
+      "cardHolderName": "David Wilson",
+      "expiryMonth": "11",
+      "expiryYear": "2026",
+      "amount": 206.99,
+      "paymentDate": "2024-12-19T11:30:00",
+      "paymentStatus": "REFUNDED"
+    }
+  },
+  {
+    "bookingId": "PKA240006",
+    "userId": "CUST006",
+    "flightId": "PKA601",
+    "bookingDate": "2024-12-20T08:15:00",
+    "status": "CONFIRMED",
+    "totalAmount": 149.49,
+    "passengers": [
+      {
+        "passengerId": "PASS006",
+        "name": "Lisa Thompson",
+        "email": "lisa.thompson@email.com",
+        "phoneNumber": "+1-555-0890",
+        "dateOfBirth": "1987-04-18",
+        "passengerType": "Adult",
+        "seatNumber": "3A",
+        "ticketNumber": "TKT240006001"
+      }
+    ],
+    "paymentDetails": {
+      "cardNumber": "**** **** **** 5678",
+      "cardHolderName": "Lisa Thompson",
+      "expiryMonth": "08",
+      "expiryYear": "2027",
+      "amount": 149.49,
+      "paymentDate": "2024-12-20T08:15:00",
+      "paymentStatus": "CONFIRMED"
+    }
+  },
+  {
+    "bookingId": "PKA240007",
+    "userId": "CUST007",
+    "flightId": "PKA701",
+    "bookingDate": "2024-12-21T13:45:00",
+    "status": "CONFIRMED",
+    "totalAmount": 114.99,
+    "passengers": [
+      {
+        "passengerId": "PASS007",
+        "name": "Robert Garcia",
+        "email": "robert.garcia@email.com",
+        "phoneNumber": "+1-555-0345",
+        "dateOfBirth": "1975-09-25",
+        "passengerType": "Adult",
+        "seatNumber": "11E",
+        "ticketNumber": "TKT240007001"
+      }
+    ],
+    "paymentDetails": {
+      "cardNumber": "**** **** **** 9012",
+      "cardHolderName": "Robert Garcia",
+      "expiryMonth": "05",
+      "expiryYear": "2029",
+      "amount": 114.99,
+      "paymentDate": "2024-12-21T13:45:00",
+      "paymentStatus": "CONFIRMED"
+    }
+  },
+  {
+    "bookingId": "PKA240008",
+    "userId": "CUST008",
+    "flightId": "PKA801",
+    "bookingDate": "2024-12-22T17:20:00",
+    "status": "CONFIRMED",
+    "totalAmount": 218.49,
+    "passengers": [
+      {
+        "passengerId": "PASS008",
+        "name": "Jennifer Lee",
+        "email": "jennifer.lee@email.com",
+        "phoneNumber": "+1-555-0678",
+        "dateOfBirth": "1989-01-12",
+        "passengerType": "Adult",
+        "seatNumber": "7C",
+        "ticketNumber": "TKT240008001"
+      }
+    ],
+    "paymentDetails": {
+      "cardNumber": "**** **** **** 3456",
+      "cardHolderName": "Jennifer Lee",
+      "expiryMonth": "10",
+      "expiryYear": "2026",
+      "amount": 218.49,
+      "paymentDate": "2024-12-22T17:20:00",
+      "paymentStatus": "CONFIRMED"
+    }
+  },
+  {
+    "bookingId": "PKA240009",
+    "userId": "CUST009",
+    "flightId": "PKA901",
+    "bookingDate": "2024-12-23T12:00:00",
+    "status": "PENDING",
+    "totalAmount": 137.99,
+    "passengers": [
+      {
+        "passengerId": "PASS009",
+        "name": "Mark Davis",
+        "email": "mark.davis@email.com",
+        "phoneNumber": "+1-555-0901",
+        "dateOfBirth": "1981-08-05",
+        "passengerType": "Adult",
+        "seatNumber": "14B",
+        "ticketNumber": "TKT240009001"
+      }
+    ],
+    "paymentDetails": {
+      "cardNumber": "**** **** **** 7890",
+      "cardHolderName": "Mark Davis",
+      "expiryMonth": "04",
+      "expiryYear": "2028",
+      "amount": 137.99,
+      "paymentDate": "2024-12-23T12:00:00",
+      "paymentStatus": "PENDING"
+    }
+  },
+  {
+    "bookingId": "PKA240010",
+    "userId": "CUST010",
+    "flightId": "PKA1001",
+    "bookingDate": "2024-12-24T15:30:00",
+    "status": "CONFIRMED",
+    "totalAmount": 183.99,
+    "passengers": [
+      {
+        "passengerId": "PASS010",
+        "name": "Amanda Brown",
+        "email": "amanda.brown@email.com",
+        "phoneNumber": "+1-555-0123",
+        "dateOfBirth": "1993-05-20",
+        "passengerType": "Adult",
+        "seatNumber": "9A",
+        "ticketNumber": "TKT240010001"
+      }
+    ],
+    "paymentDetails": {
+      "cardNumber": "**** **** **** 4567",
+      "cardHolderName": "Amanda Brown",
+      "expiryMonth": "07",
+      "expiryYear": "2027",
+      "amount": 183.99,
+      "paymentDate": "2024-12-24T15:30:00",
+      "paymentStatus": "CONFIRMED"
+    }
+  }
+]

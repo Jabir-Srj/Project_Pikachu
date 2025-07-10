@@ -21,7 +21,7 @@
          <Region HBox.hgrow="ALWAYS" />
          <HBox alignment="CENTER_RIGHT" spacing="15">
             <Button fx:id="notificationsButton" styleClass="header-button" text="🔔 Notifications" />
-            <MenuButton styleClass="header-button" text="👤 Admin">
+            <MenuButton fx:id="adminMenuButton" styleClass="header-button" text="👤 Admin">
                <items>
                   <MenuItem fx:id="profileMenuItem" text="Profile" />
                   <MenuItem fx:id="settingsMenuItem" text="Settings" />
@@ -43,14 +43,14 @@
                </font>
             </Text>
          </VBox>
-         <Button fx:id="dashboardBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button-active" text="📊 Dashboard" />
-         <Button fx:id="flightsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="✈️ Flights" />
-         <Button fx:id="bookingsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="📋 Bookings" />
-         <Button fx:id="customersBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="👥 Customers" />
-         <Button fx:id="ticketsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="🎫 Support Tickets" />
-         <Button fx:id="refundsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="💰 Refunds" />
-         <Button fx:id="reportsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="📈 Reports" />
-         <Button fx:id="settingsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="⚙️ Settings" />
+         <Button fx:id="dashboardButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button-active" text="📊 Dashboard" />
+         <Button fx:id="flightsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="✈️ Flights" />
+         <Button fx:id="bookingsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="📋 Bookings" />
+         <Button fx:id="customersButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="👥 Customers" />
+         <Button fx:id="ticketsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="🎫 Support Tickets" />
+         <Button fx:id="refundsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="💰 Refunds" />
+         <Button fx:id="reportsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="📈 Reports" />
+         <Button fx:id="settingsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="⚙️ Settings" />
       </VBox>
    </left>
    
@@ -215,10 +215,10 @@
                      </font>
                   </Text>
                   <VBox spacing="12">
-                     <Button fx:id="addFlightBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-primary" text="✈️ Add New Flight" />
-                     <Button fx:id="viewBookingsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-success" text="📋 View All Bookings" />
-                     <Button fx:id="manageUsersBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-danger" text="👥 Manage Users" />
-                     <Button fx:id="generateReportBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-warning" text="📊 Generate Report" />
+                     <Button fx:id="addFlightButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-primary" text="✈️ Add New Flight" />
+                     <Button fx:id="viewBookingsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-success" text="📋 View All Bookings" />
+                     <Button fx:id="manageUsersButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-danger" text="👥 Manage Users" />
+                     <Button fx:id="generateReportButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-warning" text="📊 Generate Report" />
                   </VBox>
                </VBox>
                
