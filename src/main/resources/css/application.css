@@ -1,0 +1,994 @@
+/* Pikachu Airlines Theme - Scene Builder Compatible */
+
+/* ==== ROOT DEFINITIONS ==== */
+.root {
+    /* Color Palette */
+    -fx-primary-yellow: #F4D03F;
+    -fx-primary-yellow-light: #F7DC6F;
+    -fx-primary-yellow-dark: #F5C842;
+    -fx-accent-yellow: #FCF3CF;
+    
+    -fx-text-dark: #1F2937;
+    -fx-text-medium: #374151;
+    -fx-text-light: #6B7280;
+    -fx-text-muted: #9CA3AF;
+    -fx-text-disabled: #D1D5DB;
+    
+    -fx-white: #FFFFFF;
+    -fx-light-bg: #F9FAFB;
+    -fx-border-light: #D1D5DB;
+    
+    -fx-success: #10B981;
+    -fx-warning: #F59E0B;
+    -fx-error: #EF4444;
+}
+
+/* ==== BACKGROUNDS ==== */
+.login-background {
+    -fx-background-color: linear-gradient(to bottom, #FEF9E7, #FFFACD);
+}
+
+.main-background {
+    -fx-background-color: linear-gradient(to bottom, #FEF9E7, #F8F9FA);
+}
+
+.card-background {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 20, 0, 0, 4);
+    -fx-border-color: #F4D03F;
+    -fx-border-width: 2;
+    -fx-border-radius: 16;
+}
+
+/* ==== CONTAINERS ==== */
+.container-small {
+    -fx-max-width: 350;
+}
+
+.container-medium {
+    -fx-max-width: 450;
+}
+
+.container-large {
+    -fx-max-width: 800;
+}
+
+.container-full {
+    -fx-max-width: 1200;
+}
+
+/* ==== LOGO AND BRANDING ==== */
+.pikachu-logo {
+    -fx-fill: #F4D03F;
+}
+
+.brand-title {
+    -fx-fill: #1F2937;
+}
+
+.brand-subtitle {
+    -fx-fill: #4B5563;
+}
+
+.welcome-text {
+    -fx-fill: #6B7280;
+}
+
+/* ==== CARDS ==== */
+.login-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 20, 0, 0, 4);
+    -fx-border-color: #F4D03F;
+    -fx-border-width: 2;
+    -fx-border-radius: 16;
+}
+
+.content-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 3);
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+.stats-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0, 0, 2);
+    -fx-border-color: #F4D03F;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+/* ==== ADMIN DASHBOARD SPECIFIC ==== */
+.admin-header {
+    -fx-background: linear-gradient(to right, #F7DC6F, #F4D03F);
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 3, 0, 0, 1);
+}
+
+.admin-title {
+    -fx-fill: #2C3E50;
+}
+
+.header-button {
+    -fx-background-color: rgba(44, 62, 80, 0.1);
+    -fx-text-fill: #2C3E50;
+    -fx-background-radius: 20;
+    -fx-padding: 8 15;
+}
+
+.admin-sidebar {
+    -fx-background: linear-gradient(to bottom, #2C3E50, #34495E);
+    -fx-padding: 25;
+    -fx-min-width: 250;
+}
+
+.sidebar-header {
+    -fx-padding: 0 0 20 0;
+}
+
+.sidebar-title {
+    -fx-fill: #F4D03F;
+}
+
+.main-content-scroll {
+    -fx-background-color: #F8F9FA;
+}
+
+.main-content {
+    -fx-background-color: #F8F9FA;
+}
+
+.dashboard-title {
+    -fx-fill: #2C3E50;
+}
+
+.dashboard-subtitle {
+    -fx-fill: #7F8C8D;
+}
+
+.refresh-button {
+    -fx-background: linear-gradient(to right, #F4D03F, #F7DC6F);
+    -fx-text-fill: #2C3E50;
+    -fx-padding: 12 20;
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+/* ==== STATISTICS CARDS ==== */
+.stats-grid {
+    /* Grid styling */
+}
+
+.stats-card-flights {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    -fx-border-color: rgba(244, 208, 63, 0.3);
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+}
+
+.stats-card-bookings {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    -fx-border-color: rgba(46, 204, 113, 0.3);
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+}
+
+.stats-card-customers {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    -fx-border-color: rgba(231, 76, 60, 0.3);
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+}
+
+.stats-card-tickets {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    -fx-border-color: rgba(243, 156, 18, 0.3);
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+}
+
+.stats-icon-flights {
+    -fx-background: linear-gradient(to bottom right, #F4D03F, #F7DC6F);
+    -fx-background-radius: 12;
+    -fx-padding: 10;
+}
+
+.stats-icon-bookings {
+    -fx-background: linear-gradient(to bottom right, #2ECC71, #58D68D);
+    -fx-background-radius: 12;
+    -fx-padding: 10;
+}
+
+.stats-icon-customers {
+    -fx-background: linear-gradient(to bottom right, #E74C3C, #EC7063);
+    -fx-background-radius: 12;
+    -fx-padding: 10;
+}
+
+.stats-icon-tickets {
+    -fx-background: linear-gradient(to bottom right, #F39C12, #F7C52A);
+    -fx-background-radius: 12;
+    -fx-padding: 10;
+}
+
+.stats-icon-text {
+    -fx-fill: #2C3E50;
+}
+
+.stats-icon-text-white {
+    -fx-fill: white;
+}
+
+.stats-label {
+    -fx-fill: #7F8C8D;
+}
+
+.stats-value {
+    -fx-fill: #2C3E50;
+}
+
+/* ==== ACTION CARDS ==== */
+.quick-actions-card {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+}
+
+.recent-activity-card {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+}
+
+.card-title {
+    -fx-fill: #2C3E50;
+}
+
+.action-button-primary {
+    -fx-background: linear-gradient(to right, #F4D03F, #F7DC6F);
+    -fx-text-fill: #2C3E50;
+    -fx-padding: 15;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.action-button-success {
+    -fx-background: linear-gradient(to right, #2ECC71, #58D68D);
+    -fx-text-fill: white;
+    -fx-padding: 15;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.action-button-danger {
+    -fx-background: linear-gradient(to right, #E74C3C, #EC7063);
+    -fx-text-fill: white;
+    -fx-padding: 15;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.action-button-warning {
+    -fx-background: linear-gradient(to right, #F39C12, #F7C52A);
+    -fx-text-fill: white;
+    -fx-padding: 15;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.activity-list {
+    -fx-background-color: #F8F9FA;
+    -fx-border-color: #E9ECEF;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+/* ==== FORM ELEMENTS ==== */
+.form-title {
+    -fx-fill: #111827;
+}
+
+.form-subtitle {
+    -fx-fill: #6B7280;
+}
+
+.form-label {
+    -fx-text-fill: #374151;
+    -fx-font-weight: bold;
+}
+
+.form-input {
+    -fx-background-radius: 12;
+    -fx-border-color: #D1D5DB;
+    -fx-border-radius: 12;
+    -fx-border-width: 1.5;
+    -fx-padding: 16;
+    -fx-background-color: #F9FAFB;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #9CA3AF;
+}
+
+.form-input:focused {
+    -fx-border-color: #F4D03F;
+    -fx-background-color: white;
+}
+
+.form-checkbox {
+    -fx-text-fill: #4B5563;
+    -fx-font-size: 13px;
+}
+
+.form-link {
+    -fx-text-fill: #F4D03F;
+    -fx-font-weight: bold;
+}
+
+.form-link-bold {
+    -fx-text-fill: #F4D03F;
+    -fx-font-weight: bold;
+}
+
+/* ==== BUTTONS ==== */
+.button-primary {
+    -fx-background-color: linear-gradient(to right, #F4D03F, #F5C842);
+    -fx-background-radius: 12;
+    -fx-text-fill: #1F2937;
+    -fx-padding: 16;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(244,208,63,0.4), 8, 0, 0, 2);
+}
+
+.button-primary:hover {
+    -fx-background-color: linear-gradient(to right, #F5C842, #F1C40F);
+    -fx-effect: dropshadow(gaussian, rgba(244,208,63,0.6), 10, 0, 0, 3);
+}
+
+.button-secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: #F4D03F;
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-text-fill: #F4D03F;
+    -fx-padding: 12 20;
+    -fx-font-weight: bold;
+}
+
+.button-secondary:hover {
+    -fx-background-color: rgba(244, 208, 63, 0.1);
+}
+
+.button-danger {
+    -fx-background-color: #EF4444;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-padding: 8 16;
+    -fx-font-weight: bold;
+}
+
+.button-success {
+    -fx-background-color: #10B981;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-padding: 8 16;
+    -fx-font-weight: bold;
+}
+
+.icon-button {
+    -fx-background-color: rgba(44, 62, 80, 0.15);
+    -fx-text-fill: #2C3E50;
+    -fx-padding: 12 20;
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1);
+}
+
+.icon-button:hover {
+    -fx-background-color: rgba(44, 62, 80, 0.25);
+}
+
+/* ==== TEXT STYLES ==== */
+.header-title {
+    -fx-fill: #1F2937;
+    -fx-font-weight: bold;
+}
+
+.header-subtitle {
+    -fx-fill: #6B7280;
+}
+
+.section-title {
+    -fx-fill: #374151;
+    -fx-font-weight: bold;
+}
+
+.primary-text {
+    -fx-fill: #1F2937;
+}
+
+.secondary-text {
+    -fx-fill: #6B7280;
+}
+
+.muted-text {
+    -fx-fill: #9CA3AF;
+}
+
+.success-text {
+    -fx-fill: #10B981;
+}
+
+.warning-text {
+    -fx-fill: #F59E0B;
+}
+
+.error-text {
+    -fx-fill: #EF4444;
+}
+
+.accent-text {
+    -fx-fill: #F4D03F;
+}
+
+/* ==== DEMO INFO ==== */
+.demo-info {
+    -fx-background-color: transparent;
+}
+
+.demo-title {
+    -fx-fill: #9CA3AF;
+}
+
+.demo-label {
+    -fx-fill: #6B7280;
+}
+
+.demo-credentials {
+    -fx-fill: #4B5563;
+}
+
+.demo-separator {
+    -fx-fill: #D1D5DB;
+}
+
+/* ==== FOOTER ==== */
+.footer {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 20;
+}
+
+.footer-text {
+    -fx-fill: #9CA3AF;
+}
+
+.footer-separator {
+    -fx-fill: #D1D5DB;
+}
+
+/* ==== NAVIGATION ==== */
+.sidebar {
+    -fx-background-color: white;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 0 1 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 2, 0);
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #BDC3C7;
+    -fx-padding: 15;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(244, 208, 63, 0.1);
+    -fx-text-fill: #F4D03F;
+}
+
+.nav-button-active {
+    -fx-background: linear-gradient(to right, #F4D03F, #F7DC6F);
+    -fx-text-fill: #2C3E50;
+    -fx-padding: 15;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+/* ==== TABLE STYLES ==== */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-color: #E5E7EB;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+}
+
+.table-view .column-header {
+    -fx-background-color: #F9FAFB;
+    -fx-text-fill: #374151;
+    -fx-font-weight: bold;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: white;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #FAFAFA;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: rgba(244, 208, 63, 0.2);
+}
+
+/* ==== PROGRESS AND STATUS ==== */
+.progress-bar {
+    -fx-accent: #F4D03F;
+}
+
+.status-pending {
+    -fx-background-color: #FEF3C7;
+    -fx-text-fill: #92400E;
+    -fx-background-radius: 20;
+    -fx-padding: 4 12;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+
+.status-confirmed {
+    -fx-background-color: #D1FAE5;
+    -fx-text-fill: #065F46;
+    -fx-background-radius: 20;
+    -fx-padding: 4 12;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+
+.status-cancelled {
+    -fx-background-color: #FEE2E2;
+    -fx-text-fill: #991B1B;
+    -fx-background-radius: 20;
+    -fx-padding: 4 12;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+
+/* ==== CHAT INTERFACE ==== */
+.chat-container {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-border-color: #E5E7EB;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+}
+
+.chat-message-user {
+    -fx-background-color: #F4D03F;
+    -fx-background-radius: 18 18 4 18;
+    -fx-padding: 12 16;
+    -fx-text-fill: #1F2937;
+}
+
+.chat-message-bot {
+    -fx-background-color: #F3F4F6;
+    -fx-background-radius: 18 18 18 4;
+    -fx-padding: 12 16;
+    -fx-text-fill: #374151;
+}
+
+.chat-input {
+    -fx-background-color: #F9FAFB;
+    -fx-background-radius: 25;
+    -fx-border-color: #D1D5DB;
+    -fx-border-radius: 25;
+    -fx-border-width: 1;
+    -fx-padding: 12 20;
+}
+
+.send-button {
+    -fx-background-color: #F4D03F;
+    -fx-background-radius: 25;
+    -fx-text-fill: #1F2937;
+    -fx-padding: 12 20;
+    -fx-font-weight: bold;
+}
+
+/* ==== RESPONSIVE DESIGN ==== */
+.responsive-grid {
+    -fx-hgap: 20;
+    -fx-vgap: 20;
+}
+
+/* ==== ANIMATIONS ==== */
+.fade-in {
+    -fx-opacity: 0;
+}
+
+.slide-in {
+    -fx-translate-x: -50;
+}
+
+/* ==== ACCESSIBILITY ==== */
+.high-contrast {
+    -fx-border-width: 3;
+    -fx-border-color: #000000;
+}
+
+.large-text {
+    -fx-font-size: 18px;
+}
+
+/* ==== UTILITY CLASSES ==== */
+.text-center {
+    -fx-text-alignment: center;
+}
+
+.text-left {
+    -fx-text-alignment: left;
+}
+
+.text-right {
+    -fx-text-alignment: right;
+}
+
+.margin-small {
+    -fx-padding: 10;
+}
+
+.margin-medium {
+    -fx-padding: 20;
+}
+
+.margin-large {
+    -fx-padding: 30;
+}
+
+.rounded {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.rounded-large {
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+}
+
+.shadow-small {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);
+}
+
+.shadow-medium {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 2);
+}
+
+.shadow-large {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 4);
+}
+
+/* ==== SCENE BUILDER COMPATIBLE CLASSES ==== */
+
+/* Complex Header Styles */
+.header-gradient {
+    -fx-background: linear-gradient(to right, #F7DC6F, #F4D03F);
+    -fx-padding: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0, 0, 2);
+}
+
+.header-top-gradient {
+    -fx-background: linear-gradient(to bottom, #F7DC6F, #F4D03F);
+    -fx-padding: 35;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0, 0, 2);
+}
+
+.header-accent-button {
+    -fx-background-color: rgba(44, 62, 80, 0.15);
+    -fx-text-fill: #2C3E50;
+    -fx-padding: 12 20;
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.header-info-badge {
+    -fx-background-color: rgba(44, 62, 80, 0.1);
+    -fx-background-radius: 20;
+    -fx-padding: 8 15;
+}
+
+/* Card Layouts */
+.welcome-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0, 0, 3);
+    -fx-border-color: #F4D03F;
+    -fx-border-width: 2;
+    -fx-border-radius: 16;
+    -fx-padding: 30;
+}
+
+.info-highlight {
+    -fx-background-color: #FEF9E7;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+}
+
+.ai-avatar {
+    -fx-background: linear-gradient(to bottom right, #F4D03F, #F7DC6F);
+    -fx-background-radius: 15;
+    -fx-padding: 12;
+}
+
+/* Quick Action Buttons */
+.quick-action-flight {
+    -fx-background: linear-gradient(to right, #3498DB, #5DADE2);
+    -fx-text-fill: white;
+    -fx-padding: 15 20;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.quick-action-booking {
+    -fx-background: linear-gradient(to right, #27AE60, #58D68D);
+    -fx-text-fill: white;
+    -fx-padding: 15 20;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.quick-action-baggage {
+    -fx-background: linear-gradient(to right, #F39C12, #F7C52A);
+    -fx-text-fill: white;
+    -fx-padding: 15 20;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.quick-action-checkin {
+    -fx-background: linear-gradient(to right, #9B59B6, #BB8FCE);
+    -fx-text-fill: white;
+    -fx-padding: 15 20;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+/* Message Input Styling */
+.message-input-area {
+    -fx-background-color: white;
+    -fx-padding: 30;
+    -fx-border-color: #F4D03F;
+    -fx-border-width: 2 0 0 0;
+}
+
+.message-textarea {
+    -fx-background-color: #FEF9E7;
+    -fx-background-radius: 12;
+    -fx-border-color: #F4D03F;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    -fx-padding: 15;
+    -fx-font-size: 16px;
+}
+
+.voice-button {
+    -fx-background: linear-gradient(to right, #27AE60, #58D68D);
+    -fx-text-fill: white;
+    -fx-padding: 12;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+/* Suggestion Buttons */
+.suggestion-button {
+    -fx-background-color: #FEF9E7;
+    -fx-text-fill: #2C3E50;
+    -fx-padding: 10 15;
+    -fx-background-radius: 20;
+    -fx-border-color: #F4D03F;
+    -fx-border-radius: 20;
+    -fx-border-width: 1;
+}
+
+/* Registration Form Styling */
+.registration-background {
+    -fx-background-color: linear-gradient(to bottom, #FEF9E7, #FFFACD);
+}
+
+.registration-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 25, 0, 0, 8);
+    -fx-border-color: #F4D03F;
+    -fx-border-width: 3;
+    -fx-border-radius: 20;
+}
+
+.form-input-field {
+    -fx-background-radius: 12;
+    -fx-border-color: #D1D5DB;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    -fx-padding: 18;
+    -fx-background-color: #F9FAFB;
+    -fx-font-size: 16px;
+    -fx-prompt-text-fill: #9CA3AF;
+}
+
+.section-separator {
+    -fx-background-color: #F4D03F;
+    -fx-pref-height: 2;
+}
+
+.terms-container {
+    -fx-background-color: #FEF9E7;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+}
+
+/* Status Labels */
+.status-confirmed-gradient {
+    -fx-background: linear-gradient(to right, #2ECC71, #58D68D);
+    -fx-background-radius: 20;
+    -fx-text-fill: white;
+    -fx-padding: 8 20;
+}
+
+.status-pending-gradient {
+    -fx-background: linear-gradient(to right, #F39C12, #F7C52A);
+    -fx-background-radius: 20;
+    -fx-text-fill: white;
+    -fx-padding: 8 20;
+}
+
+.status-cancelled-gradient {
+    -fx-background: linear-gradient(to right, #E74C3C, #EC7063);
+    -fx-background-radius: 20;
+    -fx-text-fill: white;
+    -fx-padding: 8 20;
+}
+
+/* Flight Route Styling */
+.flight-route-badge {
+    -fx-background: linear-gradient(to right, #F4D03F, #F7DC6F);
+    -fx-background-radius: 15;
+    -fx-padding: 8 15;
+}
+
+.flight-status-badge {
+    -fx-background: linear-gradient(to right, #2ECC71, #58D68D);
+    -fx-background-radius: 12;
+    -fx-padding: 4 8;
+}
+
+.flight-direct-badge {
+    -fx-background: linear-gradient(to right, #F4D03F, #F7DC6F);
+    -fx-background-radius: 15;
+    -fx-padding: 5 10;
+}
+
+/* Payment Method Cards */
+.payment-card-form {
+    -fx-background-color: #F8F9FA;
+    -fx-background-radius: 12;
+    -fx-padding: 25;
+    -fx-border-color: #E9ECEF;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+}
+
+.card-type-visa {
+    -fx-background: linear-gradient(to bottom right, #F4D03F, #F7DC6F);
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+}
+
+.card-type-mastercard {
+    -fx-background: linear-gradient(to bottom right, #E74C3C, #EC7063);
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+}
+
+/* Security Badge */
+.security-badge {
+    -fx-background-color: rgba(46, 204, 113, 0.1);
+    -fx-background-radius: 20;
+    -fx-padding: 8 15;
+}
+
+/* Background Colors */
+.background-gray-light {
+    -fx-background-color: #F8F9FA;
+}
+
+.background-white {
+    -fx-background-color: white;
+}
+
+.background-yellow-light {
+    -fx-background-color: #FEF9E7;
+}
+
+/* Border Utilities */
+.border-yellow-light {
+    -fx-border-color: rgba(244, 208, 63, 0.2);
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+}
+
+.border-gray-light {
+    -fx-border-color: #E9ECEF;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+}
+
+.border-yellow-top {
+    -fx-border-color: #F4D03F;
+    -fx-border-width: 2 0 0 0;
+}
+
+/* Shadow Variants */
+.shadow-deep {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 3);
+}
+
+.shadow-card-medium {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 3);
+}
+
+.shadow-subtle {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.shadow-yellow-glow {
+    -fx-effect: dropshadow(gaussian, rgba(244,208,63,0.4), 5, 0, 0, 2);
+}
+
+/* Utility Classes */
+.padding-30 {
+    -fx-padding: 30;
+}
+
+.padding-25 {
+    -fx-padding: 25;
+}
+
+.padding-20 {
+    -fx-padding: 20;
+}
+
+.padding-15 {
+    -fx-padding: 15;
+}
+
+.padding-12 {
+    -fx-padding: 12;
+}
+
+.radius-15 {
+    -fx-background-radius: 15;
+}
+
+.radius-12 {
+    -fx-background-radius: 12;
+}
+
+.radius-10 {
+    -fx-background-radius: 10;
+}
+
+.radius-25 {
+    -fx-background-radius: 25;
+}

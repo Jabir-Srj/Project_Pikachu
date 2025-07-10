@@ -6,188 +6,252 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="controller.AccountRegistrationController"
+           styleClass="registration-background" stylesheets="@../css/application.css">
    <center>
-      <ScrollPane fitToWidth="true" style="-fx-background-color: #f8f9fa;">
-         <VBox alignment="CENTER" spacing="20" style="-fx-background-color: #f8f9fa;">
+      <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+         <VBox alignment="CENTER" spacing="40" style="-fx-background-color: transparent;">
             <padding>
-               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+               <Insets bottom="60.0" left="40.0" right="40.0" top="60.0" />
             </padding>
             
-            <!-- Header -->
-            <VBox alignment="CENTER" spacing="10">
-               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Your Account">
+            <!-- Header Section -->
+            <VBox alignment="CENTER" spacing="20">
+               <HBox alignment="CENTER" spacing="15">
+                  <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="⚡">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </Text>
+                  <VBox alignment="CENTER_LEFT" spacing="5">
+                     <Text fill="#1F2937" strokeType="OUTSIDE" strokeWidth="0.0" text="Pikachu Airlines">
+                        <font>
+                           <Font name="System Bold" size="36.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#4B5563" strokeType="OUTSIDE" strokeWidth="0.0" text="Join Our Premium Travel Experience">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Text>
+                  </VBox>
+               </HBox>
+               
+               <Text fill="#6B7280" strokeType="OUTSIDE" strokeWidth="0.0" 
+                     text="Create your account to access exclusive benefits and manage your travel">
                   <font>
-                     <Font name="System Bold" size="32.0" />
-                  </font>
-               </Text>
-               <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Join our airline management system today">
-                  <font>
-                     <Font size="16.0" />
+                     <Font size="18.0" />
                   </font>
                </Text>
             </VBox>
             
-            <!-- Registration Form -->
-            <VBox maxWidth="500.0" spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+            <!-- Registration Form Card -->
+            <VBox maxWidth="600.0" spacing="30" styleClass="registration-card">
                <padding>
-                  <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                </padding>
                
-               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal Information">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
-               </Text>
-               
-               <HBox spacing="15">
-                  <VBox spacing="5" HBox.hgrow="ALWAYS">
-                     <Label text="First Name *" textFill="#2c3e50">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
-                     </Label>
-                     <TextField fx:id="firstNameField" promptText="Enter first name" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12;">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
-                     </TextField>
-                  </VBox>
-                  <VBox spacing="5" HBox.hgrow="ALWAYS">
-                     <Label text="Last Name *" textFill="#2c3e50">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
-                     </Label>
-                     <TextField fx:id="lastNameField" promptText="Enter last name" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12;">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
-                     </TextField>
-                  </VBox>
-               </HBox>
-               
-               <VBox spacing="5">
-                  <Label text="Email Address *" textFill="#2c3e50">
+               <!-- Form Header -->
+               <VBox alignment="CENTER" spacing="10">
+                  <Text fill="#111827" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Account">
                      <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="emailField" promptText="Enter your email address" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </VBox>
-               
-               <VBox spacing="5">
-                  <Label text="Phone Number *" textFill="#2c3e50">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="phoneField" promptText="Enter your phone number" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </VBox>
-               
-               <VBox spacing="5">
-                  <Label text="Date of Birth *" textFill="#2c3e50">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <DatePicker fx:id="dobPicker" promptText="Select your date of birth" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </DatePicker>
-               </VBox>
-               
-               <Separator />
-               
-               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Security">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
-               </Text>
-               
-               <VBox spacing="5">
-                  <Label text="Password *" textFill="#2c3e50">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <PasswordField fx:id="passwordField" promptText="Create a strong password" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </PasswordField>
-               </VBox>
-               
-               <VBox spacing="5">
-                  <Label text="Confirm Password *" textFill="#2c3e50">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <PasswordField fx:id="confirmPasswordField" promptText="Confirm your password" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </PasswordField>
-               </VBox>
-               
-               <VBox spacing="5">
-                  <Label text="User Role *" textFill="#2c3e50">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="userRoleComboBox" maxWidth="1.7976931348623157E308" promptText="Select your role" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </ComboBox>
-               </VBox>
-               
-               <VBox spacing="10">
-                  <CheckBox fx:id="termsCheckBox" text="I agree to the Terms of Service and Privacy Policy" textFill="#2c3e50">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </CheckBox>
-                  <CheckBox fx:id="newsletterCheckBox" text="I would like to receive promotional emails and updates" textFill="#2c3e50">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </CheckBox>
-               </VBox>
-               
-               <HBox spacing="15">
-                  <Button fx:id="cancelButton" mnemonicParsing="false" style="-fx-background-color: #95a5a6; -fx-background-radius: 5; -fx-text-fill: white; -fx-padding: 12;" text="Cancel" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="registerButton" mnemonicParsing="false" style="-fx-background-color: #27ae60; -fx-background-radius: 5; -fx-text-fill: white; -fx-padding: 12;" text="Create Account" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-               </HBox>
-               
-               <HBox alignment="CENTER" spacing="5">
-                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account?">
-                     <font>
-                        <Font size="12.0" />
+                        <Font name="System Bold" size="32.0" />
                      </font>
                   </Text>
-                  <Hyperlink fx:id="signInLink" text="Sign In" textFill="#3498db">
+                  <Text fill="#6B7280" strokeType="OUTSIDE" strokeWidth="0.0" 
+                        text="Fill in your details to get started with Pikachu Airlines">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+               </VBox>
+               
+               <!-- Personal Information Section -->
+               <VBox spacing="25">
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="👤">
+                        <font>
+                           <Font size="20.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal Information">
+                        <font>
+                           <Font name="System Bold" size="20.0" />
+                        </font>
+                     </Text>
+                  </HBox>
+                  
+                  <HBox spacing="20">
+                     <VBox spacing="10" HBox.hgrow="ALWAYS">
+                        <Label styleClass="form-label" text="First Name *" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="firstNameField" promptText="Enter your first name" styleClass="form-input-field">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </VBox>
+                     <VBox spacing="10" HBox.hgrow="ALWAYS">
+                        <Label styleClass="form-label" text="Last Name *" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="lastNameField" promptText="Enter your last name" styleClass="form-input-field">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </VBox>
+                  </HBox>
+                  
+                  <VBox spacing="10">
+                     <Label styleClass="form-label" text="Email Address *" textFill="#374151">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="emailField" promptText="Enter your email address" styleClass="form-input-field">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </TextField>
+                  </VBox>
+                  
+                  <HBox spacing="20">
+                     <VBox spacing="10" HBox.hgrow="ALWAYS">
+                        <Label styleClass="form-label" text="Phone Number *" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="phoneField" promptText="Enter your phone number" styleClass="form-input-field">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </VBox>
+                     <VBox spacing="10" HBox.hgrow="ALWAYS">
+                        <Label styleClass="form-label" text="Date of Birth *" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="dobPicker" promptText="Select your birth date" styleClass="form-input-field">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </DatePicker>
+                     </VBox>
+                  </HBox>
+               </VBox>
+               
+               <!-- Separator -->
+               <Separator styleClass="section-separator" />
+               
+               <!-- Account Security Section -->
+               <VBox spacing="25">
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="🔐">
+                        <font>
+                           <Font size="20.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Security">
+                        <font>
+                           <Font name="System Bold" size="20.0" />
+                        </font>
+                     </Text>
+                  </HBox>
+                  
+                  <VBox spacing="10">
+                     <Label styleClass="form-label" text="Password *" textFill="#374151">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                     <PasswordField fx:id="passwordField" promptText="Create a strong password" styleClass="form-input-field">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </PasswordField>
+                  </VBox>
+                  
+                  <VBox spacing="10">
+                     <Label styleClass="form-label" text="Confirm Password *" textFill="#374151">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                     <PasswordField fx:id="confirmPasswordField" promptText="Confirm your password" styleClass="form-input-field">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </PasswordField>
+                  </VBox>
+                  
+                  <VBox spacing="10">
+                     <Label styleClass="form-label" text="User Role *" textFill="#374151">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                     <ComboBox fx:id="userRoleComboBox" maxWidth="1.7976931348623157E308" 
+                              promptText="Select your role" styleClass="form-input-field">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </ComboBox>
+                  </VBox>
+               </VBox>
+               
+               <!-- Terms and Conditions -->
+               <VBox spacing="15" styleClass="terms-container">
+                  <CheckBox fx:id="termsCheckBox" styleClass="form-label" text="I agree to the Terms of Service and Privacy Policy" 
+                           textFill="#374151">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="newsletterCheckBox" text="I would like to receive promotional emails and updates" 
+                           textFill="#374151">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </CheckBox>
+               </VBox>
+               
+               <!-- Action Buttons -->
+               <HBox spacing="20">
+                  <Button fx:id="cancelButton" maxWidth="1.7976931348623157E308" 
+                          mnemonicParsing="false" styleClass="button-secondary" text="Cancel" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="registerButton" maxWidth="1.7976931348623157E308" 
+                          mnemonicParsing="false" styleClass="button-primary" text="Create Account" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+               </HBox>
+               
+               <!-- Sign In Link -->
+               <HBox alignment="CENTER" spacing="10">
+                  <Text fill="#6B7280" strokeType="OUTSIDE" strokeWidth="0.0" 
+                        text="Already have an account?">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Hyperlink fx:id="signInLink" styleClass="form-link" text="Sign In" textFill="#F4D03F">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Hyperlink>
                </HBox>

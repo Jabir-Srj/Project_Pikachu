@@ -2,111 +2,197 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="controller.LoginController"
+           styleClass="login-background">
+
+   
    <center>
-      <VBox alignment="CENTER" spacing="30" style="-fx-background-color: #f8f9fa;">
+      <VBox alignment="CENTER" spacing="40" maxWidth="450" styleClass="container-medium">
          <padding>
-            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+            <Insets bottom="60.0" left="40.0" right="40.0" top="60.0" />
          </padding>
          
-         <!-- Logo Section -->
-         <VBox alignment="CENTER" spacing="10">
-            <ImageView fitHeight="80.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <!-- <image>
-                  <Image url="@../images/airline_logo.png" />
-               </image> -->
-            </ImageView>
-            <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Airline Management System">
+         <!-- Logo and Brand Section -->
+         <VBox alignment="CENTER" spacing="20">
+            <HBox alignment="CENTER" spacing="15">
+               <Text styleClass="pikachu-logo" text="⚡">
+                  <font>
+                     <Font size="48.0" />
+                  </font>
+               </Text>
+               <VBox alignment="CENTER_LEFT" spacing="5">
+                  <Text styleClass="brand-title" text="Pikachu Airlines">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Text>
+                  <Text styleClass="brand-subtitle" text="Premium Travel Experience">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+               </VBox>
+            </HBox>
+            
+            <Text styleClass="welcome-text" text="Welcome back! Sign in to manage your travel">
                <font>
-                  <Font name="System Bold" size="28.0" />
-               </font>
-            </Text>
-            <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back! Please sign in to your account">
-               <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Text>
          </VBox>
          
-         <!-- Login Form -->
-         <VBox alignment="CENTER" maxWidth="400.0" spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+         <!-- Login Form Card -->
+         <VBox alignment="CENTER" spacing="25" styleClass="login-card">
             <padding>
                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
             </padding>
             
-            <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Text>
+            <!-- Form Header -->
+            <VBox alignment="CENTER" spacing="8">
+               <Text styleClass="form-title" text="Sign In">
+                  <font>
+                     <Font name="System Bold" size="28.0" />
+                  </font>
+               </Text>
+               <Text styleClass="form-subtitle" text="Enter your credentials to access your account">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Text>
+            </VBox>
             
-            <VBox spacing="15">
-               <VBox spacing="5">
-                  <Label text="Email Address" textFill="#2c3e50">
+            <!-- Input Fields -->
+            <VBox spacing="20">
+               <VBox spacing="8">
+                  <Label text="Username" styleClass="form-label">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="emailField" promptText="Enter your email" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12;">
+                  <TextField fx:id="usernameField" promptText="Enter your username" styleClass="form-input">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
                </VBox>
                
-               <VBox spacing="5">
-                  <Label text="Password" textFill="#2c3e50">
+               <VBox spacing="8">
+                  <Label text="Password" styleClass="form-label">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="passwordField" promptText="Enter your password" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 12;">
+                  <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="form-input">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </PasswordField>
                </VBox>
-               
-               <HBox alignment="CENTER_LEFT" spacing="10">
-                  <CheckBox fx:id="rememberMeCheckBox" text="Remember me" textFill="#2c3e50">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </CheckBox>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <Hyperlink fx:id="forgotPasswordLink" text="Forgot Password?" textFill="#3498db">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Hyperlink>
-               </HBox>
-               
-               <Button fx:id="loginButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #3498db; -fx-background-radius: 5; -fx-text-fill: white; -fx-padding: 12;" text="Sign In">
+            </VBox>
+            
+            <!-- Remember Me and Forgot Password -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+               <CheckBox fx:id="rememberMeCheckBox" text="Remember me" styleClass="form-checkbox">
+                  <font>
+                     <Font size="13.0" />
+                  </font>
+               </CheckBox>
+               <Region HBox.hgrow="ALWAYS" />
+               <Hyperlink fx:id="forgotPasswordLink" text="Forgot Password?" styleClass="form-link">
+                  <font>
+                     <Font size="13.0" />
+                  </font>
+               </Hyperlink>
+            </HBox>
+            
+            <!-- Sign In Button -->
+            <Button fx:id="loginButton" maxWidth="1.7976931348623157E308" 
+                    mnemonicParsing="false" text="Sign In" styleClass="button-primary">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            
+            <!-- Create Account Link -->
+            <HBox alignment="CENTER" spacing="8">
+               <Text styleClass="secondary-text" text="Don't have an account?">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Text>
+               <Hyperlink fx:id="registerLink" text="Create Account" styleClass="form-link-bold">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
-               </Button>
-               
-               <HBox alignment="CENTER" spacing="5">
-                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?">
+               </Hyperlink>
+            </HBox>
+         </VBox>
+         
+         <!-- Additional Info -->
+         <VBox alignment="CENTER" spacing="12" styleClass="demo-info">
+            <Text styleClass="demo-title" text="Demo Credentials">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <HBox alignment="CENTER" spacing="20">
+               <VBox alignment="CENTER" spacing="4">
+                  <Text styleClass="demo-label" text="Admin">
                      <font>
-                        <Font size="12.0" />
+                        <Font size="11.0" />
                      </font>
                   </Text>
-                  <Hyperlink fx:id="createAccountLink" text="Create Account" textFill="#3498db">
+                  <Text styleClass="demo-credentials" text="admin / 123456">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="11.0" />
                      </font>
-                  </Hyperlink>
-               </HBox>
-            </VBox>
+                  </Text>
+               </VBox>
+               <Text styleClass="demo-separator" text="|">
+                  <font>
+                     <Font size="11.0" />
+                  </font>
+               </Text>
+               <VBox alignment="CENTER" spacing="4">
+                  <Text styleClass="demo-label" text="Customer">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Text>
+                  <Text styleClass="demo-credentials" text="customer / 123456">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Text>
+               </VBox>
+            </HBox>
          </VBox>
       </VBox>
    </center>
+   
+   <!-- Footer -->
+   <bottom>
+      <HBox alignment="CENTER" spacing="20" styleClass="footer">
+         <Text styleClass="footer-text" text="© 2024 Pikachu Airlines. All rights reserved.">
+            <font>
+               <Font size="12.0" />
+            </font>
+         </Text>
+         <Text styleClass="footer-separator" text="|">
+            <font>
+               <Font size="12.0" />
+            </font>
+         </Text>
+         <Text styleClass="footer-text" text="Premium Travel Experience">
+            <font>
+               <Font size="12.0" />
+            </font>
+         </Text>
+      </HBox>
+   </bottom>
 </BorderPane> 
