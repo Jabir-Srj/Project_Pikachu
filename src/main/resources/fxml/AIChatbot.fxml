@@ -196,7 +196,7 @@
                      </font>
                   </TextArea>
                   <VBox alignment="CENTER" spacing="10">
-                     <Button fx:id="sendButton" styleClass="button-primary,shadow-yellow-glow" text="Send ⚡">
+                     <Button fx:id="sendButton" styleClass="button-primary shadow-yellow-glow" text="Send ⚡">
                         <font>
                            <Font name="System Bold" size="16.0" />
                         </font>

@@ -383,10 +383,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="refundMethodComboBox" promptText="Select refund method" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-min-width: 200;">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
+                        <ComboBox fx:id="refundMethodComboBox" promptText="Select refund method" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-min-width: 200; -fx-font-size: 14px;">
                         </ComboBox>
                      </VBox>
                      
@@ -396,10 +393,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="processingTimeComboBox" promptText="Expected processing time" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-min-width: 200;">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
+                        <ComboBox fx:id="processingTimeComboBox" promptText="Expected processing time" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-min-width: 200; -fx-font-size: 14px;">
                         </ComboBox>
                      </VBox>
                   </HBox>

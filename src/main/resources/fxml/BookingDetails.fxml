@@ -20,7 +20,7 @@
          </Text>
          <Region HBox.hgrow="ALWAYS" />
          <HBox spacing="12">
-            <Button fx:id="editBookingButton" styleClass="button-primary,shadow-subtle" text="✏️ Edit" />
+            <Button fx:id="editBookingButton" styleClass="button-primary shadow-subtle" text="✏️ Edit" />
             <Button fx:id="cancelBookingButton" styleClass="action-button-danger" text="❌ Cancel" />
             <Button fx:id="printButton" styleClass="button-secondary" text="🖨️ Print" />
          </HBox>
@@ -35,7 +35,7 @@
             </padding>
             
             <!-- Booking Status Header -->
-            <HBox alignment="CENTER_LEFT" spacing="25" styleClass="content-card,shadow-card-medium,border-yellow-light">
+            <HBox alignment="CENTER_LEFT" spacing="25" styleClass="content-card shadow-card-medium border-yellow-light">
                <VBox spacing="8">
                   <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Booking Reference">
                      <font>
@@ -97,7 +97,7 @@
             </HBox>
             
             <!-- Flight Information -->
-            <VBox spacing="25" styleClass="content-card,shadow-card-medium">
+            <VBox spacing="25" styleClass="content-card shadow-card-medium">
                <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="✈️ Flight Information">
                   <font>
                      <Font name="System Bold" size="22.0" />

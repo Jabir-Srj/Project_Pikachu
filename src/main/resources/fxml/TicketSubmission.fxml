@@ -100,7 +100,7 @@
             </VBox>
             
             <!-- Contact Information -->
-            <VBox spacing="25" styleClass="content-card,shadow-card-medium">
+            <VBox spacing="25" styleClass="content-card shadow-card-medium">
                <HBox alignment="CENTER_LEFT" spacing="10">
                   <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="👤">
                      <font>
@@ -188,7 +188,7 @@
             </VBox>
             
             <!-- Ticket Details -->
-            <VBox spacing="25" styleClass="content-card,shadow-card-medium">
+            <VBox spacing="25" styleClass="content-card shadow-card-medium">
                <HBox alignment="CENTER_LEFT" spacing="10">
                   <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="📋">
                      <font>
@@ -262,7 +262,7 @@
             </VBox>
             
             <!-- File Attachments -->
-            <VBox spacing="25" styleClass="content-card,shadow-card-medium">
+            <VBox spacing="25" styleClass="content-card shadow-card-medium">
                <HBox alignment="CENTER_LEFT" spacing="10">
                   <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="📎">
                      <font>
@@ -302,11 +302,11 @@
                   </Label>
                </HBox>
                
-               <ListView fx:id="attachmentListView" maxHeight="120.0" visible="false" styleClass="border-gray-light,background-white" />
+               <ListView fx:id="attachmentListView" maxHeight="120.0" visible="false" styleClass="border-gray-light background-white" />
             </VBox>
             
             <!-- Contact Preferences -->
-            <VBox spacing="25" styleClass="content-card,shadow-card-medium">
+            <VBox spacing="25" styleClass="content-card shadow-card-medium">
                <HBox alignment="CENTER_LEFT" spacing="10">
                   <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="📞">
                      <font>
@@ -362,7 +362,7 @@
             </VBox>
             
             <!-- Submit Actions -->
-            <VBox spacing="25" styleClass="content-card,shadow-card-medium">
+            <VBox spacing="25" styleClass="content-card shadow-card-medium">
                <HBox alignment="CENTER_LEFT" spacing="10">
                   <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="✅">
                      <font>

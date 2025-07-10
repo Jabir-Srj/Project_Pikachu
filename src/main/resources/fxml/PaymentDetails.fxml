@@ -43,7 +43,7 @@
             </padding>
             
             <!-- Booking Summary -->
-            <VBox spacing="25" styleClass="content-card,shadow-card-medium,border-yellow-light">
+            <VBox spacing="25" styleClass="content-card shadow-card-medium border-yellow-light">
                <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="✈️ Booking Summary">
                   <font>
                      <Font name="System Bold" size="22.0" />
@@ -280,10 +280,7 @@
                            <Font name="System Bold" size="14.0" />
                         </font>
                      </Label>
-                     <ComboBox fx:id="stateComboBox" maxWidth="1.7976931348623157E308" promptText="Select State" styleClass="border-gray-light,padding-15">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
+                     <ComboBox fx:id="stateComboBox" maxWidth="1.7976931348623157E308" promptText="Select State" styleClass="border-gray-light,padding-15" style="-fx-font-size: 14px;">
                      </ComboBox>
                   </VBox>
                   
@@ -306,10 +303,7 @@
                            <Font name="System Bold" size="14.0" />
                         </font>
                      </Label>
-                     <ComboBox fx:id="countryComboBox" maxWidth="1.7976931348623157E308" promptText="Select Country" styleClass="border-gray-light,padding-15">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
+                     <ComboBox fx:id="countryComboBox" maxWidth="1.7976931348623157E308" promptText="Select Country" styleClass="border-gray-light,padding-15" style="-fx-font-size: 14px;">
                      </ComboBox>
                   </VBox>
                </GridPane>
