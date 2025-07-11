@@ -1,433 +1,326 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.RefundController">
-   <top>
-      <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
-         <Button fx:id="backButton" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="← Back to Refunds" />
-         <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="💰 Refund Approval">
-            <font>
-               <Font name="System Bold" size="28.0" />
-            </font>
-         </Text>
-         <Region HBox.hgrow="ALWAYS" />
-         <HBox spacing="10">
-            <Button fx:id="approveButton" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="✅ Approve" />
-            <Button fx:id="rejectButton" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="❌ Reject" />
-            <Button fx:id="printButton" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="🖨️ Print" />
-         </HBox>
-      </HBox>
-   </top>
-   
-   <center>
-      <ScrollPane fitToWidth="true" style="-fx-background-color: #ecf0f1;">
-         <VBox spacing="25" style="-fx-background-color: #ecf0f1;">
-            <padding>
-               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-            </padding>
-            
-            <!-- Refund Request Header -->
-            <HBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
-               <VBox spacing="5">
-                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Refund Request ID">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="refundIdLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="REF-2024-001234">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Text>
-               </VBox>
-               <Separator orientation="VERTICAL" />
-               <VBox spacing="5">
-                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Text>
-                  <Label fx:id="statusLabel" style="-fx-background-color: #f39c12; -fx-background-radius: 15; -fx-text-fill: white; -fx-padding: 5 15;" text="PENDING REVIEW">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-               </VBox>
-               <Separator orientation="VERTICAL" />
-               <VBox spacing="5">
-                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Date">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="requestDateLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="March 20, 2024">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-               </VBox>
-               <Region HBox.hgrow="ALWAYS" />
-               <VBox alignment="CENTER_RIGHT" spacing="5">
-                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Refund Amount">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="refundAmountLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="$1,247.50">
+<ScrollPane fitToWidth="true" fitToHeight="true" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RefundApprovalController">
+   <content>
+      <VBox maxWidth="1200.0" spacing="20.0">
+         <children>
+            <!-- Header -->
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBack" text="Back" />
+                  <Label text="Refund Approval">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
-                  </Text>
-               </VBox>
+                  </Label>
+               </children>
             </HBox>
             
-            <!-- Customer Information -->
-            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
-               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="👤 Customer Information">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
-               </Text>
-               
-               <GridPane hgap="20" vgap="15">
-                  <columnConstraints>
-                     <ColumnConstraints hgrow="NEVER" maxWidth="120.0" minWidth="120.0" />
-                     <ColumnConstraints hgrow="ALWAYS" />
-                     <ColumnConstraints hgrow="NEVER" maxWidth="120.0" minWidth="120.0" />
-                     <ColumnConstraints hgrow="ALWAYS" />
-                  </columnConstraints>
-                  
-                  <Label text="Customer Name:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="customerNameLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="John Smith" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-                  
-                  <Label text="Customer ID:" textFill="#7f8c8d" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="customerIdLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="CUST-2024-001234" GridPane.columnIndex="3" GridPane.rowIndex="0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  
-                  <Label text="Email:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="emailLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="john.smith@email.com" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  
-                  <Label text="Phone:" textFill="#7f8c8d" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="phoneLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="+1 (555) 123-4567" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-               </GridPane>
-            </VBox>
-            
-            <!-- Booking Information -->
-            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
-               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="✈️ Booking Details">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
-               </Text>
-               
-               <GridPane hgap="20" vgap="15">
-                  <columnConstraints>
-                     <ColumnConstraints hgrow="NEVER" maxWidth="150.0" minWidth="150.0" />
-                     <ColumnConstraints hgrow="ALWAYS" />
-                     <ColumnConstraints hgrow="NEVER" maxWidth="150.0" minWidth="150.0" />
-                     <ColumnConstraints hgrow="ALWAYS" />
-                  </columnConstraints>
-                  
-                  <Label text="Booking Reference:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="bookingReferenceLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="BK-2024-001234" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-                  
-                  <Label text="Flight Number:" textFill="#7f8c8d" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="flightNumberLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="AA-1234" GridPane.columnIndex="3" GridPane.rowIndex="0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  
-                  <Label text="Route:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="routeLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="New York (JFK) → Los Angeles (LAX)" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  
-                  <Label text="Departure Date:" textFill="#7f8c8d" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="departureDateLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="March 25, 2024" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  
-                  <Label text="Passengers:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="passengersLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Passengers" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  
-                  <Label text="Original Amount:" textFill="#7f8c8d" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="originalAmountLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="$1,498.00" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-               </GridPane>
-            </VBox>
-            
-            <!-- Refund Calculation -->
-            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
-               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="🧮 Refund Calculation">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
-               </Text>
-               
-               <GridPane hgap="20" vgap="10">
-                  <columnConstraints>
-                     <ColumnConstraints hgrow="ALWAYS" />
-                     <ColumnConstraints hgrow="NEVER" maxWidth="120.0" minWidth="120.0" />
-                  </columnConstraints>
-                  
-                  <Label text="Original Booking Amount:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="$1,498.00" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-                  
-                  <Label text="Cancellation Fee:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Text fill="#e74c3c" strokeType="OUTSIDE" strokeWidth="0.0" text="-$200.00" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-                  
-                  <Label text="Processing Fee:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Text fill="#e74c3c" strokeType="OUTSIDE" strokeWidth="0.0" text="-$50.50" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-                  
-                  <Separator GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-                  
-                  <Label text="Total Refund Amount:" textFill="#2c3e50" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Text fill="#27ae60" strokeType="OUTSIDE" strokeWidth="0.0" text="$1,247.50" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <!-- Filter Section -->
+            <VBox maxWidth="1000.0" spacing="15.0">
+               <children>
+                  <Label text="Filter Refund Requests">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
-                  </Text>
-               </GridPane>
+                  </Label>
+                  
+                  <HBox spacing="20.0">
+                     <children>
+                        <VBox maxWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label text="Status" />
+                              <ComboBox fx:id="statusFilterComboBox" maxWidth="180.0" promptText="All Status" />
+                           </children>
+                        </VBox>
+                        
+                        <VBox maxWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label text="Request Type" />
+                              <ComboBox fx:id="typeFilterComboBox" maxWidth="180.0" promptText="All Types" />
+                           </children>
+                        </VBox>
+                        
+                        <VBox maxWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label text="Amount Range" />
+                              <ComboBox fx:id="amountFilterComboBox" maxWidth="180.0" promptText="All Amounts" />
+                           </children>
+                        </VBox>
+                        
+                        <VBox maxWidth="150.0" spacing="5.0">
+                           <children>
+                              <Label text="Search" />
+                              <TextField fx:id="searchField" maxWidth="130.0" promptText="Customer ID" />
+                           </children>
+                        </VBox>
+                        
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label text="Actions" />
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Button fx:id="applyFiltersButton" mnemonicParsing="false" onAction="#handleApplyFilters" text="Apply" />
+                                    <Button fx:id="clearFiltersButton" mnemonicParsing="false" onAction="#handleClearFilters" text="Clear" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
             </VBox>
             
-            <!-- Refund Reason -->
-            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
-               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="📝 Refund Reason">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
-               </Text>
-               
-               <VBox spacing="10">
-                  <Label text="Reason Category:" textFill="#7f8c8d">
+            <!-- Refund Requests Table -->
+            <VBox maxWidth="1150.0" spacing="15.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="15.0">
+                     <children>
+                        <Label text="Pending Refund Requests">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#handleRefresh" text="Refresh" />
+                     </children>
+                  </HBox>
+                  
+                  <TableView fx:id="refundRequestsTableView" maxWidth="1100.0" prefHeight="300.0">
+                     <columns>
+                        <TableColumn fx:id="requestIdColumn" prefWidth="100.0" text="Request ID" />
+                        <TableColumn fx:id="customerIdColumn" prefWidth="100.0" text="Customer ID" />
+                        <TableColumn fx:id="customerNameColumn" prefWidth="150.0" text="Customer Name" />
+                        <TableColumn fx:id="bookingIdColumn" prefWidth="100.0" text="Booking ID" />
+                        <TableColumn fx:id="flightNumberColumn" prefWidth="100.0" text="Flight" />
+                        <TableColumn fx:id="requestDateColumn" prefWidth="120.0" text="Request Date" />
+                        <TableColumn fx:id="amountColumn" prefWidth="100.0" text="Amount" />
+                        <TableColumn fx:id="reasonColumn" prefWidth="150.0" text="Reason" />
+                        <TableColumn fx:id="statusColumn" prefWidth="100.0" text="Status" />
+                        <TableColumn fx:id="priorityColumn" prefWidth="80.0" text="Priority" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+            
+            <!-- Selected Request Details -->
+            <VBox maxWidth="1000.0" spacing="15.0">
+               <children>
+                  <Label text="Request Details">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Text fx:id="reasonCategoryLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Flight Cancellation by Airline">
+                  
+                  <HBox spacing="30.0">
+                     <children>
+                        <VBox maxWidth="450.0" spacing="15.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <Label text="Request Information">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    
+                                    <HBox spacing="20.0">
+                                       <children>
+                                          <VBox maxWidth="200.0" spacing="8.0">
+                                             <children>
+                                                <Label text="Request ID" />
+                                                <TextField fx:id="selectedRequestIdField" editable="false" maxWidth="180.0" />
+                                                
+                                                <Label text="Customer Name" />
+                                                <TextField fx:id="selectedCustomerNameField" editable="false" maxWidth="180.0" />
+                                                
+                                                <Label text="Booking Reference" />
+                                                <TextField fx:id="selectedBookingRefField" editable="false" maxWidth="180.0" />
+                                             </children>
+                                          </VBox>
+                                          
+                                          <VBox maxWidth="200.0" spacing="8.0">
+                                             <children>
+                                                <Label text="Request Date" />
+                                                <TextField fx:id="selectedRequestDateField" editable="false" maxWidth="180.0" />
+                                                
+                                                <Label text="Refund Amount" />
+                                                <TextField fx:id="selectedAmountField" editable="false" maxWidth="180.0" />
+                                                
+                                                <Label text="Current Status" />
+                                                <TextField fx:id="selectedStatusField" editable="false" maxWidth="180.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <Label text="Flight Information">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    
+                                    <VBox maxWidth="400.0" spacing="8.0">
+                                       <children>
+                                          <Label text="Flight Details" />
+                                          <TextField fx:id="selectedFlightDetailsField" editable="false" maxWidth="380.0" />
+                                          
+                                          <Label text="Departure Date" />
+                                          <TextField fx:id="selectedDepartureDateField" editable="false" maxWidth="380.0" />
+                                          
+                                          <Label text="Original Price" />
+                                          <TextField fx:id="selectedOriginalPriceField" editable="false" maxWidth="380.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        
+                        <VBox maxWidth="450.0" spacing="15.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <Label text="Refund Reason">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextArea fx:id="refundReasonArea" editable="false" maxWidth="420.0" prefHeight="80.0" promptText="Customer refund reason..." />
+                                 </children>
+                              </VBox>
+                              
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <Label text="Admin Notes">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextArea fx:id="adminNotesArea" maxWidth="420.0" prefHeight="80.0" promptText="Add admin notes..." />
+                                 </children>
+                              </VBox>
+                              
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <Label text="Decision">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    
+                                    <HBox spacing="15.0">
+                                       <children>
+                                          <VBox maxWidth="200.0" spacing="8.0">
+                                             <children>
+                                                <Label text="Decision" />
+                                                <ComboBox fx:id="decisionComboBox" maxWidth="180.0" promptText="Select Decision" />
+                                             </children>
+                                          </VBox>
+                                          
+                                          <VBox maxWidth="200.0" spacing="8.0">
+                                             <children>
+                                                <Label text="Refund Amount" />
+                                                <TextField fx:id="approvedAmountField" maxWidth="180.0" promptText="0.00" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            
+            <!-- Refund Processing -->
+            <VBox maxWidth="800.0" spacing="15.0">
+               <children>
+                  <Label text="Processing Information">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  
+                  <HBox spacing="20.0">
+                     <children>
+                        <VBox maxWidth="250.0" spacing="8.0">
+                           <children>
+                              <Label text="Processing Method" />
+                              <ComboBox fx:id="processingMethodComboBox" maxWidth="230.0" promptText="Select Method" />
+                           </children>
+                        </VBox>
+                        
+                        <VBox maxWidth="250.0" spacing="8.0">
+                           <children>
+                              <Label text="Expected Processing Time" />
+                              <TextField fx:id="processingTimeField" editable="false" maxWidth="230.0" />
+                           </children>
+                        </VBox>
+                        
+                        <VBox maxWidth="250.0" spacing="8.0">
+                           <children>
+                              <Label text="Transaction Reference" />
+                              <TextField fx:id="transactionRefField" maxWidth="230.0" promptText="Enter reference" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            
+            <!-- Action Buttons -->
+            <HBox alignment="CENTER" maxWidth="800.0" spacing="20.0">
+               <children>
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSave" text="Save Changes">
                      <font>
                         <Font size="14.0" />
                      </font>
-                  </Text>
-               </VBox>
-               
-               <VBox spacing="10">
-                  <Label text="Customer Explanation:" textFill="#7f8c8d">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextArea fx:id="customerExplanationArea" editable="false" maxHeight="100.0" text="Flight AA-1234 was cancelled due to weather conditions. I was offered rebooking but the alternative flights don't work with my schedule. Requesting full refund as per airline policy for weather-related cancellations." wrapText="true" style="-fx-background-color: #f8f9fa; -fx-border-color: #e0e6ed; -fx-border-radius: 5;">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </TextArea>
-               </VBox>
-            </VBox>
-            
-            <!-- Supporting Documents -->
-            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
-               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="📎 Supporting Documents">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
-               </Text>
-               
-               <ListView fx:id="documentsListView" maxHeight="120.0" style="-fx-background-color: transparent; -fx-border-color: #e0e6ed; -fx-border-radius: 5;" />
-               
-               <HBox spacing="15">
-                  <Button fx:id="viewDocumentButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 8; -fx-background-radius: 5;" text="👁️ View Document">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
                   </Button>
-                  <Button fx:id="downloadAllButton" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-padding: 8; -fx-background-radius: 5;" text="📥 Download All">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Button>
-               </HBox>
-            </VBox>
-            
-            <!-- Admin Review Section -->
-            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
-               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="🛡️ Admin Review">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
-               </Text>
-               
-               <VBox spacing="15">
-                  <VBox spacing="5">
-                     <Label text="Review Notes:" textFill="#2c3e50">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <TextArea fx:id="reviewNotesArea" minHeight="80.0" promptText="Add your review notes here..." style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5;" wrapText="true">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
-                     </TextArea>
-                  </VBox>
-                  
-                  <HBox spacing="15">
-                     <VBox spacing="5">
-                        <Label text="Refund Method:" textFill="#2c3e50">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="refundMethodComboBox" promptText="Select refund method" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-min-width: 200; -fx-font-size: 14px;">
-                        </ComboBox>
-                     </VBox>
-                     
-                     <VBox spacing="5">
-                        <Label text="Processing Time:" textFill="#2c3e50">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="processingTimeComboBox" promptText="Expected processing time" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-min-width: 200; -fx-font-size: 14px;">
-                        </ComboBox>
-                     </VBox>
-                  </HBox>
-               </VBox>
-               
-               <Separator />
-               
-               <HBox spacing="15">
-                  <Button fx:id="saveReviewButton" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-padding: 15; -fx-background-radius: 5;" text="💾 Save Review">
+                  <Button fx:id="approveButton" mnemonicParsing="false" onAction="#handleApprove" text="Approve Refund">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <Button fx:id="rejectRefundButton" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 15; -fx-background-radius: 5;" text="❌ Reject Refund">
+                  <Button fx:id="rejectButton" mnemonicParsing="false" onAction="#handleReject" text="Reject Request">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="approveRefundButton" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 15; -fx-background-radius: 5;" text="✅ Approve Refund">
+                  <Button fx:id="requestInfoButton" mnemonicParsing="false" onAction="#handleRequestInfo" text="Request More Info">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font size="14.0" />
                      </font>
                   </Button>
-               </HBox>
-            </VBox>
-         </VBox>
-      </ScrollPane>
-   </center>
-</BorderPane> 
+                  <Button fx:id="exportButton" mnemonicParsing="false" onAction="#handleExport" text="Export Report">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </content>
+</ScrollPane> 
