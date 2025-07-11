@@ -1,10 +1,11 @@
 package service;
 
-import model.User;
-import model.Customer;
-import dao.UserDAO;
 import java.util.List;
 import java.util.Optional;
+
+import dao.UserDAO;
+import model.Customer;
+import model.User;
 
 /**
  * Service class for user-related operations including registration, login, and profile management.

@@ -29,7 +29,7 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 - **Multiple Payment Methods**: Support for various payment options
 - **Payment Confirmation**: Detailed payment receipts and confirmations
 
-### 🎫 Support Ticketing System
+###  Support Ticketing System
 - **Ticket Submission**: Easy-to-use support ticket creation
 - **Ticket Overview**: Dashboard view of all support tickets
 - **Ticket Status Tracking**: Real-time status updates for submitted tickets
@@ -197,7 +197,7 @@ Project_Pikachu/
 - **Customer Analytics**: View customer data and booking patterns
 - **System Reports**: Generate reports and analytics
 
-## 🔧 Configuration
+##  Configuration
 
 ### Data Files
 The application uses JSON files for data persistence located in `src/main/resources/data/`:

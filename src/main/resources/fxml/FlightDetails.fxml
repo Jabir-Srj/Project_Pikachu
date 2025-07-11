@@ -55,8 +55,8 @@
                               <Label text="Arrival Airport" />
                               <ComboBox fx:id="arrivalAirportComboBox" maxWidth="350.0" />
                            </children>
-                        </VBox>
-                        
+                  </VBox>
+                  
                         <VBox maxWidth="400.0" spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label text="Departure Date" />
@@ -71,9 +71,9 @@
                               <Label text="Flight Status" />
                               <ComboBox fx:id="statusComboBox" maxWidth="350.0" />
                            </children>
-                        </VBox>
+                     </VBox>
                      </children>
-                  </HBox>
+               </HBox>
                </children>
             </VBox>
             
@@ -81,9 +81,9 @@
             <VBox maxWidth="1000.0" spacing="15.0">
                <children>
                   <Label text="Pricing and Capacity">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
                   </Label>
                   
                   <HBox spacing="20.0">
@@ -99,8 +99,8 @@
                               <Label text="Business Price" />
                               <TextField fx:id="businessPriceField" maxWidth="350.0" promptText="0.00" />
                            </children>
-                        </VBox>
-                        
+                  </VBox>
+                  
                         <VBox maxWidth="400.0" spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label text="Total Capacity" />
@@ -112,9 +112,9 @@
                               <Label text="Booked Seats" />
                               <TextField fx:id="bookedSeatsField" editable="false" maxWidth="350.0" />
                            </children>
-                        </VBox>
+                     </VBox>
                      </children>
-                  </HBox>
+               </HBox>
                </children>
             </VBox>
             
@@ -132,10 +132,10 @@
                         <VBox alignment="CENTER" maxWidth="200.0" spacing="5.0">
                            <children>
                               <Label fx:id="totalRevenueLabel" text="0.00">
-                                 <font>
+                        <font>
                                     <Font name="System Bold" size="20.0" />
-                                 </font>
-                              </Label>
+                        </font>
+                     </Label>
                               <Label text="Total Revenue" />
                            </children>
                         </VBox>
@@ -143,10 +143,10 @@
                         <VBox alignment="CENTER" maxWidth="200.0" spacing="5.0">
                            <children>
                               <Label fx:id="occupancyRateLabel" text="0">
-                                 <font>
+                        <font>
                                     <Font name="System Bold" size="20.0" />
-                                 </font>
-                              </Label>
+                        </font>
+                     </Label>
                               <Label text="Occupancy Rate" />
                            </children>
                         </VBox>
@@ -154,10 +154,10 @@
                         <VBox alignment="CENTER" maxWidth="200.0" spacing="5.0">
                            <children>
                               <Label fx:id="averagePriceLabel" text="0.00">
-                                 <font>
+                        <font>
                                     <Font name="System Bold" size="20.0" />
-                                 </font>
-                              </Label>
+                        </font>
+                     </Label>
                               <Label text="Average Price" />
                            </children>
                         </VBox>
@@ -172,10 +172,10 @@
                   <HBox alignment="CENTER_LEFT" spacing="15.0">
                      <children>
                         <Label text="Passenger List">
-                           <font>
+                        <font>
                               <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
+                        </font>
+                     </Label>
                         <Button fx:id="exportPassengersButton" mnemonicParsing="false" onAction="#handleExportPassengers" text="Export List" />
                         <Button fx:id="checkInAllButton" mnemonicParsing="false" onAction="#handleCheckInAll" text="Check-In All" />
                      </children>
@@ -191,8 +191,8 @@
                      </columns>
                   </TableView>
                </children>
-            </VBox>
-            
+               </VBox>
+               
             <!-- Flight Notes -->
             <VBox maxWidth="1000.0" spacing="15.0">
                <children>
@@ -209,8 +209,8 @@
                               <Label text="Flight Notes" />
                               <TextArea fx:id="flightNotesArea" maxWidth="420.0" prefHeight="80.0" promptText="Flight notes and updates..." />
                            </children>
-                        </VBox>
-                        
+                     </VBox>
+                     
                         <VBox maxWidth="450.0" spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label text="Recent Updates" />
@@ -222,11 +222,11 @@
                                  </columns>
                               </TableView>
                            </children>
-                        </VBox>
+                     </VBox>
                      </children>
                   </HBox>
                </children>
-            </VBox>
+               </VBox>
             
             <!-- Action Buttons -->
             <HBox alignment="CENTER" maxWidth="800.0" spacing="15.0">
@@ -243,6 +243,6 @@
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
-      </VBox>
+         </VBox>
    </content>
-</ScrollPane> 
+      </ScrollPane>

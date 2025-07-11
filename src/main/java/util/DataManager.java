@@ -305,8 +305,8 @@ public class DataManager {
             
             // Set flight properties with null checks
             if (flightNumber != null && !flightNumber.trim().isEmpty()) {
-                flight.setFlightId("FL_" + flightNumber); // Generate ID from flight number
-                flight.setFlightNumber(flightNumber);
+            flight.setFlightId("FL_" + flightNumber); // Generate ID from flight number
+            flight.setFlightNumber(flightNumber);
             } else {
                 flight.setFlightId("FL_UNKNOWN_" + System.currentTimeMillis());
                 flight.setFlightNumber("UNKNOWN");
@@ -320,7 +320,7 @@ public class DataManager {
             // Parse dates (format: 2025-01-04T08:00:00)
             if (departureTimeStr != null && !departureTimeStr.trim().isEmpty()) {
                 try {
-                    flight.setDepartureTime(LocalDateTime.parse(departureTimeStr));
+                flight.setDepartureTime(LocalDateTime.parse(departureTimeStr));
                 } catch (Exception e) {
                     System.err.println("Error parsing departure time: " + departureTimeStr);
                     // Set default time if parsing fails
@@ -332,7 +332,7 @@ public class DataManager {
             
             if (arrivalTimeStr != null && !arrivalTimeStr.trim().isEmpty()) {
                 try {
-                    flight.setArrivalTime(LocalDateTime.parse(arrivalTimeStr));
+                flight.setArrivalTime(LocalDateTime.parse(arrivalTimeStr));
                 } catch (Exception e) {
                     System.err.println("Error parsing arrival time: " + arrivalTimeStr);
                     // Set default time if parsing fails
@@ -345,7 +345,7 @@ public class DataManager {
             // Parse numeric values
             if (priceStr != null && !priceStr.trim().isEmpty()) {
                 try {
-                    flight.setBasePrice(Double.parseDouble(priceStr));
+                flight.setBasePrice(Double.parseDouble(priceStr));
                 } catch (NumberFormatException e) {
                     flight.setBasePrice(0.0);
                 }
@@ -355,7 +355,7 @@ public class DataManager {
             
             if (availableSeatsStr != null && !availableSeatsStr.trim().isEmpty()) {
                 try {
-                    flight.setAvailableSeats(Integer.parseInt(availableSeatsStr));
+                flight.setAvailableSeats(Integer.parseInt(availableSeatsStr));
                 } catch (NumberFormatException e) {
                     flight.setAvailableSeats(0);
                 }
@@ -365,7 +365,7 @@ public class DataManager {
             
             if (totalSeatsStr != null && !totalSeatsStr.trim().isEmpty()) {
                 try {
-                    flight.setTotalSeats(Integer.parseInt(totalSeatsStr));
+                flight.setTotalSeats(Integer.parseInt(totalSeatsStr));
                 } catch (NumberFormatException e) {
                     flight.setTotalSeats(180);
                 }
