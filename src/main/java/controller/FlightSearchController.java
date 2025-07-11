@@ -40,6 +40,10 @@ public class FlightSearchController implements Initializable {
     @FXML private VBox flightResultsContainer;
     @FXML private Button loadMoreButton;
     @FXML private Button backButton;
+    @FXML private VBox customerSection;
+    @FXML private VBox adminSection;
+    @FXML private VBox adminFlightsContainer;
+    @FXML private Button addFlightButton;
     
     // FlightDetails.fxml controls
     @FXML private Label flightNumberLabel;
@@ -81,6 +85,9 @@ public class FlightSearchController implements Initializable {
     }
     
     private void setupUI() {
+        // Show appropriate section based on user type
+        setupUserSections();
+        
         // Setup airport dropdowns
         if (fromComboBox != null) {
             fromComboBox.setItems(FXCollections.observableArrayList(airports));
@@ -112,6 +119,23 @@ public class FlightSearchController implements Initializable {
         setupButtonActions();
     }
     
+    private void setupUserSections() {
+        // Show appropriate section based on user type
+        boolean isAdmin = false;
+        if (currentUser != null && currentUser.getRole() != null) {
+            isAdmin = "ADMIN".equals(currentUser.getRole().name());
+        }
+        // If currentUser is null, default to customer view
+        if (customerSection != null) {
+            customerSection.setVisible(!isAdmin);
+            customerSection.setManaged(!isAdmin);
+        }
+        if (adminSection != null) {
+            adminSection.setVisible(isAdmin);
+            adminSection.setManaged(isAdmin);
+        }
+    }
+    
     private void setupButtonActions() {
         if (searchButton != null) {
             searchButton.setOnAction(e -> handleSearch());
@@ -123,6 +147,10 @@ public class FlightSearchController implements Initializable {
         
         if (loadMoreButton != null) {
             loadMoreButton.setOnAction(e -> loadMoreFlights());
+        }
+        
+        if (addFlightButton != null) {
+            addFlightButton.setOnAction(e -> addNewFlight());
         }
         
         // Flight details buttons
@@ -150,16 +178,60 @@ public class FlightSearchController implements Initializable {
     }
     
     private void loadInitialData() {
+        // Load all flights
+        List<Flight> allFlights = flightService.getAllFlights();
+        
         if (flightResultsContainer != null) {
-            // Load all flights initially
-            List<Flight> allFlights = flightService.getAllFlights();
+            // Load flights for customer search results
             displayFlights(allFlights);
+        }
+        
+        if (adminFlightsContainer != null) {
+            // Load flights for admin view
+            displayAdminFlights(allFlights);
         }
         
         // If this is flight details view, load selected flight data
         if (flightNumberLabel != null && selectedFlight != null) {
             displayFlightDetails();
         }
+    }
+    
+    private void displayAdminFlights(List<Flight> flights) {
+        if (adminFlightsContainer == null) return;
+        
+        adminFlightsContainer.getChildren().clear();
+        
+        for (Flight flight : flights) {
+            VBox flightCard = createAdminFlightCard(flight);
+            adminFlightsContainer.getChildren().add(flightCard);
+        }
+    }
+    
+    private VBox createAdminFlightCard(Flight flight) {
+        VBox card = new VBox(10);
+        card.getStyleClass().addAll("content-card", "shadow-card-medium", "border-yellow-light");
+        
+        Label flightInfo = new Label(String.format("%s: %s → %s", 
+            flight.getFlightNumber(), flight.getDepartureAirport(), flight.getArrivalAirport()));
+        flightInfo.getStyleClass().add("flight-card-title");
+        
+        Label timeInfo = new Label(String.format("Departure: %s | Arrival: %s", 
+            flight.getDepartureTime().toLocalTime(), flight.getArrivalTime().toLocalTime()));
+        
+        Label detailsInfo = new Label(String.format("$%.2f | %d/%d seats | %s", 
+            flight.getBasePrice(), flight.getAvailableSeats(), flight.getTotalSeats(), flight.getStatus()));
+        
+        Button editFlightBtn = new Button("Edit Flight");
+        editFlightBtn.getStyleClass().addAll("button-secondary");
+        editFlightBtn.setOnAction(e -> editFlight());
+        
+        Button viewDetailsBtn = new Button("View Details");
+        viewDetailsBtn.getStyleClass().addAll("button-primary");
+        viewDetailsBtn.setOnAction(e -> viewFlightDetails(flight));
+        
+        card.getChildren().addAll(flightInfo, timeInfo, detailsInfo, editFlightBtn, viewDetailsBtn);
+        return card;
     }
     
     @FXML
@@ -351,6 +423,11 @@ public class FlightSearchController implements Initializable {
     private void loadMoreFlights() {
         // Load additional flights if available
         showAlert("All available flights are displayed.");
+    }
+    
+    private void addNewFlight() {
+        // Admin only - add new flight
+        showAlert("Add new flight functionality will be implemented in future version.");
     }
     
     private void handleBack() {

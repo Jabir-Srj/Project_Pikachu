@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.control.Separator?>
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
            fx:controller="controller.BookingController"
@@ -183,7 +191,7 @@
             </VBox>
             
             <!-- Passenger Information -->
-            <VBox spacing="25" styleClass="content-card,shadow-card-medium">
+            <VBox spacing="25" styleClass="content-card shadow-card-medium">
                <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="👥 Passenger Information">
                   <font>
                      <Font name="System Bold" size="22.0" />
@@ -204,7 +212,7 @@
             <!-- Contact Information -->
             <HBox spacing="30">
                <!-- Customer Details -->
-               <VBox spacing="20" styleClass="content-card,shadow-card-medium" HBox.hgrow="ALWAYS">
+               <VBox spacing="20" styleClass="content-card shadow-card-medium" HBox.hgrow="ALWAYS">
                   <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="📞 Contact Information">
                      <font>
                         <Font name="System Bold" size="22.0" />
@@ -253,7 +261,7 @@
                </VBox>
                
                <!-- Payment Information -->
-               <VBox spacing="20" styleClass="content-card,shadow-card-medium" HBox.hgrow="ALWAYS">
+               <VBox spacing="20" styleClass="content-card shadow-card-medium" HBox.hgrow="ALWAYS">
                   <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="💳 Payment Information">
                      <font>
                         <Font name="System Bold" size="22.0" />
@@ -303,7 +311,7 @@
             </HBox>
             
             <!-- Actions Panel -->
-            <HBox spacing="20" styleClass="content-card,shadow-card-medium" alignment="CENTER_LEFT">
+            <HBox spacing="20" styleClass="content-card shadow-card-medium" alignment="CENTER_LEFT">
                <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="⚡ Quick Actions">
                   <font>
                      <Font name="System Bold" size="22.0" />
@@ -315,7 +323,7 @@
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Button>
-               <Button fx:id="changeSeatButton" styleClass="button-primary,shadow-subtle" text="🪑 Change Seat">
+               <Button fx:id="changeSeatButton" styleClass="button-primary shadow-subtle" text="🪑 Change Seat">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>

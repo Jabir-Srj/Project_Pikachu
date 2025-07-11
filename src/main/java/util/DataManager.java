@@ -15,6 +15,7 @@ import model.Booking;
 import model.Customer;
 import model.FAQ;
 import model.Flight;
+import model.FlightStatus;
 import model.RefundRequest;
 import model.Ticket;
 import model.User;
@@ -199,28 +200,165 @@ public class DataManager {
 
     private List<Flight> loadFlightsFromFile() {
         try {
-            // Return sample flights for demo
+            String content = readFileContent(FLIGHTS_FILE);
+            
+            // If file is empty or doesn't exist, return empty list
+            if (content.trim().equals("[]") || content.trim().isEmpty()) {
+                return new ArrayList<>();
+            }
+            
             List<Flight> flights = new ArrayList<>();
             
-            Flight flight1 = new Flight("FL001", "AA123", "American Airlines", 
-                                      "JFK", "LAX", 
-                                      LocalDateTime.now().plusDays(1),
-                                      LocalDateTime.now().plusDays(1).plusHours(6),
-                                      299.99, 150);
+            // Simple JSON parsing for flights
+            // Remove brackets and split by flight objects
+            content = content.trim();
+            if (content.startsWith("[")) content = content.substring(1);
+            if (content.endsWith("]")) content = content.substring(0, content.length() - 1);
             
-            Flight flight2 = new Flight("FL002", "UA456", "United Airlines",
-                                      "LAX", "JFK",
-                                      LocalDateTime.now().plusDays(2),
-                                      LocalDateTime.now().plusDays(2).plusHours(5),
-                                      349.99, 180);
+            // Split by flight objects (look for closing and opening braces)
+            String[] flightBlocks = content.split("\\},\\s*\\{");
             
-            flights.add(flight1);
-            flights.add(flight2);
+            for (String block : flightBlocks) {
+                if (block.trim().isEmpty()) continue;
+                
+                // Clean up the block
+                block = block.trim();
+                if (!block.startsWith("{")) block = "{" + block;
+                if (!block.endsWith("}")) block = block + "}";
+                
+                try {
+                    Flight flight = parseFlightFromJson(block);
+                    if (flight != null) {
+                        flights.add(flight);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error parsing flight: " + e.getMessage());
+                    // Continue with next flight
+                }
+            }
             
+            System.out.println("Loaded " + flights.size() + " flights from " + FLIGHTS_FILE);
             return flights;
+            
         } catch (Exception e) {
-            System.err.println("Error loading flights: " + e.getMessage());
+            System.err.println("Error loading flights from file: " + e.getMessage());
             return new ArrayList<>();
+        }
+    }
+    
+    /**
+     * Parse a flight object from JSON string
+     * @param jsonBlock JSON string representing a flight
+     * @return Flight object
+     */
+    private Flight parseFlightFromJson(String jsonBlock) {
+        try {
+            Flight flight = new Flight();
+            
+            // Extract fields using simple string manipulation
+            String flightNumber = extractJsonValue(jsonBlock, "flightNumber");
+            String origin = extractJsonValue(jsonBlock, "origin");
+            String destination = extractJsonValue(jsonBlock, "destination");
+            String departureTimeStr = extractJsonValue(jsonBlock, "departureTime");
+            String arrivalTimeStr = extractJsonValue(jsonBlock, "arrivalTime");
+            String priceStr = extractJsonValue(jsonBlock, "price");
+            String availableSeatsStr = extractJsonValue(jsonBlock, "availableSeats");
+            String totalSeatsStr = extractJsonValue(jsonBlock, "totalSeats");
+            String aircraft = extractJsonValue(jsonBlock, "aircraft");
+            String status = extractJsonValue(jsonBlock, "status");
+            
+            // Set flight properties
+            flight.setFlightId("FL_" + flightNumber); // Generate ID from flight number
+            flight.setFlightNumber(flightNumber);
+            flight.setAirline("Pikachu Airlines"); // Default airline
+            flight.setDepartureAirport(origin);
+            flight.setArrivalAirport(destination);
+            flight.setAircraft(aircraft);
+            
+            // Parse dates (format: 2025-01-04T08:00:00)
+            if (departureTimeStr != null) {
+                flight.setDepartureTime(LocalDateTime.parse(departureTimeStr));
+            }
+            if (arrivalTimeStr != null) {
+                flight.setArrivalTime(LocalDateTime.parse(arrivalTimeStr));
+            }
+            
+            // Parse numeric values
+            if (priceStr != null) {
+                flight.setBasePrice(Double.parseDouble(priceStr));
+            }
+            if (availableSeatsStr != null) {
+                flight.setAvailableSeats(Integer.parseInt(availableSeatsStr));
+            }
+            if (totalSeatsStr != null) {
+                flight.setTotalSeats(Integer.parseInt(totalSeatsStr));
+            }
+            
+            // Parse status
+            if (status != null) {
+                try {
+                    // Map JSON status values to enum values
+                    FlightStatus flightStatus;
+                    switch (status) {
+                        case "ON_TIME":
+                            flightStatus = FlightStatus.SCHEDULED;
+                            break;
+                        case "DELAYED":
+                            flightStatus = FlightStatus.DELAYED;
+                            break;
+                        case "CANCELLED":
+                            flightStatus = FlightStatus.CANCELLED;
+                            break;
+                        default:
+                            flightStatus = FlightStatus.SCHEDULED;
+                    }
+                    flight.setStatus(flightStatus);
+                } catch (IllegalArgumentException e) {
+                    flight.setStatus(FlightStatus.SCHEDULED); // Default status
+                }
+            }
+            
+            return flight;
+            
+        } catch (Exception e) {
+            System.err.println("Error parsing flight JSON: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    /**
+     * Extract a value from JSON string
+     * @param json JSON string
+     * @param key Key to extract
+     * @return Extracted value or null
+     */
+    private String extractJsonValue(String json, String key) {
+        try {
+            String pattern = "\"" + key + "\"\\s*:\\s*";
+            int startIndex = json.indexOf(pattern);
+            if (startIndex == -1) return null;
+            
+            startIndex += pattern.length();
+            
+            // Check if value is a string (starts with quote)
+            boolean isString = json.charAt(startIndex) == '"';
+            
+            if (isString) {
+                startIndex++; // Skip opening quote
+                int endIndex = json.indexOf('"', startIndex);
+                if (endIndex == -1) return null;
+                return json.substring(startIndex, endIndex);
+            } else {
+                // Numeric or boolean value
+                int endIndex = json.indexOf(',', startIndex);
+                if (endIndex == -1) {
+                    endIndex = json.indexOf('}', startIndex);
+                }
+                if (endIndex == -1) return null;
+                return json.substring(startIndex, endIndex).trim();
+            }
+        } catch (Exception e) {
+            return null;
         }
     }
 

@@ -121,42 +121,42 @@ public class AdminDashboardController implements Initializable {
                 navigationManager.showAdminDashboard();
             });
         }
-
+        
         if (flightsButton != null) {
             flightsButton.setOnAction(e -> {
                 System.out.println("Flights clicked");
                 navigationManager.showFlightInformation();
             });
         }
-
+        
         if (bookingsButton != null) {
             bookingsButton.setOnAction(e -> {
                 System.out.println("Bookings clicked");
                 navigationManager.showBookingOverview();
             });
         }
-
+        
         if (customersButton != null) {
             customersButton.setOnAction(e -> {
                 System.out.println("Customers clicked");
                 navigationManager.showCustomerManagement();
             });
         }
-
+        
         if (ticketsButton != null) {
             ticketsButton.setOnAction(e -> {
                 System.out.println("Tickets clicked");
                 navigationManager.showTicketOverview();
             });
         }
-
+        
         if (refundsButton != null) {
             refundsButton.setOnAction(e -> {
                 System.out.println("Refunds clicked");
                 navigationManager.navigateTo(NavigationManager.REFUND_APPROVAL);
             });
         }
-
+        
         if (reportsButton != null) {
             reportsButton.setOnAction(e -> {
                 System.out.println("Reports clicked");
@@ -164,7 +164,7 @@ public class AdminDashboardController implements Initializable {
                 navigationManager.showTicketOverview();
             });
         }
-
+        
         if (settingsButton != null) {
             settingsButton.setOnAction(e -> {
                 System.out.println("Settings button clicked");
@@ -186,21 +186,21 @@ public class AdminDashboardController implements Initializable {
                 navigationManager.showFlightInformation();
             });
         }
-
+        
         if (viewBookingsButton != null) {
             viewBookingsButton.setOnAction(e -> {
                 System.out.println("View Bookings clicked");
                 navigationManager.showBookingOverview();
             });
         }
-
+        
         if (manageUsersButton != null) {
             manageUsersButton.setOnAction(e -> {
                 System.out.println("Manage Users clicked");
                 navigationManager.showCustomerManagement();
             });
         }
-
+        
         if (generateReportButton != null) {
             generateReportButton.setOnAction(e -> {
                 System.out.println("Generate Report clicked");
