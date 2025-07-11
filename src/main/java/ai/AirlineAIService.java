@@ -1,13 +1,14 @@
 package ai;
 
 import java.util.concurrent.CompletableFuture;
+import javafx.scene.control.TextArea;
 
+// Try to import Langchain4j classes, but handle missing dependencies gracefully
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.StreamingChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModelName;
 import dev.langchain4j.model.openai.OpenAiStreamingChatModel;
 import dev.langchain4j.service.AiServices;
-import javafx.scene.control.TextArea;
 
 /**
  * Main AI service for Pikachu Airlines customer support
@@ -18,6 +19,7 @@ public class AirlineAIService {
     private AirlineAssistant assistant;
     private boolean isInitialized = false;
     private static AirlineAIService instance;
+    private boolean langchain4jAvailable = false;
     
     // System prompt for the AI assistant
     private static final String SYSTEM_PROMPT = 
@@ -37,7 +39,15 @@ public class AirlineAIService {
         "Always maintain a positive and helpful tone. Keep responses concise but informative.";
     
     private AirlineAIService() {
-        // Private constructor for singleton
+        // Check if Langchain4j is available
+        try {
+            Class.forName("dev.langchain4j.model.chat.StreamingChatModel");
+            langchain4jAvailable = true;
+            System.out.println("Langchain4j is available - AI features will be enabled");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Langchain4j not available - AI features will be disabled");
+            langchain4jAvailable = false;
+        }
     }
     
     /**
@@ -57,6 +67,12 @@ public class AirlineAIService {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 System.out.println("Initializing Pikachu Airlines AI Service...");
+                
+                if (!langchain4jAvailable) {
+                    System.out.println("AI Service disabled - Langchain4j dependencies not available");
+                    isInitialized = false;
+                    return false;
+                }
                 
                 // Create streaming chat model with OpenAI
                 StreamingChatModel streamingModel = createStreamingChatModel();
@@ -84,6 +100,10 @@ public class AirlineAIService {
      * Creates the streaming chat model with OpenAI
      */
     private StreamingChatModel createStreamingChatModel() {
+        if (!langchain4jAvailable) {
+            throw new RuntimeException("Langchain4j not available");
+        }
+        
         try {
             return OpenAiStreamingChatModel.builder()
                 .apiKey(ApiKeys.OPENAI_API_KEY)
@@ -116,13 +136,21 @@ public class AirlineAIService {
      * Sends a message to the AI assistant and handles streaming response
      */
     public void sendMessage(String message, TextArea chatArea, Runnable onComplete) {
+        if (!langchain4jAvailable) {
+            chatArea.appendText("❌ AI Service is not available. Langchain4j dependencies are missing.\n\n");
+            if (onComplete != null) onComplete.run();
+            return;
+        }
+        
         if (!isInitialized) {
             chatArea.appendText("❌ AI Service is not initialized. Please wait and try again.\n\n");
+            if (onComplete != null) onComplete.run();
             return;
         }
         
         if (assistant == null) {
             chatArea.appendText("❌ AI Assistant is not available. Please contact customer service.\n\n");
+            if (onComplete != null) onComplete.run();
             return;
         }
         
@@ -146,6 +174,7 @@ public class AirlineAIService {
             chatArea.appendText("❌ Error sending message: " + e.getMessage() + "\n\n");
             System.err.println("Error in sendMessage: " + e.getMessage());
             e.printStackTrace();
+            if (onComplete != null) onComplete.run();
         }
     }
     
@@ -153,6 +182,10 @@ public class AirlineAIService {
      * Gets a simple response (non-streaming) for testing
      */
     public String getSimpleResponse(String message) {
+        if (!langchain4jAvailable) {
+            return "AI Service is not available. Langchain4j dependencies are missing. Please contact customer service at 1-800-PIKACHU.";
+        }
+        
         if (!isInitialized || assistant == null) {
             return "AI Service is not available. Please contact customer service at 1-800-PIKACHU.";
         }
@@ -171,7 +204,7 @@ public class AirlineAIService {
      * Checks if the AI service is ready for use
      */
     public boolean isReady() {
-        return isInitialized && assistant != null;
+        return langchain4jAvailable && isInitialized && assistant != null;
     }
     
     /**
@@ -179,5 +212,12 @@ public class AirlineAIService {
      */
     public boolean isInitialized() {
         return isInitialized;
+    }
+    
+    /**
+     * Checks if Langchain4j is available
+     */
+    public boolean isLangchain4jAvailable() {
+        return langchain4jAvailable;
     }
 } 

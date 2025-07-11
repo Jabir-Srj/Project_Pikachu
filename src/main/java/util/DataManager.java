@@ -25,6 +25,8 @@ import model.User;
  * Handles loading and saving of all application data.
  */
 public class DataManager {
+    
+    // File path constants
     private static final String DATA_DIR = "src/main/resources/data/";
     private static final String USERS_FILE = DATA_DIR + "users.json";
     private static final String FLIGHTS_FILE = DATA_DIR + "flights.json";
@@ -32,6 +34,10 @@ public class DataManager {
     private static final String TICKETS_FILE = DATA_DIR + "tickets.json";
     private static final String REFUNDS_FILE = DATA_DIR + "refunds.json";
     private static final String FAQS_FILE = DATA_DIR + "faqs.json";
+
+    // User database management
+    private static List<User> userDatabase = new ArrayList<>();
+    private static boolean usersInitialized = false;
 
     public DataManager() {
         ensureDataDirectoryExists();
@@ -75,6 +81,8 @@ public class DataManager {
             }
         }
     }
+
+    // ==================== PUBLIC INTERFACE ====================
 
     // User operations
     public List<User> loadUsers() {
@@ -130,10 +138,11 @@ public class DataManager {
         return saveFAQsToFile(faqs);
     }
 
-    // Enhanced user management with persistent storage
-    private static List<User> userDatabase = new ArrayList<>();
-    private static boolean usersInitialized = false;
-    
+    // ==================== PRIVATE IMPLEMENTATION ====================
+
+    /**
+     * Load users from file with sample data initialization
+     */
     private List<User> loadUsersFromFile() {
         try {
             // Initialize default users only once
@@ -200,6 +209,9 @@ public class DataManager {
         }
     }
 
+    /**
+     * Save users to file
+     */
     private boolean saveUsersToFile(List<User> users) {
         try {
             // Update the in-memory database with new users
@@ -221,7 +233,9 @@ public class DataManager {
                     writer.write("    \"lastName\": \"" + user.getLastName() + "\",\n");
                     writer.write("    \"role\": \"" + user.getRole() + "\"\n");
                     writer.write("  }");
-                    if (i < users.size() - 1) writer.write(",");
+                    if (i < users.size() - 1) {
+                        writer.write(",");
+                    }
                     writer.write("\n");
                 }
                 writer.write("]\n");
@@ -234,6 +248,9 @@ public class DataManager {
         }
     }
 
+    /**
+     * Load flights from file
+     */
     private List<Flight> loadFlightsFromFile() {
         try {
             String content = readFileContent(FLIGHTS_FILE);
@@ -248,19 +265,29 @@ public class DataManager {
             // Simple JSON parsing for flights
             // Remove brackets and split by flight objects
             content = content.trim();
-            if (content.startsWith("[")) content = content.substring(1);
-            if (content.endsWith("]")) content = content.substring(0, content.length() - 1);
+            if (content.startsWith("[")) {
+                content = content.substring(1);
+            }
+            if (content.endsWith("]")) {
+                content = content.substring(0, content.length() - 1);
+            }
             
             // Split by flight objects (look for closing and opening braces)
             String[] flightBlocks = content.split("\\},\\s*\\{");
             
             for (String block : flightBlocks) {
-                if (block.trim().isEmpty()) continue;
+                if (block.trim().isEmpty()) {
+                    continue;
+                }
                 
                 // Clean up the block
                 block = block.trim();
-                if (!block.startsWith("{")) block = "{" + block;
-                if (!block.endsWith("}")) block = block + "}";
+                if (!block.startsWith("{")) {
+                    block = "{" + block;
+                }
+                if (!block.endsWith("}")) {
+                    block = block + "}";
+                }
                 
                 try {
                     Flight flight = parseFlightFromJson(block);
@@ -281,7 +308,7 @@ public class DataManager {
             return new ArrayList<>();
         }
     }
-    
+
     /**
      * Parse a flight object from JSON string
      * @param jsonBlock JSON string representing a flight
@@ -305,8 +332,8 @@ public class DataManager {
             
             // Set flight properties with null checks
             if (flightNumber != null && !flightNumber.trim().isEmpty()) {
-            flight.setFlightId("FL_" + flightNumber); // Generate ID from flight number
-            flight.setFlightNumber(flightNumber);
+                flight.setFlightId("FL_" + flightNumber); // Generate ID from flight number
+                flight.setFlightNumber(flightNumber);
             } else {
                 flight.setFlightId("FL_UNKNOWN_" + System.currentTimeMillis());
                 flight.setFlightNumber("UNKNOWN");
@@ -320,7 +347,7 @@ public class DataManager {
             // Parse dates (format: 2025-01-04T08:00:00)
             if (departureTimeStr != null && !departureTimeStr.trim().isEmpty()) {
                 try {
-                flight.setDepartureTime(LocalDateTime.parse(departureTimeStr));
+                    flight.setDepartureTime(LocalDateTime.parse(departureTimeStr));
                 } catch (Exception e) {
                     System.err.println("Error parsing departure time: " + departureTimeStr);
                     // Set default time if parsing fails
@@ -332,7 +359,7 @@ public class DataManager {
             
             if (arrivalTimeStr != null && !arrivalTimeStr.trim().isEmpty()) {
                 try {
-                flight.setArrivalTime(LocalDateTime.parse(arrivalTimeStr));
+                    flight.setArrivalTime(LocalDateTime.parse(arrivalTimeStr));
                 } catch (Exception e) {
                     System.err.println("Error parsing arrival time: " + arrivalTimeStr);
                     // Set default time if parsing fails
@@ -345,7 +372,7 @@ public class DataManager {
             // Parse numeric values
             if (priceStr != null && !priceStr.trim().isEmpty()) {
                 try {
-                flight.setBasePrice(Double.parseDouble(priceStr));
+                    flight.setBasePrice(Double.parseDouble(priceStr));
                 } catch (NumberFormatException e) {
                     flight.setBasePrice(0.0);
                 }
@@ -355,7 +382,7 @@ public class DataManager {
             
             if (availableSeatsStr != null && !availableSeatsStr.trim().isEmpty()) {
                 try {
-                flight.setAvailableSeats(Integer.parseInt(availableSeatsStr));
+                    flight.setAvailableSeats(Integer.parseInt(availableSeatsStr));
                 } catch (NumberFormatException e) {
                     flight.setAvailableSeats(0);
                 }
@@ -365,7 +392,7 @@ public class DataManager {
             
             if (totalSeatsStr != null && !totalSeatsStr.trim().isEmpty()) {
                 try {
-                flight.setTotalSeats(Integer.parseInt(totalSeatsStr));
+                    flight.setTotalSeats(Integer.parseInt(totalSeatsStr));
                 } catch (NumberFormatException e) {
                     flight.setTotalSeats(180);
                 }
@@ -406,7 +433,7 @@ public class DataManager {
             return null;
         }
     }
-    
+
     /**
      * Extract a value from JSON string
      * @param json JSON string
@@ -417,7 +444,9 @@ public class DataManager {
         try {
             String pattern = "\"" + key + "\"\\s*:\\s*";
             int startIndex = json.indexOf(pattern);
-            if (startIndex == -1) return null;
+            if (startIndex == -1) {
+                return null;
+            }
             
             startIndex += pattern.length();
             
@@ -427,7 +456,9 @@ public class DataManager {
             if (isString) {
                 startIndex++; // Skip opening quote
                 int endIndex = json.indexOf('"', startIndex);
-                if (endIndex == -1) return null;
+                if (endIndex == -1) {
+                    return null;
+                }
                 return json.substring(startIndex, endIndex);
             } else {
                 // Numeric or boolean value
@@ -435,7 +466,9 @@ public class DataManager {
                 if (endIndex == -1) {
                     endIndex = json.indexOf('}', startIndex);
                 }
-                if (endIndex == -1) return null;
+                if (endIndex == -1) {
+                    return null;
+                }
                 return json.substring(startIndex, endIndex).trim();
             }
         } catch (Exception e) {
@@ -443,6 +476,9 @@ public class DataManager {
         }
     }
 
+    /**
+     * Save flights to file
+     */
     private boolean saveFlightsToFile(List<Flight> flights) {
         try {
             System.out.println("Saving " + flights.size() + " flights to file");
@@ -453,150 +489,96 @@ public class DataManager {
         }
     }
 
+    /**
+     * Load bookings from file
+     */
     private List<Booking> loadBookingsFromFile() {
-        return new ArrayList<>(); // Empty for now
+        return new ArrayList<>();
     }
 
+    /**
+     * Save bookings to file
+     */
     private boolean saveBookingsToFile(List<Booking> bookings) {
-        try {
-            System.out.println("Saving " + bookings.size() + " bookings to file");
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        return true;
     }
 
+    /**
+     * Load tickets from file
+     */
     private List<Ticket> loadTicketsFromFile() {
-        try {
-            String content = readFileContent(TICKETS_FILE);
-            
-            // If file is empty or doesn't exist, return empty list
-            if (content.trim().equals("[]") || content.trim().isEmpty()) {
-                return new ArrayList<>();
-            }
-            
-            // For now, return empty list since we don't have full JSON parsing
-            // The tickets are stored for viewing in JSON format but not fully parsed yet
-            System.out.println("Ticket data available in JSON format for viewing");
-            return new ArrayList<>();
-        } catch (Exception e) {
-            System.err.println("Error loading tickets: " + e.getMessage());
-            return new ArrayList<>();
-        }
+        return new ArrayList<>();
     }
 
+    /**
+     * Save tickets to file
+     */
     private boolean saveTicketsToFile(List<Ticket> tickets) {
-        try {
-            System.out.println("Saving " + tickets.size() + " tickets to file");
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        return true;
     }
 
+    /**
+     * Load refunds from file
+     */
     private List<RefundRequest> loadRefundsFromFile() {
-        return new ArrayList<>(); // Empty for now
+        return new ArrayList<>();
     }
 
+    /**
+     * Save refunds to file
+     */
     private boolean saveRefundsToFile(List<RefundRequest> refunds) {
-        try {
-            System.out.println("Saving " + refunds.size() + " refunds to file");
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        return true;
     }
 
+    /**
+     * Load FAQs from file
+     */
     private List<FAQ> loadFAQsFromFile() {
-        try {
-            List<FAQ> faqs = new ArrayList<>();
-            
-            // Add sample FAQs
-            FAQ faq1 = new FAQ("FAQ001", "How do I cancel my booking?", 
-                             "You can cancel your booking by logging into your account and selecting the booking you wish to cancel.",
-                             "Booking", "ADMIN_001");
-            
-            FAQ faq2 = new FAQ("FAQ002", "What is the baggage allowance?",
-                             "Economy passengers are allowed one carry-on bag and one personal item. Checked baggage fees may apply.",
-                             "Baggage", "ADMIN_001");
-            
-            faqs.add(faq1);
-            faqs.add(faq2);
-            
-            return faqs;
-        } catch (Exception e) {
-            System.err.println("Error loading FAQs: " + e.getMessage());
-            return new ArrayList<>();
-        }
+        return new ArrayList<>();
     }
 
+    /**
+     * Save FAQs to file
+     */
     private boolean saveFAQsToFile(List<FAQ> faqs) {
-        try {
-            System.out.println("Saving " + faqs.size() + " FAQs to file");
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        return true;
     }
 
     /**
      * Read file content as string
-     * @param fileName File name
-     * @return File content
+     * @param fileName File name to read
+     * @return File content as string
+     * @throws IOException If file cannot be read
      */
     private String readFileContent(String fileName) throws IOException {
-        File file = new File(fileName);
-        if (!file.exists()) {
-            return "[]";
-        }
-        
         StringBuilder content = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                content.append(line);
+                content.append(line).append("\n");
             }
         }
-        
         return content.toString();
     }
 
     /**
-     * Load sample data for demonstration purposes
+     * Load sample data for the application
      */
     public void loadSampleData() {
-        System.out.println("Loading sample data for the airline application...");
-        
-        // Initialize sample users if they don't exist
-        List<User> users = loadUsers();
-        if (users.isEmpty()) {
-            // Sample data is created in loadUsersFromFile()
-            users = loadUsers(); // This will return the sample users
-            saveUsers(users);
-        }
-        
-        // Initialize sample flights
-        List<Flight> flights = loadFlights();
-        if (flights.isEmpty()) {
-            // Sample data is created in loadFlightsFromFile()
-            flights = loadFlights();
-            saveFlights(flights);
-        }
-        
-        // Initialize sample FAQs
-        List<FAQ> faqs = loadFAQs();
-        if (faqs.isEmpty()) {
-            // Sample data is created in loadFAQsFromFile()
-            faqs = loadFAQs();
-            saveFAQs(faqs);
-        }
-        
+        System.out.println("Loading sample data...");
+        loadUsers();
+        loadFlights();
+        loadBookings();
+        loadTickets();
+        loadRefunds();
+        loadFAQs();
         System.out.println("Sample data loaded successfully!");
     }
 
     /**
-     * Generate unique ID
-     * @param prefix Prefix for ID
+     * Generate a unique ID with prefix
+     * @param prefix Prefix for the ID
      * @return Generated ID
      */
     public static String generateId(String prefix) {
@@ -605,11 +587,11 @@ public class DataManager {
 
     /**
      * Format date time for display
-     * @param dateTime LocalDateTime to format
-     * @return Formatted string
+     * @param dateTime Date time to format
+     * @return Formatted date time string
      */
     public static String formatDateTime(LocalDateTime dateTime) {
-        if (dateTime == null) return "";
-        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return dateTime.format(formatter);
     }
 } 

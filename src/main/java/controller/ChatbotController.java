@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-import ai.AirlineAIService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -55,14 +54,22 @@ public class ChatbotController implements Initializable {
     @FXML private Button suggestion4Button;
     
     // Services and Data
-    private AirlineAIService aiService;
+    private Object aiService;
     private User currentUser;
     private boolean isAIInitialized = false;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentUser = (User) NavigationManager.getInstance().getSharedData("currentUser");
-        aiService = AirlineAIService.getInstance();
+        
+        // Try to initialize AI service if available
+        try {
+            Class<?> aiServiceClass = Class.forName("ai.AirlineAIService");
+            aiService = aiServiceClass.getMethod("getInstance").invoke(null);
+        } catch (Exception e) {
+            System.out.println("AI Service not available: " + e.getMessage());
+            aiService = null;
+        }
         
         setupEventHandlers();
         setupKeyboardShortcuts();
@@ -151,18 +158,39 @@ public class ChatbotController implements Initializable {
         showTypingIndicator(true);
         addSystemMessage("🤖 Initializing AI Assistant...");
         
-        aiService.initialize().thenAccept(success -> {
+        if (aiService == null) {
             Platform.runLater(() -> {
                 showTypingIndicator(false);
-                isAIInitialized = success;
-                
-                if (success) {
-                    addSystemMessage("✅ AI Assistant is ready! How can I help you today?");
-                } else {
-                    addSystemMessage("❌ AI Assistant is currently unavailable. Please contact customer service at 1-800-PIKACHU.");
-                }
+                isAIInitialized = false;
+                addSystemMessage("❌ AI Assistant is currently unavailable. Please contact customer service at 1-800-PIKACHU.");
             });
-        });
+            return;
+        }
+        
+        try {
+            java.util.concurrent.CompletableFuture<Boolean> initFuture = 
+                (java.util.concurrent.CompletableFuture<Boolean>) 
+                aiService.getClass().getMethod("initialize").invoke(aiService);
+            
+            initFuture.thenAccept(success -> {
+                Platform.runLater(() -> {
+                    showTypingIndicator(false);
+                    isAIInitialized = success;
+                    
+                    if (success) {
+                        addSystemMessage("✅ AI Assistant is ready! How can I help you today?");
+                    } else {
+                        addSystemMessage("❌ AI Assistant is currently unavailable. Please contact customer service at 1-800-PIKACHU.");
+                    }
+                });
+            });
+        } catch (Exception e) {
+            Platform.runLater(() -> {
+                showTypingIndicator(false);
+                isAIInitialized = false;
+                addSystemMessage("❌ AI Assistant is currently unavailable. Please contact customer service at 1-800-PIKACHU.");
+            });
+        }
     }
     
     /**
@@ -198,13 +226,28 @@ public class ChatbotController implements Initializable {
         chatContainer.getChildren().add(aiMessageBox);
         
         // Send message to AI service
-        aiService.sendMessage(message, responseArea, () -> {
+        if (aiService != null) {
+            try {
+                aiService.getClass().getMethod("sendMessage", String.class, TextArea.class, Runnable.class)
+                    .invoke(aiService, message, responseArea, (Runnable) () -> {
+                        Platform.runLater(() -> {
+                            showTypingIndicator(false);
+                            // Auto-scroll to bottom
+                            Platform.runLater(() -> chatScrollPane.setVvalue(1.0));
+                        });
+                    });
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    showTypingIndicator(false);
+                    addSystemMessage("❌ AI Service is currently unavailable. Please contact customer service at 1-800-PIKACHU.");
+                });
+            }
+        } else {
             Platform.runLater(() -> {
                 showTypingIndicator(false);
-                // Auto-scroll to bottom
-                Platform.runLater(() -> chatScrollPane.setVvalue(1.0));
+                addSystemMessage("❌ AI Service is currently unavailable. Please contact customer service at 1-800-PIKACHU.");
             });
-        });
+        }
     }
     
     /**

@@ -1,6 +1,5 @@
 package util;
 
-import ai.AirlineAIService;
 import service.BookingService;
 import service.FlightService;
 import service.TicketService;
@@ -17,7 +16,7 @@ public class ServiceLocator {
     private FlightService flightService;
     private BookingService bookingService;
     private TicketService ticketService;
-    private AirlineAIService aiService;
+    private Object aiService;
     private DataManager dataManager;
     
     private ServiceLocator() {
@@ -52,7 +51,7 @@ public class ServiceLocator {
         this.ticketService = ticketService;
     }
     
-    public void setAiService(AirlineAIService aiService) {
+    public void setAiService(Object aiService) {
         this.aiService = aiService;
     }
     
@@ -78,7 +77,7 @@ public class ServiceLocator {
         return ticketService;
     }
     
-    public AirlineAIService getAiService() {
+    public Object getAiService() {
         return aiService;
     }
     

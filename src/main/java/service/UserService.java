@@ -11,6 +11,7 @@ import model.User;
  * Service class for user-related operations including registration, login, and profile management.
  */
 public class UserService {
+    
     private UserDAO userDAO;
 
     public UserService() {
@@ -192,12 +193,24 @@ public class UserService {
      * @return true if valid
      */
     private boolean validateUserData(User user) {
-        if (user == null) return false;
-        if (user.getUsername() == null || user.getUsername().trim().isEmpty()) return false;
-        if (user.getEmail() == null || user.getEmail().trim().isEmpty()) return false;
-        if (user.getFirstName() == null || user.getFirstName().trim().isEmpty()) return false;
-        if (user.getLastName() == null || user.getLastName().trim().isEmpty()) return false;
-        if (user.getPassword() == null || user.getPassword().length() < 6) return false;
+        if (user == null) {
+            return false;
+        }
+        if (user.getUsername() == null || user.getUsername().trim().isEmpty()) {
+            return false;
+        }
+        if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
+            return false;
+        }
+        if (user.getFirstName() == null || user.getFirstName().trim().isEmpty()) {
+            return false;
+        }
+        if (user.getLastName() == null || user.getLastName().trim().isEmpty()) {
+            return false;
+        }
+        if (user.getPassword() == null || user.getPassword().length() < 6) {
+            return false;
+        }
 
         // Validate email format (simple validation)
         return user.getEmail().contains("@") && user.getEmail().contains(".");

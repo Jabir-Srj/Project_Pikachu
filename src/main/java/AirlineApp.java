@@ -1,4 +1,3 @@
-import ai.AirlineAIService;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import service.BookingService;
@@ -21,7 +20,6 @@ public class AirlineApp extends Application {
     private BookingService bookingService;
     private TicketService ticketService;
     private DataManager dataManager;
-    private AirlineAIService aiService;
     
     @Override
     public void start(Stage primaryStage) {
@@ -69,26 +67,16 @@ public class AirlineApp extends Application {
         // Load sample data
         dataManager.loadSampleData();
         
-        // Initialize AI service
-        aiService = AirlineAIService.getInstance();
-        serviceLocator.setAiService(aiService);
-        aiService.initialize().thenAccept(success -> {
-            if (success) {
-                System.out.println("AI Service initialized successfully!");
-            } else {
-                System.err.println("AI Service initialization failed!");
-            }
-        });
+        // AI service initialization removed - will be loaded on-demand when needed
     }
+    
+
     
 
     
     @Override
     public void stop() {
         // Clean up resources when application closes
-        if (aiService != null) {
-            // Any cleanup needed for AI service
-        }
         System.out.println("Application shutting down...");
     }
     

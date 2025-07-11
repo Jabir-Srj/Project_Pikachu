@@ -17,7 +17,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminDashboardController" stylesheets="@../css/application.css">
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" 
+           xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="controller.AdminDashboardController" 
+           stylesheets="@../css/application.css">
+   
    <!-- Top Navigation Bar -->
    <top>
       <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="admin-header">
@@ -48,6 +52,7 @@
          </HBox>
       </HBox>
    </top>
+   
    <!-- Left Sidebar Navigation -->
    <left>
       <VBox spacing="8.0" styleClass="admin-sidebar">
@@ -61,16 +66,25 @@
                </font>
             </Text>
          </VBox>
-         <Button fx:id="dashboardButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button-active" text="📊 Dashboard" />
-         <Button fx:id="flightsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="✈️ Flights" />
-         <Button fx:id="bookingsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="📋 Bookings" />
-         <Button fx:id="customersButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="👥 Customers" />
-         <Button fx:id="ticketsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="🎫 Support Tickets" />
-         <Button fx:id="refundsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="💰 Refunds" />
-         <Button fx:id="reportsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="📈 Reports" />
-         <Button fx:id="settingsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="⚙️ Settings" />
+         <Button fx:id="dashboardButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
+                 styleClass="nav-button-active" text="📊 Dashboard" />
+         <Button fx:id="flightsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
+                 styleClass="nav-button" text="✈️ Flights" />
+         <Button fx:id="bookingsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
+                 styleClass="nav-button" text="📋 Bookings" />
+         <Button fx:id="customersButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
+                 styleClass="nav-button" text="👥 Customers" />
+         <Button fx:id="ticketsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
+                 styleClass="nav-button" text="🎫 Support Tickets" />
+         <Button fx:id="refundsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
+                 styleClass="nav-button" text="💰 Refunds" />
+         <Button fx:id="reportsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
+                 styleClass="nav-button" text="📈 Reports" />
+         <Button fx:id="settingsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
+                 styleClass="nav-button" text="⚙️ Settings" />
       </VBox>
    </left>
+   
    <!-- Main Content Area -->
    <center>
       <ScrollPane fitToWidth="true" styleClass="main-content-scroll">
@@ -210,7 +224,7 @@
                                  <Font name="System Bold" size="14.0" />
                               </font>
                            </Text>
-                           <Text fx:id="pendingTicketsLabel" styleClass="stats-value" text="23">
+                           <Text fx:id="pendingTicketsLabel" styleClass="stats-value" text="47">
                               <font>
                                  <Font name="System Bold" size="28.0" />
                               </font>
@@ -220,39 +234,20 @@
                   </VBox>
                </GridPane>
                
-               <!-- Quick Actions and Recent Activity -->
-               <HBox spacing="25.0">
-                  <!-- Quick Actions -->
-                  <VBox spacing="20.0" styleClass="quick-actions-card" HBox.hgrow="ALWAYS">
-                     <padding>
-                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                     </padding>
-                     <Text styleClass="card-title" text="⚡ Quick Actions">
+               <!-- Recent Activity Section -->
+               <VBox spacing="20.0">
+                  <HBox alignment="CENTER_LEFT" spacing="15.0">
+                     <Text styleClass="section-title" text="Recent Activity">
                         <font>
-                           <Font name="System Bold" size="20.0" />
+                           <Font name="System Bold" size="24.0" />
                         </font>
                      </Text>
-                     <VBox spacing="12.0">
-                        <Button fx:id="addFlightButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-primary" text="✈️ Add New Flight" textFill="black" />
-                        <Button fx:id="viewBookingsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-success" text="📋 View All Bookings" textFill="black" />
-                        <Button fx:id="manageUsersButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-danger" text="👥 Manage Users" textFill="black" />
-                        <Button fx:id="generateReportButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-warning" text="📊 Generate Report" textFill="black" />
-                     </VBox>
-                  </VBox>
+                     <Region HBox.hgrow="ALWAYS" />
+                     <Button fx:id="viewAllButton" styleClass="button-secondary" text="View All" />
+                  </HBox>
                   
-                  <!-- Recent Activity -->
-                  <VBox spacing="20.0" styleClass="recent-activity-card" HBox.hgrow="ALWAYS">
-                     <padding>
-                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                     </padding>
-                     <Text styleClass="card-title" text="📊 Recent Activity">
-                        <font>
-                           <Font name="System Bold" size="20.0" />
-                        </font>
-                     </Text>
-                     <ListView fx:id="activityListView" maxHeight="240.0" styleClass="activity-list" />
-                  </VBox>
-               </HBox>
+                  <ListView fx:id="recentActivityList" styleClass="activity-list" />
+               </VBox>
             </VBox>
          </content>
       </ScrollPane>
