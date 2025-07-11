@@ -8,11 +8,83 @@
     "role": "Admin"
   },
   {
+    "userId": "ADMIN_002",
+    "username": "support.manager",
+    "email": "support@airline.com",
+    "firstName": "Sarah",
+    "lastName": "Johnson",
+    "role": "Admin"
+  },
+  {
     "userId": "CUST_001",
     "username": "customer",
     "email": "customer@email.com",
     "firstName": "John",
     "lastName": "Doe",
+    "role": "Customer"
+  },
+  {
+    "userId": "CUST_002",
+    "username": "alice.smith",
+    "email": "alice.smith@email.com",
+    "firstName": "Alice",
+    "lastName": "Smith",
+    "role": "Customer"
+  },
+  {
+    "userId": "CUST_003",
+    "username": "bob.wilson",
+    "email": "bob.wilson@gmail.com",
+    "firstName": "Bob",
+    "lastName": "Wilson",
+    "role": "Customer"
+  },
+  {
+    "userId": "CUST_004",
+    "username": "emma.brown",
+    "email": "emma.brown@yahoo.com",
+    "firstName": "Emma",
+    "lastName": "Brown",
+    "role": "Customer"
+  },
+  {
+    "userId": "CUST_005",
+    "username": "david.chen",
+    "email": "david.chen@hotmail.com",
+    "firstName": "David",
+    "lastName": "Chen",
+    "role": "Customer"
+  },
+  {
+    "userId": "CUST_006",
+    "username": "maria.garcia",
+    "email": "maria.garcia@outlook.com",
+    "firstName": "Maria",
+    "lastName": "Garcia",
+    "role": "Customer"
+  },
+  {
+    "userId": "CUST_007",
+    "username": "james.miller",
+    "email": "james.miller@email.com",
+    "firstName": "James",
+    "lastName": "Miller",
+    "role": "Customer"
+  },
+  {
+    "userId": "CUST_008",
+    "username": "lisa.taylor",
+    "email": "lisa.taylor@gmail.com",
+    "firstName": "Lisa",
+    "lastName": "Taylor",
+    "role": "Customer"
+  },
+  {
+    "userId": "CUST_009",
+    "username": "michael.wang",
+    "email": "michael.wang@yahoo.com",
+    "firstName": "Michael",
+    "lastName": "Wang",
     "role": "Customer"
   }
 ]

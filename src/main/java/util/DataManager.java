@@ -140,21 +140,57 @@ public class DataManager {
             if (!usersInitialized) {
                 userDatabase.clear();
                 
-                // Add sample admin with properly hashed password
                 // Password "123456" hashed using the same method as UserService
-                String adminHashedPassword = "HASH_" + "123456".hashCode();
-                Admin admin = new Admin("ADMIN_001", "admin", adminHashedPassword, "admin@airline.com",
-                                      "Admin", "User", "123-456-7890", "IT");
-                userDatabase.add(admin);
+                String hashedPassword = "HASH_" + "123456".hashCode();
                 
-                // Add sample customer with properly hashed password
-                String customerHashedPassword = "HASH_" + "123456".hashCode();
-                Customer customer = new Customer("CUST_001", "customer", customerHashedPassword, "customer@email.com",
+                // Add sample admin users
+                Admin admin1 = new Admin("ADMIN_001", "admin", hashedPassword, "admin@airline.com",
+                                      "Admin", "User", "123-456-7890", "IT");
+                userDatabase.add(admin1);
+                
+                Admin admin2 = new Admin("ADMIN_002", "support.manager", hashedPassword, "support@airline.com",
+                                      "Sarah", "Johnson", "123-456-7891", "Customer Support");
+                userDatabase.add(admin2);
+                
+                // Add sample customer users
+                Customer customer1 = new Customer("CUST_001", "customer", hashedPassword, "customer@email.com",
                                                "John", "Doe", "987-654-3210", "ABC123", "USA");
-                userDatabase.add(customer);
+                userDatabase.add(customer1);
+                
+                Customer customer2 = new Customer("CUST_002", "alice.smith", hashedPassword, "alice.smith@email.com",
+                                               "Alice", "Smith", "987-654-3211", "DEF456", "USA");
+                userDatabase.add(customer2);
+                
+                Customer customer3 = new Customer("CUST_003", "bob.wilson", hashedPassword, "bob.wilson@gmail.com",
+                                               "Bob", "Wilson", "987-654-3212", "GHI789", "UK");
+                userDatabase.add(customer3);
+                
+                Customer customer4 = new Customer("CUST_004", "emma.brown", hashedPassword, "emma.brown@yahoo.com",
+                                               "Emma", "Brown", "987-654-3213", "JKL012", "Canada");
+                userDatabase.add(customer4);
+                
+                Customer customer5 = new Customer("CUST_005", "david.chen", hashedPassword, "david.chen@hotmail.com",
+                                               "David", "Chen", "987-654-3214", "MNO345", "Singapore");
+                userDatabase.add(customer5);
+                
+                Customer customer6 = new Customer("CUST_006", "maria.garcia", hashedPassword, "maria.garcia@outlook.com",
+                                               "Maria", "Garcia", "987-654-3215", "PQR678", "Spain");
+                userDatabase.add(customer6);
+                
+                Customer customer7 = new Customer("CUST_007", "james.miller", hashedPassword, "james.miller@email.com",
+                                               "James", "Miller", "987-654-3216", "STU901", "Australia");
+                userDatabase.add(customer7);
+                
+                Customer customer8 = new Customer("CUST_008", "lisa.taylor", hashedPassword, "lisa.taylor@gmail.com",
+                                               "Lisa", "Taylor", "987-654-3217", "VWX234", "Germany");
+                userDatabase.add(customer8);
+                
+                Customer customer9 = new Customer("CUST_009", "michael.wang", hashedPassword, "michael.wang@yahoo.com",
+                                               "Michael", "Wang", "987-654-3218", "YZA567", "Malaysia");
+                userDatabase.add(customer9);
                 
                 usersInitialized = true;
-                System.out.println("Created sample users: admin and customer");
+                System.out.println("Created sample users: " + userDatabase.size() + " users loaded");
             }
             
             return new ArrayList<>(userDatabase); // Return copy of the list
@@ -267,35 +303,78 @@ public class DataManager {
             String aircraft = extractJsonValue(jsonBlock, "aircraft");
             String status = extractJsonValue(jsonBlock, "status");
             
-            // Set flight properties
-            flight.setFlightId("FL_" + flightNumber); // Generate ID from flight number
-            flight.setFlightNumber(flightNumber);
+            // Set flight properties with null checks
+            if (flightNumber != null && !flightNumber.trim().isEmpty()) {
+                flight.setFlightId("FL_" + flightNumber); // Generate ID from flight number
+                flight.setFlightNumber(flightNumber);
+            } else {
+                flight.setFlightId("FL_UNKNOWN_" + System.currentTimeMillis());
+                flight.setFlightNumber("UNKNOWN");
+            }
+            
             flight.setAirline("Pikachu Airlines"); // Default airline
-            flight.setDepartureAirport(origin);
-            flight.setArrivalAirport(destination);
-            flight.setAircraft(aircraft);
+            flight.setDepartureAirport(origin != null && !origin.trim().isEmpty() ? origin : "TBD");
+            flight.setArrivalAirport(destination != null && !destination.trim().isEmpty() ? destination : "TBD");
+            flight.setAircraft(aircraft != null && !aircraft.trim().isEmpty() ? aircraft : "Unknown Aircraft");
             
             // Parse dates (format: 2025-01-04T08:00:00)
-            if (departureTimeStr != null) {
-                flight.setDepartureTime(LocalDateTime.parse(departureTimeStr));
+            if (departureTimeStr != null && !departureTimeStr.trim().isEmpty()) {
+                try {
+                    flight.setDepartureTime(LocalDateTime.parse(departureTimeStr));
+                } catch (Exception e) {
+                    System.err.println("Error parsing departure time: " + departureTimeStr);
+                    // Set default time if parsing fails
+                    flight.setDepartureTime(LocalDateTime.now().plusDays(1));
+                }
+            } else {
+                flight.setDepartureTime(LocalDateTime.now().plusDays(1));
             }
-            if (arrivalTimeStr != null) {
-                flight.setArrivalTime(LocalDateTime.parse(arrivalTimeStr));
+            
+            if (arrivalTimeStr != null && !arrivalTimeStr.trim().isEmpty()) {
+                try {
+                    flight.setArrivalTime(LocalDateTime.parse(arrivalTimeStr));
+                } catch (Exception e) {
+                    System.err.println("Error parsing arrival time: " + arrivalTimeStr);
+                    // Set default time if parsing fails
+                    flight.setArrivalTime(LocalDateTime.now().plusDays(1).plusHours(2));
+                }
+            } else {
+                flight.setArrivalTime(LocalDateTime.now().plusDays(1).plusHours(2));
             }
             
             // Parse numeric values
-            if (priceStr != null) {
-                flight.setBasePrice(Double.parseDouble(priceStr));
+            if (priceStr != null && !priceStr.trim().isEmpty()) {
+                try {
+                    flight.setBasePrice(Double.parseDouble(priceStr));
+                } catch (NumberFormatException e) {
+                    flight.setBasePrice(0.0);
+                }
+            } else {
+                flight.setBasePrice(0.0);
             }
-            if (availableSeatsStr != null) {
-                flight.setAvailableSeats(Integer.parseInt(availableSeatsStr));
+            
+            if (availableSeatsStr != null && !availableSeatsStr.trim().isEmpty()) {
+                try {
+                    flight.setAvailableSeats(Integer.parseInt(availableSeatsStr));
+                } catch (NumberFormatException e) {
+                    flight.setAvailableSeats(0);
+                }
+            } else {
+                flight.setAvailableSeats(0);
             }
-            if (totalSeatsStr != null) {
-                flight.setTotalSeats(Integer.parseInt(totalSeatsStr));
+            
+            if (totalSeatsStr != null && !totalSeatsStr.trim().isEmpty()) {
+                try {
+                    flight.setTotalSeats(Integer.parseInt(totalSeatsStr));
+                } catch (NumberFormatException e) {
+                    flight.setTotalSeats(180);
+                }
+            } else {
+                flight.setTotalSeats(180);
             }
             
             // Parse status
-            if (status != null) {
+            if (status != null && !status.trim().isEmpty()) {
                 try {
                     // Map JSON status values to enum values
                     FlightStatus flightStatus;
@@ -316,6 +395,8 @@ public class DataManager {
                 } catch (IllegalArgumentException e) {
                     flight.setStatus(FlightStatus.SCHEDULED); // Default status
                 }
+            } else {
+                flight.setStatus(FlightStatus.SCHEDULED);
             }
             
             return flight;
@@ -386,7 +467,22 @@ public class DataManager {
     }
 
     private List<Ticket> loadTicketsFromFile() {
-        return new ArrayList<>(); // Empty for now
+        try {
+            String content = readFileContent(TICKETS_FILE);
+            
+            // If file is empty or doesn't exist, return empty list
+            if (content.trim().equals("[]") || content.trim().isEmpty()) {
+                return new ArrayList<>();
+            }
+            
+            // For now, return empty list since we don't have full JSON parsing
+            // The tickets are stored for viewing in JSON format but not fully parsed yet
+            System.out.println("Ticket data available in JSON format for viewing");
+            return new ArrayList<>();
+        } catch (Exception e) {
+            System.err.println("Error loading tickets: " + e.getMessage());
+            return new ArrayList<>();
+        }
     }
 
     private boolean saveTicketsToFile(List<Ticket> tickets) {

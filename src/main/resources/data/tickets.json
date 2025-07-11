@@ -1,1 +1,201 @@
-[]
+[
+  {
+    "ticketId": "TKT_001",
+    "customerId": "CUST_001",
+    "customerName": "John Doe",
+    "customerEmail": "customer@email.com",
+    "subject": "Flight Delay Compensation Request",
+    "description": "My flight PKA501 was delayed by 3 hours. I would like to request compensation as per your delay policy.",
+    "category": "Delay/Cancellation",
+    "priority": "MEDIUM",
+    "status": "OPEN",
+    "assignedTo": "ADMIN_002",
+    "createdAt": "2025-01-11T10:30:00",
+    "updatedAt": "2025-01-11T10:30:00",
+    "responses": [
+      {
+        "responderId": "ADMIN_002",
+        "responderName": "Sarah Johnson",
+        "message": "Thank you for contacting us. I will review your delay compensation request and get back to you within 24 hours.",
+        "timestamp": "2025-01-11T11:15:00"
+      }
+    ]
+  },
+  {
+    "ticketId": "TKT_002",
+    "customerId": "CUST_002",
+    "customerName": "Alice Smith",
+    "customerEmail": "alice.smith@email.com",
+    "subject": "Baggage Lost During Transit",
+    "description": "I traveled on flight PKA101 from Tokyo to Seoul and my baggage did not arrive. Baggage tag number: PKA123456789. Please help me locate it.",
+    "category": "Baggage",
+    "priority": "HIGH",
+    "status": "IN_PROGRESS",
+    "assignedTo": "ADMIN_001",
+    "createdAt": "2025-01-10T14:20:00",
+    "updatedAt": "2025-01-11T09:45:00",
+    "responses": [
+      {
+        "responderId": "ADMIN_001",
+        "responderName": "Admin User",
+        "message": "We are actively tracking your baggage. It appears to be at Seoul airport and will be delivered to your address within 24 hours.",
+        "timestamp": "2025-01-11T09:45:00"
+      }
+    ]
+  },
+  {
+    "ticketId": "TKT_003",
+    "customerId": "CUST_003",
+    "customerName": "Bob Wilson",
+    "customerEmail": "bob.wilson@gmail.com",
+    "subject": "Seat Change Request",
+    "description": "I have a booking on flight PKA301 and would like to change from a middle seat to an aisle seat. Booking reference: PKA789012.",
+    "category": "Booking",
+    "priority": "LOW",
+    "status": "RESOLVED",
+    "assignedTo": "ADMIN_002",
+    "createdAt": "2025-01-09T16:10:00",
+    "updatedAt": "2025-01-10T08:30:00",
+    "responses": [
+      {
+        "responderId": "ADMIN_002",
+        "responderName": "Sarah Johnson",
+        "message": "I have successfully changed your seat assignment to 12C (aisle seat). Your new boarding pass has been emailed to you.",
+        "timestamp": "2025-01-10T08:30:00"
+      }
+    ]
+  },
+  {
+    "ticketId": "TKT_004",
+    "customerId": "CUST_004",
+    "customerName": "Emma Brown",
+    "customerEmail": "emma.brown@yahoo.com",
+    "subject": "Refund Request for Cancelled Flight",
+    "description": "My flight PKA999 was cancelled due to technical issues. I would like to request a full refund instead of rebooking. Booking reference: PKA456789.",
+    "category": "Refund",
+    "priority": "HIGH",
+    "status": "OPEN",
+    "assignedTo": "ADMIN_001",
+    "createdAt": "2025-01-11T08:45:00",
+    "updatedAt": "2025-01-11T08:45:00",
+    "responses": []
+  },
+  {
+    "ticketId": "TKT_005",
+    "customerId": "CUST_005",
+    "customerName": "David Chen",
+    "customerEmail": "david.chen@hotmail.com",
+    "subject": "Special Meal Request",
+    "description": "I have dietary restrictions and need a vegetarian meal for my upcoming flight PKA801. Can this be arranged?",
+    "category": "Special Services",
+    "priority": "LOW",
+    "status": "RESOLVED",
+    "assignedTo": "ADMIN_002",
+    "createdAt": "2025-01-08T13:20:00",
+    "updatedAt": "2025-01-09T10:15:00",
+    "responses": [
+      {
+        "responderId": "ADMIN_002",
+        "responderName": "Sarah Johnson",
+        "message": "Your vegetarian meal request has been added to your booking. Please confirm at check-in that you still require this service.",
+        "timestamp": "2025-01-09T10:15:00"
+      }
+    ]
+  },
+  {
+    "ticketId": "TKT_006",
+    "customerId": "CUST_006",
+    "customerName": "Maria Garcia",
+    "customerEmail": "maria.garcia@outlook.com",
+    "subject": "Website Login Issues",
+    "description": "I cannot log into the website to check in for my flight. I keep getting an error message saying 'invalid credentials' even though I'm sure my password is correct.",
+    "category": "Technical",
+    "priority": "MEDIUM",
+    "status": "IN_PROGRESS",
+    "assignedTo": "ADMIN_001",
+    "createdAt": "2025-01-11T07:30:00",
+    "updatedAt": "2025-01-11T12:00:00",
+    "responses": [
+      {
+        "responderId": "ADMIN_001",
+        "responderName": "Admin User",
+        "message": "I've reset your password. Please check your email for the temporary password and update it after logging in.",
+        "timestamp": "2025-01-11T12:00:00"
+      }
+    ]
+  },
+  {
+    "ticketId": "TKT_007",
+    "customerId": "CUST_007",
+    "customerName": "James Miller",
+    "customerEmail": "james.miller@email.com",
+    "subject": "Group Booking Assistance",
+    "description": "I need to book 15 seats for a corporate group traveling from Bangkok to Manila. Can someone assist me with group rates and seating arrangements?",
+    "category": "Booking",
+    "priority": "MEDIUM",
+    "status": "OPEN",
+    "assignedTo": "ADMIN_002",
+    "createdAt": "2025-01-11T15:45:00",
+    "updatedAt": "2025-01-11T15:45:00",
+    "responses": []
+  },
+  {
+    "ticketId": "TKT_008",
+    "customerId": "CUST_008",
+    "customerName": "Lisa Taylor",
+    "customerEmail": "lisa.taylor@gmail.com",
+    "subject": "Wheelchair Assistance Request",
+    "description": "I require wheelchair assistance for my elderly mother traveling on flight PKA701. She has mobility issues and will need help from check-in to boarding.",
+    "category": "Special Services",
+    "priority": "HIGH",
+    "status": "RESOLVED",
+    "assignedTo": "ADMIN_001",
+    "createdAt": "2025-01-07T11:00:00",
+    "updatedAt": "2025-01-08T09:30:00",
+    "responses": [
+      {
+        "responderId": "ADMIN_001",
+        "responderName": "Admin User",
+        "message": "Wheelchair assistance has been arranged for your mother. Please arrive at the airport 2 hours early and proceed to the special assistance counter.",
+        "timestamp": "2025-01-08T09:30:00"
+      }
+    ]
+  },
+  {
+    "ticketId": "TKT_009",
+    "customerId": "CUST_009",
+    "customerName": "Michael Wang",
+    "customerEmail": "michael.wang@yahoo.com",
+    "subject": "Frequent Flyer Points Missing",
+    "description": "I completed a flight last week but the frequent flyer points haven't been credited to my account yet. Flight was PKA102 on January 4th.",
+    "category": "Loyalty Program",
+    "priority": "LOW",
+    "status": "IN_PROGRESS",
+    "assignedTo": "ADMIN_002",
+    "createdAt": "2025-01-11T13:15:00",
+    "updatedAt": "2025-01-11T14:00:00",
+    "responses": [
+      {
+        "responderId": "ADMIN_002",
+        "responderName": "Sarah Johnson",
+        "message": "I'm reviewing your frequent flyer account. Points for recent flights can take up to 7 business days to appear. I'll expedite this for you.",
+        "timestamp": "2025-01-11T14:00:00"
+      }
+    ]
+  },
+  {
+    "ticketId": "TKT_010",
+    "customerId": "CUST_003",
+    "customerName": "Bob Wilson",
+    "customerEmail": "bob.wilson@gmail.com",
+    "subject": "Pet Travel Information",
+    "description": "I want to travel with my small dog on an upcoming flight. What are the requirements and additional fees for pet travel?",
+    "category": "Special Services",
+    "priority": "LOW",
+    "status": "OPEN",
+    "assignedTo": "ADMIN_001",
+    "createdAt": "2025-01-11T16:20:00",
+    "updatedAt": "2025-01-11T16:20:00",
+    "responses": []
+  }
+]

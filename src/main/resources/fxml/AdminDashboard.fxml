@@ -233,10 +233,10 @@
                         </font>
                      </Text>
                      <VBox spacing="12.0">
-                        <Button fx:id="addFlightButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-primary" text="✈️ Add New Flight" />
-                        <Button fx:id="viewBookingsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-success" text="📋 View All Bookings" />
-                        <Button fx:id="manageUsersButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-danger" text="👥 Manage Users" />
-                        <Button fx:id="generateReportButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-warning" text="📊 Generate Report" />
+                        <Button fx:id="addFlightButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-primary" text="✈️ Add New Flight" textFill="black" />
+                        <Button fx:id="viewBookingsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-success" text="📋 View All Bookings" textFill="black" />
+                        <Button fx:id="manageUsersButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-danger" text="👥 Manage Users" textFill="black" />
+                        <Button fx:id="generateReportButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-warning" text="📊 Generate Report" textFill="black" />
                      </VBox>
                   </VBox>
                   

@@ -37,6 +37,11 @@
                <Font name="System Bold" size="14.0" />
             </font>
          </Button>
+         <Button fx:id="logoutButton" styleClass="button-danger" text="🚪 Logout">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Button>
       </HBox>
    </top>
    <center>

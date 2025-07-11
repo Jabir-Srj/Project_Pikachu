@@ -55,7 +55,8 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="viewProfileButton" styleClass="button-primary" text="View Profile" />
+            <Button fx:id="viewProfileButton" styleClass="button-primary" text="👤 Profile" />
+            <Button fx:id="logoutButton" styleClass="button-danger" text="🚪 Logout" />
          </HBox>
       </VBox>
    </top>

@@ -29,6 +29,7 @@ public class ChatbotController implements Initializable {
     // Header Controls
     @FXML private Button backButton;
     @FXML private Button clearChatButton;
+    @FXML private Button logoutButton;
     
     // Chat Area
     @FXML private ScrollPane chatScrollPane;
@@ -81,6 +82,9 @@ public class ChatbotController implements Initializable {
         }
         if (clearChatButton != null) {
             clearChatButton.setOnAction(e -> handleClearChat());
+        }
+        if (logoutButton != null) {
+            logoutButton.setOnAction(e -> handleLogout());
         }
         
         // Quick action buttons
@@ -247,6 +251,15 @@ public class ChatbotController implements Initializable {
     @FXML
     private void handleBackToDashboard() {
         NavigationManager.getInstance().showCustomerOverview();
+    }
+    
+    /**
+     * Handle logout
+     */
+    @FXML
+    private void handleLogout() {
+        NavigationManager.getInstance().clearSharedData();
+        NavigationManager.getInstance().navigateTo(NavigationManager.LOGIN_SCREEN);
     }
     
     /**

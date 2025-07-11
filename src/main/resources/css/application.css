@@ -260,7 +260,7 @@
 
 .action-button-primary {
     -fx-background: linear-gradient(to right, #F4D03F, #F7DC6F);
-    -fx-text-fill: #2C3E50;
+    -fx-text-fill: black;
     -fx-padding: 15;
     -fx-background-radius: 10;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
@@ -268,7 +268,7 @@
 
 .action-button-success {
     -fx-background: linear-gradient(to right, #2ECC71, #58D68D);
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-padding: 15;
     -fx-background-radius: 10;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
@@ -276,7 +276,7 @@
 
 .action-button-danger {
     -fx-background: linear-gradient(to right, #E74C3C, #EC7063);
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-padding: 15;
     -fx-background-radius: 10;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
@@ -284,7 +284,7 @@
 
 .action-button-warning {
     -fx-background: linear-gradient(to right, #F39C12, #F7C52A);
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-padding: 15;
     -fx-background-radius: 10;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);

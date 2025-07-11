@@ -212,8 +212,12 @@ public class FlightSearchController implements Initializable {
         VBox card = new VBox(10);
         card.getStyleClass().addAll("content-card", "shadow-card-medium", "border-yellow-light");
         
-        Label flightInfo = new Label(String.format("%s: %s → %s", 
-            flight.getFlightNumber(), flight.getDepartureAirport(), flight.getArrivalAirport()));
+        // Safely handle null values
+        String flightNumber = flight.getFlightNumber() != null ? flight.getFlightNumber() : "N/A";
+        String departure = flight.getDepartureAirport() != null ? flight.getDepartureAirport() : "TBD";
+        String arrival = flight.getArrivalAirport() != null ? flight.getArrivalAirport() : "TBD";
+        
+        Label flightInfo = new Label(String.format("%s: %s → %s", flightNumber, departure, arrival));
         flightInfo.getStyleClass().add("flight-card-title");
         
         String departureTime = flight.getDepartureTime() != null ? flight.getDepartureTime().toLocalTime().toString() : "TBD";
@@ -221,7 +225,8 @@ public class FlightSearchController implements Initializable {
         Label timeInfo = new Label(String.format("Departure: %s | Arrival: %s", departureTime, arrivalTime));
         
         Label detailsInfo = new Label(String.format("$%.2f | %d/%d seats | %s", 
-            flight.getBasePrice(), flight.getAvailableSeats(), flight.getTotalSeats(), flight.getStatus()));
+            flight.getBasePrice(), flight.getAvailableSeats(), flight.getTotalSeats(), 
+            flight.getStatus() != null ? flight.getStatus() : "Unknown"));
         
         Button editFlightBtn = new Button("Edit Flight");
         editFlightBtn.getStyleClass().addAll("button-secondary");
@@ -327,8 +332,12 @@ public class FlightSearchController implements Initializable {
         VBox card = new VBox(10);
         card.getStyleClass().addAll("content-card", "shadow-card-medium", "border-yellow-light");
         
-        Label flightInfo = new Label(String.format("%s: %s → %s", 
-            flight.getFlightNumber(), flight.getDepartureAirport(), flight.getArrivalAirport()));
+        // Safely handle null values
+        String flightNumber = flight.getFlightNumber() != null ? flight.getFlightNumber() : "N/A";
+        String departure = flight.getDepartureAirport() != null ? flight.getDepartureAirport() : "TBD";
+        String arrival = flight.getArrivalAirport() != null ? flight.getArrivalAirport() : "TBD";
+        
+        Label flightInfo = new Label(String.format("%s: %s → %s", flightNumber, departure, arrival));
         flightInfo.getStyleClass().add("flight-card-title");
         
         String departureTime = flight.getDepartureTime() != null ? flight.getDepartureTime().toLocalTime().toString() : "TBD";
