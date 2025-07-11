@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -14,37 +13,39 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
-           fx:controller="controller.TicketController"
-           stylesheets="@../css/application.css">
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TicketController" stylesheets="@../css/application.css">
    <top>
-      <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header-gradient">
+      <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header-gradient">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
          <Button fx:id="backButton" styleClass="header-accent-button" text="← Back to Dashboard" />
-         <VBox spacing="5">
-            <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="🎫 Support Ticket">
+         <VBox spacing="5.0">
+            <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="🎫 Support Ticket">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Text>
-            <Text fill="#4B5563" strokeType="OUTSIDE" strokeWidth="0.0" text="Submit your request and we'll help you promptly">
+            <Text fill="#4b5563" strokeType="OUTSIDE" strokeWidth="0.0" text="Submit your request and we'll help you promptly">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
          </VBox>
          <Region HBox.hgrow="ALWAYS" />
-         <HBox alignment="CENTER_RIGHT" spacing="15">
-            <HBox alignment="CENTER_LEFT" spacing="8" styleClass="header-info-badge">
-               <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="⚡">
+         <HBox alignment="CENTER_RIGHT" spacing="15.0">
+            <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="header-info-badge">
+               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="⚡">
                   <font>
                      <Font size="16.0" />
                   </font>
                </Text>
-               <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="24/7 Support">
+               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="24/7 Support">
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font>
@@ -53,377 +54,401 @@
          </HBox>
       </HBox>
    </top>
-   
    <center>
       <ScrollPane fitToWidth="true" styleClass="background-gray-light">
-         <VBox spacing="30" styleClass="background-gray-light">
-            <padding>
-               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-            </padding>
-            
-            <!-- Help Information -->
-            <VBox spacing="20" styleClass="welcome-card">
-               <HBox alignment="CENTER_LEFT" spacing="15">
-                  <VBox alignment="CENTER" styleClass="quick-action-flight">
-                     <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="💡">
+         <content>
+            <VBox spacing="30.0" styleClass="background-gray-light">
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+               
+               <!-- Help Information -->
+               <VBox spacing="20.0" styleClass="welcome-card">
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+                  <HBox alignment="CENTER_LEFT" spacing="15.0">
+                     <VBox alignment="CENTER" styleClass="quick-action-flight">
+                        <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="💡">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                     <VBox spacing="8.0">
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Help Options">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#6b7280" strokeType="OUTSIDE" strokeWidth="0.0" text="Before submitting a ticket, try these quick solutions">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+                  
+                  <VBox spacing="15.0" styleClass="info-highlight">
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                     <Text fill="#374151" strokeType="OUTSIDE" strokeWidth="0.0" text="Many common questions are answered instantly. Get immediate help or connect with our support team directly.">
                         <font>
-                           <Font size="24.0" />
+                           <Font size="16.0" />
                         </font>
                      </Text>
+                     <HBox spacing="15.0">
+                        <Button fx:id="faqButton" styleClass="quick-action-flight" text="📚 View FAQ">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="liveChatButton" styleClass="quick-action-booking" text="💬 Live Chat">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="callSupportButton" styleClass="quick-action-baggage" text="📞 Call Support">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                     </HBox>
                   </VBox>
-                  <VBox spacing="8">
-                     <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Help Options">
+               </VBox>
+               
+               <!-- Contact Information -->
+               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <Text fill="#f4d03f" strokeType="OUTSIDE" strokeWidth="0.0" text="👤">
                         <font>
-                           <Font name="System Bold" size="20.0" />
+                           <Font size="20.0" />
                         </font>
                      </Text>
-                     <Text fill="#6B7280" strokeType="OUTSIDE" strokeWidth="0.0" text="Before submitting a ticket, try these quick solutions">
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Information">
+                        <font>
+                           <Font name="System Bold" size="22.0" />
+                        </font>
+                     </Text>
+                  </HBox>
+                  
+                  <GridPane hgap="20.0" vgap="20.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                     </columnConstraints>
+                     
+                     <VBox spacing="8.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label styleClass="form-label" text="First Name *" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="firstNameField" promptText="Enter your first name" styleClass="form-input-field">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </VBox>
+                     
+                     <VBox spacing="8.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label styleClass="form-label" text="Last Name *" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="lastNameField" promptText="Enter your last name" styleClass="form-input-field">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </VBox>
+                     
+                     <VBox spacing="8.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label styleClass="form-label" text="Email Address *" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="emailField" promptText="your.email@example.com" styleClass="form-input-field">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </VBox>
+                     
+                     <VBox spacing="8.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label styleClass="form-label" text="Phone Number" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="phoneField" promptText="+1 (555) 123-4567" styleClass="form-input-field">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </VBox>
+                     
+                     <VBox spacing="8.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <Label styleClass="form-label" text="Booking Reference (if applicable)" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="bookingReferenceField" promptText="BK-2024-001234" styleClass="form-input-field">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </VBox>
+                  </GridPane>
+               </VBox>
+               
+               <!-- Ticket Details -->
+               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <Text fill="#f4d03f" strokeType="OUTSIDE" strokeWidth="0.0" text="📋">
+                        <font>
+                           <Font size="20.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket Details">
+                        <font>
+                           <Font name="System Bold" size="22.0" />
+                        </font>
+                     </Text>
+                  </HBox>
+                  
+                  <HBox spacing="20.0">
+                     <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                        <Label styleClass="form-label" text="Category *" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="categoryComboBox" maxWidth="1.7976931348623157E308" promptText="Select a category" styleClass="form-input-field">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </ComboBox>
+                     </VBox>
+                     
+                     <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                        <Label styleClass="form-label" text="Priority *" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="priorityComboBox" maxWidth="1.7976931348623157E308" promptText="Select priority level" styleClass="form-input-field">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </ComboBox>
+                     </VBox>
+                  </HBox>
+                  
+                  <VBox spacing="8.0">
+                     <Label styleClass="form-label" text="Subject *" textFill="#374151">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="subjectField" promptText="Brief description of your issue" styleClass="form-input-field">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </TextField>
+                  </VBox>
+                  
+                  <VBox spacing="8.0">
+                     <Label styleClass="form-label" text="Description *" textFill="#374151">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                     <TextArea fx:id="descriptionTextArea" minHeight="120.0" promptText="Please provide detailed information about your issue, including any relevant dates, flight numbers, or circumstances..." styleClass="form-input-field" wrapText="true">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </TextArea>
+                  </VBox>
+               </VBox>
+               
+               <!-- File Attachments -->
+               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <Text fill="#f4d03f" strokeType="OUTSIDE" strokeWidth="0.0" text="📎">
+                        <font>
+                           <Font size="20.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Attachments (Optional)">
+                        <font>
+                           <Font name="System Bold" size="22.0" />
+                        </font>
+                     </Text>
+                  </HBox>
+                  
+                  <VBox spacing="15.0" styleClass="info-highlight">
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                     <Text fill="#6b7280" strokeType="OUTSIDE" strokeWidth="0.0" text="Attach relevant documents, screenshots, or receipts to help us resolve your issue faster">
                         <font>
                            <Font size="14.0" />
                         </font>
                      </Text>
+                     <Text fill="#9ca3af" strokeType="OUTSIDE" strokeWidth="0.0" text="• Maximum 5 files • 10MB per file • Supported formats: PDF, JPG, PNG, DOC">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                     </Text>
                   </VBox>
-               </HBox>
-               
-               <VBox spacing="15" styleClass="info-highlight">
-                  <Text fill="#374151" strokeType="OUTSIDE" strokeWidth="0.0" text="Many common questions are answered instantly. Get immediate help or connect with our support team directly.">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Text>
-                  <HBox spacing="15">
-                     <Button fx:id="faqButton" styleClass="quick-action-flight" text="📚 View FAQ">
+                  
+                  <HBox alignment="CENTER_LEFT" spacing="20.0">
+                     <Button fx:id="attachFileButton" styleClass="quick-action-flight" text="📎 Choose Files">
                         <font>
-                           <Font name="System Bold" size="14.0" />
+                           <Font name="System Bold" size="16.0" />
                         </font>
                      </Button>
-                     <Button fx:id="liveChatButton" styleClass="quick-action-booking" text="💬 Live Chat">
+                     <Label fx:id="attachmentInfoLabel" text="No files selected" textFill="#6b7280">
                         <font>
-                           <Font name="System Bold" size="14.0" />
+                           <Font size="14.0" />
                         </font>
-                     </Button>
-                     <Button fx:id="callSupportButton" styleClass="quick-action-baggage" text="📞 Call Support">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Button>
+                     </Label>
                   </HBox>
+                  
+                  <ListView fx:id="attachmentListView" maxHeight="120.0" styleClass="form-input-field" visible="false" />
                </VBox>
-            </VBox>
-            
-            <!-- Contact Information -->
-            <VBox spacing="25" styleClass="content-card shadow-card-medium">
-               <HBox alignment="CENTER_LEFT" spacing="10">
-                  <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="👤">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Information">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Text>
-               </HBox>
                
-               <GridPane hgap="20" vgap="20">
-                  <columnConstraints>
-                     <ColumnConstraints hgrow="ALWAYS" />
-                     <ColumnConstraints hgrow="ALWAYS" />
-                  </columnConstraints>
+               <!-- Contact Preferences -->
+               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <Text fill="#f4d03f" strokeType="OUTSIDE" strokeWidth="0.0" text="📞">
+                        <font>
+                           <Font size="20.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Preferences">
+                        <font>
+                           <Font name="System Bold" size="22.0" />
+                        </font>
+                     </Text>
+                  </HBox>
                   
-                  <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                     <Label styleClass="form-label" text="First Name *" textFill="#374151">
+                  <VBox spacing="15.0">
+                     <Text fill="#6b7280" strokeType="OUTSIDE" strokeWidth="0.0" text="How would you like to receive updates about your ticket?">
                         <font>
                            <Font size="16.0" />
                         </font>
-                     </Label>
-                     <TextField fx:id="firstNameField" promptText="Enter your first name" styleClass="form-input-field">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </TextField>
+                     </Text>
+                     
+                     <VBox spacing="12.0" styleClass="info-highlight">
+                        <padding>
+                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        </padding>
+                        <CheckBox fx:id="emailUpdatesCheckBox" selected="true" styleClass="form-label" text="📧 Email notifications" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="smsUpdatesCheckBox" text="📱 SMS notifications (if phone provided)" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="callbackCheckBox" text="📞 Phone callback for urgent issues" textFill="#374151">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </CheckBox>
+                     </VBox>
                   </VBox>
                   
-                  <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                     <Label styleClass="form-label" text="Last Name *" textFill="#374151">
+                  <VBox fx:id="callbackTimeContainer" spacing="8.0" visible="false">
+                     <Label styleClass="form-label" text="Preferred callback time" textFill="#374151">
                         <font>
                            <Font size="16.0" />
                         </font>
                      </Label>
-                     <TextField fx:id="lastNameField" promptText="Enter your last name" styleClass="form-input-field">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </TextField>
-                  </VBox>
-                  
-                  <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                     <Label styleClass="form-label" text="Email Address *" textFill="#374151">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </Label>
-                     <TextField fx:id="emailField" promptText="your.email@example.com" styleClass="form-input-field">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </TextField>
-                  </VBox>
-                  
-                  <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <Label styleClass="form-label" text="Phone Number" textFill="#374151">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </Label>
-                     <TextField fx:id="phoneField" promptText="+1 (555) 123-4567" styleClass="form-input-field">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </TextField>
-                  </VBox>
-                  
-                  <VBox spacing="8" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
-                     <Label styleClass="form-label" text="Booking Reference (if applicable)" textFill="#374151">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </Label>
-                     <TextField fx:id="bookingReferenceField" promptText="BK-2024-001234" styleClass="form-input-field">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </TextField>
-                  </VBox>
-               </GridPane>
-            </VBox>
-            
-            <!-- Ticket Details -->
-            <VBox spacing="25" styleClass="content-card shadow-card-medium">
-               <HBox alignment="CENTER_LEFT" spacing="10">
-                  <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="📋">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket Details">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Text>
-               </HBox>
-               
-               <HBox spacing="20">
-                  <VBox spacing="8" HBox.hgrow="ALWAYS">
-                     <Label styleClass="form-label" text="Category *" textFill="#374151">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </Label>
-                     <ComboBox fx:id="categoryComboBox" 
-                              promptText="Select a category" styleClass="form-input-field">
+                     <ComboBox fx:id="callbackTimeComboBox" maxWidth="1.7976931348623157E308" promptText="Select preferred time" styleClass="form-input-field">
                         <font>
                            <Font size="16.0" />
                         </font>
                      </ComboBox>
                   </VBox>
-                  
-                  <VBox spacing="8" HBox.hgrow="ALWAYS">
-                     <Label styleClass="form-label" text="Priority *" textFill="#374151">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </Label>
-                     <ComboBox fx:id="priorityComboBox" 
-                              promptText="Select priority level" styleClass="form-input-field">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </ComboBox>
-                  </VBox>
-               </HBox>
-               
-               <VBox spacing="8">
-                  <Label styleClass="form-label" text="Subject *" textFill="#374151">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="subjectField" promptText="Brief description of your issue" styleClass="form-input-field">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </TextField>
                </VBox>
                
-               <VBox spacing="8">
-                  <Label styleClass="form-label" text="Description *" textFill="#374151">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <TextArea fx:id="descriptionTextArea" minHeight="120.0" 
-                           promptText="Please provide detailed information about your issue, including any relevant dates, flight numbers, or circumstances..." 
-                           styleClass="form-input-field" wrapText="true">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </TextArea>
-               </VBox>
-            </VBox>
-            
-            <!-- File Attachments -->
-            <VBox spacing="25" styleClass="content-card shadow-card-medium">
-               <HBox alignment="CENTER_LEFT" spacing="10">
-                  <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="📎">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="Attachments (Optional)">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Text>
-               </HBox>
-               
-               <VBox spacing="15" styleClass="info-highlight">
-                  <Text fill="#6B7280" strokeType="OUTSIDE" strokeWidth="0.0" text="Attach relevant documents, screenshots, or receipts to help us resolve your issue faster">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#9CA3AF" strokeType="OUTSIDE" strokeWidth="0.0" text="• Maximum 5 files • 10MB per file • Supported formats: PDF, JPG, PNG, DOC">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Text>
-               </VBox>
-               
-               <HBox spacing="20" alignment="CENTER_LEFT">
-                  <Button fx:id="attachFileButton" styleClass="quick-action-flight" text="📎 Choose Files">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="attachmentInfoLabel" text="No files selected" textFill="#6B7280">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-               </HBox>
-               
-               <ListView fx:id="attachmentListView" maxHeight="120.0" visible="false" styleClass="border-gray-light background-white" />
-            </VBox>
-            
-            <!-- Contact Preferences -->
-            <VBox spacing="25" styleClass="content-card shadow-card-medium">
-               <HBox alignment="CENTER_LEFT" spacing="10">
-                  <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="📞">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Preferences">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Text>
-               </HBox>
-               
-               <VBox spacing="15">
-                  <Text fill="#6B7280" strokeType="OUTSIDE" strokeWidth="0.0" text="How would you like to receive updates about your ticket?">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Text>
-                  
-                  <VBox spacing="12" styleClass="info-highlight">
-                     <CheckBox fx:id="emailUpdatesCheckBox" selected="true" styleClass="form-label" text="📧 Email notifications" textFill="#374151">
+               <!-- Submit Actions -->
+               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <Text fill="#f4d03f" strokeType="OUTSIDE" strokeWidth="0.0" text="✅">
                         <font>
-                           <Font size="16.0" />
-                        </font>
-                     </CheckBox>
-                     <CheckBox fx:id="smsUpdatesCheckBox" text="📱 SMS notifications (if phone provided)" textFill="#374151">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </CheckBox>
-                     <CheckBox fx:id="callbackCheckBox" text="📞 Phone callback for urgent issues" textFill="#374151">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </CheckBox>
-                  </VBox>
-               </VBox>
-               
-               <VBox spacing="8" fx:id="callbackTimeContainer" visible="false">
-                  <Label styleClass="form-label" text="Preferred callback time" textFill="#374151">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="callbackTimeComboBox" 
-                           promptText="Select preferred time" styleClass="form-input-field">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </ComboBox>
-               </VBox>
-            </VBox>
-            
-            <!-- Submit Actions -->
-            <VBox spacing="25" styleClass="content-card shadow-card-medium">
-               <HBox alignment="CENTER_LEFT" spacing="10">
-                  <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="✅">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="Review and Submit">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Text>
-               </HBox>
-               
-               <VBox spacing="15" styleClass="info-highlight">
-                  <Text fill="#374151" strokeType="OUTSIDE" strokeWidth="0.0" text="Please review your information before submitting. You will receive a confirmation email with your ticket number.">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Text>
-                  <HBox alignment="CENTER_LEFT" spacing="10">
-                     <Text fill="#F39C12" strokeType="OUTSIDE" strokeWidth="0.0" text="⏱️">
-                        <font>
-                           <Font size="16.0" />
+                           <Font size="20.0" />
                         </font>
                      </Text>
-                     <Text fill="#6B7280" strokeType="OUTSIDE" strokeWidth="0.0" text="Average response time: 2-4 hours for urgent tickets, 24 hours for general inquiries">
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Review and Submit">
                         <font>
-                           <Font size="14.0" />
+                           <Font name="System Bold" size="22.0" />
                         </font>
                      </Text>
                   </HBox>
+                  
+                  <VBox spacing="15.0" styleClass="info-highlight">
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                     <Text fill="#374151" strokeType="OUTSIDE" strokeWidth="0.0" text="Please review your information before submitting. You will receive a confirmation email with your ticket number.">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Text>
+                     <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <Text fill="#f39c12" strokeType="OUTSIDE" strokeWidth="0.0" text="⏱️">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#6b7280" strokeType="OUTSIDE" strokeWidth="0.0" text="Average response time: 2-4 hours for urgent tickets, 24 hours for general inquiries">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </HBox>
+                  </VBox>
+                  
+                  <HBox spacing="20.0">
+                     <Button fx:id="saveAsDraftButton" styleClass="button-secondary" text="💾 Save as Draft" HBox.hgrow="ALWAYS">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                     </Button>
+                     <Button fx:id="submitTicketButton" styleClass="button-primary" text="🎫 Submit Ticket" HBox.hgrow="ALWAYS">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                     </Button>
+                  </HBox>
                </VBox>
-               
-               <HBox spacing="20">
-                  <Button fx:id="saveAsDraftButton" 
-                         styleClass="button-secondary" text="💾 Save as Draft" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="submitTicketButton" 
-                         styleClass="button-primary" text="🎫 Submit Ticket" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Button>
-               </HBox>
             </VBox>
-         </VBox>
+         </content>
       </ScrollPane>
    </center>
 </BorderPane> 

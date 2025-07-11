@@ -1,347 +1,367 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.control.Separator?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
-           fx:controller="controller.BookingController"
-           stylesheets="@../css/application.css">
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BookingController" stylesheets="@../css/application.css">
    <top>
-      <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header-gradient">
+      <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header-gradient">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
          <Button fx:id="backButton" styleClass="header-accent-button" text="← Back to Bookings" />
-         <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="⚡ Booking Details">
+         <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="⚡ Booking Details">
             <font>
                <Font name="System Bold" size="32.0" />
             </font>
          </Text>
          <Region HBox.hgrow="ALWAYS" />
-         <HBox spacing="12">
-            <Button fx:id="editBookingButton" styleClass="button-primary shadow-subtle" text="✏️ Edit" />
+         <HBox spacing="12.0">
+            <Button fx:id="editBookingButton" styleClass="button-primary,shadow-subtle" text="✏️ Edit" />
             <Button fx:id="cancelBookingButton" styleClass="action-button-danger" text="❌ Cancel" />
             <Button fx:id="printButton" styleClass="button-secondary" text="🖨️ Print" />
          </HBox>
       </HBox>
    </top>
-   
    <center>
       <ScrollPane fitToWidth="true" styleClass="background-gray-light">
-         <VBox spacing="30" styleClass="background-gray-light">
-            <padding>
-               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-            </padding>
-            
-            <!-- Booking Status Header -->
-            <HBox alignment="CENTER_LEFT" spacing="25" styleClass="content-card shadow-card-medium border-yellow-light">
-               <VBox spacing="8">
-                  <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Booking Reference">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="bookingReferenceLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="BK-2024-001234">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Text>
-               </VBox>
-               <Separator orientation="VERTICAL" />
-               <VBox spacing="8">
-                  <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Text>
-                  <Label fx:id="statusLabel" styleClass="status-confirmed-gradient" text="CONFIRMED">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-               </VBox>
-               <Separator orientation="VERTICAL" />
-               <VBox spacing="8">
-                  <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Booking Date">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="bookingDateLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="March 15, 2024">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Text>
-               </VBox>
-               <Region HBox.hgrow="ALWAYS" />
-               <VBox alignment="CENTER_RIGHT" spacing="8">
-                  <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Text>
-                  <HBox alignment="CENTER_RIGHT" spacing="5">
-                     <Text fill="#F4D03F" strokeType="OUTSIDE" strokeWidth="0.0" text="$">
-                        <font>
-                           <Font name="System Bold" size="18.0" />
-                        </font>
-                     </Text>
-                     <Text fx:id="totalAmountLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="1,247.50">
-                        <font>
-                           <Font name="System Bold" size="28.0" />
-                        </font>
-                     </Text>
-                  </HBox>
-               </VBox>
-            </HBox>
-            
-            <!-- Flight Information -->
-            <VBox spacing="25" styleClass="content-card shadow-card-medium">
-               <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="✈️ Flight Information">
-                  <font>
-                     <Font name="System Bold" size="22.0" />
-                  </font>
-               </Text>
+         <content>
+            <VBox spacing="30.0" styleClass="background-gray-light">
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
                
-               <HBox spacing="40" alignment="CENTER_LEFT">
-                  <!-- Departure -->
-                  <VBox spacing="12" alignment="CENTER" HBox.hgrow="ALWAYS">
-                     <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="08:30">
-                        <font>
-                           <Font name="System Bold" size="28.0" />
-                        </font>
-                     </Text>
-                     <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="March 25, 2024">
+               <!-- Booking Status Header -->
+               <HBox alignment="CENTER_LEFT" spacing="25.0" styleClass="content-card,shadow-card-medium,border-yellow-light">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <VBox spacing="8.0">
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Booking Reference">
                         <font>
                            <Font name="System Bold" size="12.0" />
                         </font>
                      </Text>
-                     <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="New York (JFK)">
+                     <Text fx:id="bookingReferenceLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="BK-2024-001234">
+                        <font>
+                           <Font name="System Bold" size="24.0" />
+                        </font>
+                     </Text>
+                  </VBox>
+                  <Separator orientation="VERTICAL" />
+                  <VBox spacing="8.0">
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Text>
+                     <Label fx:id="statusLabel" styleClass="status-confirmed-gradient" text="CONFIRMED">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Label>
+                  </VBox>
+                  <Separator orientation="VERTICAL" />
+                  <VBox spacing="8.0">
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Booking Date">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Text>
+                     <Text fx:id="bookingDateLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="March 15, 2024">
                         <font>
                            <Font name="System Bold" size="16.0" />
                         </font>
                      </Text>
-                     <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Terminal 4">
+                  </VBox>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <VBox alignment="CENTER_RIGHT" spacing="8.0">
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount">
                         <font>
-                           <Font size="14.0" />
+                           <Font name="System Bold" size="12.0" />
                         </font>
                      </Text>
-                  </VBox>
-                  
-                  <!-- Flight Path -->
-                  <VBox spacing="8" alignment="CENTER" style="-fx-padding: 0 30;">
-                     <VBox alignment="CENTER" styleClass="flight-route-badge">
-                        <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="PA-1234">
+                     <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                        <Text fill="#f4d03f" strokeType="OUTSIDE" strokeWidth="0.0" text="$">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="totalAmountLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="1,247.50">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Text>
+                     </HBox>
+                  </VBox>
+               </HBox>
+               
+               <!-- Flight Information -->
+               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="✈️ Flight Information">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Text>
+                  
+                  <HBox alignment="CENTER_LEFT" spacing="40.0">
+                     <!-- Departure -->
+                     <VBox alignment="CENTER" spacing="12.0" HBox.hgrow="ALWAYS">
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="08:30">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="March 25, 2024">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="New York (JFK)">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Terminal 4">
+                           <font>
+                              <Font size="14.0" />
                            </font>
                         </Text>
                      </VBox>
-                     <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="6h 45m">
+                     
+                     <!-- Flight Path -->
+                     <VBox alignment="CENTER" spacing="8.0" styleClass="flight-path-container">
+                        <VBox alignment="CENTER" styleClass="flight-route-badge">
+                           <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="PA-1234">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Text>
+                        </VBox>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="6h 45m">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Line endX="120.0" stroke="#f4d03f" strokeWidth="4.0" />
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Direct Flight">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Boeing 787">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                     
+                     <!-- Arrival -->
+                     <VBox alignment="CENTER" spacing="12.0" HBox.hgrow="ALWAYS">
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="11:15">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="March 25, 2024">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Los Angeles (LAX)">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Terminal 1">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+               </VBox>
+               
+               <!-- Passenger Information -->
+               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="👥 Passenger Information">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Text>
+                  
+                  <TableView fx:id="passengersTableView" styleClass="table-view">
+                     <columns>
+                        <TableColumn fx:id="passengerNameColumn" minWidth="200.0" text="Passenger Name" />
+                        <TableColumn fx:id="seatNumberColumn" minWidth="100.0" text="Seat Number" />
+                        <TableColumn fx:id="classColumn" minWidth="120.0" text="Class" />
+                        <TableColumn fx:id="mealPreferenceColumn" minWidth="150.0" text="Meal Preference" />
+                        <TableColumn fx:id="specialRequestsColumn" minWidth="200.0" text="Special Requests" />
+                     </columns>
+                  </TableView>
+               </VBox>
+               
+               <!-- Contact Information -->
+               <HBox spacing="30.0">
+                  <!-- Customer Details -->
+                  <VBox spacing="20.0" styleClass="content-card,shadow-card-medium" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="📞 Contact Information">
                         <font>
-                           <Font name="System Bold" size="12.0" />
+                           <Font name="System Bold" size="22.0" />
                         </font>
                      </Text>
-                     <Line endX="120.0" stroke="#F4D03F" strokeWidth="4.0" />
-                     <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Direct Flight">
-                        <font>
-                           <Font name="System Bold" size="12.0" />
-                        </font>
-                     </Text>
-                     <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Boeing 787">
-                        <font>
-                           <Font size="12.0" />
-                        </font>
-                     </Text>
+                     
+                     <GridPane hgap="20.0" vgap="15.0">
+                        <columnConstraints>
+                           <ColumnConstraints hgrow="NEVER" maxWidth="120.0" minWidth="120.0" />
+                           <ColumnConstraints hgrow="ALWAYS" />
+                        </columnConstraints>
+                        
+                        <Label styleClass="form-label" text="Customer:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Text fx:id="customerNameLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="John Smith" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Text>
+                        
+                        <Label styleClass="form-label" text="Email:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Text fx:id="emailLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="john.smith@email.com" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        
+                        <Label styleClass="form-label" text="Phone:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Text fx:id="phoneLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="+1 (555) 123-4567" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                     </GridPane>
                   </VBox>
                   
-                  <!-- Arrival -->
-                  <VBox spacing="12" alignment="CENTER" HBox.hgrow="ALWAYS">
-                     <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="11:15">
+                  <!-- Payment Information -->
+                  <VBox spacing="20.0" styleClass="content-card,shadow-card-medium" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="💳 Payment Information">
                         <font>
-                           <Font name="System Bold" size="28.0" />
+                           <Font name="System Bold" size="22.0" />
                         </font>
                      </Text>
-                     <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="March 25, 2024">
-                        <font>
-                           <Font name="System Bold" size="12.0" />
-                        </font>
-                     </Text>
-                     <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="Los Angeles (LAX)">
-                        <font>
-                           <Font name="System Bold" size="16.0" />
-                        </font>
-                     </Text>
-                     <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Terminal 1">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
-                     </Text>
+                     
+                     <GridPane hgap="20.0" vgap="15.0">
+                        <columnConstraints>
+                           <ColumnConstraints hgrow="NEVER" maxWidth="120.0" minWidth="120.0" />
+                           <ColumnConstraints hgrow="ALWAYS" />
+                        </columnConstraints>
+                        
+                        <Label styleClass="form-label" text="Payment Method:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Text fx:id="paymentMethodLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Credit Card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Text>
+                        
+                        <Label styleClass="form-label" text="Card Number:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Text fx:id="cardNumberLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="**** **** **** 4567" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        
+                        <Label styleClass="form-label" text="Transaction ID:" textFill="#7f8c8d" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Text fx:id="transactionIdLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="TXN-2024-789456" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                     </GridPane>
                   </VBox>
                </HBox>
-            </VBox>
-            
-            <!-- Passenger Information -->
-            <VBox spacing="25" styleClass="content-card shadow-card-medium">
-               <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="👥 Passenger Information">
-                  <font>
-                     <Font name="System Bold" size="22.0" />
-                  </font>
-               </Text>
                
-               <TableView fx:id="passengersTableView" styleClass="table-view">
-                  <columns>
-                     <TableColumn fx:id="passengerNameColumn" minWidth="200.0" text="Passenger Name" />
-                     <TableColumn fx:id="seatNumberColumn" minWidth="100.0" text="Seat Number" />
-                     <TableColumn fx:id="classColumn" minWidth="120.0" text="Class" />
-                     <TableColumn fx:id="mealPreferenceColumn" minWidth="150.0" text="Meal Preference" />
-                     <TableColumn fx:id="specialRequestsColumn" minWidth="200.0" text="Special Requests" />
-                  </columns>
-               </TableView>
-            </VBox>
-            
-            <!-- Contact Information -->
-            <HBox spacing="30">
-               <!-- Customer Details -->
-               <VBox spacing="20" styleClass="content-card shadow-card-medium" HBox.hgrow="ALWAYS">
-                  <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="📞 Contact Information">
+               <!-- Actions Panel -->
+               <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="content-card,shadow-card-medium">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="⚡ Quick Actions">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Text>
-                  
-                  <GridPane hgap="20" vgap="15">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="NEVER" maxWidth="120.0" minWidth="120.0" />
-                        <ColumnConstraints hgrow="ALWAYS" />
-                     </columnConstraints>
-                     
-                     <Label styleClass="form-label" text="Customer:" textFill="#7F8C8D" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                        <font>
-                           <Font name="System Bold" size="12.0" />
-                        </font>
-                     </Label>
-                     <Text fx:id="customerNameLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="John Smith" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                        <font>
-                           <Font name="System Bold" size="16.0" />
-                        </font>
-                     </Text>
-                     
-                     <Label styleClass="form-label" text="Email:" textFill="#7F8C8D" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                        <font>
-                           <Font name="System Bold" size="12.0" />
-                        </font>
-                     </Label>
-                     <Text fx:id="emailLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="john.smith@email.com" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </Text>
-                     
-                     <Label styleClass="form-label" text="Phone:" textFill="#7F8C8D" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                        <font>
-                           <Font name="System Bold" size="12.0" />
-                        </font>
-                     </Label>
-                     <Text fx:id="phoneLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="+1 (555) 123-4567" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </Text>
-                  </GridPane>
-               </VBox>
-               
-               <!-- Payment Information -->
-               <VBox spacing="20" styleClass="content-card shadow-card-medium" HBox.hgrow="ALWAYS">
-                  <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="💳 Payment Information">
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button fx:id="checkInButton" styleClass="action-button-success" text="✓ Check In">
                      <font>
-                        <Font name="System Bold" size="22.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
-                  </Text>
-                  
-                  <GridPane hgap="20" vgap="15">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="NEVER" maxWidth="120.0" minWidth="120.0" />
-                        <ColumnConstraints hgrow="ALWAYS" />
-                     </columnConstraints>
-                     
-                     <Label styleClass="form-label" text="Payment Method:" textFill="#7F8C8D" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                        <font>
-                           <Font name="System Bold" size="12.0" />
-                        </font>
-                     </Label>
-                     <Text fx:id="paymentMethodLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="Credit Card" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                        <font>
-                           <Font name="System Bold" size="16.0" />
-                        </font>
-                     </Text>
-                     
-                     <Label styleClass="form-label" text="Card Number:" textFill="#7F8C8D" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                        <font>
-                           <Font name="System Bold" size="12.0" />
-                        </font>
-                     </Label>
-                     <Text fx:id="cardNumberLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="**** **** **** 4567" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </Text>
-                     
-                     <Label styleClass="form-label" text="Transaction ID:" textFill="#7F8C8D" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                        <font>
-                           <Font name="System Bold" size="12.0" />
-                        </font>
-                     </Label>
-                     <Text fx:id="transactionIdLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="TXN-2024-789456" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </Text>
-                  </GridPane>
-               </VBox>
-            </HBox>
-            
-            <!-- Actions Panel -->
-            <HBox spacing="20" styleClass="content-card shadow-card-medium" alignment="CENTER_LEFT">
-               <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="⚡ Quick Actions">
-                  <font>
-                     <Font name="System Bold" size="22.0" />
-                  </font>
-               </Text>
-               <Region HBox.hgrow="ALWAYS" />
-               <Button fx:id="checkInButton" styleClass="action-button-success" text="✓ Check In">
-                  <font>
-                     <Font name="System Bold" size="14.0" />
-                  </font>
-               </Button>
-               <Button fx:id="changeSeatButton" styleClass="button-primary shadow-subtle" text="🪑 Change Seat">
-                  <font>
-                     <Font name="System Bold" size="14.0" />
-                  </font>
-               </Button>
-               <Button fx:id="requestRefundButton" styleClass="action-button-warning" text="💰 Request Refund">
-                  <font>
-                     <Font name="System Bold" size="14.0" />
-                  </font>
-               </Button>
-               <Button fx:id="contactSupportButton" styleClass="quick-action-checkin" text="🎫 Contact Support">
-                  <font>
-                     <Font name="System Bold" size="14.0" />
-                  </font>
-               </Button>
-            </HBox>
-         </VBox>
+                  </Button>
+                  <Button fx:id="changeSeatButton" styleClass="button-primary,shadow-subtle" text="🪑 Change Seat">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="requestRefundButton" styleClass="action-button-warning" text="💰 Request Refund">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="contactSupportButton" styleClass="quick-action-checkin" text="🎫 Contact Support">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </HBox>
+            </VBox>
+         </content>
       </ScrollPane>
    </center>
 </BorderPane> 
