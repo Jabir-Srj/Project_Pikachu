@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.geometry.Insets?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.AdminDashboardController">
-
-   
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminDashboardController" stylesheets="@../css/application.css">
    <!-- Top Navigation Bar -->
    <top>
-      <HBox alignment="CENTER_LEFT" spacing="20" styleClass="admin-header">
+      <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="admin-header">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
          <Button fx:id="backButton" styleClass="header-button" text="← Back">
             <font>
                <Font name="System Bold" size="14.0" />
@@ -39,7 +35,7 @@
             </font>
          </Text>
          <Region HBox.hgrow="ALWAYS" />
-         <HBox alignment="CENTER_RIGHT" spacing="15">
+         <HBox alignment="CENTER_RIGHT" spacing="15.0">
             <Button fx:id="notificationsButton" styleClass="header-button" text="🔔 Notifications" />
             <MenuButton fx:id="adminMenuButton" styleClass="header-button" text="👤 Admin">
                <items>
@@ -52,11 +48,13 @@
          </HBox>
       </HBox>
    </top>
-   
    <!-- Left Sidebar Navigation -->
    <left>
-      <VBox spacing="8" styleClass="admin-sidebar">
-         <VBox spacing="5" styleClass="sidebar-header">
+      <VBox spacing="8.0" styleClass="admin-sidebar">
+         <padding>
+            <Insets bottom="20.0" left="15.0" right="15.0" top="20.0" />
+         </padding>
+         <VBox spacing="5.0" styleClass="sidebar-header">
             <Text styleClass="sidebar-title" text="NAVIGATION">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -73,189 +71,190 @@
          <Button fx:id="settingsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="⚙️ Settings" />
       </VBox>
    </left>
-   
    <!-- Main Content Area -->
    <center>
       <ScrollPane fitToWidth="true" styleClass="main-content-scroll">
-         <VBox spacing="25" styleClass="main-content">
-            <padding>
-               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-            </padding>
-            
-            <!-- Header -->
-            <HBox alignment="CENTER_LEFT" spacing="15">
-               <VBox spacing="8">
-                  <Text styleClass="dashboard-title" text="Dashboard Overview">
-                     <font>
-                        <Font name="System Bold" size="32.0" />
-                     </font>
-                  </Text>
-                  <Text styleClass="dashboard-subtitle" text="Monitor your airline operations in real-time with comprehensive insights">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Text>
-               </VBox>
-               <Region HBox.hgrow="ALWAYS" />
-               <Button fx:id="refreshButton" styleClass="refresh-button" text="🔄 Refresh Data" />
-            </HBox>
-            
-            <!-- Statistics Cards -->
-            <GridPane hgap="25" vgap="25" styleClass="stats-grid">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="ALWAYS" />
-                  <ColumnConstraints hgrow="ALWAYS" />
-                  <ColumnConstraints hgrow="ALWAYS" />
-                  <ColumnConstraints hgrow="ALWAYS" />
-               </columnConstraints>
+         <content>
+            <VBox spacing="25.0" styleClass="main-content">
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
                
-               <!-- Total Flights Card -->
-               <VBox spacing="12" styleClass="stats-card-flights" GridPane.columnIndex="0">
-                  <padding>
-                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-                  </padding>
-                  <HBox alignment="CENTER_LEFT" spacing="15">
-                     <VBox alignment="CENTER" styleClass="stats-icon-flights">
-                        <Text styleClass="stats-icon-text" text="✈️">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                     <VBox spacing="5">
-                        <Text styleClass="stats-label" text="Total Flights">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="totalFlightsLabel" styleClass="stats-value" text="1,247">
-                           <font>
-                              <Font name="System Bold" size="28.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                  </HBox>
-               </VBox>
-               
-               <!-- Active Bookings Card -->
-               <VBox spacing="12" styleClass="stats-card-bookings" GridPane.columnIndex="1">
-                  <padding>
-                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-                  </padding>
-                  <HBox alignment="CENTER_LEFT" spacing="15">
-                     <VBox alignment="CENTER" styleClass="stats-icon-bookings">
-                        <Text styleClass="stats-icon-text-white" text="📋">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                     <VBox spacing="5">
-                        <Text styleClass="stats-label" text="Active Bookings">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="activeBookingsLabel" styleClass="stats-value" text="3,891">
-                           <font>
-                              <Font name="System Bold" size="28.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                  </HBox>
-               </VBox>
-               
-               <!-- Total Customers Card -->
-               <VBox spacing="12" styleClass="stats-card-customers" GridPane.columnIndex="2">
-                  <padding>
-                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-                  </padding>
-                  <HBox alignment="CENTER_LEFT" spacing="15">
-                     <VBox alignment="CENTER" styleClass="stats-icon-customers">
-                        <Text styleClass="stats-icon-text-white" text="👥">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                     <VBox spacing="5">
-                        <Text styleClass="stats-label" text="Total Customers">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="totalCustomersLabel" styleClass="stats-value" text="15,642">
-                           <font>
-                              <Font name="System Bold" size="28.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                  </HBox>
-               </VBox>
-               
-               <!-- Pending Tickets Card -->
-               <VBox spacing="12" styleClass="stats-card-tickets" GridPane.columnIndex="3">
-                  <padding>
-                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-                  </padding>
-                  <HBox alignment="CENTER_LEFT" spacing="15">
-                     <VBox alignment="CENTER" styleClass="stats-icon-tickets">
-                        <Text styleClass="stats-icon-text-white" text="🎫">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                     <VBox spacing="5">
-                        <Text styleClass="stats-label" text="Pending Tickets">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="pendingTicketsLabel" styleClass="stats-value" text="23">
-                           <font>
-                              <Font name="System Bold" size="28.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                  </HBox>
-               </VBox>
-            </GridPane>
-            
-            <!-- Quick Actions and Recent Activity -->
-            <HBox spacing="25">
-               <!-- Quick Actions -->
-               <VBox spacing="20" styleClass="quick-actions-card" HBox.hgrow="ALWAYS">
-                  <padding>
-                     <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                  </padding>
-                  <Text styleClass="card-title" text="⚡ Quick Actions">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Text>
-                  <VBox spacing="12">
-                     <Button fx:id="addFlightButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-primary" text="✈️ Add New Flight" />
-                     <Button fx:id="viewBookingsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-success" text="📋 View All Bookings" />
-                     <Button fx:id="manageUsersButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-danger" text="👥 Manage Users" />
-                     <Button fx:id="generateReportButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-warning" text="📊 Generate Report" />
+               <!-- Header -->
+               <HBox alignment="CENTER_LEFT" spacing="15.0">
+                  <VBox spacing="8.0">
+                     <Text styleClass="dashboard-title" text="Dashboard Overview">
+                        <font>
+                           <Font name="System Bold" size="32.0" />
+                        </font>
+                     </Text>
+                     <Text styleClass="dashboard-subtitle" text="Monitor your airline operations in real-time with comprehensive insights">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Text>
                   </VBox>
-               </VBox>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button fx:id="refreshButton" styleClass="refresh-button" text="🔄 Refresh Data" />
+               </HBox>
                
-               <!-- Recent Activity -->
-               <VBox spacing="20" styleClass="recent-activity-card" HBox.hgrow="ALWAYS">
-                  <padding>
-                     <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                  </padding>
-                  <Text styleClass="card-title" text="📊 Recent Activity">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Text>
-                  <ListView fx:id="activityListView" maxHeight="240.0" styleClass="activity-list" />
-               </VBox>
-            </HBox>
-         </VBox>
+               <!-- Statistics Cards -->
+               <GridPane hgap="25.0" styleClass="stats-grid" vgap="25.0">
+                  <columnConstraints>
+                     <ColumnConstraints hgrow="ALWAYS" />
+                     <ColumnConstraints hgrow="ALWAYS" />
+                     <ColumnConstraints hgrow="ALWAYS" />
+                     <ColumnConstraints hgrow="ALWAYS" />
+                  </columnConstraints>
+                  
+                  <!-- Total Flights Card -->
+                  <VBox spacing="12.0" styleClass="stats-card-flights" GridPane.columnIndex="0">
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                     <HBox alignment="CENTER_LEFT" spacing="15.0">
+                        <VBox alignment="CENTER" styleClass="stats-icon-flights">
+                           <Text styleClass="stats-icon-text" text="✈️">
+                              <font>
+                                 <Font size="24.0" />
+                              </font>
+                           </Text>
+                        </VBox>
+                        <VBox spacing="5.0">
+                           <Text styleClass="stats-label" text="Total Flights">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Text>
+                           <Text fx:id="totalFlightsLabel" styleClass="stats-value" text="1,247">
+                              <font>
+                                 <Font name="System Bold" size="28.0" />
+                              </font>
+                           </Text>
+                        </VBox>
+                     </HBox>
+                  </VBox>
+                  
+                  <!-- Active Bookings Card -->
+                  <VBox spacing="12.0" styleClass="stats-card-bookings" GridPane.columnIndex="1">
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                     <HBox alignment="CENTER_LEFT" spacing="15.0">
+                        <VBox alignment="CENTER" styleClass="stats-icon-bookings">
+                           <Text styleClass="stats-icon-text-white" text="📋">
+                              <font>
+                                 <Font size="24.0" />
+                              </font>
+                           </Text>
+                        </VBox>
+                        <VBox spacing="5.0">
+                           <Text styleClass="stats-label" text="Active Bookings">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Text>
+                           <Text fx:id="activeBookingsLabel" styleClass="stats-value" text="3,891">
+                              <font>
+                                 <Font name="System Bold" size="28.0" />
+                              </font>
+                           </Text>
+                        </VBox>
+                     </HBox>
+                  </VBox>
+                  
+                  <!-- Total Customers Card -->
+                  <VBox spacing="12.0" styleClass="stats-card-customers" GridPane.columnIndex="2">
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                     <HBox alignment="CENTER_LEFT" spacing="15.0">
+                        <VBox alignment="CENTER" styleClass="stats-icon-customers">
+                           <Text styleClass="stats-icon-text-white" text="👥">
+                              <font>
+                                 <Font size="24.0" />
+                              </font>
+                           </Text>
+                        </VBox>
+                        <VBox spacing="5.0">
+                           <Text styleClass="stats-label" text="Total Customers">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Text>
+                           <Text fx:id="totalCustomersLabel" styleClass="stats-value" text="15,642">
+                              <font>
+                                 <Font name="System Bold" size="28.0" />
+                              </font>
+                           </Text>
+                        </VBox>
+                     </HBox>
+                  </VBox>
+                  
+                  <!-- Pending Tickets Card -->
+                  <VBox spacing="12.0" styleClass="stats-card-tickets" GridPane.columnIndex="3">
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                     <HBox alignment="CENTER_LEFT" spacing="15.0">
+                        <VBox alignment="CENTER" styleClass="stats-icon-tickets">
+                           <Text styleClass="stats-icon-text-white" text="🎫">
+                              <font>
+                                 <Font size="24.0" />
+                              </font>
+                           </Text>
+                        </VBox>
+                        <VBox spacing="5.0">
+                           <Text styleClass="stats-label" text="Pending Tickets">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Text>
+                           <Text fx:id="pendingTicketsLabel" styleClass="stats-value" text="23">
+                              <font>
+                                 <Font name="System Bold" size="28.0" />
+                              </font>
+                           </Text>
+                        </VBox>
+                     </HBox>
+                  </VBox>
+               </GridPane>
+               
+               <!-- Quick Actions and Recent Activity -->
+               <HBox spacing="25.0">
+                  <!-- Quick Actions -->
+                  <VBox spacing="20.0" styleClass="quick-actions-card" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <Text styleClass="card-title" text="⚡ Quick Actions">
+                        <font>
+                           <Font name="System Bold" size="20.0" />
+                        </font>
+                     </Text>
+                     <VBox spacing="12.0">
+                        <Button fx:id="addFlightButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-primary" text="✈️ Add New Flight" />
+                        <Button fx:id="viewBookingsButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-success" text="📋 View All Bookings" />
+                        <Button fx:id="manageUsersButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-danger" text="👥 Manage Users" />
+                        <Button fx:id="generateReportButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" styleClass="action-button-warning" text="📊 Generate Report" />
+                     </VBox>
+                  </VBox>
+                  
+                  <!-- Recent Activity -->
+                  <VBox spacing="20.0" styleClass="recent-activity-card" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <Text styleClass="card-title" text="📊 Recent Activity">
+                        <font>
+                           <Font name="System Bold" size="20.0" />
+                        </font>
+                     </Text>
+                     <ListView fx:id="activityListView" maxHeight="240.0" styleClass="activity-list" />
+                  </VBox>
+               </HBox>
+            </VBox>
+         </content>
       </ScrollPane>
    </center>
 </BorderPane> 

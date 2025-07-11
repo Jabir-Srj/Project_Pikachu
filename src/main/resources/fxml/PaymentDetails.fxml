@@ -2,244 +2,394 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<ScrollPane fitToWidth="true" fitToHeight="true" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PaymentController">
-   <content>
-      <VBox maxWidth="1000.0" spacing="20.0">
-         <children>
-            <!-- Header -->
-            <HBox alignment="CENTER_LEFT" spacing="15.0">
-               <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBack" text="Back" />
-                  <Label text="Payment Details">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            
-            <!-- Payment Method Selection -->
-            <VBox maxWidth="800.0" spacing="15.0">
-               <children>
-                  <Label text="Payment Method">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  
-                  <VBox spacing="10.0">
-                     <children>
-                        <RadioButton fx:id="creditCardRadio" mnemonicParsing="false" selected="true" text="Credit/Debit Card">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="paymentMethodGroup" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="paypalRadio" mnemonicParsing="false" text="PayPal" toggleGroup="$paymentMethodGroup" />
-                        <RadioButton fx:id="bankTransferRadio" mnemonicParsing="false" text="Bank Transfer" toggleGroup="$paymentMethodGroup" />
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            
-            <!-- Credit Card Details -->
-            <VBox fx:id="creditCardSection" maxWidth="800.0" spacing="15.0">
-               <children>
-                  <Label text="Card Information">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  
-                  <VBox maxWidth="400.0" spacing="10.0">
-                     <children>
-                        <Label text="Card Number" />
-                        <TextField fx:id="cardNumberField" maxWidth="380.0" promptText="1234 5678 9012 3456" />
-                        
-                        <Label text="Cardholder Name" />
-                        <TextField fx:id="cardHolderField" maxWidth="380.0" promptText="Enter name on card" />
-                     </children>
-                  </VBox>
-                  
-                  <HBox spacing="20.0">
-                     <children>
-                        <VBox maxWidth="180.0" spacing="10.0">
-                           <children>
-                              <Label text="Expiry Date" />
-                              <ComboBox fx:id="expiryMonthComboBox" maxWidth="160.0" promptText="Month" />
-                              <ComboBox fx:id="expiryYearComboBox" maxWidth="160.0" promptText="Year" />
-                           </children>
-                        </VBox>
-                        
-                        <VBox maxWidth="180.0" spacing="10.0">
-                           <children>
-                              <Label text="CVV" />
-                              <TextField fx:id="cvvField" maxWidth="160.0" promptText="123" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            
-            <!-- Billing Address -->
-            <VBox maxWidth="800.0" spacing="15.0">
-               <children>
-                  <Label text="Billing Address">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  
-                  <HBox spacing="20.0">
-                     <children>
-                        <VBox maxWidth="350.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label text="First Name" />
-                              <TextField fx:id="billingFirstNameField" maxWidth="330.0" />
-                              
-                              <Label text="Last Name" />
-                              <TextField fx:id="billingLastNameField" maxWidth="330.0" />
-                              
-                              <Label text="Address Line 1" />
-                              <TextField fx:id="addressLine1Field" maxWidth="330.0" />
-                              
-                              <Label text="Address Line 2" />
-                              <TextField fx:id="addressLine2Field" maxWidth="330.0" promptText="Optional" />
-                           </children>
-                        </VBox>
-                        
-                        <VBox maxWidth="350.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label text="City" />
-                              <TextField fx:id="cityField" maxWidth="330.0" />
-                              
-                              <Label text="State/Province" />
-                              <TextField fx:id="stateField" maxWidth="330.0" />
-                              
-                              <Label text="ZIP/Postal Code" />
-                              <TextField fx:id="zipCodeField" maxWidth="330.0" />
-                              
-                              <Label text="Country" />
-                              <ComboBox fx:id="countryComboBox" maxWidth="330.0" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            
-            <!-- Order Summary -->
-            <VBox maxWidth="600.0" spacing="15.0">
-               <children>
-                  <Label text="Order Summary">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  
-                  <VBox spacing="8.0">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" spacing="10.0">
-                           <children>
-                              <Label text="Flight:" />
-                              <Label fx:id="flightDetailsLabel" text="AA-123 New York to Los Angeles" />
-                           </children>
-                        </HBox>
-                        
-                        <HBox alignment="CENTER_LEFT" spacing="10.0">
-                           <children>
-                              <Label text="Passengers:" />
-                              <Label fx:id="passengerCountLabel" text="2 passengers" />
-                           </children>
-                        </HBox>
-                        
-                        <HBox alignment="CENTER_LEFT" spacing="10.0">
-                           <children>
-                              <Label text="Base Price:" />
-                              <Label fx:id="basePriceLabel" text="599.00" />
-                           </children>
-                        </HBox>
-                        
-                        <HBox alignment="CENTER_LEFT" spacing="10.0">
-                           <children>
-                              <Label text="Taxes and Fees:" />
-                              <Label fx:id="taxesLabel" text="89.85" />
-                           </children>
-                        </HBox>
-                        
-                        <HBox alignment="CENTER_LEFT" spacing="10.0">
-                           <children>
-                              <Label text="Total Amount:">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="totalAmountLabel" text="688.85">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            
-            <!-- Payment Security Info -->
-            <VBox maxWidth="600.0" spacing="10.0">
-               <children>
-                  <Label text="Security Information">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  
-                  <VBox spacing="5.0">
-                     <children>
-                        <Label text="• Your payment information is encrypted and secure" />
-                        <Label text="• We do not store your credit card details" />
-                        <Label text="• SSL encryption protects your transaction" />
-                        <Label text="• Cancel within 24 hours for full refund" />
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            
-            <!-- Action Buttons -->
-            <HBox alignment="CENTER" maxWidth="600.0" spacing="20.0">
-               <children>
-                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancel" text="Cancel">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSave" text="Save Payment Info">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="processPaymentButton" mnemonicParsing="false" onAction="#handleProcessPayment" text="Process Payment">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BookingController" stylesheets="@../css/application.css">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header-gradient">
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
-      </VBox>
-   </content>
-</ScrollPane> 
+         <Button fx:id="backButton" styleClass="header-accent-button" text="← Back" />
+         <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="⚡ Payment Details">
+            <font>
+               <Font name="System Bold" size="32.0" />
+            </font>
+         </Text>
+         <Region HBox.hgrow="ALWAYS" />
+         <HBox alignment="CENTER_RIGHT" spacing="12.0">
+            <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="header-info-badge">
+               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="🔒">
+                  <font>
+                     <Font size="16.0" />
+                  </font>
+               </Text>
+               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Secure Payment">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Text>
+            </HBox>
+         </HBox>
+      </HBox>
+   </top>
+   <center>
+      <ScrollPane fitToWidth="true" styleClass="background-gray-light">
+         <content>
+            <VBox spacing="30.0" styleClass="background-gray-light">
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+               
+               <!-- Booking Summary -->
+               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium,border-yellow-light">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="✈️ Booking Summary">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Text>
+                  
+                  <HBox spacing="25.0">
+                     <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                           <VBox alignment="CENTER" spacing="5.0">
+                              <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="08:30">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="NYC">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Text>
+                           </VBox>
+                           <VBox alignment="CENTER" styleClass="flight-route-badge">
+                              <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="→">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Text>
+                           </VBox>
+                           <VBox alignment="CENTER" spacing="5.0">
+                              <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="11:15">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="LAX">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Text>
+                           </VBox>
+                        </HBox>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Flight PA-1234 • March 25, 2024 • 2 Passengers">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                     
+                     <VBox alignment="CENTER_RIGHT" spacing="8.0">
+                        <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                           <Text fill="#f4d03f" strokeType="OUTSIDE" strokeWidth="0.0" text="$">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                           </Text>
+                           <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="598.00">
+                              <font>
+                                 <Font name="System Bold" size="24.0" />
+                              </font>
+                           </Text>
+                        </HBox>
+                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+               </VBox>
+               
+               <!-- Payment Method Selection -->
+               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="💳 Payment Method">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Text>
+                  
+                  <VBox spacing="20.0">
+                     <RadioButton fx:id="creditCardRadio" selected="true" styleClass="form-label" text="Credit/Debit Card" textFill="#2c3e50">
+                        <font>
+                           <Font name="System Bold" size="16.0" />
+                        </font>
+                     </RadioButton>
+                     
+                     <!-- Credit Card Form -->
+                     <VBox fx:id="creditCardForm" spacing="20.0" styleClass="payment-card-form">
+                        <HBox spacing="20.0">
+                           <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                              <Label styleClass="form-label" text="Card Number *" textFill="#2c3e50">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="cardNumberField" promptText="1234 5678 9012 3456" styleClass="border-gray-light,padding-15">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                           </VBox>
+                           <VBox spacing="8.0">
+                              <Label styleClass="form-label" text="Card Type" textFill="#2c3e50">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                 <VBox alignment="CENTER" styleClass="card-type-visa">
+                                    <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="💳">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Text>
+                                 </VBox>
+                                 <VBox alignment="CENTER" styleClass="card-type-mastercard">
+                                    <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="💳">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Text>
+                                 </VBox>
+                              </HBox>
+                           </VBox>
+                        </HBox>
+                        
+                        <HBox spacing="20.0">
+                           <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                              <Label styleClass="form-label" text="Cardholder Name *" textFill="#2c3e50">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="cardholderNameField" promptText="John Smith" styleClass="border-gray-light,padding-15">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                           </VBox>
+                           <VBox spacing="8.0">
+                              <Label styleClass="form-label" text="Expiry Date *" textFill="#2c3e50">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="expiryDateField" maxWidth="120.0" promptText="MM/YY" styleClass="border-gray-light,padding-15">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                           </VBox>
+                           <VBox spacing="8.0">
+                              <Label styleClass="form-label" text="CVV *" textFill="#2c3e50">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="cvvField" maxWidth="100.0" promptText="123" styleClass="border-gray-light,padding-15">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                           </VBox>
+                        </HBox>
+                     </VBox>
+                     
+                     <RadioButton fx:id="paypalRadio" styleClass="form-label" text="PayPal" textFill="#2c3e50">
+                        <font>
+                           <Font name="System Bold" size="16.0" />
+                        </font>
+                     </RadioButton>
+                     
+                     <RadioButton fx:id="bankTransferRadio" styleClass="form-label" text="Bank Transfer" textFill="#2c3e50">
+                        <font>
+                           <Font name="System Bold" size="16.0" />
+                        </font>
+                     </RadioButton>
+                  </VBox>
+               </VBox>
+               
+               <!-- Billing Address -->
+               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <HBox alignment="CENTER_LEFT" spacing="20.0">
+                     <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="🏠 Billing Address">
+                        <font>
+                           <Font name="System Bold" size="22.0" />
+                        </font>
+                     </Text>
+                     <Region HBox.hgrow="ALWAYS" />
+                     <CheckBox fx:id="sameAsContactCheckBox" selected="true" styleClass="form-label" text="Same as contact information" textFill="#2c3e50">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </CheckBox>
+                  </HBox>
+                  
+                  <GridPane fx:id="billingAddressGrid" hgap="20.0" vgap="20.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                     </columnConstraints>
+                     
+                     <VBox spacing="8.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
+                        <Label styleClass="form-label" text="Street Address *" textFill="#2c3e50">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="streetAddressField" promptText="123 Main Street" styleClass="border-gray-light,padding-15">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </VBox>
+                     
+                     <VBox spacing="8.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label styleClass="form-label" text="City *" textFill="#2c3e50">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="cityField" promptText="New York" styleClass="border-gray-light,padding-15">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </VBox>
+                     
+                     <VBox spacing="8.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label styleClass="form-label" text="State/Province *" textFill="#2c3e50">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="stateComboBox" maxWidth="Infinity" promptText="Select State" styleClass="border-gray-light,padding-15">
+                        </ComboBox>
+                     </VBox>
+                     
+                     <VBox spacing="8.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <Label styleClass="form-label" text="ZIP/Postal Code *" textFill="#2c3e50">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="zipCodeField" promptText="10001" styleClass="border-gray-light,padding-15">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </VBox>
+                     
+                     <VBox spacing="8.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label styleClass="form-label" text="Country *" textFill="#2c3e50">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="countryComboBox" maxWidth="Infinity" promptText="Select Country" styleClass="border-gray-light,padding-15">
+                        </ComboBox>
+                     </VBox>
+                  </GridPane>
+               </VBox>
+               
+               <!-- Terms and Complete Payment -->
+               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium">
+                  <padding>
+                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  </padding>
+                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="📋 Terms and Conditions">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Text>
+                  
+                  <VBox spacing="15.0">
+                     <CheckBox fx:id="termsCheckBox" styleClass="form-label" text="I agree to the Terms of Service and Conditions of Carriage" textFill="#2c3e50">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </CheckBox>
+                     <CheckBox fx:id="privacyCheckBox" styleClass="form-label" text="I agree to the Privacy Policy and data processing terms" textFill="#2c3e50">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </CheckBox>
+                     <CheckBox fx:id="refundCheckBox" styleClass="form-label" text="I understand the refund and cancellation policies" textFill="#2c3e50">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </CheckBox>
+                  </VBox>
+                  
+                  <Separator styleClass="separator-gray" />
+                  
+                  <HBox spacing="20.0">
+                     <Button fx:id="cancelButton" styleClass="button-secondary" text="Cancel Booking" HBox.hgrow="ALWAYS">
+                        <font>
+                           <Font name="System Bold" size="16.0" />
+                        </font>
+                     </Button>
+                     <Button fx:id="completePaymentButton" styleClass="action-button-success" text="⚡ Complete Payment - $598.00" HBox.hgrow="ALWAYS">
+                        <font>
+                           <Font name="System Bold" size="16.0" />
+                        </font>
+                     </Button>
+                  </HBox>
+                  
+                  <HBox alignment="CENTER" spacing="12.0">
+                     <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="security-badge">
+                        <Text fill="#2ecc71" strokeType="OUTSIDE" strokeWidth="0.0" text="🔒">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#2ecc71" strokeType="OUTSIDE" strokeWidth="0.0" text="Your payment is secured with 256-bit SSL encryption">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                     </HBox>
+                  </HBox>
+               </VBox>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane> 

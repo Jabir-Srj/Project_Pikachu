@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.CustomerManagementController">
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerManagementController" stylesheets="@../css/application.css">
    <top>
-      <VBox spacing="25" style="-fx-background: linear-gradient(to bottom, #3498DB, #2980B9); -fx-padding: 35; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0, 0, 2);">
+      <VBox spacing="25.0" styleClass="admin-header-gradient">
+         <padding>
+            <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
+         </padding>
          <!-- Header -->
-         <HBox alignment="CENTER_LEFT" spacing="20">
-            <Button fx:id="backButton" style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white; -fx-padding: 15 25; -fx-background-radius: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);" text="← Back to Dashboard">
+         <HBox alignment="CENTER_LEFT" spacing="20.0">
+            <Button fx:id="backButton" styleClass="header-button-translucent" text="← Back to Dashboard">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -33,12 +35,12 @@
                </font>
             </Text>
             <Region HBox.hgrow="ALWAYS" />
-            <Button fx:id="addCustomerButton" style="-fx-background: linear-gradient(to right, #2ECC71, #58D68D); -fx-text-fill: white; -fx-padding: 15 25; -fx-background-radius: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);" text="+ Add Customer">
+            <Button fx:id="addCustomerButton" styleClass="header-button-success" text="+ Add Customer">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="exportButton" style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white; -fx-padding: 15 25; -fx-background-radius: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);" text="📊 Export">
+            <Button fx:id="exportButton" styleClass="header-button-translucent" text="📊 Export">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -46,52 +48,55 @@
          </HBox>
          
          <!-- Search and Filter Bar -->
-         <HBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 3);">
-            <VBox spacing="8" HBox.hgrow="ALWAYS">
-               <Label text="Search Customers" textFill="#2C3E50">
+         <HBox spacing="20.0" styleClass="search-filter-card">
+            <padding>
+               <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+            </padding>
+            <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+               <Label text="Search Customers" textFill="#2c3e50">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Label>
-               <TextField fx:id="searchField" promptText="Search by name, email, phone, or customer ID..." style="-fx-background-radius: 10; -fx-border-color: #E9ECEF; -fx-border-radius: 10; -fx-border-width: 2; -fx-padding: 12;">
+               <TextField fx:id="searchField" promptText="Search by name, email, phone, or customer ID..." styleClass="search-input-field">
                   <font>
                      <Font size="14.0" />
                   </font>
                </TextField>
             </VBox>
             
-            <VBox spacing="8">
-               <Label text="Status" textFill="#2C3E50">
+            <VBox spacing="8.0">
+               <Label text="Status" textFill="#2c3e50">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Label>
-               <ComboBox fx:id="statusFilterComboBox" promptText="All Status" style="-fx-background-radius: 10; -fx-border-color: #E9ECEF; -fx-border-radius: 10; -fx-border-width: 2; -fx-min-width: 150; -fx-padding: 12; -fx-font-size: 14px;">
+               <ComboBox fx:id="statusFilterComboBox" minWidth="150.0" promptText="All Status" styleClass="filter-combobox">
                </ComboBox>
             </VBox>
             
-            <VBox spacing="8">
-               <Label text="Join Date" textFill="#2C3E50">
+            <VBox spacing="8.0">
+               <Label text="Join Date" textFill="#2c3e50">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Label>
-               <ComboBox fx:id="dateRangeComboBox" promptText="All Time" style="-fx-background-radius: 10; -fx-border-color: #E9ECEF; -fx-border-radius: 10; -fx-border-width: 2; -fx-min-width: 150; -fx-padding: 12; -fx-font-size: 14px;">
+               <ComboBox fx:id="dateRangeComboBox" minWidth="150.0" promptText="All Time" styleClass="filter-combobox">
                </ComboBox>
             </VBox>
             
-            <VBox alignment="BOTTOM_CENTER" spacing="8">
+            <VBox alignment="BOTTOM_CENTER" spacing="8.0">
                <Label text=" " />
-               <Button fx:id="searchButton" style="-fx-background: linear-gradient(to right, #3498DB, #2980B9); -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);" text="🔍 Search">
+               <Button fx:id="searchButton" styleClass="search-button" text="🔍 Search">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Button>
             </VBox>
             
-            <VBox alignment="BOTTOM_CENTER" spacing="8">
+            <VBox alignment="BOTTOM_CENTER" spacing="8.0">
                <Label text=" " />
-               <Button fx:id="clearButton" style="-fx-background: linear-gradient(to right, #95A5A6, #BDC3C7); -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);" text="Clear">
+               <Button fx:id="clearButton" styleClass="clear-button" text="Clear">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
@@ -100,31 +105,33 @@
          </HBox>
       </VBox>
    </top>
-   
    <center>
-      <VBox spacing="25" style="-fx-background-color: #F8F9FA;">
+      <VBox spacing="25.0" styleClass="background-gray-light">
          <padding>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
          
          <!-- Statistics Summary -->
-         <HBox spacing="25">
-            <VBox spacing="12" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 3); -fx-border-color: rgba(52, 152, 219, 0.3); -fx-border-radius: 15; -fx-border-width: 1; -fx-padding: 25;" HBox.hgrow="ALWAYS">
-               <HBox alignment="CENTER_LEFT" spacing="15">
-                  <VBox alignment="CENTER" style="-fx-background: linear-gradient(to bottom right, #3498DB, #2980B9); -fx-background-radius: 12; -fx-padding: 12;">
+         <HBox spacing="25.0">
+            <VBox spacing="12.0" styleClass="stats-card-primary" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </padding>
+               <HBox alignment="CENTER_LEFT" spacing="15.0">
+                  <VBox alignment="CENTER" styleClass="stats-icon-primary">
                      <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="👥">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Text>
                   </VBox>
-                  <VBox spacing="5">
-                     <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Customers">
+                  <VBox spacing="5.0">
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Customers">
                         <font>
                            <Font name="System Bold" size="14.0" />
                         </font>
                      </Text>
-                     <Text fx:id="totalCustomersLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="2,847">
+                     <Text fx:id="totalCustomersLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="2,847">
                         <font>
                            <Font name="System Bold" size="24.0" />
                         </font>
@@ -133,22 +140,25 @@
                </HBox>
             </VBox>
             
-            <VBox spacing="12" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 3); -fx-border-color: rgba(46, 204, 113, 0.3); -fx-border-radius: 15; -fx-border-width: 1; -fx-padding: 25;" HBox.hgrow="ALWAYS">
-               <HBox alignment="CENTER_LEFT" spacing="15">
-                  <VBox alignment="CENTER" style="-fx-background: linear-gradient(to bottom right, #2ECC71, #58D68D); -fx-background-radius: 12; -fx-padding: 12;">
+            <VBox spacing="12.0" styleClass="stats-card-success" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </padding>
+               <HBox alignment="CENTER_LEFT" spacing="15.0">
+                  <VBox alignment="CENTER" styleClass="stats-icon-success">
                      <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="✅">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Text>
                   </VBox>
-                  <VBox spacing="5">
-                     <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Active">
+                  <VBox spacing="5.0">
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Active">
                         <font>
                            <Font name="System Bold" size="14.0" />
                         </font>
                      </Text>
-                     <Text fx:id="activeCustomersLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="2,734">
+                     <Text fx:id="activeCustomersLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="2,734">
                         <font>
                            <Font name="System Bold" size="24.0" />
                         </font>
@@ -157,22 +167,25 @@
                </HBox>
             </VBox>
             
-            <VBox spacing="12" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 3); -fx-border-color: rgba(243, 156, 18, 0.3); -fx-border-radius: 15; -fx-border-width: 1; -fx-padding: 25;" HBox.hgrow="ALWAYS">
-               <HBox alignment="CENTER_LEFT" spacing="15">
-                  <VBox alignment="CENTER" style="-fx-background: linear-gradient(to bottom right, #F39C12, #F7C52A); -fx-background-radius: 12; -fx-padding: 12;">
+            <VBox spacing="12.0" styleClass="stats-card-warning" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </padding>
+               <HBox alignment="CENTER_LEFT" spacing="15.0">
+                  <VBox alignment="CENTER" styleClass="stats-icon-warning">
                      <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="🆕">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Text>
                   </VBox>
-                  <VBox spacing="5">
-                     <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="New This Month">
+                  <VBox spacing="5.0">
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="New This Month">
                         <font>
                            <Font name="System Bold" size="14.0" />
                         </font>
                      </Text>
-                     <Text fx:id="newCustomersLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="156">
+                     <Text fx:id="newCustomersLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="156">
                         <font>
                            <Font name="System Bold" size="24.0" />
                         </font>
@@ -181,22 +194,25 @@
                </HBox>
             </VBox>
             
-            <VBox spacing="12" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 3); -fx-border-color: rgba(231, 76, 60, 0.3); -fx-border-radius: 15; -fx-border-width: 1; -fx-padding: 25;" HBox.hgrow="ALWAYS">
-               <HBox alignment="CENTER_LEFT" spacing="15">
-                  <VBox alignment="CENTER" style="-fx-background: linear-gradient(to bottom right, #E74C3C, #EC7063); -fx-background-radius: 12; -fx-padding: 12;">
+            <VBox spacing="12.0" styleClass="stats-card-danger" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </padding>
+               <HBox alignment="CENTER_LEFT" spacing="15.0">
+                  <VBox alignment="CENTER" styleClass="stats-icon-danger">
                      <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="⚠️">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Text>
                   </VBox>
-                  <VBox spacing="5">
-                     <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Inactive">
+                  <VBox spacing="5.0">
+                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Inactive">
                         <font>
                            <Font name="System Bold" size="14.0" />
                         </font>
                      </Text>
-                     <Text fx:id="inactiveCustomersLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="113">
+                     <Text fx:id="inactiveCustomersLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="113">
                         <font>
                            <Font name="System Bold" size="24.0" />
                         </font>
@@ -207,26 +223,26 @@
          </HBox>
          
          <!-- Customers Table -->
-         <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 3);">
+         <VBox spacing="20.0" styleClass="content-card,shadow-card-medium">
             <padding>
                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
             </padding>
             
-            <HBox alignment="CENTER_LEFT" spacing="20">
-               <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="👥 Customer List">
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="👥 Customer List">
                   <font>
                      <Font name="System Bold" size="24.0" />
                   </font>
                </Text>
                <Region HBox.hgrow="ALWAYS" />
-               <Button fx:id="refreshButton" style="-fx-background: linear-gradient(to right, #95A5A6, #BDC3C7); -fx-text-fill: white; -fx-padding: 10 15; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);" text="🔄 Refresh">
+               <Button fx:id="refreshButton" styleClass="refresh-button" text="🔄 Refresh">
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Button>
             </HBox>
             
-            <TableView fx:id="customersTableView" style="-fx-background-color: #F8F9FA; -fx-border-color: #E9ECEF; -fx-border-radius: 10; -fx-background-radius: 10;">
+            <TableView fx:id="customersTableView" styleClass="admin-table-view">
                <columns>
                   <TableColumn fx:id="customerIdColumn" minWidth="120.0" text="Customer ID" />
                   <TableColumn fx:id="firstNameColumn" minWidth="100.0" text="First Name" />
@@ -242,23 +258,23 @@
             </TableView>
             
             <!-- Pagination -->
-            <HBox alignment="CENTER" spacing="20">
-               <Button fx:id="previousPageButton" style="-fx-background: linear-gradient(to right, #95A5A6, #BDC3C7); -fx-text-fill: white; -fx-padding: 10 15; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);" text="← Previous" />
-               <Label fx:id="pageInfoLabel" text="Page 1 of 57" textFill="#2C3E50">
+            <HBox alignment="CENTER" spacing="20.0">
+               <Button fx:id="previousPageButton" styleClass="pagination-button" text="← Previous" />
+               <Label fx:id="pageInfoLabel" text="Page 1 of 57" textFill="#2c3e50">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Label>
-               <Button fx:id="nextPageButton" style="-fx-background: linear-gradient(to right, #95A5A6, #BDC3C7); -fx-text-fill: white; -fx-padding: 10 15; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);" text="Next →" />
+               <Button fx:id="nextPageButton" styleClass="pagination-button" text="Next →" />
                <Region HBox.hgrow="ALWAYS" />
-               <Label text="Show:" textFill="#7F8C8D">
+               <Label text="Show:" textFill="#7f8c8d">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Label>
-               <ComboBox fx:id="pageSizeComboBox" style="-fx-background-radius: 8; -fx-border-color: #E9ECEF; -fx-border-radius: 8; -fx-border-width: 1; -fx-padding: 8; -fx-font-size: 14px;">
+               <ComboBox fx:id="pageSizeComboBox" styleClass="page-size-combobox">
                </ComboBox>
-               <Label text="customers per page" textFill="#7F8C8D">
+               <Label text="customers per page" textFill="#7f8c8d">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
