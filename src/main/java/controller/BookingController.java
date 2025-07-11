@@ -497,7 +497,17 @@ public class BookingController implements Initializable {
      */
     @FXML
     private void handleBackToDashboard() {
-        NavigationManager.getInstance().showAdminDashboard();
+        // Navigate based on user role - NEVER allow role escalation
+        if (currentUser != null && currentUser.getRole() != null) {
+            if (currentUser.getRole().name().equals("ADMIN")) {
+                NavigationManager.getInstance().showAdminDashboard();
+            } else {
+                NavigationManager.getInstance().showCustomerOverview();
+            }
+        } else {
+            // If user role is unclear, go to login for security
+            NavigationManager.getInstance().navigateTo(NavigationManager.LOGIN_SCREEN);
+        }
     }
     
     /**

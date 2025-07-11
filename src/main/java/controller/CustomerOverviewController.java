@@ -68,7 +68,7 @@ public class CustomerOverviewController implements Initializable {
         }
         
         if (submitTicketButton != null) {
-            submitTicketButton.setOnAction(e -> util.NavigationManager.getInstance().showSupportTicketSubmission());
+            submitTicketButton.setOnAction(e -> navigateToTicketSubmission());
         }
         
         if (aiChatButton != null) {
@@ -101,7 +101,8 @@ public class CustomerOverviewController implements Initializable {
      * Handle back to dashboard
      */
     private void handleBackToDashboard() {
-        navigationManager.showAdminDashboard();
+        // For customers, back button should go to login or stay on customer overview
+        navigationManager.showCustomerOverview();
     }
     
     /**

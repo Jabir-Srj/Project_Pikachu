@@ -160,13 +160,13 @@ public class FlightSearchController implements Initializable {
             selectFirstButton.setOnAction(e -> selectFlight("First"));
         }
         
-        if (editFlightButton != null && currentUser.getRole().name().equals("ADMIN")) {
+        if (editFlightButton != null && currentUser != null && currentUser.getRole() != null && currentUser.getRole().name().equals("ADMIN")) {
             editFlightButton.setOnAction(e -> editFlight());
         } else if (editFlightButton != null) {
             editFlightButton.setVisible(false);
         }
         
-        if (cancelFlightButton != null && currentUser.getRole().name().equals("ADMIN")) {
+        if (cancelFlightButton != null && currentUser != null && currentUser.getRole() != null && currentUser.getRole().name().equals("ADMIN")) {
             cancelFlightButton.setOnAction(e -> cancelFlight());
         } else if (cancelFlightButton != null) {
             cancelFlightButton.setVisible(false);
@@ -216,8 +216,9 @@ public class FlightSearchController implements Initializable {
             flight.getFlightNumber(), flight.getDepartureAirport(), flight.getArrivalAirport()));
         flightInfo.getStyleClass().add("flight-card-title");
         
-        Label timeInfo = new Label(String.format("Departure: %s | Arrival: %s", 
-            flight.getDepartureTime().toLocalTime(), flight.getArrivalTime().toLocalTime()));
+        String departureTime = flight.getDepartureTime() != null ? flight.getDepartureTime().toLocalTime().toString() : "TBD";
+        String arrivalTime = flight.getArrivalTime() != null ? flight.getArrivalTime().toLocalTime().toString() : "TBD";
+        Label timeInfo = new Label(String.format("Departure: %s | Arrival: %s", departureTime, arrivalTime));
         
         Label detailsInfo = new Label(String.format("$%.2f | %d/%d seats | %s", 
             flight.getBasePrice(), flight.getAvailableSeats(), flight.getTotalSeats(), flight.getStatus()));
@@ -278,11 +279,11 @@ public class FlightSearchController implements Initializable {
                 return flights;
             case "Morning Flights":
                 return flights.stream()
-                    .filter(f -> f.getDepartureTime().getHour() < 12)
+                    .filter(f -> f.getDepartureTime() != null && f.getDepartureTime().getHour() < 12)
                     .collect(Collectors.toList());
             case "Evening Flights":
                 return flights.stream()
-                    .filter(f -> f.getDepartureTime().getHour() >= 18)
+                    .filter(f -> f.getDepartureTime() != null && f.getDepartureTime().getHour() >= 18)
                     .collect(Collectors.toList());
             default:
                 return flights;
@@ -303,6 +304,7 @@ public class FlightSearchController implements Initializable {
                     .collect(Collectors.toList());
             case "Departure Time":
                 return flights.stream()
+                    .filter(f -> f.getDepartureTime() != null) // Filter out flights with null departure times
                     .sorted((f1, f2) -> f1.getDepartureTime().compareTo(f2.getDepartureTime()))
                     .collect(Collectors.toList());
             default:
@@ -329,8 +331,9 @@ public class FlightSearchController implements Initializable {
             flight.getFlightNumber(), flight.getDepartureAirport(), flight.getArrivalAirport()));
         flightInfo.getStyleClass().add("flight-card-title");
         
-        Label timeInfo = new Label(String.format("Departure: %s | Arrival: %s", 
-            flight.getDepartureTime().toLocalTime(), flight.getArrivalTime().toLocalTime()));
+        String departureTime = flight.getDepartureTime() != null ? flight.getDepartureTime().toLocalTime().toString() : "TBD";
+        String arrivalTime = flight.getArrivalTime() != null ? flight.getArrivalTime().toLocalTime().toString() : "TBD";
+        Label timeInfo = new Label(String.format("Departure: %s | Arrival: %s", departureTime, arrivalTime));
         
         Label priceInfo = new Label(String.format("$%.2f | %d seats available", 
             flight.getBasePrice(), flight.getAvailableSeats()));
@@ -431,7 +434,7 @@ public class FlightSearchController implements Initializable {
     }
     
     private void handleBack() {
-        if (currentUser.getRole().name().equals("ADMIN")) {
+        if (currentUser != null && currentUser.getRole() != null && currentUser.getRole().name().equals("ADMIN")) {
             NavigationManager.getInstance().showAdminDashboard();
         } else {
             NavigationManager.getInstance().showCustomerOverview();

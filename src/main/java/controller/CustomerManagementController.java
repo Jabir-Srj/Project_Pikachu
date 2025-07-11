@@ -433,7 +433,13 @@ public class CustomerManagementController implements Initializable {
      */
     @FXML
     private void handleBackToDashboard() {
-        navigationManager.showAdminDashboard();
+        // Only admins should access customer management - enforce role-based navigation
+        if (currentUser != null && currentUser.getRole() != null && currentUser.getRole().name().equals("ADMIN")) {
+            navigationManager.showAdminDashboard();
+        } else {
+            // Non-admin users should not be here - redirect to login for security
+            navigationManager.navigateTo(NavigationManager.LOGIN_SCREEN);
+        }
     }
     
     /**

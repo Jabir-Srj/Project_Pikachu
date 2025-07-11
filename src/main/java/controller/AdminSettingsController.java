@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
+import model.User;
 import util.NavigationManager;
 
 public class AdminSettingsController {
@@ -20,16 +21,32 @@ public class AdminSettingsController {
     @FXML private Button cancelPreferencesButton;
     @FXML private Button backupButton;
     @FXML private Button logoutButton;
+    
+    private User currentUser;
 
     @FXML
     public void initialize() {
-        backButton.setOnAction(e -> NavigationManager.getInstance().showAdminDashboard());
+        currentUser = (User) NavigationManager.getInstance().getSharedData("currentUser");
+        backButton.setOnAction(e -> handleBackToDashboard());
         cancelPasswordButton.setOnAction(e -> clearPasswordFields());
         savePasswordButton.setOnAction(e -> showAlert("Password change feature coming soon!"));
         savePreferencesButton.setOnAction(e -> showAlert("Preferences saved!", Alert.AlertType.INFORMATION));
         cancelPreferencesButton.setOnAction(e -> resetPreferences());
         backupButton.setOnAction(e -> showAlert("System backup feature coming soon!"));
         logoutButton.setOnAction(e -> NavigationManager.getInstance().showLogin());
+    }
+
+    /**
+     * Handle back to dashboard with role verification
+     */
+    private void handleBackToDashboard() {
+        // Only admins should access admin settings - enforce role-based navigation
+        if (currentUser != null && currentUser.getRole() != null && currentUser.getRole().name().equals("ADMIN")) {
+            NavigationManager.getInstance().showAdminDashboard();
+        } else {
+            // Non-admin users should not be here - redirect to login for security
+            NavigationManager.getInstance().navigateTo(NavigationManager.LOGIN_SCREEN);
+        }
     }
 
     private void clearPasswordFields() {
