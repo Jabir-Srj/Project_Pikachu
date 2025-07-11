@@ -31,10 +31,10 @@ public class AirlineApp extends Application {
         // Set up the primary stage
         primaryStage.setTitle("Pikachu Airlines - Premium Travel Experience");
         primaryStage.setResizable(true);
-        primaryStage.setMinWidth(1200);
-        primaryStage.setMinHeight(800);
-        primaryStage.setWidth(1400);
-        primaryStage.setHeight(900);
+        primaryStage.setMinWidth(1000);
+        primaryStage.setMinHeight(600);
+        primaryStage.setWidth(1280);
+        primaryStage.setHeight(720);
         primaryStage.centerOnScreen();
         
         // Initialize navigation manager
