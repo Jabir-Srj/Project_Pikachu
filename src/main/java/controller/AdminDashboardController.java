@@ -118,56 +118,57 @@ public class AdminDashboardController implements Initializable {
         if (dashboardButton != null) {
             dashboardButton.setOnAction(e -> {
                 System.out.println("Dashboard clicked");
-                loadDashboardData();
+                navigationManager.showAdminDashboard();
             });
         }
-        
+
         if (flightsButton != null) {
             flightsButton.setOnAction(e -> {
                 System.out.println("Flights clicked");
-                navigateToFlightManagement();
+                navigationManager.showFlightInformation();
             });
         }
-        
+
         if (bookingsButton != null) {
             bookingsButton.setOnAction(e -> {
                 System.out.println("Bookings clicked");
-                navigateToBookingManagement();
+                navigationManager.showBookingOverview();
             });
         }
-        
+
         if (customersButton != null) {
             customersButton.setOnAction(e -> {
-                System.out.println("Customers clicked - navigating to BookingOverview for admin view");
-                navigateToBookingManagement(); // For admin, show booking management instead of customer overview
+                System.out.println("Customers clicked");
+                navigationManager.showCustomerManagement();
             });
         }
-        
+
         if (ticketsButton != null) {
             ticketsButton.setOnAction(e -> {
                 System.out.println("Tickets clicked");
-                navigateToTicketManagement();
+                navigationManager.showTicketOverview();
             });
         }
-        
+
         if (refundsButton != null) {
             refundsButton.setOnAction(e -> {
                 System.out.println("Refunds clicked");
-                navigateToRefundManagement();
+                navigationManager.navigateTo(NavigationManager.REFUND_APPROVAL);
             });
         }
-        
+
         if (reportsButton != null) {
             reportsButton.setOnAction(e -> {
                 System.out.println("Reports clicked");
-                navigateToReports();
+                // Placeholder: show ticket overview as reports
+                navigationManager.showTicketOverview();
             });
         }
-        
+
         if (settingsButton != null) {
             settingsButton.setOnAction(e -> {
                 System.out.println("Settings button clicked");
-                navigateToSettings();
+                navigationManager.showAdminSettings();
             });
         }
         
@@ -182,28 +183,29 @@ public class AdminDashboardController implements Initializable {
         if (addFlightButton != null) {
             addFlightButton.setOnAction(e -> {
                 System.out.println("Add Flight clicked");
-                navigateToFlightManagement();
+                navigationManager.showFlightInformation();
             });
         }
-        
+
         if (viewBookingsButton != null) {
             viewBookingsButton.setOnAction(e -> {
                 System.out.println("View Bookings clicked");
-                navigateToBookingManagement();
+                navigationManager.showBookingOverview();
             });
         }
-        
+
         if (manageUsersButton != null) {
             manageUsersButton.setOnAction(e -> {
                 System.out.println("Manage Users clicked");
-                navigateToBookingManagement(); // For admin, show booking management
+                navigationManager.showCustomerManagement();
             });
         }
-        
+
         if (generateReportButton != null) {
             generateReportButton.setOnAction(e -> {
                 System.out.println("Generate Report clicked");
-                navigateToReports();
+                // Placeholder: show ticket overview as reports
+                navigationManager.showTicketOverview();
             });
         }
         
@@ -290,15 +292,15 @@ public class AdminDashboardController implements Initializable {
      * Navigate to reports
      */
     private void navigateToReports() {
-        // For now, redirect to flight information as reports aren't implemented yet
-        navigationManager.showFlightInformation();
+        // For now, redirect to ticket overview as reports aren't implemented yet
+        navigationManager.showTicketOverview();
     }
     
     /**
      * Navigate to settings
      */
     private void navigateToSettings() {
-        // For now, redirect to dashboard as settings aren't implemented yet
-        navigationManager.showAdminDashboard();
+        // For now, redirect to customer overview as settings aren't implemented yet
+        navigationManager.showCustomerOverview();
     }
 } 

@@ -37,6 +37,24 @@ public class RefundController implements Initializable {
     @FXML private Text requestDateLabel;
     @FXML private Text refundAmountLabel;
     
+    // Customer Information
+    @FXML private Text customerNameLabel;
+    @FXML private Text customerIdLabel;
+    @FXML private Text emailLabel;
+    @FXML private Text phoneLabel;
+    
+    // Booking Information
+    @FXML private Text bookingReferenceLabel;
+    @FXML private Text flightNumberLabel;
+    @FXML private Text routeLabel;
+    @FXML private Text departureDateLabel;
+    @FXML private Text passengersLabel;
+    @FXML private Text originalAmountLabel;
+    
+    // Refund Reason
+    @FXML private Text reasonCategoryLabel;
+    @FXML private TextArea customerExplanationArea;
+    
     // Supporting Documents
     @FXML private ListView<String> documentsListView;
     @FXML private Button viewDocumentButton;

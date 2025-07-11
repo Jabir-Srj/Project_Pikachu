@@ -9,377 +9,100 @@
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controller.TicketController">
    <top>
-      <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
-         <Button fx:id="backButton" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="← Back" />
-         <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="🎫 Ticket Status">
+      <HBox alignment="CENTER_LEFT" spacing="15" styleClass="header-top-gradient">
+         <Button fx:id="backButton" styleClass="header-accent-button" text="← Back" />
+         <Text text="🎫 Ticket Status" styleClass="header-title">
             <font>
                <Font name="System Bold" size="28.0" />
             </font>
          </Text>
          <Region HBox.hgrow="ALWAYS" />
-         <Text fill="#bdc3c7" strokeType="OUTSIDE" strokeWidth="0.0" text="Track your support request">
+         <Text text="Track your support request" styleClass="header-subtitle">
             <font>
                <Font size="14.0" />
             </font>
          </Text>
       </HBox>
    </top>
-   
    <center>
-      <ScrollPane fitToWidth="true" style="-fx-background-color: #ecf0f1;">
-         <VBox spacing="25" style="-fx-background-color: #ecf0f1;">
+      <ScrollPane fitToWidth="true" styleClass="background-gray-light">
+         <VBox spacing="25" styleClass="background-gray-light">
             <padding>
                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
             </padding>
-            
             <!-- Ticket Header -->
-            <HBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
+            <HBox spacing="20" styleClass="content-card shadow-card-medium">
                <VBox spacing="5">
-                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket ID">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="ticketIdLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="TKT-2024-001234">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Text>
+                  <Text text="Ticket ID" styleClass="stats-label" />
+                  <Text fx:id="ticketIdLabel" styleClass="stats-value" text="TKT-2024-001234" />
                </VBox>
                <Separator orientation="VERTICAL" />
                <VBox spacing="5">
-                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Text>
-                  <Label fx:id="statusLabel" style="-fx-background-color: #f39c12; -fx-background-radius: 15; -fx-text-fill: white; -fx-padding: 5 15;" text="IN PROGRESS">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
+                  <Text text="Status" styleClass="stats-label" />
+                  <Label fx:id="statusLabel" styleClass="status-pending-gradient" text="IN PROGRESS" />
                </VBox>
                <Separator orientation="VERTICAL" />
                <VBox spacing="5">
-                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Priority">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Text>
-                  <Label fx:id="priorityLabel" style="-fx-background-color: #e74c3c; -fx-background-radius: 15; -fx-text-fill: white; -fx-padding: 5 15;" text="HIGH">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
+                  <Text text="Priority" styleClass="stats-label" />
+                  <Label fx:id="priorityLabel" styleClass="status-cancelled-gradient" text="HIGH" />
                </VBox>
                <Separator orientation="VERTICAL" />
                <VBox spacing="5">
-                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Created">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="createdDateLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="March 22, 2024">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
+                  <Text text="Created" styleClass="stats-label" />
+                  <Text fx:id="createdDateLabel" styleClass="primary-text" text="March 22, 2024" />
                </VBox>
                <Region HBox.hgrow="ALWAYS" />
                <VBox alignment="CENTER_RIGHT" spacing="5">
-                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Assigned to">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="assignedAgentLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Sarah Johnson">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
+                  <Text text="Assigned to" styleClass="stats-label" />
+                  <Text fx:id="assignedAgentLabel" styleClass="primary-text" text="Sarah Johnson" />
                </VBox>
             </HBox>
-            
             <!-- Subject and Progress -->
-            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
+            <VBox spacing="20" styleClass="content-card shadow-card-medium">
                <HBox alignment="CENTER_LEFT" spacing="15">
-                  <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="📋 Ticket Details">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Text>
+                  <Text text="📋 Ticket Details" styleClass="section-title" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Button fx:id="addResponseButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 8; -fx-background-radius: 5;" text="💬 Add Response">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Button>
+                  <Button fx:id="addResponseButton" styleClass="button-primary" text="💬 Add Response" />
                </HBox>
-               
                <VBox spacing="10">
-                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="subjectLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Unable to check in online - Flight AA-1234">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Text>
+                  <Text text="Subject" styleClass="form-label" />
+                  <Text fx:id="subjectLabel" styleClass="primary-text" text="Unable to check in online - Flight AA-1234" />
                </VBox>
-               
                <!-- Progress Indicator -->
                <VBox spacing="15">
-                  <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Progress">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
+                  <Text text="Progress" styleClass="form-label" />
                   <HBox spacing="10" alignment="CENTER_LEFT">
-                     <ProgressBar fx:id="progressBar" progress="0.6" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" style="-fx-accent: #3498db;" />
-                     <Text fx:id="progressLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="60%">
-                        <font>
-                           <Font name="System Bold" size="12.0" />
-                        </font>
-                     </Text>
+                     <ProgressBar fx:id="progressBar" progress="0.6" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" styleClass="progress-bar" />
+                     <Text fx:id="progressLabel" styleClass="primary-text" text="60%" />
                   </HBox>
                </VBox>
-               
                <!-- Expected Resolution -->
                <HBox spacing="20">
                   <VBox spacing="5">
-                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Expected Resolution">
-                        <font>
-                           <Font name="System Bold" size="12.0" />
-                        </font>
-                     </Text>
-                     <Text fx:id="expectedResolutionLabel" fill="#27ae60" strokeType="OUTSIDE" strokeWidth="0.0" text="March 24, 2024 by 5:00 PM">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Text>
+                     <Text text="Expected Resolution" styleClass="form-label" />
+                     <Text fx:id="expectedResolutionLabel" styleClass="success-text" text="March 24, 2024 by 5:00 PM" />
                   </VBox>
                   <VBox spacing="5">
-                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Updated">
-                        <font>
-                           <Font name="System Bold" size="12.0" />
-                        </font>
-                     </Text>
-                     <Text fx:id="lastUpdatedLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="2 hours ago">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
-                     </Text>
+                     <Text text="Last Updated" styleClass="form-label" />
+                     <Text fx:id="lastUpdatedLabel" styleClass="primary-text" text="2 hours ago" />
                   </VBox>
                </HBox>
             </VBox>
-            
             <!-- Status Timeline -->
-            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
-               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="📈 Status Timeline">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
-               </Text>
-               
-               <VBox spacing="20" fx:id="timelineContainer">
-                  <!-- Timeline Item 1 - Completed -->
-                  <HBox spacing="15" alignment="CENTER_LEFT">
-                     <VBox alignment="CENTER" spacing="5">
-                        <Text fill="#27ae60" strokeType="OUTSIDE" strokeWidth="0.0" text="✅">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <Line endY="40.0" stroke="#27ae60" strokeWidth="3.0" />
-                     </VBox>
-                     <VBox spacing="5" HBox.hgrow="ALWAYS">
-                        <HBox alignment="CENTER_LEFT" spacing="10">
-                           <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket Created">
-                              <font>
-                                 <Font name="System Bold" size="14.0" />
-                              </font>
-                           </Text>
-                           <Region HBox.hgrow="ALWAYS" />
-                           <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="March 22, 2024 at 2:30 PM">
-                              <font>
-                                 <Font size="10.0" />
-                              </font>
-                           </Text>
-                        </HBox>
-                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Your support ticket has been created and assigned ticket ID TKT-2024-001234">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                  </HBox>
-                  
-                  <!-- Timeline Item 2 - Completed -->
-                  <HBox spacing="15" alignment="CENTER_LEFT">
-                     <VBox alignment="CENTER" spacing="5">
-                        <Text fill="#27ae60" strokeType="OUTSIDE" strokeWidth="0.0" text="✅">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <Line endY="40.0" stroke="#27ae60" strokeWidth="3.0" />
-                     </VBox>
-                     <VBox spacing="5" HBox.hgrow="ALWAYS">
-                        <HBox alignment="CENTER_LEFT" spacing="10">
-                           <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket Assigned">
-                              <font>
-                                 <Font name="System Bold" size="14.0" />
-                              </font>
-                           </Text>
-                           <Region HBox.hgrow="ALWAYS" />
-                           <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="March 22, 2024 at 3:15 PM">
-                              <font>
-                                 <Font size="10.0" />
-                              </font>
-                           </Text>
-                        </HBox>
-                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket assigned to Sarah Johnson from the Customer Support team">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                  </HBox>
-                  
-                  <!-- Timeline Item 3 - In Progress -->
-                  <HBox spacing="15" alignment="CENTER_LEFT">
-                     <VBox alignment="CENTER" spacing="5">
-                        <Text fill="#f39c12" strokeType="OUTSIDE" strokeWidth="0.0" text="🔄">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <Line endY="40.0" stroke="#f39c12" strokeWidth="3.0" />
-                     </VBox>
-                     <VBox spacing="5" HBox.hgrow="ALWAYS">
-                        <HBox alignment="CENTER_LEFT" spacing="10">
-                           <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Investigation in Progress">
-                              <font>
-                                 <Font name="System Bold" size="14.0" />
-                              </font>
-                           </Text>
-                           <Region HBox.hgrow="ALWAYS" />
-                           <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="March 23, 2024 at 10:30 AM">
-                              <font>
-                                 <Font size="10.0" />
-                              </font>
-                           </Text>
-                        </HBox>
-                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Our team is investigating the check-in issue with your booking. We've identified a potential system conflict and are working on a resolution.">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                  </HBox>
-                  
-                  <!-- Timeline Item 4 - Pending -->
-                  <HBox spacing="15" alignment="CENTER_LEFT">
-                     <VBox alignment="CENTER" spacing="5">
-                        <Text fill="#bdc3c7" strokeType="OUTSIDE" strokeWidth="0.0" text="⏳">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                     <VBox spacing="5" HBox.hgrow="ALWAYS">
-                        <HBox alignment="CENTER_LEFT" spacing="10">
-                           <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Resolution & Testing">
-                              <font>
-                                 <Font name="System Bold" size="14.0" />
-                              </font>
-                           </Text>
-                           <Region HBox.hgrow="ALWAYS" />
-                           <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Expected: March 24, 2024">
-                              <font>
-                                 <Font size="10.0" />
-                              </font>
-                           </Text>
-                        </HBox>
-                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Implementation of fix and verification that the issue is resolved">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                  </HBox>
-                  
-                  <!-- Timeline Item 5 - Pending -->
-                  <HBox spacing="15" alignment="CENTER_LEFT">
-                     <VBox alignment="CENTER" spacing="5">
-                        <Text fill="#bdc3c7" strokeType="OUTSIDE" strokeWidth="0.0" text="⏳">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                     <VBox spacing="5" HBox.hgrow="ALWAYS">
-                        <HBox alignment="CENTER_LEFT" spacing="10">
-                           <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket Closed">
-                              <font>
-                                 <Font name="System Bold" size="14.0" />
-                              </font>
-                           </Text>
-                           <Region HBox.hgrow="ALWAYS" />
-                           <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Expected: March 24, 2024">
-                              <font>
-                                 <Font size="10.0" />
-                              </font>
-                           </Text>
-                        </HBox>
-                        <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmation that the issue is resolved and ticket closure">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                  </HBox>
-               </VBox>
+            <VBox spacing="20" styleClass="content-card shadow-card-medium">
+               <Text text="📈 Status Timeline" styleClass="section-title" />
+               <VBox spacing="20" fx:id="timelineContainer" />
             </VBox>
-            
             <!-- Contact Information -->
-            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 25;">
-               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="📞 Need Help?">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
-               </Text>
-               
-               <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="If you have any questions about your ticket or need immediate assistance, please contact our support team.">
-                  <font>
-                     <Font size="14.0" />
-                  </font>
-               </Text>
-               
+            <VBox spacing="20" styleClass="content-card shadow-card-medium">
+               <Text text="📞 Need Help?" styleClass="section-title" />
+               <Text text="If you have any questions about your ticket or need immediate assistance, please contact our support team." styleClass="secondary-text" />
                <HBox spacing="15">
-                  <Button fx:id="callSupportButton" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="📞 Call Support">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="liveChatButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="💬 Live Chat">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="emailSupportButton" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="📧 Email Support">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
+                  <Button fx:id="callSupportButton" styleClass="button-success" text="📞 Call Support" />
+                  <Button fx:id="liveChatButton" styleClass="button-primary" text="💬 Live Chat" />
+                  <Button fx:id="emailSupportButton" styleClass="button-secondary" text="📧 Email Support" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Button fx:id="closeTicketButton" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="❌ Close Ticket">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
+                  <Button fx:id="closeTicketButton" styleClass="button-danger" text="❌ Close Ticket" />
                </HBox>
             </VBox>
          </VBox>

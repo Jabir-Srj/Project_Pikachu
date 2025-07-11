@@ -27,6 +27,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import model.Admin;
 import model.Customer;
@@ -113,10 +114,10 @@ public class TicketController implements Initializable {
     @FXML private Button searchButton;
     
     // Statistics
-    @FXML private Label totalTicketsLabel;
-    @FXML private Label openTicketsLabel;
-    @FXML private Label highPriorityLabel;
-    @FXML private Label resolvedTodayLabel;
+    @FXML private Text totalTicketsLabel;
+    @FXML private Text openTicketsLabel;
+    @FXML private Text highPriorityLabel;
+    @FXML private Text resolvedTodayLabel;
     
     // Tickets Table
     @FXML private TableView<Ticket> ticketsTableView;
@@ -590,6 +591,11 @@ public class TicketController implements Initializable {
         if (pageSizeComboBox != null) {
             pageSizeComboBox.setItems(FXCollections.observableArrayList("25", "50", "100"));
             pageSizeComboBox.setValue("100");
+        }
+        
+        // Setup back button handler
+        if (backButton != null) {
+            backButton.setOnAction(e -> handleBackToDashboard());
         }
         
         // Setup search and filter handlers

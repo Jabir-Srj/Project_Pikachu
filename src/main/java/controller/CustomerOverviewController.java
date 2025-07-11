@@ -16,6 +16,7 @@ import util.NavigationManager;
 public class CustomerOverviewController implements Initializable {
     
     @FXML private Label usernameLabel;
+    @FXML private Button backButton;
     @FXML private Button logoutButton;
     @FXML private Button searchFlightsButton;
     @FXML private Button viewBookingsButton;
@@ -50,6 +51,10 @@ public class CustomerOverviewController implements Initializable {
      * Set up button event handlers
      */
     private void setupButtonHandlers() {
+        if (backButton != null) {
+            backButton.setOnAction(e -> handleBackToDashboard());
+        }
+        
         if (logoutButton != null) {
             logoutButton.setOnAction(e -> handleLogout());
         }
@@ -63,7 +68,7 @@ public class CustomerOverviewController implements Initializable {
         }
         
         if (submitTicketButton != null) {
-            submitTicketButton.setOnAction(e -> navigateToTicketSubmission());
+            submitTicketButton.setOnAction(e -> util.NavigationManager.getInstance().showSupportTicketSubmission());
         }
         
         if (aiChatButton != null) {
@@ -90,6 +95,13 @@ public class CustomerOverviewController implements Initializable {
         if (aiChatAction != null) {
             aiChatAction.setOnAction(e -> navigateToAIChat());
         }
+    }
+    
+    /**
+     * Handle back to dashboard
+     */
+    private void handleBackToDashboard() {
+        navigationManager.showAdminDashboard();
     }
     
     /**

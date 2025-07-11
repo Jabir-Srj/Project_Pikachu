@@ -34,6 +34,7 @@ public class NavigationManager {
     public static final String AI_CHATBOT = "/fxml/AIChatbot.fxml";
     public static final String REFUND_APPROVAL = "/fxml/RefundApproval.fxml";
     public static final String CUSTOMER_DETAILS = "/fxml/CustomerDetails.fxml";
+    public static final String CUSTOMER_MANAGEMENT = "/fxml/CustomerManagement.fxml";
     public static final String FLIGHT_DETAILS = "/fxml/FlightDetails.fxml";
     
     private NavigationManager() {
@@ -228,6 +229,10 @@ public class NavigationManager {
         navigateTo(CUSTOMER_DETAILS);
     }
     
+    public void showCustomerManagement() {
+        navigateTo(CUSTOMER_MANAGEMENT);
+    }
+    
     public void showRefundApproval(model.RefundRequest refund) {
         setSharedData("selectedRefund", refund);
         navigateTo(REFUND_APPROVAL);
@@ -235,5 +240,18 @@ public class NavigationManager {
     
     public void setSelectedFlightClass(String flightClass) {
         setSharedData("selectedFlightClass", flightClass);
+    }
+
+    public void showAddCustomer() {
+        navigateTo("/fxml/AddCustomer.fxml");
+    }
+    public void showAdminSettings() {
+        navigateTo("/fxml/AdminSettings.fxml");
+    }
+    public void showCustomerProfile() {
+        navigateTo("/fxml/CustomerProfile.fxml");
+    }
+    public void showSupportTicketSubmission() {
+        navigateTo("/fxml/SupportTicketSubmission.fxml");
     }
 } 

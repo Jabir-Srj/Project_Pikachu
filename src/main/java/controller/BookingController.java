@@ -87,6 +87,7 @@ public class BookingController implements Initializable {
     @FXML private TableColumn<Passenger, String> classColumn;
     
     // Booking Action Buttons
+    @FXML private Button backButton;
     @FXML private Button modifyBookingButton;
     @FXML private Button cancelBookingDetailsButton;
     @FXML private Button downloadTicketButton;
@@ -113,6 +114,9 @@ public class BookingController implements Initializable {
             initializePaymentScreen();
         } else if (bookingReferenceLabel != null) {
             initializeBookingDetailsScreen();
+        } else {
+            // For overview screen or other screens, just setup event handlers
+            setupEventHandlers();
         }
     }
     
@@ -134,6 +138,8 @@ public class BookingController implements Initializable {
             loadBookingDetails();
             setupPassengersTable();
         }
+        // Setup event handlers for all buttons including back button
+        setupEventHandlers();
     }
     
     /**
@@ -268,6 +274,11 @@ public class BookingController implements Initializable {
         }
         if (priorityBoardingCheckBox != null) {
             priorityBoardingCheckBox.setOnAction(e -> loadFlightSummary());
+        }
+        
+        // Back button
+        if (backButton != null) {
+            backButton.setOnAction(e -> handleBackToDashboard());
         }
         
         // Payment confirmation
@@ -479,6 +490,14 @@ public class BookingController implements Initializable {
     @FXML
     private void handleRequestRefund() {
         showAlert("Info", "Refund request submitted. You will be contacted within 24 hours.");
+    }
+    
+    /**
+     * Handle back to dashboard
+     */
+    @FXML
+    private void handleBackToDashboard() {
+        NavigationManager.getInstance().showAdminDashboard();
     }
     
     /**

@@ -11,6 +11,7 @@ model\FAQ.class
 dao\UserDAO.class
 model\PaymentDetails.class
 model\UserRole.class
+controller\CustomerProfileController.class
 AirlineApp.class
 controller\CustomerOverviewController.class
 model\Customer.class
@@ -22,17 +23,20 @@ util\DataManager.class
 model\AdminLevel.class
 ai\AirlineStreamingResponseHandler.class
 util\NavigationManager.class
+controller\AdminSettingsController.class
 model\RefundStatus.class
 model\Booking.class
 controller\FAQController.class
 controller\BookingController.class
 controller\ChatbotController.class
+controller\SupportTicketSubmissionController.class
 service\TicketService.class
 model\Passenger.class
 model\TicketReply.class
 controller\AccountRegistrationController.class
 controller\FlightSearchController$1.class
 model\BookingStatus.class
+controller\CustomerManagementController.class
 service\UserService.class
 dao\FlightDAO.class
 model\RefundRequest.class
@@ -50,5 +54,6 @@ model\AddOn.class
 controller\RefundController.class
 model\Flight.class
 model\PassengerType.class
+controller\AddCustomerController.class
 controller\TicketController$1.class
 model\Admin.class

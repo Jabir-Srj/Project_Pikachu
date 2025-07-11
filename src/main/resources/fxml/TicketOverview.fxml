@@ -9,106 +9,77 @@
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controller.TicketController">
    <top>
-      <VBox spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 30;">
+      <VBox spacing="20" styleClass="header-top-gradient">
          <!-- Header -->
          <HBox alignment="CENTER_LEFT" spacing="15">
-            <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Support Tickets">
+            <Button fx:id="backButton" styleClass="header-accent-button" text="← Back to Dashboard">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Text text="Support Tickets" styleClass="header-title">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Text>
             <Region HBox.hgrow="ALWAYS" />
-            <Button fx:id="newTicketButton" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="+ New Ticket">
+            <Button fx:id="newTicketButton" styleClass="button-success" text="+ New Ticket">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="exportButton" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 5;" text="📊 Export">
+            <Button fx:id="exportButton" styleClass="button-secondary" text="📊 Export">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
          </HBox>
-         
          <!-- Filter Bar -->
-         <HBox spacing="15" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
+         <HBox spacing="15" styleClass="content-card">
             <VBox spacing="5" HBox.hgrow="ALWAYS">
-               <Label text="Search Tickets" textFill="#2c3e50">
-                  <font>
-                     <Font name="System Bold" size="14.0" />
-                  </font>
-               </Label>
-               <TextField fx:id="searchField" promptText="Search by ticket ID, customer name, or subject..." style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-padding: 10;">
-                  <font>
-                     <Font size="14.0" />
-                  </font>
-               </TextField>
+               <Label text="Search Tickets" styleClass="form-label" />
+               <TextField fx:id="searchField" promptText="Search by ticket ID, customer name, or subject..." styleClass="form-input" />
             </VBox>
-            
             <VBox spacing="5">
-               <Label text="Status" textFill="#2c3e50">
-                  <font>
-                     <Font name="System Bold" size="14.0" />
-                  </font>
-               </Label>
-               <ComboBox fx:id="statusFilterComboBox" promptText="All Status" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-min-width: 120; -fx-font-size: 14px;">
-               </ComboBox>
+               <Label text="Status" styleClass="form-label" />
+               <ComboBox fx:id="statusFilterComboBox" promptText="All Status" styleClass="form-input" />
             </VBox>
-            
             <VBox spacing="5">
-               <Label text="Priority" textFill="#2c3e50">
-                  <font>
-                     <Font name="System Bold" size="14.0" />
-                  </font>
-               </Label>
-               <ComboBox fx:id="priorityFilterComboBox" promptText="All Priorities" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-min-width: 120; -fx-font-size: 14px;">
-               </ComboBox>
+               <Label text="Priority" styleClass="form-label" />
+               <ComboBox fx:id="priorityFilterComboBox" promptText="All Priorities" styleClass="form-input" />
             </VBox>
-            
             <VBox spacing="5">
-               <Label text="Assigned To" textFill="#2c3e50">
-                  <font>
-                     <Font name="System Bold" size="14.0" />
-                  </font>
-               </Label>
-               <ComboBox fx:id="assigneeFilterComboBox" promptText="All Agents" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-min-width: 120; -fx-font-size: 14px;">
-               </ComboBox>
+               <Label text="Assigned To" styleClass="form-label" />
+               <ComboBox fx:id="assigneeFilterComboBox" promptText="All Agents" styleClass="form-input" />
             </VBox>
-            
             <VBox alignment="BOTTOM_CENTER" spacing="5">
                <Label text=" " />
-               <Button fx:id="searchButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;" text="🔍 Search">
-                  <font>
-                     <Font name="System Bold" size="14.0" />
-                  </font>
-               </Button>
+               <Button fx:id="searchButton" styleClass="button-primary" text="🔍 Search" />
             </VBox>
          </HBox>
       </VBox>
    </top>
-   
    <center>
-      <VBox spacing="20" style="-fx-background-color: #ecf0f1;">
+      <VBox spacing="20" styleClass="background-gray-light">
          <padding>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
-         
          <!-- Ticket Statistics -->
          <HBox spacing="20">
-            <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 20;" HBox.hgrow="ALWAYS">
+            <VBox spacing="10" styleClass="stats-card-tickets" HBox.hgrow="ALWAYS">
                <HBox alignment="CENTER_LEFT" spacing="10">
-                  <Text fill="#3498db" strokeType="OUTSIDE" strokeWidth="0.0" text="🎫">
+                  <Text text="🎫" styleClass="stats-icon-tickets">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
                   <VBox spacing="2">
-                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Tickets">
+                     <Text text="Total Tickets" styleClass="stats-label">
                         <font>
                            <Font size="12.0" />
                         </font>
                      </Text>
-                     <Text fx:id="totalTicketsLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="2,456">
+                     <Text fx:id="totalTicketsLabel" styleClass="stats-value" text="2,456">
                         <font>
                            <Font name="System Bold" size="20.0" />
                         </font>
@@ -116,21 +87,20 @@
                   </VBox>
                </HBox>
             </VBox>
-            
-            <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 20;" HBox.hgrow="ALWAYS">
+            <VBox spacing="10" styleClass="stats-card-tickets" HBox.hgrow="ALWAYS">
                <HBox alignment="CENTER_LEFT" spacing="10">
-                  <Text fill="#f39c12" strokeType="OUTSIDE" strokeWidth="0.0" text="⏳">
+                  <Text text="⏳" styleClass="stats-icon-tickets">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
                   <VBox spacing="2">
-                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Open Tickets">
+                     <Text text="Open Tickets" styleClass="stats-label">
                         <font>
                            <Font size="12.0" />
                         </font>
                      </Text>
-                     <Text fx:id="openTicketsLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="127">
+                     <Text fx:id="openTicketsLabel" styleClass="stats-value" text="127">
                         <font>
                            <Font name="System Bold" size="20.0" />
                         </font>
@@ -138,21 +108,20 @@
                   </VBox>
                </HBox>
             </VBox>
-            
-            <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 20;" HBox.hgrow="ALWAYS">
+            <VBox spacing="10" styleClass="stats-card-tickets" HBox.hgrow="ALWAYS">
                <HBox alignment="CENTER_LEFT" spacing="10">
-                  <Text fill="#e74c3c" strokeType="OUTSIDE" strokeWidth="0.0" text="🚨">
+                  <Text text="🚨" styleClass="stats-icon-tickets">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
                   <VBox spacing="2">
-                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="High Priority">
+                     <Text text="High Priority" styleClass="stats-label">
                         <font>
                            <Font size="12.0" />
                         </font>
                      </Text>
-                     <Text fx:id="highPriorityLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="23">
+                     <Text fx:id="highPriorityLabel" styleClass="stats-value" text="23">
                         <font>
                            <Font name="System Bold" size="20.0" />
                         </font>
@@ -160,21 +129,20 @@
                   </VBox>
                </HBox>
             </VBox>
-            
-            <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1); -fx-padding: 20;" HBox.hgrow="ALWAYS">
+            <VBox spacing="10" styleClass="stats-card-tickets" HBox.hgrow="ALWAYS">
                <HBox alignment="CENTER_LEFT" spacing="10">
-                  <Text fill="#27ae60" strokeType="OUTSIDE" strokeWidth="0.0" text="✅">
+                  <Text text="✅" styleClass="stats-icon-tickets">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
                   <VBox spacing="2">
-                     <Text fill="#7f8c8d" strokeType="OUTSIDE" strokeWidth="0.0" text="Resolved Today">
+                     <Text text="Resolved Today" styleClass="stats-label">
                         <font>
                            <Font size="12.0" />
                         </font>
                      </Text>
-                     <Text fx:id="resolvedTodayLabel" fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="45">
+                     <Text fx:id="resolvedTodayLabel" styleClass="stats-value" text="45">
                         <font>
                            <Font name="System Bold" size="20.0" />
                         </font>
@@ -183,28 +151,25 @@
                </HBox>
             </VBox>
          </HBox>
-         
          <!-- Tickets Table -->
-         <VBox spacing="15" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);">
+         <VBox spacing="15" styleClass="content-card shadow-card-medium">
             <padding>
                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
             </padding>
-            
             <HBox alignment="CENTER_LEFT" spacing="15">
-               <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="Support Tickets">
+               <Text text="Support Tickets" styleClass="section-title">
                   <font>
                      <Font name="System Bold" size="20.0" />
                   </font>
                </Text>
                <Region HBox.hgrow="ALWAYS" />
-               <Button fx:id="refreshButton" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-padding: 8; -fx-background-radius: 5;" text="🔄 Refresh">
+               <Button fx:id="refreshButton" styleClass="button-secondary" text="🔄 Refresh">
                   <font>
                      <Font size="12.0" />
                   </font>
                </Button>
             </HBox>
-            
-            <TableView fx:id="ticketsTableView" style="-fx-background-color: transparent;">
+            <TableView fx:id="ticketsTableView" styleClass="table-view">
                <columns>
                   <TableColumn fx:id="ticketIdColumn" minWidth="100.0" text="Ticket ID" />
                   <TableColumn fx:id="subjectColumn" minWidth="200.0" text="Subject" />
@@ -217,29 +182,15 @@
                   <TableColumn fx:id="actionsColumn" minWidth="120.0" text="Actions" />
                </columns>
             </TableView>
-            
             <!-- Pagination -->
             <HBox alignment="CENTER" spacing="15">
-               <Button fx:id="previousPageButton" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-padding: 8; -fx-background-radius: 5;" text="← Previous" />
-               <Label fx:id="pageInfoLabel" text="Page 1 of 25" textFill="#2c3e50">
-                  <font>
-                     <Font size="14.0" />
-                  </font>
-               </Label>
-               <Button fx:id="nextPageButton" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-padding: 8; -fx-background-radius: 5;" text="Next →" />
+               <Button fx:id="previousPageButton" styleClass="button-secondary" text="← Previous" />
+               <Label fx:id="pageInfoLabel" text="Page 1 of 25" styleClass="primary-text" />
+               <Button fx:id="nextPageButton" styleClass="button-secondary" text="Next →" />
                <Region HBox.hgrow="ALWAYS" />
-               <Label text="Show:" textFill="#2c3e50">
-                  <font>
-                     <Font size="14.0" />
-                  </font>
-               </Label>
-               <ComboBox fx:id="pageSizeComboBox" style="-fx-background-radius: 5; -fx-border-color: #e0e6ed; -fx-border-radius: 5; -fx-font-size: 14px;">
-               </ComboBox>
-               <Label text="entries" textFill="#2c3e50">
-                  <font>
-                     <Font size="14.0" />
-                  </font>
-               </Label>
+               <Label text="Show:" styleClass="primary-text" />
+               <ComboBox fx:id="pageSizeComboBox" styleClass="form-input" />
+               <Label text="entries" styleClass="primary-text" />
             </HBox>
          </VBox>
       </VBox>

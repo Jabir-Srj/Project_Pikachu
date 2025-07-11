@@ -13,6 +13,11 @@
    <!-- Top Navigation Bar -->
    <top>
       <HBox alignment="CENTER_LEFT" spacing="20" styleClass="admin-header">
+         <Button fx:id="backButton" styleClass="header-button" text="← Back">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Button>
          <Text styleClass="admin-title" text="⚡ Pikachu Airlines - Admin Dashboard">
             <font>
                <Font name="System Bold" size="20.0" />
