@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -79,7 +80,7 @@
                <VBox spacing="15">
                   <Text text="Progress" styleClass="form-label" />
                   <HBox spacing="10" alignment="CENTER_LEFT">
-                     <ProgressBar fx:id="progressBar" progress="0.6" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" styleClass="progress-bar" />
+                     <ProgressBar fx:id="progressBar" progress="0.6" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="progress-bar" />
                      <Text fx:id="progressLabel" styleClass="primary-text" text="60%" />
                   </HBox>
                </VBox>

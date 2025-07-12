@@ -24,10 +24,11 @@ public class TicketService {
      * @param customer Customer submitting the ticket
      * @param subject Subject of the ticket
      * @param description Detailed description of the issue
+     * @param category Category of the ticket
      * @param priority Priority level
      * @return Created ticket if successful
      */
-    public Ticket submitTicket(Customer customer, String subject, String description, TicketPriority priority) {
+    public Ticket submitTicket(Customer customer, String subject, String description, String category, TicketPriority priority) {
         try {
             if (!validateTicketData(subject, description)) {
                 return null;
@@ -36,8 +37,11 @@ public class TicketService {
             Ticket ticket = new Ticket();
             ticket.setTicketId(generateTicketId());
             ticket.setCustomerId(customer.getUserId());
+            ticket.setCustomerName(customer.getFirstName() + " " + customer.getLastName());
+            ticket.setCustomerEmail(customer.getEmail());
             ticket.setSubject(subject);
             ticket.setDescription(description);
+            ticket.setCategory(category != null ? category : "General");
             ticket.setPriority(priority != null ? priority : TicketPriority.MEDIUM);
             ticket.setStatus(TicketStatus.OPEN);
             ticket.setSubmissionDate(LocalDateTime.now());

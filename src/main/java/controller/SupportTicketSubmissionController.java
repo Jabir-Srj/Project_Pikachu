@@ -56,7 +56,7 @@ public class SupportTicketSubmissionController {
             return;
         }
         TicketPriority priority = TicketPriority.valueOf(priorityStr.toUpperCase());
-        Ticket ticket = ticketService.submitTicket(currentCustomer, subject, description, priority);
+        Ticket ticket = ticketService.submitTicket(currentCustomer, subject, description, type, priority);
         if (ticket != null) {
             ticket.setDescription("[" + type + "] " + description);
             if (!bookingId.isEmpty()) {

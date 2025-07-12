@@ -16,7 +16,7 @@
 <?import javafx.geometry.Insets?>
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.BookingController">
+            fx:controller="controller.BookingOverviewController">
    <top>
       <VBox spacing="25" style="-fx-background: linear-gradient(to bottom, #F7DC6F, #F4D03F); -fx-padding: 35; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0, 0, 2);">
          <!-- Header -->

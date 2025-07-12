@@ -388,7 +388,8 @@ public class TicketController implements Initializable {
         try {
             Customer customer = currentUser instanceof Customer ? (Customer) currentUser : null;
             Ticket savedTicket = ticketService.submitTicket(customer, 
-                subjectField.getText(), descriptionTextArea.getText(), priorityComboBox.getValue());
+                subjectField.getText(), descriptionTextArea.getText(), 
+                categoryComboBox.getValue(), priorityComboBox.getValue());
             
             if (savedTicket != null) {
                 showAlert("Success", "Ticket submitted successfully! Ticket ID: " + savedTicket.getTicketId());
@@ -504,6 +505,10 @@ public class TicketController implements Initializable {
                 progress = 0.6;
                 progressText = "60%";
                 break;
+            case ESCALATED:
+                progress = 0.7;
+                progressText = "70%";
+                break;
             case RESOLVED:
                 progress = 0.9;
                 progressText = "90%";
@@ -604,6 +609,12 @@ public class TicketController implements Initializable {
         }
         if (refreshButton != null) {
             refreshButton.setOnAction(e -> loadAllTickets());
+        }
+        if (newTicketButton != null) {
+            newTicketButton.setOnAction(e -> handleNewTicket());
+        }
+        if (exportButton != null) {
+            exportButton.setOnAction(e -> handleExportTickets());
         }
     }
     
@@ -712,6 +723,22 @@ public class TicketController implements Initializable {
             int totalPages = Math.max(1, (int) Math.ceil((double) filteredTickets.size() / 100));
             pageInfoLabel.setText("Page 1 of " + totalPages);
         }
+    }
+    
+    /**
+     * Handle new ticket creation
+     */
+    @FXML
+    private void handleNewTicket() {
+        NavigationManager.getInstance().showTicketSubmission();
+    }
+    
+    /**
+     * Handle export tickets functionality
+     */
+    @FXML
+    private void handleExportTickets() {
+        showAlert("Info", "Export functionality coming soon!");
     }
     
     /**

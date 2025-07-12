@@ -1,7 +1,8 @@
 package controller;
 
 import java.net.URL;
-import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -16,6 +17,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import model.Admin;
+import model.RefundRequest;
 import model.User;
 import util.NavigationManager;
 
@@ -62,22 +64,27 @@ public class RefundController implements Initializable {
     
     // Admin Review Section
     @FXML private TextArea reviewNotesArea;
+    @FXML private TextArea approvalNotesArea;
+    @FXML private TextArea rejectReasonArea;
     @FXML private ComboBox<String> refundMethodComboBox;
     @FXML private ComboBox<String> processingTimeComboBox;
     @FXML private Button saveReviewButton;
     @FXML private Button rejectRefundButton;
     @FXML private Button approveRefundButton;
     
-    // Data
+    // Services and Data
+    private NavigationManager navigationManager;
+    private RefundRequest currentRefund;
     private User currentUser;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        currentUser = (User) NavigationManager.getInstance().getSharedData("currentUser");
+        navigationManager = NavigationManager.getInstance();
+        currentUser = (User) navigationManager.getSharedData("currentUser");
         
         setupDropdowns();
         setupEventHandlers();
-        loadSampleData();
+        loadRefundData();
     }
     
     /**
@@ -133,33 +140,99 @@ public class RefundController implements Initializable {
     }
     
     /**
-     * Load sample refund data
+     * Load refund data from service or show sample data
      */
-    private void loadSampleData() {
+    private void loadRefundData() {
+        loadSampleRefundData();
+    }
+    
+    /**
+     * Load sample refund data for demonstration
+     */
+    private void loadSampleRefundData() {
+        // Refund header
         if (refundIdLabel != null) {
             refundIdLabel.setText("REF-2024-001234");
         }
-        
         if (statusLabel != null) {
             statusLabel.setText("PENDING REVIEW");
-            statusLabel.setStyle("-fx-background-color: #f39c12; -fx-background-radius: 15; -fx-text-fill: white; -fx-padding: 5 15;");
+            updateStatusStyle("PENDING");
         }
-        
         if (requestDateLabel != null) {
-            requestDateLabel.setText("March 20, 2024");
+            requestDateLabel.setText(LocalDateTime.now().minusDays(2).format(
+                DateTimeFormatter.ofPattern("MMMM dd, yyyy")));
         }
-        
         if (refundAmountLabel != null) {
             refundAmountLabel.setText("$1,247.50");
         }
         
+        // Customer information
+        if (customerNameLabel != null) {
+            customerNameLabel.setText("John Smith");
+        }
+        if (customerIdLabel != null) {
+            customerIdLabel.setText("CUST001");
+        }
+        if (emailLabel != null) {
+            emailLabel.setText("john.smith@email.com");
+        }
+        if (phoneLabel != null) {
+            phoneLabel.setText("+1 (555) 123-4567");
+        }
+        
+        // Booking information
+        if (bookingReferenceLabel != null) {
+            bookingReferenceLabel.setText("PKA240001");
+        }
+        if (flightNumberLabel != null) {
+            flightNumberLabel.setText("PKA101");
+        }
+        if (routeLabel != null) {
+            routeLabel.setText("New York (JFK) → Los Angeles (LAX)");
+        }
+        if (departureDateLabel != null) {
+            departureDateLabel.setText(LocalDateTime.now().plusDays(5).format(
+                DateTimeFormatter.ofPattern("MMMM dd, yyyy")));
+        }
+        if (passengersLabel != null) {
+            passengersLabel.setText("1 Passenger");
+        }
+        if (originalAmountLabel != null) {
+            originalAmountLabel.setText("$1,498.00");
+        }
+        
+        // Refund details
+        if (reasonCategoryLabel != null) {
+            reasonCategoryLabel.setText("Flight Cancellation by Airline");
+        }
+        if (customerExplanationArea != null) {
+            customerExplanationArea.setText("Flight PKA101 was cancelled due to technical issues. " +
+                "I was offered rebooking but the alternative flights don't work with my schedule. " +
+                "Requesting full refund as per airline policy for technical cancellations.");
+        }
+        
+        // Documents
         if (documentsListView != null) {
-            documentsListView.setItems(FXCollections.observableArrayList(Arrays.asList(
-                "📄 Booking Confirmation - BK-2024-001234.pdf",
-                "🧾 Payment Receipt - PAY-2024-001234.pdf", 
-                "✉️ Flight Cancellation Notice - AA-1234.pdf",
-                "📋 Customer ID Verification.pdf"
-            )));
+            documentsListView.setItems(FXCollections.observableArrayList(
+                "Booking Confirmation - PKA240001.pdf",
+                "Flight Cancellation Notice.pdf",
+                "Customer ID Copy.jpg",
+                "Payment Receipt.pdf"
+            ));
+        }
+    }
+    
+    /**
+     * Update status label styling
+     */
+    private void updateStatusStyle(String status) {
+        if (statusLabel != null) {
+            statusLabel.getStyleClass().removeAll("status-pending", "status-approved", "status-rejected");
+            switch (status.toUpperCase()) {
+                case "PENDING" -> statusLabel.getStyleClass().add("status-pending");
+                case "APPROVED" -> statusLabel.getStyleClass().add("status-approved"); 
+                case "REJECTED" -> statusLabel.getStyleClass().add("status-rejected");
+            }
         }
     }
     
@@ -169,9 +242,9 @@ public class RefundController implements Initializable {
     @FXML
     private void handleBackToRefunds() {
         if (currentUser instanceof Admin) {
-            NavigationManager.getInstance().showAdminDashboard();
+            navigationManager.showAdminDashboard();
         } else {
-            NavigationManager.getInstance().showCustomerOverview();
+            navigationManager.showCustomerOverview();
         }
     }
     
@@ -180,19 +253,18 @@ public class RefundController implements Initializable {
      */
     @FXML
     private void handleApproveRefund() {
-        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmation.setTitle("Approve Refund");
-        confirmation.setHeaderText("Approve this refund request?");
-        confirmation.setContentText("Refund amount: " + refundAmountLabel.getText());
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Approve Refund");
+        confirmAlert.setHeaderText("Approve this refund request?");
+        confirmAlert.setContentText("This will process the refund and cannot be undone.");
         
-        confirmation.showAndWait().ifPresent(response -> {
+        confirmAlert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
+                showAlert("Success", "Refund approved successfully!");
                 if (statusLabel != null) {
                     statusLabel.setText("APPROVED");
-                    statusLabel.setStyle("-fx-background-color: #27ae60; -fx-background-radius: 15; -fx-text-fill: white; -fx-padding: 5 15;");
+                    updateStatusStyle("APPROVED");
                 }
-                
-                showAlert("Success", "Refund request has been approved successfully!");
                 disableActionButtons();
             }
         });
@@ -203,24 +275,18 @@ public class RefundController implements Initializable {
      */
     @FXML
     private void handleRejectRefund() {
-        if (reviewNotesArea != null && reviewNotesArea.getText().trim().isEmpty()) {
-            showAlert("Error", "Please provide rejection reason in the review notes.");
-            return;
-        }
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Reject Refund");
+        confirmAlert.setHeaderText("Reject this refund request?");
+        confirmAlert.setContentText("Please provide a reason for rejection.");
         
-        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmation.setTitle("Reject Refund");
-        confirmation.setHeaderText("Reject this refund request?");
-        confirmation.setContentText("This action cannot be undone.");
-        
-        confirmation.showAndWait().ifPresent(response -> {
+        confirmAlert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
+                showAlert("Success", "Refund rejected.");
                 if (statusLabel != null) {
                     statusLabel.setText("REJECTED");
-                    statusLabel.setStyle("-fx-background-color: #e74c3c; -fx-background-radius: 15; -fx-text-fill: white; -fx-padding: 5 15;");
+                    updateStatusStyle("REJECTED");
                 }
-                
-                showAlert("Success", "Refund request has been rejected.");
                 disableActionButtons();
             }
         });
@@ -291,4 +357,4 @@ public class RefundController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-} 
+}

@@ -32,6 +32,7 @@ public class NavigationManager {
     public static final String TICKET_OVERVIEW = "/fxml/TicketOverview.fxml";
     public static final String TICKET_STATUS = "/fxml/TicketStatus.fxml";
     public static final String AI_CHATBOT = "/fxml/AIChatbot.fxml";
+    public static final String MODERN_AI_CHATBOT = "/fxml/ModernAIChatbot.fxml";
     public static final String REFUND_APPROVAL = "/fxml/RefundApproval.fxml";
     public static final String CUSTOMER_DETAILS = "/fxml/CustomerDetails.fxml";
     public static final String CUSTOMER_MANAGEMENT = "/fxml/CustomerManagement.fxml";
@@ -221,7 +222,7 @@ public class NavigationManager {
     }
     
     public void showAIChatbot() {
-        navigateTo(AI_CHATBOT);
+        navigateTo(MODERN_AI_CHATBOT);
     }
     
     public void showCustomerDetails(model.Customer customer) {

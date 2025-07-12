@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -21,15 +22,15 @@ import model.User;
 import util.NavigationManager;
 
 /**
- * Controller for AIChatbot.fxml
- * Manages AI chatbot interactions and customer support
+ * Controller for ModernAIChatbot.fxml
+ * Modern AI assistant with enhanced UI and streaming responses
  */
-public class ChatbotController implements Initializable {
+public class ModernChatbotController implements Initializable {
     
     // Header Controls
     @FXML private Button backButton;
-    @FXML private Button clearChatButton;
-    @FXML private Button logoutButton;
+    @FXML private Label connectionStatusLabel;
+    @FXML private ProgressIndicator typingIndicator;
     
     // Chat Area
     @FXML private ScrollPane chatScrollPane;
@@ -45,14 +46,15 @@ public class ChatbotController implements Initializable {
     @FXML private TextArea messageTextArea;
     @FXML private Button sendButton;
     @FXML private Button voiceButton;
-    @FXML private ProgressIndicator typingIndicator;
     
     // Suggested Responses
-    @FXML private VBox suggestedResponsesContainer;
+    @FXML private HBox suggestedResponsesContainer;
     @FXML private Button suggestion1Button;
     @FXML private Button suggestion2Button;
     @FXML private Button suggestion3Button;
-    @FXML private Button suggestion4Button;
+    
+    // Action Buttons
+    @FXML private Button clearChatButton;
     
     // Services and Data
     private Object aiService;
@@ -76,8 +78,15 @@ public class ChatbotController implements Initializable {
         setupKeyboardShortcuts();
         initializeAIService();
         
+        // Initialize UI
+        if (typingIndicator != null) {
+            typingIndicator.setVisible(false);
+        }
+        
         // Auto-scroll to bottom of chat
-        chatScrollPane.vvalueProperty().bind(chatContainer.heightProperty());
+        if (chatScrollPane != null && chatContainer != null) {
+            chatScrollPane.vvalueProperty().bind(chatContainer.heightProperty());
+        }
     }
     
     /**
@@ -87,12 +96,6 @@ public class ChatbotController implements Initializable {
         // Header buttons
         if (backButton != null) {
             backButton.setOnAction(_ -> handleBackToDashboard());
-        }
-        if (clearChatButton != null) {
-            clearChatButton.setOnAction(_ -> handleClearChat());
-        }
-        if (logoutButton != null) {
-            logoutButton.setOnAction(_ -> handleLogout());
         }
         
         // Quick action buttons
@@ -125,10 +128,12 @@ public class ChatbotController implements Initializable {
             suggestion2Button.setOnAction(_ -> handleQuickAction("How do I check in online?"));
         }
         if (suggestion3Button != null) {
-            suggestion3Button.setOnAction(_ -> handleQuickAction("Can I change my flight?"));
+            suggestion3Button.setOnAction(_ -> handleQuickAction("Flight delay compensation?"));
         }
-        if (suggestion4Button != null) {
-            suggestion4Button.setOnAction(_ -> handleQuickAction("Flight delay compensation?"));
+        
+        // Action buttons
+        if (clearChatButton != null) {
+            clearChatButton.setOnAction(_ -> handleClearChat());
         }
     }
     
@@ -157,13 +162,15 @@ public class ChatbotController implements Initializable {
      */
     private void initializeAIService() {
         showTypingIndicator(true);
+        updateConnectionStatus("Connecting...", "#f39c12");
         addSystemMessage("🤖 Initializing AI Assistant...");
         
         if (aiService == null) {
             Platform.runLater(() -> {
                 showTypingIndicator(false);
+                updateConnectionStatus("Offline", "#e74c3c");
                 isAIInitialized = false;
-                addSystemMessage("❌ AI Assistant is currently unavailable. Please contact customer service at 1-800-PIKACHU.");
+                addSystemMessage("❌ AI Assistant is currently unavailable. Please contact customer service at 1-800-PIKACHU for assistance.");
             });
             return;
         }
@@ -181,13 +188,21 @@ public class ChatbotController implements Initializable {
                         isAIInitialized = success;
                         
                         if (success) {
-                            String welcomeMessage = "✅ AI Assistant is ready! How can I help you today?";
+                            updateConnectionStatus("● Online", "#27ae60");
+                            String welcomeMessage = "✨ Welcome to Pikachu Airlines AI Assistant! How can I help you today?";
                             if (currentUser != null && currentUser.getUsername() != null) {
-                                welcomeMessage = "✅ Hello " + currentUser.getUsername() + "! AI Assistant is ready! How can I help you today?";
+                                welcomeMessage = "✨ Hello " + currentUser.getUsername() + "! Welcome to Pikachu Airlines AI Assistant! How can I help you today?\n\n" +
+                                    "I can assist you with:\n" +
+                                    "• Flight status and schedules\n" +
+                                    "• Booking and reservation help\n" +
+                                    "• Baggage policies and fees\n" +
+                                    "• Check-in procedures\n" +
+                                    "• General travel information";
                             }
                             addSystemMessage(welcomeMessage);
                         } else {
-                            addSystemMessage("❌ AI Assistant is currently unavailable. Please contact customer service at 1-800-PIKACHU.");
+                            updateConnectionStatus("● Offline", "#e74c3c");
+                            addSystemMessage("❌ AI Assistant initialization failed. Please contact customer service at 1-800-PIKACHU for assistance.");
                         }
                     });
                 });
@@ -195,8 +210,9 @@ public class ChatbotController implements Initializable {
         } catch (Exception e) {
             Platform.runLater(() -> {
                 showTypingIndicator(false);
+                updateConnectionStatus("● Error", "#e74c3c");
                 isAIInitialized = false;
-                addSystemMessage("❌ AI Assistant is currently unavailable. Please contact customer service at 1-800-PIKACHU.");
+                addSystemMessage("❌ AI Assistant encountered an error during initialization. Please contact customer service at 1-800-PIKACHU.");
             });
         }
     }
@@ -229,7 +245,9 @@ public class ChatbotController implements Initializable {
         responseArea.setEditable(false);
         responseArea.setWrapText(true);
         responseArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
+        responseArea.setText("🤖 Pikachu Airlines AI: ");
         
+        // Add AI message container to chat
         HBox aiMessageBox = createAIMessageBox(responseArea);
         chatContainer.getChildren().add(aiMessageBox);
         
@@ -271,7 +289,7 @@ public class ChatbotController implements Initializable {
      */
     @FXML
     private void handleVoiceInput() {
-        showAlert("Info", "Voice input feature coming soon! For now, please type your message.");
+        showAlert("Info", "🎤 Voice input feature coming soon! For now, please type your message.");
     }
     
     /**
@@ -286,11 +304,8 @@ public class ChatbotController implements Initializable {
         
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                // Keep only the welcome message (first child)
-                if (chatContainer.getChildren().size() > 1) {
-                    chatContainer.getChildren().removeIf(node -> 
-                        chatContainer.getChildren().indexOf(node) > 1);
-                }
+                // Clear all messages
+                chatContainer.getChildren().clear();
                 addSystemMessage("💬 Chat cleared. How can I help you?");
             }
         });
@@ -301,51 +316,53 @@ public class ChatbotController implements Initializable {
      */
     @FXML
     private void handleBackToDashboard() {
-        NavigationManager.getInstance().showCustomerOverview();
-    }
-    
-    /**
-     * Handle logout
-     */
-    @FXML
-    private void handleLogout() {
-        NavigationManager.getInstance().clearSharedData();
-        NavigationManager.getInstance().navigateTo(NavigationManager.LOGIN_SCREEN);
+        // Navigate based on user role
+        if (currentUser != null && currentUser.getRole() != null) {
+            if (currentUser.getRole().name().equals("ADMIN")) {
+                NavigationManager.getInstance().showAdminDashboard();
+            } else {
+                NavigationManager.getInstance().showCustomerOverview();
+            }
+        } else {
+            NavigationManager.getInstance().showCustomerOverview();
+        }
     }
     
     /**
      * Add user message to chat
      */
     private void addUserMessage(String message) {
-        VBox messageBox = new VBox(10);
-        messageBox.setStyle("-fx-background-color: #3498db; -fx-background-radius: 15; -fx-padding: 15; " +
-                           "-fx-alignment: center-right; -fx-max-width: 500;");
+        VBox messageBox = new VBox(8);
+        messageBox.setStyle("-fx-background: linear-gradient(to right, #667eea, #764ba2); " +
+                           "-fx-background-radius: 18; -fx-padding: 15; " +
+                           "-fx-alignment: center-right; -fx-max-width: 400; " +
+                           "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 2);");
         
         // Message header
-        HBox header = new HBox(10);
+        HBox header = new HBox(8);
         header.setStyle("-fx-alignment: center-left;");
         
         Text userIcon = new Text("👤");
-        userIcon.setStyle("-fx-font-size: 16px;");
+        userIcon.setStyle("-fx-font-size: 14px;");
         
         Text userName = new Text("You");
-        userName.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: white;");
+        userName.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-fill: white;");
         
         Text timestamp = new Text(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-        timestamp.setStyle("-fx-font-size: 12px; -fx-fill: #bdc3c7;");
+        timestamp.setStyle("-fx-font-size: 11px; -fx-fill: rgba(255,255,255,0.8);");
         
         header.getChildren().addAll(userIcon, userName, timestamp);
         
         // Message content
         Text messageText = new Text(message);
-        messageText.setStyle("-fx-font-size: 16px; -fx-fill: white; -fx-wrap-text: true;");
-        messageText.setWrappingWidth(450);
+        messageText.setStyle("-fx-font-size: 14px; -fx-fill: white; -fx-wrap-text: true;");
+        messageText.setWrappingWidth(350);
         
         messageBox.getChildren().addAll(header, messageText);
         
         // Container to align right
         HBox container = new HBox();
-        container.setStyle("-fx-alignment: center-right; -fx-padding: 10 20;");
+        container.setStyle("-fx-alignment: center-right; -fx-padding: 8 20;");
         container.getChildren().add(messageBox);
         
         chatContainer.getChildren().add(container);
@@ -358,35 +375,37 @@ public class ChatbotController implements Initializable {
      * Add system/AI message to chat
      */
     private void addSystemMessage(String message) {
-        VBox messageBox = new VBox(10);
-        messageBox.setStyle("-fx-background-color: #ecf0f1; -fx-background-radius: 15; -fx-padding: 15; " +
-                           "-fx-alignment: center-left; -fx-max-width: 500;");
+        VBox messageBox = new VBox(8);
+        messageBox.setStyle("-fx-background-color: white; -fx-background-radius: 18; -fx-padding: 15; " +
+                           "-fx-alignment: center-left; -fx-max-width: 400; " +
+                           "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 2); " +
+                           "-fx-border-color: #e9ecef; -fx-border-radius: 18; -fx-border-width: 1;");
         
         // Message header
-        HBox header = new HBox(10);
+        HBox header = new HBox(8);
         header.setStyle("-fx-alignment: center-left;");
         
         Text aiIcon = new Text("🤖");
-        aiIcon.setStyle("-fx-font-size: 16px;");
+        aiIcon.setStyle("-fx-font-size: 14px;");
         
         Text aiName = new Text("Pikachu AI");
-        aiName.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #2c3e50;");
+        aiName.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-fill: #2c3e50;");
         
         Text timestamp = new Text(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-        timestamp.setStyle("-fx-font-size: 12px; -fx-fill: #7f8c8d;");
+        timestamp.setStyle("-fx-font-size: 11px; -fx-fill: #6c757d;");
         
         header.getChildren().addAll(aiIcon, aiName, timestamp);
         
         // Message content
         Text messageText = new Text(message);
-        messageText.setStyle("-fx-font-size: 16px; -fx-fill: #2c3e50; -fx-wrap-text: true;");
-        messageText.setWrappingWidth(450);
+        messageText.setStyle("-fx-font-size: 14px; -fx-fill: #2c3e50; -fx-wrap-text: true;");
+        messageText.setWrappingWidth(350);
         
         messageBox.getChildren().addAll(header, messageText);
         
         // Container to align left
         HBox container = new HBox();
-        container.setStyle("-fx-alignment: center-left; -fx-padding: 10 20;");
+        container.setStyle("-fx-alignment: center-left; -fx-padding: 8 20;");
         container.getChildren().add(messageBox);
         
         chatContainer.getChildren().add(container);
@@ -399,36 +418,38 @@ public class ChatbotController implements Initializable {
      * Create AI message box for streaming response
      */
     private HBox createAIMessageBox(TextArea responseArea) {
-        VBox messageBox = new VBox(10);
-        messageBox.setStyle("-fx-background-color: #ecf0f1; -fx-background-radius: 15; -fx-padding: 15; " +
-                           "-fx-alignment: center-left; -fx-max-width: 500;");
+        VBox messageBox = new VBox(8);
+        messageBox.setStyle("-fx-background-color: white; -fx-background-radius: 18; -fx-padding: 15; " +
+                           "-fx-alignment: center-left; -fx-max-width: 400; " +
+                           "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 2); " +
+                           "-fx-border-color: #e9ecef; -fx-border-radius: 18; -fx-border-width: 1;");
         
         // Message header
-        HBox header = new HBox(10);
+        HBox header = new HBox(8);
         header.setStyle("-fx-alignment: center-left;");
         
         Text aiIcon = new Text("🤖");
-        aiIcon.setStyle("-fx-font-size: 16px;");
+        aiIcon.setStyle("-fx-font-size: 14px;");
         
         Text aiName = new Text("Pikachu AI");
-        aiName.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #2c3e50;");
+        aiName.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-fill: #2c3e50;");
         
         Text timestamp = new Text(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-        timestamp.setStyle("-fx-font-size: 12px; -fx-fill: #7f8c8d;");
+        timestamp.setStyle("-fx-font-size: 11px; -fx-fill: #6c757d;");
         
         header.getChildren().addAll(aiIcon, aiName, timestamp);
         
         // Style the response area
         responseArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; " +
-                             "-fx-font-size: 16px; -fx-text-fill: #2c3e50;");
+                             "-fx-font-size: 14px; -fx-text-fill: #2c3e50; -fx-wrap-text: true;");
         responseArea.setPrefRowCount(1);
-        responseArea.setMaxWidth(450);
+        responseArea.setMaxWidth(350);
         
         messageBox.getChildren().addAll(header, responseArea);
         
         // Container to align left
         HBox container = new HBox();
-        container.setStyle("-fx-alignment: center-left; -fx-padding: 10 20;");
+        container.setStyle("-fx-alignment: center-left; -fx-padding: 8 20;");
         container.getChildren().add(messageBox);
         
         return container;
@@ -449,6 +470,16 @@ public class ChatbotController implements Initializable {
     }
     
     /**
+     * Update connection status
+     */
+    private void updateConnectionStatus(String status, String color) {
+        if (connectionStatusLabel != null) {
+            connectionStatusLabel.setText(status);
+            connectionStatusLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-size: 12px;");
+        }
+    }
+    
+    /**
      * Show alert dialog
      */
     private void showAlert(String title, String message) {
@@ -458,4 +489,4 @@ public class ChatbotController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-} 
+}

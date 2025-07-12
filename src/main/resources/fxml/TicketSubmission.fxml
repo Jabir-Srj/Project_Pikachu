@@ -234,11 +234,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="categoryComboBox" maxWidth="1.7976931348623157E308" promptText="Select a category" styleClass="form-input-field">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </ComboBox>
+                        <ComboBox fx:id="categoryComboBox" promptText="Select a category" styleClass="form-input-field" />
                      </VBox>
                      
                      <VBox spacing="8.0" HBox.hgrow="ALWAYS">
@@ -247,11 +243,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="priorityComboBox" maxWidth="1.7976931348623157E308" promptText="Select priority level" styleClass="form-input-field">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </ComboBox>
+                        <ComboBox fx:id="priorityComboBox" promptText="Select priority level" styleClass="form-input-field" />
                      </VBox>
                   </HBox>
                   
@@ -385,11 +377,7 @@
                            <Font size="16.0" />
                         </font>
                      </Label>
-                     <ComboBox fx:id="callbackTimeComboBox" maxWidth="1.7976931348623157E308" promptText="Select preferred time" styleClass="form-input-field">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </ComboBox>
+                     <ComboBox fx:id="callbackTimeComboBox" promptText="Select preferred time" styleClass="form-input-field" />
                   </VBox>
                </VBox>
                

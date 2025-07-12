@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModernChatbotController">
+   <top>
+      <!-- Header -->
+      <VBox style="-fx-background: linear-gradient(to right, #667eea 0%, #764ba2 100%); -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3);">
+         <HBox alignment="CENTER_LEFT" spacing="20">
+            <Button fx:id="backButton" style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-border-color: rgba(255, 255, 255, 0.3); -fx-border-radius: 25; -fx-border-width: 1;" text="← Back">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="🤖 Pikachu AI Assistant">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Text>
+            <Region HBox.hgrow="ALWAYS" />
+            <VBox alignment="CENTER_RIGHT" spacing="5">
+               <HBox alignment="CENTER" spacing="10">
+                  <Label fx:id="connectionStatusLabel" style="-fx-text-fill: white; -fx-font-size: 12px;" text="● Online" />
+                  <ProgressIndicator fx:id="typingIndicator" maxHeight="20.0" maxWidth="20.0" visible="false" />
+               </HBox>
+               <Label style="-fx-text-fill: rgba(255, 255, 255, 0.8); -fx-font-size: 11px;" text="Your AI-powered travel assistant" />
+            </VBox>
+         </HBox>
+      </VBox>
+   </top>
+   
+   <center>
+      <!-- Chat Area -->
+      <VBox style="-fx-background-color: #f8f9fa;">
+         <!-- Quick Actions -->
+         <HBox alignment="CENTER" spacing="15" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: #e9ecef; -fx-border-width: 0 0 1 0;">
+            <Label style="-fx-text-fill: #6c757d; -fx-font-weight: bold;" text="Quick Actions:" />
+            <Button fx:id="flightStatusButton" style="-fx-background-color: #e3f2fd; -fx-text-fill: #1976d2; -fx-padding: 8 15; -fx-background-radius: 20; -fx-border-color: #1976d2; -fx-border-radius: 20; -fx-border-width: 1;" text="✈️ Flight Status" />
+            <Button fx:id="bookingHelpButton" style="-fx-background-color: #f3e5f5; -fx-text-fill: #7b1fa2; -fx-padding: 8 15; -fx-background-radius: 20; -fx-border-color: #7b1fa2; -fx-border-radius: 20; -fx-border-width: 1;" text="📋 Booking Help" />
+            <Button fx:id="baggageInfoButton" style="-fx-background-color: #e8f5e8; -fx-text-fill: #388e3c; -fx-padding: 8 15; -fx-background-radius: 20; -fx-border-color: #388e3c; -fx-border-radius: 20; -fx-border-width: 1;" text="🧳 Baggage Info" />
+            <Button fx:id="checkInButton" style="-fx-background-color: #fff3e0; -fx-text-fill: #f57c00; -fx-padding: 8 15; -fx-background-radius: 20; -fx-border-color: #f57c00; -fx-border-radius: 20; -fx-border-width: 1;" text="🎫 Check-in" />
+         </HBox>
+         
+         <!-- Chat Messages -->
+         <ScrollPane fx:id="chatScrollPane" fitToWidth="true" style="-fx-background-color: #f8f9fa; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
+            <content>
+               <VBox fx:id="chatContainer" spacing="15" style="-fx-background-color: #f8f9fa; -fx-padding: 20;" />
+            </content>
+         </ScrollPane>
+         
+         <!-- Message Input Area -->
+         <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: #e9ecef; -fx-border-width: 1 0 0 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, -2);">
+            <!-- Suggested Responses (when applicable) -->
+            <HBox fx:id="suggestedResponsesContainer" alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 15 0;" visible="false">
+               <Label style="-fx-text-fill: #6c757d; -fx-font-size: 12px;" text="Suggested:" />
+               <Button fx:id="suggestion1Button" style="-fx-background-color: #f8f9fa; -fx-text-fill: #495057; -fx-padding: 5 12; -fx-background-radius: 15; -fx-border-color: #dee2e6; -fx-border-radius: 15; -fx-border-width: 1; -fx-font-size: 12px;" text="What are your baggage allowances?" />
+               <Button fx:id="suggestion2Button" style="-fx-background-color: #f8f9fa; -fx-text-fill: #495057; -fx-padding: 5 12; -fx-background-radius: 15; -fx-border-color: #dee2e6; -fx-border-radius: 15; -fx-border-width: 1; -fx-font-size: 12px;" text="How do I check in online?" />
+               <Button fx:id="suggestion3Button" style="-fx-background-color: #f8f9fa; -fx-text-fill: #495057; -fx-padding: 5 12; -fx-background-radius: 15; -fx-border-color: #dee2e6; -fx-border-radius: 15; -fx-border-width: 1; -fx-font-size: 12px;" text="Flight delay compensation?" />
+            </HBox>
+            
+            <!-- Message Input -->
+            <HBox alignment="CENTER" spacing="15">
+               <TextArea fx:id="messageTextArea" maxHeight="100.0" minHeight="45.0" prefRowCount="1" promptText="Type your message here... (Press Enter to send)" style="-fx-background-color: #f8f9fa; -fx-border-color: #ced4da; -fx-border-radius: 25; -fx-border-width: 2; -fx-padding: 12 20; -fx-font-size: 14px;" wrapText="true" HBox.hgrow="ALWAYS" />
+               <VBox alignment="CENTER" spacing="8">
+                  <Button fx:id="sendButton" style="-fx-background: linear-gradient(to right, #667eea, #764ba2); -fx-text-fill: white; -fx-padding: 12; -fx-background-radius: 25; -fx-border-radius: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2); -fx-font-weight: bold;" text="Send ➤">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="voiceButton" disable="true" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-padding: 8; -fx-background-radius: 20; -fx-font-size: 12px;" text="🎤" />
+               </VBox>
+            </HBox>
+            
+            <!-- Action Buttons -->
+            <HBox alignment="CENTER" spacing="15" style="-fx-padding: 15 0 0 0;">
+               <Button fx:id="clearChatButton" style="-fx-background-color: transparent; -fx-text-fill: #6c757d; -fx-padding: 8 15; -fx-background-radius: 20; -fx-border-color: #dee2e6; -fx-border-radius: 20; -fx-border-width: 1; -fx-font-size: 12px;" text="🗑️ Clear Chat" />
+               <Region HBox.hgrow="ALWAYS" />
+               <Label style="-fx-text-fill: #6c757d; -fx-font-size: 11px;" text="Powered by Pikachu AI" />
+            </HBox>
+         </VBox>
+      </VBox>
+   </center>
+</BorderPane>

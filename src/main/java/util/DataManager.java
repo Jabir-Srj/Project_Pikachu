@@ -12,12 +12,18 @@ import java.util.List;
 
 import model.Admin;
 import model.Booking;
+import model.BookingStatus;
 import model.Customer;
 import model.FAQ;
 import model.Flight;
 import model.FlightStatus;
+import model.Passenger;
+import model.PaymentDetails;
 import model.RefundRequest;
 import model.Ticket;
+import model.TicketPriority;
+import model.TicketReply;
+import model.TicketStatus;
 import model.User;
 
 /**
@@ -493,28 +499,670 @@ public class DataManager {
      * Load bookings from file
      */
     private List<Booking> loadBookingsFromFile() {
-        return new ArrayList<>();
+        try {
+            String content = readFileContent(BOOKINGS_FILE);
+            
+            // If file is empty or doesn't exist, return empty list
+            if (content.trim().equals("[]") || content.trim().isEmpty()) {
+                return new ArrayList<>();
+            }
+            
+            List<Booking> bookings = new ArrayList<>();
+            
+            // Simple JSON parsing for bookings
+            // Remove brackets and split by booking objects
+            content = content.trim();
+            if (content.startsWith("[")) {
+                content = content.substring(1);
+            }
+            if (content.endsWith("]")) {
+                content = content.substring(0, content.length() - 1);
+            }
+            
+            // Split by booking objects (look for closing and opening braces)
+            String[] bookingBlocks = content.split("\\},\\s*\\{");
+            
+            for (String block : bookingBlocks) {
+                if (block.trim().isEmpty()) {
+                    continue;
+                }
+                
+                // Clean up the block
+                block = block.trim();
+                if (!block.startsWith("{")) {
+                    block = "{" + block;
+                }
+                if (!block.endsWith("}")) {
+                    block = block + "}";
+                }
+                
+                try {
+                    Booking booking = parseBookingFromJson(block);
+                    if (booking != null) {
+                        bookings.add(booking);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error parsing booking: " + e.getMessage());
+                    // Continue with next booking
+                }
+            }
+            
+            System.out.println("Loaded " + bookings.size() + " bookings from " + BOOKINGS_FILE);
+            return bookings;
+            
+        } catch (Exception e) {
+            System.err.println("Error loading bookings from file: " + e.getMessage());
+            return new ArrayList<>();
+        }
     }
 
     /**
      * Save bookings to file
      */
     private boolean saveBookingsToFile(List<Booking> bookings) {
-        return true;
+        try {
+            StringBuilder jsonBuilder = new StringBuilder();
+            jsonBuilder.append("[\n");
+            
+            for (int i = 0; i < bookings.size(); i++) {
+                Booking booking = bookings.get(i);
+                jsonBuilder.append(bookingToJson(booking));
+                
+                if (i < bookings.size() - 1) {
+                    jsonBuilder.append(",\n");
+                } else {
+                    jsonBuilder.append("\n");
+                }
+            }
+            
+            jsonBuilder.append("]");
+            
+            try (FileWriter writer = new FileWriter(BOOKINGS_FILE)) {
+                writer.write(jsonBuilder.toString());
+            }
+            
+            System.out.println("Saved " + bookings.size() + " bookings to " + BOOKINGS_FILE);
+            return true;
+            
+        } catch (Exception e) {
+            System.err.println("Error saving bookings to file: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Parse a booking object from JSON string
+     * @param jsonBlock JSON string representing a booking
+     * @return Booking object
+     */
+    private Booking parseBookingFromJson(String jsonBlock) {
+        try {
+            Booking booking = new Booking();
+            
+            // Extract fields using simple string manipulation
+            String bookingId = extractJsonValue(jsonBlock, "bookingId");
+            String userId = extractJsonValue(jsonBlock, "userId");
+            String flightId = extractJsonValue(jsonBlock, "flightId");
+            String bookingDateStr = extractJsonValue(jsonBlock, "bookingDate");
+            String status = extractJsonValue(jsonBlock, "status");
+            String totalAmountStr = extractJsonValue(jsonBlock, "totalAmount");
+            
+            // Set booking properties
+            booking.setBookingId(bookingId);
+            booking.setCustomerId(userId); // Note: JSON uses "userId" but model uses "customerId"
+            booking.setFlightId(flightId);
+            
+            // Parse booking date
+            if (bookingDateStr != null && !bookingDateStr.isEmpty()) {
+                try {
+                    booking.setBookingDate(LocalDateTime.parse(bookingDateStr));
+                } catch (Exception e) {
+                    System.err.println("Error parsing booking date: " + e.getMessage());
+                }
+            }
+            
+            // Parse status
+            if (status != null && !status.isEmpty()) {
+                try {
+                    booking.setStatus(BookingStatus.valueOf(status.toUpperCase()));
+                } catch (Exception e) {
+                    System.err.println("Error parsing booking status: " + e.getMessage());
+                    booking.setStatus(BookingStatus.PENDING);
+                }
+            }
+            
+            // Parse total amount
+            if (totalAmountStr != null && !totalAmountStr.isEmpty()) {
+                try {
+                    booking.setTotalPrice(Double.parseDouble(totalAmountStr));
+                } catch (Exception e) {
+                    System.err.println("Error parsing total amount: " + e.getMessage());
+                }
+            }
+            
+            // Parse passengers array
+            parseBookingPassengers(jsonBlock, booking);
+            
+            // Parse payment details
+            parseBookingPaymentDetails(jsonBlock, booking);
+            
+            return booking;
+            
+        } catch (Exception e) {
+            System.err.println("Error parsing booking from JSON: " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Convert booking to JSON string
+     * @param booking Booking object
+     * @return JSON string
+     */
+    private String bookingToJson(Booking booking) {
+        StringBuilder json = new StringBuilder();
+        json.append("  {\n");
+        json.append("    \"bookingId\": \"").append(escapeJson(booking.getBookingId())).append("\",\n");
+        json.append("    \"userId\": \"").append(escapeJson(booking.getCustomerId())).append("\",\n");
+        json.append("    \"flightId\": \"").append(escapeJson(booking.getFlightId())).append("\",\n");
+        json.append("    \"bookingDate\": \"").append(booking.getBookingDate() != null ? booking.getBookingDate().toString() : "").append("\",\n");
+        json.append("    \"status\": \"").append(booking.getStatus() != null ? booking.getStatus().name() : "PENDING").append("\",\n");
+        json.append("    \"totalAmount\": ").append(booking.getTotalPrice()).append(",\n");
+        
+        // Add passengers array
+        json.append("    \"passengers\": [\n");
+        List<Passenger> passengers = booking.getPassengers();
+        if (passengers != null && !passengers.isEmpty()) {
+            for (int i = 0; i < passengers.size(); i++) {
+                Passenger passenger = passengers.get(i);
+                json.append("      {\n");
+                json.append("        \"passengerId\": \"").append(escapeJson(passenger.getPassengerId())).append("\",\n");
+                json.append("        \"name\": \"").append(escapeJson(passenger.getFullName())).append("\",\n");
+                json.append("        \"dateOfBirth\": \"").append(passenger.getDateOfBirth() != null ? passenger.getDateOfBirth().toString() : "").append("\",\n");
+                json.append("        \"passengerType\": \"Adult\",\n");
+                json.append("        \"seatNumber\": \"").append(escapeJson(passenger.getSeatNumber())).append("\"\n");
+                json.append("      }");
+                if (i < passengers.size() - 1) {
+                    json.append(",");
+                }
+                json.append("\n");
+            }
+        }
+        json.append("    ],\n");
+        
+        // Add payment details
+        json.append("    \"paymentDetails\": {\n");
+        PaymentDetails payment = booking.getPaymentDetails();
+        if (payment != null) {
+            json.append("      \"cardNumber\": \"").append(escapeJson(payment.getCardNumber())).append("\",\n");
+            json.append("      \"cardHolderName\": \"").append(escapeJson(payment.getCardholderName())).append("\",\n");
+            json.append("      \"amount\": ").append(payment.getAmount()).append(",\n");
+            json.append("      \"paymentStatus\": \"PENDING\"\n");
+        } else {
+            json.append("      \"cardNumber\": \"\",\n");
+            json.append("      \"cardHolderName\": \"\",\n");
+            json.append("      \"amount\": 0.0,\n");
+            json.append("      \"paymentStatus\": \"PENDING\"\n");
+        }
+        json.append("    }\n");
+        json.append("  }");
+        
+        return json.toString();
+    }
+
+    /**
+     * Parse passengers from booking JSON
+     * @param jsonBlock JSON block
+     * @param booking Booking object to populate
+     */
+    private void parseBookingPassengers(String jsonBlock, Booking booking) {
+        try {
+            // Find the passengers array in the JSON
+            int passengersStart = jsonBlock.indexOf("\"passengers\":");
+            if (passengersStart == -1) {
+                return;
+            }
+            
+            // Find the start of the array
+            int arrayStart = jsonBlock.indexOf("[", passengersStart);
+            if (arrayStart == -1) {
+                return;
+            }
+            
+            // Find the matching closing bracket
+            int arrayEnd = findMatchingBracket(jsonBlock, arrayStart, '[', ']');
+            if (arrayEnd == -1) {
+                return;
+            }
+            
+            String passengersJson = jsonBlock.substring(arrayStart + 1, arrayEnd);
+            if (passengersJson.trim().isEmpty()) {
+                return;
+            }
+            
+            // Split by passenger objects
+            String[] passengerBlocks = passengersJson.split("\\},\\s*\\{");
+            
+            for (String passengerBlock : passengerBlocks) {
+                if (passengerBlock.trim().isEmpty()) {
+                    continue;
+                }
+                
+                // Clean up the block
+                passengerBlock = passengerBlock.trim();
+                if (!passengerBlock.startsWith("{")) {
+                    passengerBlock = "{" + passengerBlock;
+                }
+                if (!passengerBlock.endsWith("}")) {
+                    passengerBlock = passengerBlock + "}";
+                }
+                
+                // Parse individual passenger
+                String passengerId = extractJsonValue(passengerBlock, "passengerId");
+                String name = extractJsonValue(passengerBlock, "name");
+                String dateOfBirthStr = extractJsonValue(passengerBlock, "dateOfBirth");
+                String seatNumber = extractJsonValue(passengerBlock, "seatNumber");
+                
+                if (name != null && !name.trim().isEmpty()) {
+                    Passenger passenger = new Passenger();
+                    passenger.setPassengerId(passengerId);
+                    
+                    // Split name into first and last
+                    String[] nameParts = name.split("\\s+", 2);
+                    if (nameParts.length > 0) {
+                        passenger.setFirstName(nameParts[0]);
+                        if (nameParts.length > 1) {
+                            passenger.setLastName(nameParts[1]);
+                        }
+                    }
+                    
+                    // Parse date of birth
+                    if (dateOfBirthStr != null && !dateOfBirthStr.isEmpty()) {
+                        try {
+                            passenger.setDateOfBirth(java.time.LocalDate.parse(dateOfBirthStr));
+                        } catch (Exception e) {
+                            System.err.println("Error parsing passenger date of birth: " + e.getMessage());
+                        }
+                    }
+                    
+                    // Set passenger type (if provided, otherwise default is ADULT)
+                    // Note: passengerType is from JSON, but we can't set it directly as the enum is package-private
+                    
+                    passenger.setSeatNumber(seatNumber);
+                    booking.getPassengers().add(passenger);
+                }
+            }
+            
+        } catch (Exception e) {
+            System.err.println("Error parsing booking passengers: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Parse payment details from booking JSON
+     * @param jsonBlock JSON block
+     * @param booking Booking object to populate
+     */
+    private void parseBookingPaymentDetails(String jsonBlock, Booking booking) {
+        try {
+            // Find the paymentDetails object in the JSON
+            int paymentStart = jsonBlock.indexOf("\"paymentDetails\":");
+            if (paymentStart == -1) {
+                return;
+            }
+            
+            // Find the start of the object
+            int objectStart = jsonBlock.indexOf("{", paymentStart);
+            if (objectStart == -1) {
+                return;
+            }
+            
+            // Find the matching closing brace
+            int objectEnd = findMatchingBracket(jsonBlock, objectStart, '{', '}');
+            if (objectEnd == -1) {
+                return;
+            }
+            
+            String paymentJson = jsonBlock.substring(objectStart, objectEnd + 1);
+            
+            // Parse payment fields
+            String cardNumber = extractJsonValue(paymentJson, "cardNumber");
+            String cardHolderName = extractJsonValue(paymentJson, "cardHolderName");
+            String amountStr = extractJsonValue(paymentJson, "amount");
+            
+            PaymentDetails payment = new PaymentDetails();
+            payment.setCardNumber(cardNumber);
+            payment.setCardholderName(cardHolderName);
+            
+            // Parse amount
+            if (amountStr != null && !amountStr.isEmpty()) {
+                try {
+                    payment.setAmount(Double.parseDouble(amountStr));
+                } catch (Exception e) {
+                    System.err.println("Error parsing payment amount: " + e.getMessage());
+                }
+            }
+            
+            // Set payment status (if provided, otherwise default is PENDING)
+            // Note: paymentStatus is from JSON, but we can't set it directly as the enum is package-private
+            
+            booking.setPaymentDetails(payment);
+            
+        } catch (Exception e) {
+            System.err.println("Error parsing booking payment details: " + e.getMessage());
+        }
     }
 
     /**
      * Load tickets from file
      */
     private List<Ticket> loadTicketsFromFile() {
-        return new ArrayList<>();
+        try {
+            String content = readFileContent(TICKETS_FILE);
+            
+            // If file is empty or doesn't exist, return empty list
+            if (content.trim().equals("[]") || content.trim().isEmpty()) {
+                return new ArrayList<>();
+            }
+            
+            List<Ticket> tickets = new ArrayList<>();
+            
+            // Simple JSON parsing for tickets
+            // Remove brackets and split by ticket objects
+            content = content.trim();
+            if (content.startsWith("[")) {
+                content = content.substring(1);
+            }
+            if (content.endsWith("]")) {
+                content = content.substring(0, content.length() - 1);
+            }
+            
+            // Split by ticket objects (look for closing and opening braces)
+            String[] ticketBlocks = content.split("\\},\\s*\\{");
+            
+            for (String block : ticketBlocks) {
+                if (block.trim().isEmpty()) {
+                    continue;
+                }
+                
+                // Clean up the block
+                block = block.trim();
+                if (!block.startsWith("{")) {
+                    block = "{" + block;
+                }
+                if (!block.endsWith("}")) {
+                    block = block + "}";
+                }
+                
+                try {
+                    Ticket ticket = parseTicketFromJson(block);
+                    if (ticket != null) {
+                        tickets.add(ticket);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error parsing ticket: " + e.getMessage());
+                    // Continue with next ticket
+                }
+            }
+            
+            System.out.println("Loaded " + tickets.size() + " tickets from " + TICKETS_FILE);
+            return tickets;
+            
+        } catch (Exception e) {
+            System.err.println("Error loading tickets from file: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    /**
+     * Parse a ticket object from JSON string
+     * @param jsonBlock JSON string representing a ticket
+     * @return Ticket object
+     */
+    private Ticket parseTicketFromJson(String jsonBlock) {
+        try {
+            Ticket ticket = new Ticket();
+            
+            // Extract fields using simple string manipulation
+            String ticketId = extractJsonValue(jsonBlock, "ticketId");
+            String customerId = extractJsonValue(jsonBlock, "customerId");
+            String customerName = extractJsonValue(jsonBlock, "customerName");
+            String customerEmail = extractJsonValue(jsonBlock, "customerEmail");
+            String subject = extractJsonValue(jsonBlock, "subject");
+            String description = extractJsonValue(jsonBlock, "description");
+            String category = extractJsonValue(jsonBlock, "category");
+            String priority = extractJsonValue(jsonBlock, "priority");
+            String status = extractJsonValue(jsonBlock, "status");
+            String assignedTo = extractJsonValue(jsonBlock, "assignedTo");
+            String createdAtStr = extractJsonValue(jsonBlock, "createdAt");
+            String updatedAtStr = extractJsonValue(jsonBlock, "updatedAt");
+            
+            // Set ticket properties
+            ticket.setTicketId(ticketId);
+            ticket.setCustomerId(customerId);
+            ticket.setCustomerName(customerName);
+            ticket.setCustomerEmail(customerEmail);
+            ticket.setSubject(subject);
+            ticket.setDescription(description);
+            ticket.setCategory(category);
+            ticket.setAssignedTo(assignedTo);
+            
+            // Parse priority
+            if (priority != null && !priority.trim().isEmpty()) {
+                try {
+                    ticket.setPriority(TicketPriority.valueOf(priority.toUpperCase()));
+                } catch (IllegalArgumentException e) {
+                    ticket.setPriority(TicketPriority.MEDIUM);
+                }
+            }
+            
+            // Parse status
+            if (status != null && !status.trim().isEmpty()) {
+                try {
+                    ticket.setStatus(TicketStatus.valueOf(status.toUpperCase()));
+                } catch (IllegalArgumentException e) {
+                    ticket.setStatus(TicketStatus.OPEN);
+                }
+            }
+            
+            // Parse dates (format: 2025-01-11T10:30:00)
+            if (createdAtStr != null && !createdAtStr.trim().isEmpty()) {
+                try {
+                    ticket.setCreatedAt(LocalDateTime.parse(createdAtStr));
+                } catch (Exception e) {
+                    ticket.setCreatedAt(LocalDateTime.now());
+                }
+            }
+            
+            if (updatedAtStr != null && !updatedAtStr.trim().isEmpty()) {
+                try {
+                    ticket.setUpdatedAt(LocalDateTime.parse(updatedAtStr));
+                } catch (Exception e) {
+                    ticket.setUpdatedAt(LocalDateTime.now());
+                }
+            }
+            
+            // Parse responses/replies array
+            parseTicketResponses(jsonBlock, ticket);
+            
+            return ticket;
+            
+        } catch (Exception e) {
+            System.err.println("Error parsing ticket from JSON: " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Parse ticket responses from JSON
+     */
+    private void parseTicketResponses(String jsonBlock, Ticket ticket) {
+        try {
+            // Find the responses array in the JSON
+            int responsesStart = jsonBlock.indexOf("\"responses\":");
+            if (responsesStart == -1) {
+                return;
+            }
+            
+            // Find the start of the array
+            int arrayStart = jsonBlock.indexOf("[", responsesStart);
+            if (arrayStart == -1) {
+                return;
+            }
+            
+            // Find the matching closing bracket
+            int arrayEnd = findMatchingBracket(jsonBlock, arrayStart, '[', ']');
+            if (arrayEnd == -1) {
+                return;
+            }
+            
+            String responsesJson = jsonBlock.substring(arrayStart + 1, arrayEnd);
+            if (responsesJson.trim().isEmpty()) {
+                return;
+            }
+            
+            // Split by response objects
+            String[] responseBlocks = responsesJson.split("\\},\\s*\\{");
+            
+            for (String responseBlock : responseBlocks) {
+                if (responseBlock.trim().isEmpty()) {
+                    continue;
+                }
+                
+                // Clean up the block
+                responseBlock = responseBlock.trim();
+                if (!responseBlock.startsWith("{")) {
+                    responseBlock = "{" + responseBlock;
+                }
+                if (!responseBlock.endsWith("}")) {
+                    responseBlock = responseBlock + "}";
+                }
+                
+                // Parse individual response
+                String responderId = extractJsonValue(responseBlock, "responderId");
+                String responderName = extractJsonValue(responseBlock, "responderName");
+                String message = extractJsonValue(responseBlock, "message");
+                String timestampStr = extractJsonValue(responseBlock, "timestamp");
+                
+                if (message != null && !message.trim().isEmpty()) {
+                    TicketReply reply = new TicketReply();
+                    reply.setResponderId(responderId);
+                    reply.setResponderName(responderName);
+                    reply.setMessage(message);
+                    
+                    if (timestampStr != null && !timestampStr.trim().isEmpty()) {
+                        try {
+                            reply.setTimestamp(LocalDateTime.parse(timestampStr));
+                        } catch (Exception e) {
+                            reply.setTimestamp(LocalDateTime.now());
+                        }
+                    }
+                    
+                    ticket.getReplies().add(reply);
+                }
+            }
+            
+        } catch (Exception e) {
+            System.err.println("Error parsing ticket responses: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Find matching bracket in a string
+     */
+    private int findMatchingBracket(String text, int startPos, char openBracket, char closeBracket) {
+        int count = 1;
+        for (int i = startPos + 1; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (c == openBracket) {
+                count++;
+            } else if (c == closeBracket) {
+                count--;
+                if (count == 0) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     /**
      * Save tickets to file
      */
     private boolean saveTicketsToFile(List<Ticket> tickets) {
-        return true;
+        try {
+            StringBuilder json = new StringBuilder();
+            json.append("[\n");
+            
+            for (int i = 0; i < tickets.size(); i++) {
+                Ticket ticket = tickets.get(i);
+                json.append("  {\n");
+                json.append("    \"ticketId\": \"").append(escapeJson(ticket.getTicketId())).append("\",\n");
+                json.append("    \"customerId\": \"").append(escapeJson(ticket.getCustomerId())).append("\",\n");
+                json.append("    \"customerName\": \"").append(escapeJson(ticket.getCustomerName())).append("\",\n");
+                json.append("    \"customerEmail\": \"").append(escapeJson(ticket.getCustomerEmail())).append("\",\n");
+                json.append("    \"subject\": \"").append(escapeJson(ticket.getSubject())).append("\",\n");
+                json.append("    \"description\": \"").append(escapeJson(ticket.getDescription())).append("\",\n");
+                json.append("    \"category\": \"").append(escapeJson(ticket.getCategory())).append("\",\n");
+                json.append("    \"priority\": \"").append(ticket.getPriority().name()).append("\",\n");
+                json.append("    \"status\": \"").append(ticket.getStatus().name()).append("\",\n");
+                json.append("    \"assignedTo\": \"").append(escapeJson(ticket.getAssignedTo())).append("\",\n");
+                json.append("    \"createdAt\": \"").append(ticket.getCreatedAt().toString()).append("\",\n");
+                json.append("    \"updatedAt\": \"").append(ticket.getUpdatedAt().toString()).append("\",\n");
+                
+                // Add responses
+                json.append("    \"responses\": [\n");
+                List<TicketReply> replies = ticket.getReplies();
+                for (int j = 0; j < replies.size(); j++) {
+                    TicketReply reply = replies.get(j);
+                    json.append("      {\n");
+                    json.append("        \"responderId\": \"").append(escapeJson(reply.getResponderId())).append("\",\n");
+                    json.append("        \"responderName\": \"").append(escapeJson(reply.getResponderName())).append("\",\n");
+                    json.append("        \"message\": \"").append(escapeJson(reply.getMessage())).append("\",\n");
+                    json.append("        \"timestamp\": \"").append(reply.getTimestamp().toString()).append("\"\n");
+                    json.append("      }");
+                    if (j < replies.size() - 1) {
+                        json.append(",");
+                    }
+                    json.append("\n");
+                }
+                json.append("    ]\n");
+                
+                json.append("  }");
+                if (i < tickets.size() - 1) {
+                    json.append(",");
+                }
+                json.append("\n");
+            }
+            
+            json.append("]");
+            
+            // Write to file
+            try (FileWriter writer = new FileWriter(TICKETS_FILE)) {
+                writer.write(json.toString());
+            }
+            
+            System.out.println("Saved " + tickets.size() + " tickets to " + TICKETS_FILE);
+            return true;
+            
+        } catch (Exception e) {
+            System.err.println("Error saving tickets to file: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Escape JSON special characters
+     */
+    private String escapeJson(String value) {
+        if (value == null) {
+            return "";
+        }
+        return value.replace("\\", "\\\\")
+                   .replace("\"", "\\\"")
+                   .replace("\n", "\\n")
+                   .replace("\r", "\\r")
+                   .replace("\t", "\\t");
     }
 
     /**
@@ -594,4 +1242,4 @@ public class DataManager {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return dateTime.format(formatter);
     }
-} 
+}

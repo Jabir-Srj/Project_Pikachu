@@ -231,7 +231,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="securityQuestionComboBox" maxWidth="1.7976931348623157E308" promptText="Select a security question" styleClass="form-input" />
+                        <ComboBox fx:id="securityQuestionComboBox" maxWidth="Infinity" promptText="Select a security question" styleClass="form-input" />
                      </VBox>
                      
                            <VBox spacing="6">
@@ -285,7 +285,7 @@
                                  <Font size="13.0" />
                               </font>
                            </Label>
-                           <ComboBox fx:id="languageComboBox" maxWidth="1.7976931348623157E308" promptText="Select language" styleClass="form-input" />
+                           <ComboBox fx:id="languageComboBox" maxWidth="Infinity" promptText="Select language" styleClass="form-input" />
                         </VBox>
                         <VBox spacing="6" HBox.hgrow="ALWAYS">
                            <Label styleClass="form-label" text="Preferred Currency">
@@ -293,7 +293,7 @@
                                  <Font size="13.0" />
                               </font>
                            </Label>
-                           <ComboBox fx:id="currencyComboBox" maxWidth="1.7976931348623157E308" promptText="Select currency" styleClass="form-input" />
+                           <ComboBox fx:id="currencyComboBox" maxWidth="Infinity" promptText="Select currency" styleClass="form-input" />
                         </VBox>
                      </HBox>
                      

@@ -3,6 +3,7 @@ util\ServiceLocator.class
 model\AirlineManagement.class
 model\PaymentStatus.class
 model\TicketStatus.class
+controller\BookingOverviewController.class
 model\TicketPriority.class
 model\ManagementLevel.class
 ai\AirlineAIService.class
@@ -53,6 +54,7 @@ controller\TicketController.class
 model\AddOn.class
 controller\RefundController.class
 model\Flight.class
+controller\ModernChatbotController.class
 model\PassengerType.class
 controller\AddCustomerController.class
 controller\TicketController$1.class

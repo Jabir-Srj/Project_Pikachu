@@ -10,8 +10,11 @@ import java.util.List;
 public class Ticket {
     private String ticketId;
     private String customerId;
+    private String customerName;
+    private String customerEmail;
     private String subject;
     private String description;
+    private String category;
     private TicketStatus status;
     private TicketPriority priority;
     private LocalDateTime createdAt;
@@ -72,11 +75,20 @@ public class Ticket {
     public String getCustomerId() { return customerId; }
     public void setCustomerId(String customerId) { this.customerId = customerId; }
 
+    public String getCustomerName() { return customerName; }
+    public void setCustomerName(String customerName) { this.customerName = customerName; }
+
+    public String getCustomerEmail() { return customerEmail; }
+    public void setCustomerEmail(String customerEmail) { this.customerEmail = customerEmail; }
+
     public String getSubject() { return subject; }
     public void setSubject(String subject) { this.subject = subject; }
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 
     public TicketStatus getStatus() { return status; }
     public void setStatus(TicketStatus status) { 
@@ -96,7 +108,7 @@ public class Ticket {
     public String getAssignedTo() { return assignedTo; }
     public void setAssignedTo(String assignedTo) { this.assignedTo = assignedTo; }
 
-    public List<TicketReply> getReplies() { return new ArrayList<>(replies); }
+    public List<TicketReply> getReplies() { return replies; }
     public void setReplies(List<TicketReply> replies) { this.replies = replies; }
 
     public LocalDateTime getSubmissionDate() { return submissionDate; }
@@ -119,31 +131,6 @@ public class Ticket {
                 ", replies=" + replies.size() +
                 '}';
     }
-}
-
-/**
- * Represents a reply to a ticket
- */
-class TicketReply {
-    private String message;
-    private String repliedBy;
-    private LocalDateTime repliedAt;
-
-    public TicketReply(String message, String repliedBy, LocalDateTime repliedAt) {
-        this.message = message;
-        this.repliedBy = repliedBy;
-        this.repliedAt = repliedAt;
-    }
-
-    // Getters and Setters
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
-
-    public String getRepliedBy() { return repliedBy; }
-    public void setRepliedBy(String repliedBy) { this.repliedBy = repliedBy; }
-
-    public LocalDateTime getRepliedAt() { return repliedAt; }
-    public void setRepliedAt(LocalDateTime repliedAt) { this.repliedAt = repliedAt; }
 }
 
  
