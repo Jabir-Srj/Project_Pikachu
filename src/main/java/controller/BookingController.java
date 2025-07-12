@@ -19,9 +19,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import model.Booking;
 import model.Customer;
 import model.Flight;
@@ -48,16 +52,29 @@ public class BookingController implements Initializable {
     @FXML private ComboBox<String> seatPreferenceComboBox;
     @FXML private CheckBox mealPreferenceCheckBox;
     @FXML private CheckBox baggageInsuranceCheckBox;
-    @FXML private CheckBox priorityBoardingCheckBox;
     
-    // Payment Information
+    // Payment Details FXML Controls
+    @FXML private Button backButton;
+    @FXML private RadioButton creditCardRadio;
+    @FXML private RadioButton paypalRadio;
+    @FXML private RadioButton bankTransferRadio;
+    @FXML private VBox creditCardForm;
     @FXML private TextField cardNumberField;
-    @FXML private TextField cardHolderField;
-    @FXML private ComboBox<String> expiryMonthComboBox;
-    @FXML private ComboBox<String> expiryYearComboBox;
+    @FXML private TextField cardholderNameField;
+    @FXML private TextField expiryDateField;
     @FXML private TextField cvvField;
-    @FXML private ComboBox<String> cardTypeComboBox;
-    @FXML private TextField billingAddressField;
+    @FXML private CheckBox sameAsContactCheckBox;
+    @FXML private GridPane billingAddressGrid;
+    @FXML private TextField streetAddressField;
+    @FXML private TextField cityField;
+    @FXML private ComboBox<String> stateComboBox;
+    @FXML private TextField zipCodeField;
+    @FXML private ComboBox<String> countryComboBox;
+    @FXML private CheckBox termsCheckBox;
+    @FXML private CheckBox privacyCheckBox;
+    @FXML private CheckBox refundCheckBox;
+    @FXML private Button cancelButton;
+    @FXML private Button completePaymentButton;
     
     // Flight Summary
     @FXML private Label flightNumberLabel;
@@ -87,12 +104,11 @@ public class BookingController implements Initializable {
     @FXML private TableColumn<Passenger, String> classColumn;
     
     // Booking Action Buttons
-    @FXML private Button backButton;
+    @FXML private Button backToSearchButton;
     @FXML private Button modifyBookingButton;
     @FXML private Button cancelBookingDetailsButton;
     @FXML private Button downloadTicketButton;
     @FXML private Button requestRefundButton;
-    @FXML private Button backToSearchButton;
     
     // Services
     private BookingService bookingService;
@@ -115,9 +131,11 @@ public class BookingController implements Initializable {
         } else if (bookingReferenceLabel != null) {
             initializeBookingDetailsScreen();
         } else {
-            // For overview screen or other screens, just setup event handlers
+            // For mock payment screen or other screens, just setup event handlers
             setupEventHandlers();
         }
+        
+        // Skip complex toggle group setup for mock payment
     }
     
     /**
@@ -162,15 +180,7 @@ public class BookingController implements Initializable {
             seatPreferenceComboBox.setValue("No Preference");
         }
         
-        // Card type options
-        if (cardTypeComboBox != null) {
-            cardTypeComboBox.setItems(FXCollections.observableArrayList(
-                "Visa", "Mastercard", "American Express", "Discover"
-            ));
-        }
-        
-        // Expiry month/year
-        setupExpiryDateComboBoxes();
+        // Initialize combo boxes for address fields
         
         // Set current user details if available
         if (currentUser instanceof Customer) {
@@ -184,28 +194,6 @@ public class BookingController implements Initializable {
             if (passengerPhoneField != null) {
                 passengerPhoneField.setText(customer.getPhoneNumber());
             }
-        }
-    }
-    
-    /**
-     * Setup expiry date combo boxes
-     */
-    private void setupExpiryDateComboBoxes() {
-        if (expiryMonthComboBox != null) {
-            ObservableList<String> months = FXCollections.observableArrayList();
-            for (int i = 1; i <= 12; i++) {
-                months.add(String.format("%02d", i));
-            }
-            expiryMonthComboBox.setItems(months);
-        }
-        
-        if (expiryYearComboBox != null) {
-            ObservableList<String> years = FXCollections.observableArrayList();
-            int currentYear = LocalDate.now().getYear();
-            for (int i = currentYear; i <= currentYear + 10; i++) {
-                years.add(String.valueOf(i));
-            }
-            expiryYearComboBox.setItems(years);
         }
     }
     
@@ -257,7 +245,6 @@ public class BookingController implements Initializable {
         double total = 0.0;
         if (mealPreferenceCheckBox != null && mealPreferenceCheckBox.isSelected()) total += 25.0;
         if (baggageInsuranceCheckBox != null && baggageInsuranceCheckBox.isSelected()) total += 15.0;
-        if (priorityBoardingCheckBox != null && priorityBoardingCheckBox.isSelected()) total += 20.0;
         return total;
     }
     
@@ -272,9 +259,6 @@ public class BookingController implements Initializable {
         if (baggageInsuranceCheckBox != null) {
             baggageInsuranceCheckBox.setOnAction(e -> loadFlightSummary());
         }
-        if (priorityBoardingCheckBox != null) {
-            priorityBoardingCheckBox.setOnAction(e -> loadFlightSummary());
-        }
         
         // Back button
         if (backButton != null) {
@@ -285,6 +269,22 @@ public class BookingController implements Initializable {
         if (confirmPaymentButton != null) {
             confirmPaymentButton.setOnAction(e -> handleConfirmPayment());
         }
+        
+        // Complete payment button handler
+        if (completePaymentButton != null) {
+            completePaymentButton.setOnAction(e -> handleCompletePayment());
+        }
+        
+        // Cancel button handler
+        if (cancelButton != null) {
+            cancelButton.setOnAction(e -> handleCancelBooking());
+        }
+        
+        // Back button handler
+        if (backButton != null) {
+            backButton.setOnAction(e -> NavigationManager.getInstance().showFlightInformation());
+        }
+        
         if (cancelBookingButton != null) {
             cancelBookingButton.setOnAction(e -> handleCancelBooking());
         }
@@ -319,7 +319,7 @@ public class BookingController implements Initializable {
             return false;
         }
         
-        if (cardHolderField == null || cardHolderField.getText().trim().isEmpty()) {
+        if (cardholderNameField == null || cardholderNameField.getText().trim().isEmpty()) {
             showAlert("Error", "Please enter card holder name");
             return false;
         }
@@ -355,9 +355,12 @@ public class BookingController implements Initializable {
             // Create payment details
             PaymentDetails paymentDetails = new PaymentDetails();
             paymentDetails.setCardNumber(cardNumberField.getText());
-            paymentDetails.setCardholderName(cardHolderField.getText());
-            if (billingAddressField != null) {
-                paymentDetails.setBillingAddress(billingAddressField.getText());
+            paymentDetails.setCardholderName(cardholderNameField.getText());
+            
+            // Build billing address from individual fields
+            if (streetAddressField != null && cityField != null) {
+                String billingAddress = buildBillingAddress();
+                paymentDetails.setBillingAddress(billingAddress);
             }
             
             double totalAmount = selectedFlight.getBasePrice() + calculateAddOnsTotal() + (selectedFlight.getBasePrice() * 0.15);
@@ -537,4 +540,131 @@ public class BookingController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-} 
+    
+    /**
+     * Handle complete payment - simple flow without backend verification
+     */
+    @FXML
+    private void handleCompletePayment() {
+        try {
+            // Mock payment processing - no real validation needed
+            
+            // Show success message
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Mock Payment Successful");
+            alert.setHeaderText("Demo Booking Confirmed!");
+            alert.setContentText("Your demo payment has been processed successfully.\n\n" +
+                               "Flight: NYC → LAX\n" +
+                               "Amount: $598.00\n" +
+                               "Status: CONFIRMED\n\n" +
+                               "This was a demonstration - no real transaction occurred.");
+            alert.showAndWait();
+            
+            // Navigate to customer overview
+            NavigationManager.getInstance().showCustomerOverview();
+            
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Navigation Error");
+            alert.setHeaderText("Unable to Continue");
+            alert.setContentText("There was an error navigating to the next page. Please try again.");
+            alert.showAndWait();
+        }
+    }
+    
+    /**
+     * Validate basic payment information
+     */
+    private boolean validateBasicPaymentInfo() {
+        // Check if terms are agreed to
+        if (termsCheckBox != null && !termsCheckBox.isSelected()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Terms Required");
+            alert.setHeaderText("Please agree to terms");
+            alert.setContentText("You must agree to the Terms of Service to complete your booking.");
+            alert.showAndWait();
+            return false;
+        }
+        
+        // Basic validation for credit card if selected
+        if (creditCardRadio != null && creditCardRadio.isSelected()) {
+            if (cardNumberField != null && (cardNumberField.getText() == null || cardNumberField.getText().trim().isEmpty())) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Card Number Required");
+                alert.setHeaderText("Please enter card number");
+                alert.setContentText("Card number is required to complete the payment.");
+                alert.showAndWait();
+                return false;
+            }
+            
+            if (cardholderNameField != null && (cardholderNameField.getText() == null || cardholderNameField.getText().trim().isEmpty())) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Cardholder Name Required");
+                alert.setHeaderText("Please enter cardholder name");
+                alert.setContentText("Cardholder name is required to complete the payment.");
+                alert.showAndWait();
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Build billing address from individual form fields
+     */
+    private String buildBillingAddress() {
+        StringBuilder address = new StringBuilder();
+        
+        if (streetAddressField != null && !streetAddressField.getText().trim().isEmpty()) {
+            address.append(streetAddressField.getText().trim());
+        }
+        
+        if (cityField != null && !cityField.getText().trim().isEmpty()) {
+            if (address.length() > 0) address.append(", ");
+            address.append(cityField.getText().trim());
+        }
+        
+        if (stateComboBox != null && stateComboBox.getValue() != null) {
+            if (address.length() > 0) address.append(", ");
+            address.append(stateComboBox.getValue());
+        }
+        
+        if (zipCodeField != null && !zipCodeField.getText().trim().isEmpty()) {
+            if (address.length() > 0) address.append(" ");
+            address.append(zipCodeField.getText().trim());
+        }
+        
+        if (countryComboBox != null && countryComboBox.getValue() != null) {
+            if (address.length() > 0) address.append(", ");
+            address.append(countryComboBox.getValue());
+        }
+        
+        return address.toString();
+    }
+    
+    /**
+     * Setup payment method toggle group
+     */
+    private void setupPaymentMethodToggleGroup() {
+        // Create ToggleGroup and add radio buttons
+        ToggleGroup paymentMethodToggleGroup = new ToggleGroup();
+        creditCardRadio.setToggleGroup(paymentMethodToggleGroup);
+        paypalRadio.setToggleGroup(paymentMethodToggleGroup);
+        bankTransferRadio.setToggleGroup(paymentMethodToggleGroup);
+        
+        // Set default selection
+        creditCardRadio.setSelected(true);
+        
+        // Add listener to show/hide credit card form
+        paymentMethodToggleGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+            if (newToggle == creditCardRadio) {
+                creditCardForm.setVisible(true);
+                creditCardForm.setManaged(true);
+            } else {
+                creditCardForm.setVisible(false);
+                creditCardForm.setManaged(false);
+            }
+        });
+    }
+}

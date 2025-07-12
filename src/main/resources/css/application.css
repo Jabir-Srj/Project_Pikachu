@@ -267,7 +267,7 @@
 }
 
 .action-button-success {
-    -fx-background: linear-gradient(to right, #2ECC71, #58D68D);
+    -fx-background: linear-gradient(to bottom, #2ECC71, #58D68D);
     -fx-text-fill: black;
     -fx-padding: 15;
     -fx-background-radius: 10;
@@ -1039,4 +1039,78 @@
 
 .padding-8 {
     -fx-padding: 8;
+}
+
+/* ==== MOCK CREDIT CARD STYLES ==== */
+.mock-credit-card {
+    -fx-background-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 5);
+    -fx-border-radius: 15;
+    -fx-padding: 20;
+    -fx-min-height: 180;
+}
+
+.demo-notice {
+    -fx-background-color: #FEF5E7;
+    -fx-background-radius: 8;
+    -fx-padding: 12 16 12 16;
+    -fx-border-color: #F4A261;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+}
+
+/* ==== ENHANCED CARD STYLES ==== */
+.shadow-card-large {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 25, 0, 0, 8);
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+}
+
+.action-button-success {
+    -fx-background-color: linear-gradient(to bottom, #10B981, #059669);
+    -fx-background-radius: 12;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 15 30 15 30;
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.4), 10, 0, 0, 3);
+    -fx-cursor: hand;
+    -fx-min-width: 180;
+}
+
+.action-button-success:hover {
+    -fx-background-color: linear-gradient(to bottom, #059669, #047857);
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.6), 15, 0, 0, 5);
+}
+
+.action-button-success:pressed {
+    -fx-background-color: linear-gradient(to bottom, #047857, #065f46);
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 5, 0, 0, 1);
+}
+
+.button-secondary {
+    -fx-background-color: linear-gradient(to bottom, #F3F4F6, #E5E7EB);
+    -fx-background-radius: 12;
+    -fx-text-fill: #374151;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 15 30 15 30;
+    -fx-border-color: #D1D5DB;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-cursor: hand;
+    -fx-min-width: 150;
+}
+
+.button-secondary:hover {
+    -fx-background-color: linear-gradient(to bottom, #E5E7EB, #D1D5DB);
+    -fx-border-color: #9CA3AF;
+}
+
+.button-secondary:pressed {
+    -fx-background-color: linear-gradient(to bottom, #D1D5DB, #9CA3AF);
 }

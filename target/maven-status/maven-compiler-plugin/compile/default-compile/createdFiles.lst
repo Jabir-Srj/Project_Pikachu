@@ -56,6 +56,7 @@ controller\AccountRegistrationController.class
 service\UserService.class
 model\RefundRequest.class
 dao\TicketDAO.class
+controller\FlightDetailsController.class
 controller\AdminDashboardController.class
 service\FlightService.class
 controller\TicketController.class
