@@ -233,8 +233,18 @@ public class BookingOverviewController implements Initializable {
      */
     private void loadBookings() {
         try {
-            List<Booking> bookings = bookingService.getAllBookings();
-            System.out.println("Loaded " + bookings.size() + " bookings");
+            List<Booking> bookings;
+            
+            // Check if current user exists and load only their bookings
+            if (currentUser != null) {
+                bookings = bookingService.getCustomerBookings(currentUser.getUserId());
+                System.out.println("Loaded " + bookings.size() + " bookings for user: " + currentUser.getUsername());
+            } else {
+                // Fallback to all bookings if no current user (shouldn't happen in normal flow)
+                bookings = bookingService.getAllBookings();
+                System.out.println("No current user found, loaded all " + bookings.size() + " bookings");
+            }
+            
             allBookings.clear();
             allBookings.addAll(bookings);
             
@@ -244,7 +254,6 @@ public class BookingOverviewController implements Initializable {
             
             System.out.println("After filtering: " + filteredBookings.size() + " bookings visible");
             
-            System.out.println("Loaded " + bookings.size() + " bookings");
         } catch (Exception e) {
             System.err.println("Error loading bookings: " + e.getMessage());
             showAlert("Error", "Failed to load bookings: " + e.getMessage());
