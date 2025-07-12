@@ -19,7 +19,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BookingController" stylesheets="@../css/application.css">
+<BorderPane stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BookingController">
+   <fx:define>
+      <ToggleGroup fx:id="paymentMethodToggleGroup" />
+   </fx:define>
    <top>
       <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header-gradient">
          <padding>
@@ -57,7 +60,12 @@
                </padding>
                
                <!-- Booking Summary -->
-               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium,border-yellow-light">
+               <VBox spacing="25.0">
+                  <styleClass>
+                     <String fx:value="content-card" />
+                     <String fx:value="shadow-card-medium" />
+                     <String fx:value="border-yellow-light" />
+                  </styleClass>
                   <padding>
                      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                   </padding>
@@ -132,7 +140,11 @@
                </VBox>
                
                <!-- Payment Method Selection -->
-               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium">
+               <VBox spacing="25.0">
+                  <styleClass>
+                     <String fx:value="content-card" />
+                     <String fx:value="shadow-card-medium" />
+                  </styleClass>
                   <padding>
                      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                   </padding>
@@ -144,6 +156,9 @@
                   
                   <VBox spacing="20.0">
                      <RadioButton fx:id="creditCardRadio" selected="true" styleClass="form-label" text="Credit/Debit Card" textFill="#2c3e50">
+                        <toggleGroup>
+                           <fx:reference source="paymentMethodToggleGroup" />
+                        </toggleGroup>
                         <font>
                            <Font name="System Bold" size="16.0" />
                         </font>
@@ -158,7 +173,11 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="cardNumberField" promptText="1234 5678 9012 3456" styleClass="border-gray-light,padding-15">
+                              <TextField fx:id="cardNumberField" promptText="1234 5678 9012 3456">
+                                 <styleClass>
+                                    <String fx:value="border-gray-light" />
+                                    <String fx:value="padding-15" />
+                                 </styleClass>
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -196,7 +215,11 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="cardholderNameField" promptText="John Smith" styleClass="border-gray-light,padding-15">
+                              <TextField fx:id="cardholderNameField" promptText="John Smith">
+                                 <styleClass>
+                                    <String fx:value="border-gray-light" />
+                                    <String fx:value="padding-15" />
+                                 </styleClass>
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -208,7 +231,11 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="expiryDateField" maxWidth="120.0" promptText="MM/YY" styleClass="border-gray-light,padding-15">
+                              <TextField fx:id="expiryDateField" maxWidth="120.0" promptText="MM/YY">
+                                 <styleClass>
+                                    <String fx:value="border-gray-light" />
+                                    <String fx:value="padding-15" />
+                                 </styleClass>
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -220,7 +247,11 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="cvvField" maxWidth="100.0" promptText="123" styleClass="border-gray-light,padding-15">
+                              <TextField fx:id="cvvField" maxWidth="100.0" promptText="123">
+                                 <styleClass>
+                                    <String fx:value="border-gray-light" />
+                                    <String fx:value="padding-15" />
+                                 </styleClass>
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -230,12 +261,18 @@
                      </VBox>
                      
                      <RadioButton fx:id="paypalRadio" styleClass="form-label" text="PayPal" textFill="#2c3e50">
+                        <toggleGroup>
+                           <fx:reference source="paymentMethodToggleGroup" />
+                        </toggleGroup>
                         <font>
                            <Font name="System Bold" size="16.0" />
                         </font>
                      </RadioButton>
                      
                      <RadioButton fx:id="bankTransferRadio" styleClass="form-label" text="Bank Transfer" textFill="#2c3e50">
+                        <toggleGroup>
+                           <fx:reference source="paymentMethodToggleGroup" />
+                        </toggleGroup>
                         <font>
                            <Font name="System Bold" size="16.0" />
                         </font>
@@ -244,7 +281,11 @@
                </VBox>
                
                <!-- Billing Address -->
-               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium">
+               <VBox spacing="25.0">
+                  <styleClass>
+                     <String fx:value="content-card" />
+                     <String fx:value="shadow-card-medium" />
+                  </styleClass>
                   <padding>
                      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                   </padding>
@@ -274,7 +315,11 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="streetAddressField" promptText="123 Main Street" styleClass="border-gray-light,padding-15">
+                        <TextField fx:id="streetAddressField" promptText="123 Main Street">
+                           <styleClass>
+                              <String fx:value="border-gray-light" />
+                              <String fx:value="padding-15" />
+                           </styleClass>
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -287,7 +332,11 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="cityField" promptText="New York" styleClass="border-gray-light,padding-15">
+                        <TextField fx:id="cityField" promptText="New York">
+                           <styleClass>
+                              <String fx:value="border-gray-light" />
+                              <String fx:value="padding-15" />
+                           </styleClass>
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -300,7 +349,11 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="stateComboBox" maxWidth="Infinity" promptText="Select State" styleClass="border-gray-light,padding-15">
+                        <ComboBox fx:id="stateComboBox" maxWidth="Infinity" promptText="Select State">
+                           <styleClass>
+                              <String fx:value="border-gray-light" />
+                              <String fx:value="padding-15" />
+                           </styleClass>
                         </ComboBox>
                      </VBox>
                      
@@ -310,7 +363,11 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="zipCodeField" promptText="10001" styleClass="border-gray-light,padding-15">
+                        <TextField fx:id="zipCodeField" promptText="10001">
+                           <styleClass>
+                              <String fx:value="border-gray-light" />
+                              <String fx:value="padding-15" />
+                           </styleClass>
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -323,14 +380,22 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="countryComboBox" maxWidth="Infinity" promptText="Select Country" styleClass="border-gray-light,padding-15">
+                        <ComboBox fx:id="countryComboBox" maxWidth="Infinity" promptText="Select Country">
+                           <styleClass>
+                              <String fx:value="border-gray-light" />
+                              <String fx:value="padding-15" />
+                           </styleClass>
                         </ComboBox>
                      </VBox>
                   </GridPane>
                </VBox>
                
                <!-- Terms and Complete Payment -->
-               <VBox spacing="25.0" styleClass="content-card,shadow-card-medium">
+               <VBox spacing="25.0">
+                  <styleClass>
+                     <String fx:value="content-card" />
+                     <String fx:value="shadow-card-medium" />
+                  </styleClass>
                   <padding>
                      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                   </padding>
