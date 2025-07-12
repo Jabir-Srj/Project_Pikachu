@@ -2,6 +2,7 @@
   {
     "userId": "ADMIN_001",
     "username": "admin",
+    "password": "HASH_1450575459",
     "email": "admin@airline.com",
     "firstName": "Admin",
     "lastName": "User",
@@ -10,6 +11,7 @@
   {
     "userId": "ADMIN_002",
     "username": "support.manager",
+    "password": "HASH_1450575459",
     "email": "support@airline.com",
     "firstName": "Sarah",
     "lastName": "Johnson",
@@ -18,6 +20,7 @@
   {
     "userId": "CUST_001",
     "username": "customer",
+    "password": "HASH_1450575459",
     "email": "customer@email.com",
     "firstName": "John",
     "lastName": "Doe",
@@ -26,6 +29,7 @@
   {
     "userId": "CUST_002",
     "username": "alice.smith",
+    "password": "HASH_1450575459",
     "email": "alice.smith@email.com",
     "firstName": "Alice",
     "lastName": "Smith",
@@ -34,6 +38,7 @@
   {
     "userId": "CUST_003",
     "username": "bob.wilson",
+    "password": "HASH_1450575459",
     "email": "bob.wilson@gmail.com",
     "firstName": "Bob",
     "lastName": "Wilson",
@@ -42,6 +47,7 @@
   {
     "userId": "CUST_004",
     "username": "emma.brown",
+    "password": "HASH_1450575459",
     "email": "emma.brown@yahoo.com",
     "firstName": "Emma",
     "lastName": "Brown",
@@ -50,6 +56,7 @@
   {
     "userId": "CUST_005",
     "username": "david.chen",
+    "password": "HASH_1450575459",
     "email": "david.chen@hotmail.com",
     "firstName": "David",
     "lastName": "Chen",
@@ -58,6 +65,7 @@
   {
     "userId": "CUST_006",
     "username": "maria.garcia",
+    "password": "HASH_1450575459",
     "email": "maria.garcia@outlook.com",
     "firstName": "Maria",
     "lastName": "Garcia",
@@ -66,6 +74,7 @@
   {
     "userId": "CUST_007",
     "username": "james.miller",
+    "password": "HASH_1450575459",
     "email": "james.miller@email.com",
     "firstName": "James",
     "lastName": "Miller",
@@ -74,6 +83,7 @@
   {
     "userId": "CUST_008",
     "username": "lisa.taylor",
+    "password": "HASH_1450575459",
     "email": "lisa.taylor@gmail.com",
     "firstName": "Lisa",
     "lastName": "Taylor",
@@ -82,17 +92,10 @@
   {
     "userId": "CUST_009",
     "username": "michael.wang",
+    "password": "HASH_1450575459",
     "email": "michael.wang@yahoo.com",
     "firstName": "Michael",
     "lastName": "Wang",
-    "role": "Customer"
-  },
-  {
-    "userId": "USER_1752306991619",
-    "username": "fattiejb.yt",
-    "email": "fattiejb.yt@gmail.com",
-    "firstName": "Jabir",
-    "lastName": "Iliyas2",
     "role": "Customer"
   }
 ]

@@ -1,6 +1,7 @@
 service\BookingService.class
 util\ServiceLocator.class
 model\AirlineManagement.class
+util\LoadSampleBookings.class
 model\TicketStatus.class
 controller\BookingOverviewController.class
 model\TicketPriority.class
@@ -19,6 +20,7 @@ model\Booking.class
 controller\FAQController.class
 controller\SupportTicketSubmissionController.class
 service\TicketService.class
+util\SampleBookingDataGenerator.class
 controller\FlightSearchController$1.class
 model\BookingStatus.class
 controller\CustomerManagementController.class
@@ -58,4 +60,5 @@ controller\TicketController.class
 model\AddOn.class
 controller\RefundController.class
 model\Flight.class
+util\QuickSampleBooking.class
 model\Admin.class

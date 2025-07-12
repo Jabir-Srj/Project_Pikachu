@@ -3,7 +3,9 @@ package controller;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -76,6 +78,9 @@ public class BookingOverviewController implements Initializable {
     private ObservableList<Booking> allBookings = FXCollections.observableArrayList();
     private ObservableList<Booking> filteredBookings = FXCollections.observableArrayList();
     
+    // Cache for flight data to avoid repeated lookups
+    private Map<String, Flight> flightCache = new HashMap<>();
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         navigationManager = NavigationManager.getInstance();
@@ -109,17 +114,24 @@ public class BookingOverviewController implements Initializable {
         
         flightNumberColumn.setCellValueFactory(cellData -> {
             String flightId = cellData.getValue().getFlightId();
-            // Use getFlightDetails instead of getFlightById
-            Optional<Flight> flightOpt = flightService.getFlightDetails(flightId);
-            return new SimpleStringProperty(flightOpt.map(Flight::getFlightNumber).orElse(flightId));
+            if (flightId == null) return new SimpleStringProperty("N/A");
+            
+            // Use cached flight data to avoid repeated lookups
+            Flight flight = flightCache.computeIfAbsent(flightId, 
+                id -> flightService.getFlightDetails(id).orElse(null));
+            
+            return new SimpleStringProperty(flight != null ? flight.getFlightNumber() : flightId);
         });
         
         routeColumn.setCellValueFactory(cellData -> {
             String flightId = cellData.getValue().getFlightId();
-            // Use getFlightDetails instead of getFlightById and getDepartureAirport/getArrivalAirport
-            Optional<Flight> flightOpt = flightService.getFlightDetails(flightId);
-            if (flightOpt.isPresent()) {
-                Flight flight = flightOpt.get();
+            if (flightId == null) return new SimpleStringProperty("Unknown Route");
+            
+            // Use cached flight data to avoid repeated lookups
+            Flight flight = flightCache.computeIfAbsent(flightId, 
+                id -> flightService.getFlightDetails(id).orElse(null));
+            
+            if (flight != null) {
                 return new SimpleStringProperty(flight.getDepartureAirport() + " → " + flight.getArrivalAirport());
             }
             return new SimpleStringProperty("Unknown Route");
@@ -222,12 +234,15 @@ public class BookingOverviewController implements Initializable {
     private void loadBookings() {
         try {
             List<Booking> bookings = bookingService.getAllBookings();
+            System.out.println("Loaded " + bookings.size() + " bookings");
             allBookings.clear();
             allBookings.addAll(bookings);
             
             // Apply current filters
             applyFilters();
             updateStatistics();
+            
+            System.out.println("After filtering: " + filteredBookings.size() + " bookings visible");
             
             System.out.println("Loaded " + bookings.size() + " bookings");
         } catch (Exception e) {
@@ -240,14 +255,17 @@ public class BookingOverviewController implements Initializable {
      * Apply current filters to booking list
      */
     private void applyFilters() {
+        System.out.println("Applying filters to " + allBookings.size() + " bookings");
         List<Booking> filtered = allBookings.stream()
             .filter(this::matchesSearchCriteria)
             .filter(this::matchesStatusFilter)
             .filter(this::matchesDateFilter)
             .collect(Collectors.toList());
             
+        System.out.println("Filtered result: " + filtered.size() + " bookings");
         filteredBookings.clear();
         filteredBookings.addAll(filtered);
+        System.out.println("filteredBookings now contains: " + filteredBookings.size() + " items");
     }
     
     /**
@@ -373,8 +391,8 @@ public class BookingOverviewController implements Initializable {
      * Handle new booking
      */
     private void handleNewBooking() {
-        // Navigate to flight search for new booking
-        navigationManager.navigateTo("FlightSearch.fxml");
+        // Navigate to flight information for new booking
+        navigationManager.showFlightInformation();
     }
     
     /**

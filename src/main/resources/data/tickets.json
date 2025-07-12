@@ -10,8 +10,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T12:07:27.239645600",
-    "updatedAt": "2025-07-12T12:07:27.239645600",
+    "createdAt": "2025-07-12T16:06:56.982041100",
+    "updatedAt": "2025-07-12T16:06:56.982041100",
     "responses": [
     ]
   },
@@ -26,8 +26,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T12:07:27.239645600",
-    "updatedAt": "2025-07-12T12:07:27.239645600",
+    "createdAt": "2025-07-12T16:06:56.982041100",
+    "updatedAt": "2025-07-12T16:06:56.982041100",
     "responses": [
     ]
   },
@@ -42,8 +42,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T12:07:27.239645600",
-    "updatedAt": "2025-07-12T12:07:27.239645600",
+    "createdAt": "2025-07-12T16:06:56.982041100",
+    "updatedAt": "2025-07-12T16:06:56.982041100",
     "responses": [
     ]
   },
@@ -58,8 +58,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T12:07:27.240642400",
-    "updatedAt": "2025-07-12T12:07:27.240642400",
+    "createdAt": "2025-07-12T16:06:56.982041100",
+    "updatedAt": "2025-07-12T16:06:56.982041100",
     "responses": [
     ]
   },
@@ -74,8 +74,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T12:07:27.240642400",
-    "updatedAt": "2025-07-12T12:07:27.240642400",
+    "createdAt": "2025-07-12T16:06:56.982041100",
+    "updatedAt": "2025-07-12T16:06:56.982041100",
     "responses": [
     ]
   },
@@ -90,8 +90,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T12:07:27.240642400",
-    "updatedAt": "2025-07-12T12:07:27.240642400",
+    "createdAt": "2025-07-12T16:06:56.982041100",
+    "updatedAt": "2025-07-12T16:06:56.982041100",
     "responses": [
     ]
   },
@@ -106,8 +106,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T12:07:27.240642400",
-    "updatedAt": "2025-07-12T12:07:27.240642400",
+    "createdAt": "2025-07-12T16:06:56.982041100",
+    "updatedAt": "2025-07-12T16:06:56.982041100",
     "responses": [
     ]
   },
@@ -122,8 +122,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T12:07:27.240642400",
-    "updatedAt": "2025-07-12T12:07:27.240642400",
+    "createdAt": "2025-07-12T16:06:56.982041100",
+    "updatedAt": "2025-07-12T16:06:56.982041100",
     "responses": [
     ]
   },
@@ -138,8 +138,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T12:07:27.240642400",
-    "updatedAt": "2025-07-12T12:07:27.240642400",
+    "createdAt": "2025-07-12T16:06:56.982041100",
+    "updatedAt": "2025-07-12T16:06:56.982041100",
     "responses": [
     ]
   },
@@ -154,24 +154,40 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T12:07:27.240642400",
-    "updatedAt": "2025-07-12T12:07:27.240642400",
+    "createdAt": "2025-07-12T16:06:56.982041100",
+    "updatedAt": "2025-07-12T16:06:56.982041100",
     "responses": [
     ]
   },
   {
-    "ticketId": "TKT_1752293247238",
+    "ticketId": "",
+    "customerId": "",
+    "customerName": "",
+    "customerEmail": "",
+    "subject": "",
+    "description": "",
+    "category": "",
+    "priority": "MEDIUM",
+    "status": "OPEN",
+    "assignedTo": "",
+    "createdAt": "2025-07-12T16:06:56.982041100",
+    "updatedAt": "2025-07-12T16:06:56.982041100",
+    "responses": [
+    ]
+  },
+  {
+    "ticketId": "TKT_1752307616980",
     "customerId": "CUST_001",
     "customerName": "John Doe",
     "customerEmail": "customer@email.com",
     "subject": "testing",
     "description": "testing",
-    "category": "Flight Changes",
+    "category": "Cancellations",
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T12:07:27.238642800",
-    "updatedAt": "2025-07-12T12:07:27.238642800",
+    "createdAt": "2025-07-12T16:06:56.980962800",
+    "updatedAt": "2025-07-12T16:06:56.980962800",
     "responses": [
     ]
   }

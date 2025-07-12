@@ -96,7 +96,18 @@ public class DataManager {
     }
 
     public boolean saveUsers(List<User> users) {
-        return saveUsersToFile(users);
+        try {
+            // Update the in-memory database
+            userDatabase.clear();
+            userDatabase.addAll(users);
+            
+            // Use the new persistent save method
+            saveUsers();
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error saving users: " + e.getMessage());
+            return false;
+        }
     }
 
     // Flight operations
@@ -151,8 +162,26 @@ public class DataManager {
      */
     private List<User> loadUsersFromFile() {
         try {
-            // Initialize default users only once
-            if (!usersInitialized) {
+            // Check if users file exists and has content
+            File usersFile = new File(USERS_FILE);
+            boolean hasExistingUsers = usersFile.exists() && usersFile.length() > 50; // More than just empty JSON
+            
+            // If users file exists with content, load users from file
+            if (hasExistingUsers) {
+                // Clear current database and load from file
+                userDatabase.clear();
+                
+                String content = readFileContent(USERS_FILE);
+                if (!content.trim().equals("[]") && !content.trim().isEmpty()) {
+                    // Parse JSON content to load users
+                    List<User> loadedUsers = parseUsersFromJSON(content);
+                    userDatabase.addAll(loadedUsers);
+                    System.out.println("Loaded " + userDatabase.size() + " users from file");
+                }
+            }
+            
+            // Initialize default users only if no existing data and not already initialized
+            if (!usersInitialized && !hasExistingUsers) {
                 userDatabase.clear();
                 
                 // Password "123456" hashed using the same method as UserService
@@ -206,6 +235,9 @@ public class DataManager {
                 
                 usersInitialized = true;
                 System.out.println("Created sample users: " + userDatabase.size() + " users loaded");
+                
+                // Save sample users to file
+                saveUsers();
             }
             
             return new ArrayList<>(userDatabase); // Return copy of the list
@@ -216,30 +248,31 @@ public class DataManager {
     }
 
     /**
-     * Save users to file
+     * Save current user database to file - preserves existing users
      */
-    private boolean saveUsersToFile(List<User> users) {
+    public void saveUsers() {
         try {
-            // Update the in-memory database with new users
-            userDatabase.clear();
-            userDatabase.addAll(users);
+            File file = new File(USERS_FILE);
+            file.getParentFile().mkdirs();
             
-            System.out.println("Saving " + users.size() + " users to persistent storage");
+            // Use the current userDatabase as the source of truth
+            List<User> existingUsers = new ArrayList<>(userDatabase);
             
-            // Also write to file for debugging (simplified format)
-            try (FileWriter writer = new FileWriter(USERS_FILE)) {
+            // Write all users to file
+            try (FileWriter writer = new FileWriter(file)) {
                 writer.write("[\n");
-                for (int i = 0; i < users.size(); i++) {
-                    User user = users.get(i);
+                for (int i = 0; i < existingUsers.size(); i++) {
+                    User user = existingUsers.get(i);
                     writer.write("  {\n");
                     writer.write("    \"userId\": \"" + user.getUserId() + "\",\n");
                     writer.write("    \"username\": \"" + user.getUsername() + "\",\n");
+                    writer.write("    \"password\": \"" + user.getPassword() + "\",\n");
                     writer.write("    \"email\": \"" + user.getEmail() + "\",\n");
                     writer.write("    \"firstName\": \"" + user.getFirstName() + "\",\n");
                     writer.write("    \"lastName\": \"" + user.getLastName() + "\",\n");
                     writer.write("    \"role\": \"" + user.getRole() + "\"\n");
                     writer.write("  }");
-                    if (i < users.size() - 1) {
+                    if (i < existingUsers.size() - 1) {
                         writer.write(",");
                     }
                     writer.write("\n");
@@ -247,10 +280,10 @@ public class DataManager {
                 writer.write("]\n");
             }
             
-            return true;
+            System.out.println("Successfully saved " + existingUsers.size() + " users to persistent storage");
+            
         } catch (Exception e) {
-            System.err.println("Error saving users: " + e.getMessage());
-            return false;
+            System.err.println("Error saving users to file: " + e.getMessage());
         }
     }
 
@@ -1241,5 +1274,117 @@ public class DataManager {
     public static String formatDateTime(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return dateTime.format(formatter);
+    }
+
+    /**
+     * Register a new user and save to persistent storage
+     */
+    public boolean registerUser(User newUser) {
+        try {
+            // Check if user already exists
+            if (findUserByUsername(newUser.getUsername()) != null) {
+                System.out.println("User already exists: " + newUser.getUsername());
+                return false;
+            }
+            
+            // Add to in-memory database
+            userDatabase.add(newUser);
+            
+            // Save to persistent storage
+            saveUsers();
+            
+            System.out.println("Successfully registered new user: " + newUser.getUsername());
+            return true;
+            
+        } catch (Exception e) {
+            System.err.println("Error registering user: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Find a user by username
+     * @param username Username to search for
+     * @return User object or null if not found
+     */
+    private User findUserByUsername(String username) {
+        for (User user : userDatabase) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Parse users from JSON content
+     */
+    private List<User> parseUsersFromJSON(String content) {
+        List<User> users = new ArrayList<>();
+        try {
+            // Simple JSON parsing for users (similar to flights/bookings)
+            content = content.trim();
+            if (content.startsWith("[") && content.endsWith("]")) {
+                content = content.substring(1, content.length() - 1); // Remove [ ]
+            }
+            
+            // Split by user objects
+            String[] userObjects = content.split("\\},\\s*\\{");
+            
+            for (String userObj : userObjects) {
+                userObj = userObj.trim();
+                if (userObj.startsWith("{")) {
+                    userObj = userObj.substring(1);
+                }
+                if (userObj.endsWith("}")) {
+                    userObj = userObj.substring(0, userObj.length() - 1);
+                }
+                
+                if (userObj.trim().isEmpty()) continue;
+                
+                try {
+                    // Parse user fields
+                    String userId = extractJSONValue(userObj, "userId");
+                    String username = extractJSONValue(userObj, "username");
+                    String password = extractJSONValue(userObj, "password");
+                    String email = extractJSONValue(userObj, "email");
+                    String firstName = extractJSONValue(userObj, "firstName");
+                    String lastName = extractJSONValue(userObj, "lastName");
+                    String role = extractJSONValue(userObj, "role");
+                    
+                    // Create user based on role
+                    User user = null;
+                    if ("Admin".equals(role)) {
+                        user = new Admin(userId, username, password, email, firstName, lastName, 
+                                       "000-000-0000", "General");
+                    } else if ("Customer".equals(role)) {
+                        user = new Customer(userId, username, password, email, firstName, lastName,
+                                          "000-000-0000", "TEMP123", "USA");
+                    }
+                    
+                    if (user != null) {
+                        users.add(user);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error parsing user: " + e.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error parsing users from JSON: " + e.getMessage());
+        }
+        return users;
+    }
+    
+    /**
+     * Extract value from JSON string for a given key
+     */
+    private String extractJSONValue(String jsonObject, String key) {
+        String pattern = "\"" + key + "\":\\s*\"([^\"]+)\"";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
+        java.util.regex.Matcher m = p.matcher(jsonObject);
+        if (m.find()) {
+            return m.group(1);
+        }
+        return "";
     }
 }
