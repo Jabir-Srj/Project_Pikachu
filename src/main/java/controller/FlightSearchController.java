@@ -367,19 +367,7 @@ public class FlightSearchController implements Initializable {
     private void selectFlightForBooking(Flight flight) {
         selectedFlight = flight;
         
-        // Show booking confirmation message
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Booking Confirmed");
-        alert.setHeaderText("Flight Successfully Booked!");
-        alert.setContentText("Your flight has been booked successfully.\n\n" +
-                            "Flight: " + flight.getFlightNumber() + "\n" +
-                            "Route: " + flight.getDepartureAirport() + " → " + flight.getArrivalAirport() + "\n" +
-                            "Departure: " + flight.getDepartureTime() + "\n" +
-                            "Status: CONFIRMED\n\n" +
-                            "You will be redirected to your booking overview.");
-        alert.showAndWait();
-        
-        // Navigate directly to booking overview, skipping payment
+        // Navigate to booking overview instead of payment confirmation
         NavigationManager.getInstance().showBookingOverview();
     }
     
@@ -418,20 +406,7 @@ public class FlightSearchController implements Initializable {
         // Store selected class for booking
         NavigationManager.getInstance().setSelectedFlightClass(classType);
         
-        // Show booking confirmation message
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Booking Confirmed");
-        alert.setHeaderText("Flight Successfully Booked!");
-        alert.setContentText("Your " + classType + " class flight has been booked successfully.\n\n" +
-                            "Flight: " + selectedFlight.getFlightNumber() + "\n" +
-                            "Route: " + selectedFlight.getDepartureAirport() + " → " + selectedFlight.getArrivalAirport() + "\n" +
-                            "Class: " + classType + "\n" +
-                            "Departure: " + selectedFlight.getDepartureTime() + "\n" +
-                            "Status: CONFIRMED\n\n" +
-                            "You will be redirected to your booking overview.");
-        alert.showAndWait();
-        
-        // Navigate directly to booking overview, skipping payment
+        // Navigate to booking overview instead of payment confirmation
         NavigationManager.getInstance().showBookingOverview();
     }
     

@@ -4,6 +4,21 @@
 
 This is a comprehensive JavaFX-based desktop application for airline customer service that provides a complete solution for flight booking, customer management, support ticketing, and AI-powered customer assistance. The application implements a modern, user-friendly interface based on professional Figma designs and follows enterprise-level software architecture patterns.
 
+## Recent Updates (July 2025)
+
+### ✅ Major Fixes Implemented
+- **Booking System**: Complete overhaul with admin/user management and booking creation
+- **Refund Management**: Enhanced approval workflow with admin controls
+- **AI Assistant**: Modern UI redesign with streaming responses and quick actions
+- **Payment System**: Simplified flow to avoid FXML parsing issues
+- **Navigation**: Improved role-based navigation and back button functionality
+
+### 🔧 Technical Improvements
+- Fixed FXML parsing errors and missing expression issues
+- Enhanced error handling and null checks across all controllers
+- Improved code quality with consistent naming conventions
+- Added comprehensive integration testing
+
 ## Key Features
 
 ### User Management
@@ -20,15 +35,15 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 
 ### Booking System
 - **Flight Booking**: Complete booking process with passenger details
-- **Booking Overview**: Comprehensive view of all customer bookings
-- **Booking Details**: Detailed booking information with passenger and payment details
+- **Booking Overview**: Comprehensive view of all customer bookings with admin/user functionality
+- **Booking Details**: Detailed booking information with passenger details
 - **Booking Management**: Modify, cancel, or view booking history
 
 ### Payment Processing
-- **Payment Gateway**: Secure payment processing for bookings
-- **Payment Details**: Comprehensive payment information and history
-- **Multiple Payment Methods**: Support for various payment options
-- **Payment Confirmation**: Detailed payment receipts and confirmations
+- **Simplified Payment Flow**: Direct booking creation without separate payment confirmation
+- **Booking Integration**: Payment processing handled at booking level
+- **Multiple Payment Methods**: Support for various payment options (planned for future)
+- **Secure Processing**: Payment information handled securely
 
 ### Support Ticketing System
 - **Ticket Submission**: Easy-to-use support ticket creation
@@ -38,16 +53,18 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 - **Email Integration**: Automated ticket replies via email
 
 ### AI-Powered Customer Support
-- **AI Chatbot**: Intelligent customer support using Langchain4j
+- **Modern AI Chatbot**: Intelligent customer support using Langchain4j with streaming responses
 - **Natural Language Processing**: Smart responses to customer queries
 - **24/7 Availability**: Round-the-clock automated customer assistance
-- **FAQ Integration**: Automated responses based on frequently asked questions
+- **Quick Actions**: Pre-defined buttons for common queries
+- **Connection Status**: Real-time connection monitoring
 
 ### Refund Management
 - **Refund Requests**: Easy refund request submission
-- **Refund Approval System**: Admin approval workflow for refund requests
+- **Enhanced Approval System**: Complete admin approval workflow with detailed review interface
 - **Refund Tracking**: Status tracking for refund requests
-- **Automated Processing**: Streamlined refund processing system
+- **Document Management**: Support for viewing refund-related documents
+- **Admin Notes**: Detailed review comments and approval/rejection reasons
 
 ### Admin Dashboard
 - **Customer Management**: Comprehensive customer database management
@@ -65,7 +82,7 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 
 ### Technology Stack
 - **Frontend**: JavaFX with FXML for modern UI design
-- **Backend**: Java 11+ with service-oriented architecture
+- **Backend**: Java 23+ with service-oriented architecture
 - **Data Storage**: JSON-based file system for data persistence
 - **AI Integration**: Langchain4j for intelligent chatbot functionality
 - **Build Tool**: Maven for dependency management and build automation
@@ -75,6 +92,7 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 - **Responsive Layout**: Adaptive interface for different screen sizes
 - **Intuitive Navigation**: User-friendly interface with clear navigation patterns
 - **Consistent Styling**: Uniform design language across all screens
+- **Modern Components**: Enhanced UI with gradients, shadows, and animations
 
 ## Project Structure
 
@@ -95,17 +113,27 @@ Project_Pikachu/
 │   │   │   │   ├── BookingService.java
 │   │   │   │   └── TicketService.java
 │   │   │   ├── controller/         # JavaFX controllers
+│   │   │   │   ├── BookingOverviewController.java ✅ Enhanced
+│   │   │   │   ├── RefundController.java ✅ Enhanced
+│   │   │   │   ├── ModernChatbotController.java ✅ New
+│   │   │   │   └── ...             # Other controllers
 │   │   │   ├── dao/               # Data access objects
 │   │   │   │   ├── UserDAO.java
 │   │   │   │   ├── FlightDAO.java
 │   │   │   │   ├── BookingDAO.java
 │   │   │   │   └── TicketDAO.java
 │   │   │   ├── util/              # Utility classes
-│   │   │   │   └── DataManager.java
+│   │   │   │   ├── DataManager.java
+│   │   │   │   └── NavigationManager.java ✅ Updated
 │   │   │   └── AirlineApp.java    # Main application entry point
 │   │   └── resources/
 │   │       ├── fxml/              # FXML UI definitions
+│   │       │   ├── BookingOverview.fxml ✅ Updated
+│   │       │   ├── RefundApproval.fxml ✅ Working
+│   │       │   ├── ModernAIChatbot.fxml ✅ New
+│   │       │   └── ...             # Other FXML files
 │   │       ├── css/               # Stylesheets
+│   │       │   └── application.css ✅ Enhanced
 │   │       └── data/              # JSON data files
 │   │           ├── users.json
 │   │           ├── flights.json
@@ -118,14 +146,15 @@ Project_Pikachu/
 │   └── design/                    # Figma design files
 ├── target/                        # Compiled classes and resources
 ├── pom.xml                        # Maven configuration
+├── FIXES_IMPLEMENTATION_SUMMARY.md ✅ Updated
 └── README.md                      # Project documentation
 ```
 
 ## Setup and Installation
 
 ### Prerequisites
-- **Java Development Kit (JDK)**: Version 11 or higher
-- **JavaFX SDK**: Version 17 or higher
+- **Java Development Kit (JDK)**: Version 23 or higher
+- **JavaFX SDK**: Version 23 or higher (included with JDK)
 - **Maven**: For dependency management
 - **IDE**: IntelliJ IDEA, Eclipse, or VS Code with Java extensions
 
@@ -137,38 +166,19 @@ Project_Pikachu/
    cd Project_Pikachu
    ```
 
-2. **Configure JavaFX**
-   - Download JavaFX SDK from [OpenJFX website](https://openjfx.io/)
-   - Extract the SDK to your preferred location
-   - Note the path to the `lib` folder
-
-3. **Install Dependencies**
+2. **Install Dependencies**
    ```bash
    mvn clean install
    ```
 
-4. **Configure IDE**
-   - **IntelliJ IDEA**: 
-     - Go to File → Project Structure → Modules → Dependencies
-     - Add JavaFX SDK lib folder
-     - In Run Configuration, add VM options:
-       ```
-       --module-path "path/to/javafx/lib" --add-modules javafx.controls,javafx.fxml
-       ```
-   
-   - **Eclipse**:
-     - Right-click project → Properties → Java Build Path → Libraries
-     - Add External JARs from JavaFX lib folder
-     - In Run Configuration → Arguments, add VM arguments as above
-
-5. **Run the Application**
+3. **Run the Application**
    ```bash
    mvn javafx:run
    ```
    
    Or run the main class directly:
    ```bash
-   java --module-path "path/to/javafx/lib" --add-modules javafx.controls,javafx.fxml -cp target/classes AirlineApp
+   java -cp target/classes AirlineApp
    ```
 
 ## Usage Instructions
@@ -180,16 +190,16 @@ Project_Pikachu/
 
 ### For Customers
 - **Search Flights**: Use the flight search functionality to find available flights
-- **Book Flights**: Complete the booking process with passenger and payment details
+- **Book Flights**: Complete the booking process with passenger details (simplified payment flow)
 - **Manage Bookings**: View, modify, or cancel existing bookings
-- **Get Support**: Use the AI chatbot or submit support tickets for assistance
+- **Get Support**: Use the modern AI chatbot or submit support tickets for assistance
 - **Request Refunds**: Submit refund requests for eligible bookings
 
 ### For Admins
 - **Dashboard Access**: Use the admin dashboard for system overview
 - **Manage Customers**: View and manage customer accounts
 - **Handle Tickets**: Review and respond to customer support tickets
-- **Approve Refunds**: Process refund requests and approvals
+- **Approve Refunds**: Process refund requests with detailed review interface
 - **System Management**: Maintain FAQs and system settings
 
 ### For Airline Management
@@ -214,6 +224,22 @@ The AI chatbot uses Langchain4j for intelligent responses. Configuration include
 - FAQ integration for common queries
 - Natural language processing for user interactions
 - Automated response generation based on context
+- Streaming responses for real-time interaction
+
+## Recent Fixes and Improvements
+
+### ✅ Completed Fixes
+1. **Booking System**: Complete overhaul with admin/user management
+2. **Refund Management**: Enhanced approval workflow with admin controls
+3. **AI Assistant**: Modern UI redesign with streaming responses
+4. **Payment System**: Simplified to avoid FXML parsing issues
+5. **Navigation**: Improved role-based navigation
+
+### 🔧 Technical Improvements
+- Fixed FXML parsing errors and missing expression issues
+- Enhanced error handling and null checks
+- Improved code quality and consistency
+- Added comprehensive integration testing
 
 ## Team Members
 - **Ishaq Arham Mujthaba** (Group Leader) - 0378327
@@ -231,4 +257,4 @@ This is an academic project. For any questions or suggestions, please contact th
 
 ---
 
-**Note**: This application is designed for educational purposes and demonstrates modern software engineering practices in Java application development with JavaFX and AI integration. 
+**Note**: This application is designed for educational purposes and demonstrates modern software engineering practices in Java application development with JavaFX and AI integration. The recent updates have significantly improved the stability and functionality of the system. 

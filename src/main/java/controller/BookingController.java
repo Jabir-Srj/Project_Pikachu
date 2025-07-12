@@ -260,7 +260,7 @@ public class BookingController implements Initializable {
             baggageInsuranceCheckBox.setOnAction(e -> loadFlightSummary());
         }
         
-        // Back button
+        // Back button - use role-based navigation
         if (backButton != null) {
             backButton.setOnAction(e -> handleBackToDashboard());
         }
@@ -278,11 +278,6 @@ public class BookingController implements Initializable {
         // Cancel button handler
         if (cancelButton != null) {
             cancelButton.setOnAction(e -> handleCancelBooking());
-        }
-        
-        // Back button handler
-        if (backButton != null) {
-            backButton.setOnAction(e -> NavigationManager.getInstance().showFlightInformation());
         }
         
         if (cancelBookingButton != null) {

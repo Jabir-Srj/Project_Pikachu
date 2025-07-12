@@ -417,7 +417,17 @@ public class BookingOverviewController implements Initializable {
      * Handle back to dashboard
      */
     private void handleBackToDashboard() {
-        navigationManager.showAdminDashboard();
+        // Navigate based on user role
+        if (currentUser != null && currentUser.getRole() != null) {
+            if (currentUser.getRole().name().equals("ADMIN")) {
+                navigationManager.showAdminDashboard();
+            } else {
+                navigationManager.showCustomerOverview();
+            }
+        } else {
+            // If user role is unclear, go to login for security
+            navigationManager.navigateTo(NavigationManager.LOGIN_SCREEN);
+        }
     }
     
     /**

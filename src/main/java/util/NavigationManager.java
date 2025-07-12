@@ -28,6 +28,7 @@ public class NavigationManager {
     public static final String BOOKING_OVERVIEW = "/fxml/BookingOverview.fxml";
     public static final String BOOKING_DETAILS = "/fxml/BookingDetails.fxml";
     public static final String PAYMENT_DETAILS = "/fxml/PaymentDetails.fxml";
+    // Payment confirmation removed due to FXML parsing issues
     public static final String TICKET_SUBMISSION = "/fxml/TicketSubmission.fxml";
     public static final String TICKET_OVERVIEW = "/fxml/TicketOverview.fxml";
     public static final String TICKET_STATUS = "/fxml/TicketStatus.fxml";
@@ -205,6 +206,13 @@ public class NavigationManager {
     public void showPaymentDetails(model.Flight flight) {
         setSharedData("selectedFlight", flight);
         navigateTo(PAYMENT_DETAILS);
+    }
+    
+    // Payment confirmation method removed due to FXML parsing issues
+    // Users will be redirected to booking overview instead
+    public void showPaymentConfirmation(model.Flight flight) {
+        setSharedData("selectedFlight", flight);
+        navigateTo(BOOKING_OVERVIEW);
     }
     
     public void showBookingOverview() {
