@@ -24,38 +24,17 @@
          </padding>
          <!-- Header -->
          <HBox alignment="CENTER_LEFT" spacing="20">
-            <Button fx:id="backButton" styleClass="button-secondary" text="← Back to Dashboard">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
             <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="⚡ Customer Management">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Text>
             <Region HBox.hgrow="ALWAYS" />
-            <Button fx:id="searchFlightsButton" styleClass="button-primary" text="🔍 Search Flights">
+            <Button fx:id="viewProfileButton" styleClass="button-primary" text="👤 Profile">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="viewBookingsButton" styleClass="button-primary" text="📋 My Bookings">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="submitTicketButton" styleClass="button-secondary" text="🎫 Submit Ticket">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="aiChatButton" styleClass="button-secondary" text="🤖 AI Chat">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="viewProfileButton" styleClass="button-primary" text="👤 Profile" />
             <Button fx:id="logoutButton" styleClass="button-danger" text="🚪 Logout" />
          </HBox>
       </VBox>
@@ -76,11 +55,6 @@
                   </font>
                </Text>
                <Region HBox.hgrow="ALWAYS" />
-                               <Button fx:id="viewProfileButton" styleClass="button-secondary" text="👤 View Profile">
-                  <font>
-                     <Font name="System Bold" size="14.0" />
-                  </font>
-               </Button>
             </HBox>
             
             <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="What would you like to do today?">

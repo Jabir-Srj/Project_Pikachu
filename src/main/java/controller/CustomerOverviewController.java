@@ -16,13 +16,8 @@ import util.NavigationManager;
 public class CustomerOverviewController implements Initializable {
     
     @FXML private Label usernameLabel;
-    @FXML private Button backButton;
-    @FXML private Button logoutButton;
-    @FXML private Button searchFlightsButton;
-    @FXML private Button viewBookingsButton;
-    @FXML private Button submitTicketButton;
-    @FXML private Button aiChatButton;
     @FXML private Button viewProfileButton;
+    @FXML private Button logoutButton;
     
     // Quick action buttons (duplicate buttons in the cards)
     @FXML private Button searchFlightsAction;
@@ -51,32 +46,12 @@ public class CustomerOverviewController implements Initializable {
      * Set up button event handlers
      */
     private void setupButtonHandlers() {
-        if (backButton != null) {
-            backButton.setOnAction(e -> handleBackToDashboard());
+        if (viewProfileButton != null) {
+            viewProfileButton.setOnAction(e -> handleViewProfile());
         }
         
         if (logoutButton != null) {
             logoutButton.setOnAction(e -> handleLogout());
-        }
-        
-        if (searchFlightsButton != null) {
-            searchFlightsButton.setOnAction(e -> navigateToFlightSearch());
-        }
-        
-        if (viewBookingsButton != null) {
-            viewBookingsButton.setOnAction(e -> navigateToBookings());
-        }
-        
-        if (submitTicketButton != null) {
-            submitTicketButton.setOnAction(e -> navigateToTicketSubmission());
-        }
-        
-        if (aiChatButton != null) {
-            aiChatButton.setOnAction(e -> navigateToAIChat());
-        }
-        
-        if (viewProfileButton != null) {
-            viewProfileButton.setOnAction(e -> handleViewProfile());
         }
         
         // Quick action buttons
@@ -98,19 +73,18 @@ public class CustomerOverviewController implements Initializable {
     }
     
     /**
-     * Handle back to dashboard
-     */
-    private void handleBackToDashboard() {
-        // For customers, back button should go to login or stay on customer overview
-        navigationManager.showCustomerOverview();
-    }
-    
-    /**
      * Handle logout
      */
     private void handleLogout() {
         navigationManager.clearSharedData();
         navigationManager.navigateTo(NavigationManager.LOGIN_SCREEN);
+    }
+    
+    /**
+     * Handle view profile
+     */
+    private void handleViewProfile() {
+        navigationManager.showCustomerProfile();
     }
     
     /**
@@ -141,11 +115,4 @@ public class CustomerOverviewController implements Initializable {
         navigationManager.showAIChatbot();
     }
     
-    /**
-     * Handle view profile
-     */
-    private void handleViewProfile() {
-        // For now, just stay on customer overview as profile isn't implemented yet
-        navigationManager.showCustomerOverview();
-    }
 }
