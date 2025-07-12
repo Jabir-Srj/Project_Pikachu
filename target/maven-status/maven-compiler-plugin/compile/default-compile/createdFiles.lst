@@ -25,6 +25,7 @@ controller\FlightSearchController$1.class
 model\BookingStatus.class
 controller\CustomerManagementController.class
 dao\FlightDAO.class
+controller\TicketManagementController.class
 model\FlightStatus.class
 controller\LoginController.class
 model\PaymentMethod.class
@@ -36,6 +37,7 @@ model\PassengerType.class
 controller\AddCustomerController.class
 controller\TicketController$1.class
 model\PaymentStatus.class
+util\SessionManager.class
 model\ManagementLevel.class
 dao\UserDAO.class
 model\PaymentDetails.class

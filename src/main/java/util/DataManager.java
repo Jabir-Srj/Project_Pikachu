@@ -481,13 +481,18 @@ public class DataManager {
      */
     private String extractJsonValue(String json, String key) {
         try {
+            // Use a pattern that handles newlines and indentation
             String pattern = "\"" + key + "\"\\s*:\\s*";
-            int startIndex = json.indexOf(pattern);
-            if (startIndex == -1) {
+            
+            // Create a Pattern object with multiline flag to handle newlines
+            java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern, java.util.regex.Pattern.DOTALL);
+            java.util.regex.Matcher m = p.matcher(json);
+            
+            if (!m.find()) {
                 return null;
             }
             
-            startIndex += pattern.length();
+            int startIndex = m.end();
             
             // Check if value is a string (starts with quote)
             boolean isString = json.charAt(startIndex) == '"';
@@ -498,7 +503,8 @@ public class DataManager {
                 if (endIndex == -1) {
                     return null;
                 }
-                return json.substring(startIndex, endIndex);
+                String result = json.substring(startIndex, endIndex);
+                return result;
             } else {
                 // Numeric or boolean value
                 int endIndex = json.indexOf(',', startIndex);
@@ -970,6 +976,11 @@ public class DataManager {
             String createdAtStr = extractJsonValue(jsonBlock, "createdAt");
             String updatedAtStr = extractJsonValue(jsonBlock, "updatedAt");
             
+            // Debug: Log the extracted customerId only for non-empty values
+            if (customerId != null && !customerId.trim().isEmpty()) {
+                System.out.println("DataManager: Parsing ticket " + ticketId + " with customerId: '" + customerId + "'");
+            }
+            
             // Set ticket properties
             ticket.setTicketId(ticketId);
             ticket.setCustomerId(customerId);
@@ -1176,6 +1187,13 @@ public class DataManager {
             }
             
             System.out.println("Saved " + tickets.size() + " tickets to " + TICKETS_FILE);
+            
+            // Debug: Log some details about saved tickets
+            long ticketsWithCustomerId = tickets.stream()
+                .filter(t -> t.getCustomerId() != null && !t.getCustomerId().trim().isEmpty())
+                .count();
+            System.out.println("DataManager: " + ticketsWithCustomerId + " tickets have valid customer IDs");
+            
             return true;
             
         } catch (Exception e) {

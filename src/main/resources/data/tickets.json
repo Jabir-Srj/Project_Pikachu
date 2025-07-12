@@ -8,10 +8,32 @@
     "description": "",
     "category": "",
     "priority": "MEDIUM",
+    "status": "REJECTED",
+    "assignedTo": "",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:46:38.189857600",
+    "responses": [
+      {
+        "responderId": "SYSTEM",
+        "responderName": "",
+        "message": "Ticket rejected by Admin User. Reason: not valid",
+        "timestamp": "2025-07-12T18:46:38.189857600"
+      }
+    ]
+  },
+  {
+    "ticketId": "",
+    "customerId": "",
+    "customerName": "",
+    "customerEmail": "",
+    "subject": "",
+    "description": "",
+    "category": "",
+    "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T16:06:56.982041100",
-    "updatedAt": "2025-07-12T16:06:56.982041100",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
     "responses": [
     ]
   },
@@ -26,8 +48,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T16:06:56.982041100",
-    "updatedAt": "2025-07-12T16:06:56.982041100",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
     "responses": [
     ]
   },
@@ -42,8 +64,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T16:06:56.982041100",
-    "updatedAt": "2025-07-12T16:06:56.982041100",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
     "responses": [
     ]
   },
@@ -58,8 +80,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T16:06:56.982041100",
-    "updatedAt": "2025-07-12T16:06:56.982041100",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
     "responses": [
     ]
   },
@@ -74,8 +96,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T16:06:56.982041100",
-    "updatedAt": "2025-07-12T16:06:56.982041100",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
     "responses": [
     ]
   },
@@ -90,8 +112,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T16:06:56.982041100",
-    "updatedAt": "2025-07-12T16:06:56.982041100",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
     "responses": [
     ]
   },
@@ -106,8 +128,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T16:06:56.982041100",
-    "updatedAt": "2025-07-12T16:06:56.982041100",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
     "responses": [
     ]
   },
@@ -122,8 +144,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T16:06:56.982041100",
-    "updatedAt": "2025-07-12T16:06:56.982041100",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
     "responses": [
     ]
   },
@@ -138,8 +160,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T16:06:56.982041100",
-    "updatedAt": "2025-07-12T16:06:56.982041100",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
     "responses": [
     ]
   },
@@ -154,8 +176,8 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T16:06:56.982041100",
-    "updatedAt": "2025-07-12T16:06:56.982041100",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
     "responses": [
     ]
   },
@@ -170,24 +192,104 @@
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T16:06:56.982041100",
-    "updatedAt": "2025-07-12T16:06:56.982041100",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
     "responses": [
     ]
   },
   {
-    "ticketId": "TKT_1752307616980",
+    "ticketId": "",
+    "customerId": "",
+    "customerName": "",
+    "customerEmail": "",
+    "subject": "",
+    "description": "",
+    "category": "",
+    "priority": "MEDIUM",
+    "status": "OPEN",
+    "assignedTo": "",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
+    "responses": [
+    ]
+  },
+  {
+    "ticketId": "",
+    "customerId": "",
+    "customerName": "",
+    "customerEmail": "",
+    "subject": "",
+    "description": "",
+    "category": "",
+    "priority": "MEDIUM",
+    "status": "OPEN",
+    "assignedTo": "",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
+    "responses": [
+    ]
+  },
+  {
+    "ticketId": "",
+    "customerId": "",
+    "customerName": "",
+    "customerEmail": "",
+    "subject": "",
+    "description": "",
+    "category": "",
+    "priority": "MEDIUM",
+    "status": "OPEN",
+    "assignedTo": "",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
+    "responses": [
+    ]
+  },
+  {
+    "ticketId": "",
+    "customerId": "",
+    "customerName": "",
+    "customerEmail": "",
+    "subject": "",
+    "description": "",
+    "category": "",
+    "priority": "MEDIUM",
+    "status": "OPEN",
+    "assignedTo": "",
+    "createdAt": "2025-07-12T18:42:04.237017900",
+    "updatedAt": "2025-07-12T18:42:04.237017900",
+    "responses": [
+    ]
+  },
+  {
+    "ticketId": "TKT_1752316924235",
     "customerId": "CUST_001",
     "customerName": "John Doe",
     "customerEmail": "customer@email.com",
-    "subject": "testing",
-    "description": "testing",
-    "category": "Cancellations",
+    "subject": "test45",
+    "description": "test45",
+    "category": "Payment Problems",
     "priority": "MEDIUM",
     "status": "OPEN",
     "assignedTo": "",
-    "createdAt": "2025-07-12T16:06:56.980962800",
-    "updatedAt": "2025-07-12T16:06:56.980962800",
+    "createdAt": "2025-07-12T18:42:04.235993900",
+    "updatedAt": "2025-07-12T18:42:04.235993900",
+    "responses": [
+    ]
+  },
+  {
+    "ticketId": "TKT_1752317376955",
+    "customerId": "CUST_001",
+    "customerName": "John Doe",
+    "customerEmail": "customer@email.com",
+    "subject": "test65",
+    "description": "64",
+    "category": "Check-in Problems",
+    "priority": "MEDIUM",
+    "status": "OPEN",
+    "assignedTo": "",
+    "createdAt": "2025-07-12T18:49:36.955185700",
+    "updatedAt": "2025-07-12T18:49:36.957187500",
     "responses": [
     ]
   }

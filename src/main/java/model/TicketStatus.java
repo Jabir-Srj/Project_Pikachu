@@ -8,6 +8,7 @@ public enum TicketStatus {
     IN_PROGRESS("In Progress"),
     ESCALATED("Escalated"),
     RESOLVED("Resolved"),
+    REJECTED("Rejected"),
     CLOSED("Closed");
 
     private final String displayName;

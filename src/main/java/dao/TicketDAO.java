@@ -96,9 +96,28 @@ public class TicketDAO {
     public List<Ticket> findByCustomerId(String customerId) {
         try {
             List<Ticket> tickets = dataManager.loadTickets();
-            return tickets.stream()
-                .filter(ticket -> ticket.getCustomerId().equals(customerId))
+            System.out.println("TicketDAO: Total tickets loaded: " + tickets.size());
+            System.out.println("TicketDAO: Searching for customer ID: '" + customerId + "'");
+            
+            // Debug: Check first few tickets to see what customerId values are actually in memory
+            for (int i = 0; i < Math.min(5, tickets.size()); i++) {
+                Ticket ticket = tickets.get(i);
+                System.out.println("TicketDAO: Sample ticket " + i + " - ID: " + ticket.getTicketId() + 
+                                 ", customerId: '" + ticket.getCustomerId() + "'");
+            }
+            
+            List<Ticket> matchingTickets = tickets.stream()
+                .filter(ticket -> {
+                    String ticketCustomerId = ticket.getCustomerId();
+                    boolean matches = ticketCustomerId != null && ticketCustomerId.equals(customerId);
+                    System.out.println("TicketDAO: Ticket " + ticket.getTicketId() + " has customerId: '" + 
+                                     ticketCustomerId + "' - matches: " + matches);
+                    return matches;
+                })
                 .collect(Collectors.toList());
+                
+            System.out.println("TicketDAO: Found " + matchingTickets.size() + " matching tickets");
+            return matchingTickets;
         } catch (Exception e) {
             System.err.println("Error finding tickets by customer ID: " + e.getMessage());
             return List.of();

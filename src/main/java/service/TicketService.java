@@ -108,24 +108,52 @@ public class TicketService {
     }
 
     /**
+     * Update an existing ticket
+     * @param ticket The ticket to update
+     * @return true if update successful
+     */
+    public boolean updateTicket(Ticket ticket) {
+        if (ticket == null || ticket.getTicketId() == null) {
+            return false;
+        }
+        
+        try {
+            ticket.setUpdatedAt(LocalDateTime.now());
+            return ticketDAO.update(ticket);
+        } catch (Exception e) {
+            System.err.println("Error updating ticket: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Get tickets by customer ID
+     * @param customerId Customer ID
+     * @return List of tickets for the customer
+     */
+    public List<Ticket> getTicketsByCustomer(String customerId) {
+        return getCustomerTickets(customerId);
+    }
+    
+    /**
      * Close a ticket
      * @param ticketId Ticket ID
-     * @param adminId Admin ID
-     * @return true if closure successful
+     * @param closedBy User ID who closed the ticket
+     * @return true if successful
      */
-    public boolean closeTicket(String ticketId, String adminId) {
+    public boolean closeTicket(String ticketId, String closedBy) {
         try {
-            Optional<Ticket> ticketOpt = ticketDAO.findById(ticketId);
+            Optional<Ticket> ticketOpt = getTicketById(ticketId);
             if (ticketOpt.isEmpty()) {
                 return false;
             }
-
+            
             Ticket ticket = ticketOpt.get();
             ticket.setStatus(TicketStatus.CLOSED);
-            ticket.setClosedBy(adminId);
+            ticket.setClosedBy(closedBy);
             ticket.setCloseDate(LocalDateTime.now());
             
-            return ticketDAO.update(ticket);
+            return updateTicket(ticket);
         } catch (Exception e) {
             System.err.println("Error closing ticket: " + e.getMessage());
             return false;
@@ -195,4 +223,4 @@ public class TicketService {
     private String generateTicketId() {
         return "TKT_" + System.currentTimeMillis();
     }
-} 
+}

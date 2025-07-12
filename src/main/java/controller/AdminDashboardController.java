@@ -146,7 +146,7 @@ public class AdminDashboardController implements Initializable {
         if (ticketsButton != null) {
             ticketsButton.setOnAction(e -> {
                 System.out.println("Tickets clicked");
-                navigationManager.showTicketOverview();
+                navigationManager.showTicketManagement();
             });
         }
         
@@ -300,7 +300,7 @@ public class AdminDashboardController implements Initializable {
      * Navigate to settings
      */
     private void navigateToSettings() {
-        // For now, redirect to customer overview as settings aren't implemented yet
-        navigationManager.showCustomerOverview();
+        // Navigate to admin settings page
+        navigationManager.showAdminSettings();
     }
 } 

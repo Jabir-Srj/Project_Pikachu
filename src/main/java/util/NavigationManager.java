@@ -181,6 +181,14 @@ public class NavigationManager {
         navigateTo(ADMIN_DASHBOARD);
     }
     
+    public void showCustomerDashboard() {
+        navigateTo(CUSTOMER_OVERVIEW);
+    }
+    
+    public void showTicketManagement() {
+        navigateTo("/fxml/TicketManagement.fxml");
+    }
+    
     public void showCustomerOverview() {
         navigateTo(CUSTOMER_OVERVIEW);
     }
@@ -255,4 +263,4 @@ public class NavigationManager {
     public void showSupportTicketSubmission() {
         navigateTo("/fxml/SupportTicketSubmission.fxml");
     }
-} 
+}

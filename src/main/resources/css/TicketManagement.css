@@ -1,0 +1,198 @@
+/* Ticket Management Styles */
+
+.page-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e;
+}
+
+.details-section {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 15;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1;
+}
+
+.detail-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #495057;
+}
+
+.detail-value {
+    -fx-text-fill: #212529;
+}
+
+.description-area {
+    -fx-background-color: white;
+    -fx-border-color: #ced4da;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.admin-controls {
+    -fx-background-color: #fff3cd;
+    -fx-padding: 15;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #ffeaa7;
+    -fx-border-width: 1;
+}
+
+.chat-section {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 15;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1;
+}
+
+.chat-scroll {
+    -fx-background-color: white;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.chat-messages {
+    -fx-background-color: white;
+}
+
+.chat-message {
+    -fx-padding: 10;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-max-width: 80%;
+}
+
+.own-message {
+    -fx-background-color: #007bff;
+    -fx-alignment: CENTER_RIGHT;
+}
+
+.own-message .message-header {
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+}
+
+.own-message .message-content {
+    -fx-text-fill: white;
+}
+
+.other-message {
+    -fx-background-color: #e9ecef;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.other-message .message-header {
+    -fx-text-fill: #6c757d;
+    -fx-font-size: 11px;
+}
+
+.other-message .message-content {
+    -fx-text-fill: #212529;
+}
+
+.system-message {
+    -fx-background-color: #fff3cd;
+    -fx-alignment: CENTER;
+}
+
+.system-message .message-header {
+    -fx-text-fill: #856404;
+    -fx-font-size: 11px;
+    -fx-font-style: italic;
+}
+
+.system-message .message-content {
+    -fx-text-fill: #856404;
+    -fx-font-style: italic;
+}
+
+.message-header {
+    -fx-font-weight: bold;
+}
+
+.message-content {
+    -fx-wrap-text: true;
+}
+
+.message-input {
+    -fx-background-color: white;
+    -fx-padding: 10;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-border-color: #ced4da;
+    -fx-border-width: 1;
+}
+
+.input-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #495057;
+}
+
+.primary-button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-padding: 8 16;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #0056b3;
+}
+
+.success-button {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+    -fx-padding: 8 16;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+}
+
+.success-button:hover {
+    -fx-background-color: #1e7e34;
+}
+
+.danger-button {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-padding: 8 16;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+}
+
+.danger-button:hover {
+    -fx-background-color: #c82333;
+}
+
+/* Table styling */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.table-view .column-header {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+}

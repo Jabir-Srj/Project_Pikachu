@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import model.User;
 import util.NavigationManager;
+import util.SessionManager;
 
 /**
  * Controller for the Customer Overview screen
@@ -23,6 +24,7 @@ public class CustomerOverviewController implements Initializable {
     @FXML private Button searchFlightsAction;
     @FXML private Button viewBookingsAction;
     @FXML private Button submitTicketAction;
+    @FXML private Button viewTicketsAction;
     @FXML private Button aiChatAction;
     
     private NavigationManager navigationManager;
@@ -34,8 +36,13 @@ public class CustomerOverviewController implements Initializable {
         
         // Get current user
         currentUser = (User) navigationManager.getSharedData("currentUser");
-        if (currentUser != null && usernameLabel != null) {
-            usernameLabel.setText(currentUser.getUsername());
+        if (currentUser != null) {
+            // Set current user in SessionManager for ticket system
+            SessionManager.setCurrentUser(currentUser);
+            
+            if (usernameLabel != null) {
+                usernameLabel.setText(currentUser.getUsername());
+            }
         }
         
         // Set up button handlers
@@ -65,6 +72,10 @@ public class CustomerOverviewController implements Initializable {
         
         if (submitTicketAction != null) {
             submitTicketAction.setOnAction(e -> navigateToTicketSubmission());
+        }
+        
+        if (viewTicketsAction != null) {
+            viewTicketsAction.setOnAction(e -> navigateToTicketManagement());
         }
         
         if (aiChatAction != null) {
@@ -106,6 +117,13 @@ public class CustomerOverviewController implements Initializable {
      */
     private void navigateToTicketSubmission() {
         navigationManager.showTicketSubmission();
+    }
+    
+    /**
+     * Navigate to ticket management
+     */
+    private void navigateToTicketManagement() {
+        navigationManager.showTicketManagement();
     }
     
     /**

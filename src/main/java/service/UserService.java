@@ -84,6 +84,10 @@ public class UserService {
             if (verifyPassword(password, user.getPassword())) {
                 user.recordLogin();
                 userDAO.update(user);
+                
+                // Set session
+                util.SessionManager.setCurrentUser(user);
+                
                 return user;
             }
 
