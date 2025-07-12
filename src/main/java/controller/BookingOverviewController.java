@@ -26,6 +26,7 @@ import model.Booking;
 import model.BookingStatus;
 import model.Flight;
 import model.User;
+import model.UserRole;
 import service.BookingService;
 import service.FlightService;
 import util.NavigationManager;
@@ -43,7 +44,8 @@ public class BookingOverviewController implements Initializable {
     @FXML private Button backButton;
     @FXML private Button newBookingButton;
     @FXML private Button exportButton;
-    
+    @FXML private Text titleText;
+
     // Search and Filter Controls
     @FXML private TextField searchField;
     @FXML private ComboBox<String> statusFilterComboBox;
@@ -91,12 +93,28 @@ public class BookingOverviewController implements Initializable {
         // Get current user
         currentUser = (User) navigationManager.getSharedData("currentUser");
         
+        // Set dynamic title based on user role
+        updateTitleBasedOnUserRole();
+        
         setupTableColumns();
         setupEventHandlers();
         loadBookings();
         setupFilterOptions();
         
         System.out.println("BookingOverviewController: Initialization complete");
+    }
+    
+    /**
+     * Update title based on current user role
+     */
+    private void updateTitleBasedOnUserRole() {
+        if (currentUser != null && titleText != null) {
+            if (currentUser.getRole() == UserRole.ADMIN || currentUser.getRole() == UserRole.AIRLINE_MANAGEMENT) {
+                titleText.setText("⚡ All Bookings (Admin View)");
+            } else {
+                titleText.setText("⚡ My Bookings");
+            }
+        }
     }
     
     /**
@@ -235,10 +253,16 @@ public class BookingOverviewController implements Initializable {
         try {
             List<Booking> bookings;
             
-            // Check if current user exists and load only their bookings
             if (currentUser != null) {
-                bookings = bookingService.getCustomerBookings(currentUser.getUserId());
-                System.out.println("Loaded " + bookings.size() + " bookings for user: " + currentUser.getUsername());
+                // Admin and airline management users see all bookings for management purposes
+                if (currentUser.getRole() == UserRole.ADMIN || currentUser.getRole() == UserRole.AIRLINE_MANAGEMENT) {
+                    bookings = bookingService.getAllBookings();
+                    System.out.println("Loaded all " + bookings.size() + " bookings for " + currentUser.getRole().getDisplayName() + ": " + currentUser.getUsername());
+                } else {
+                    // Regular customers see only their own bookings
+                    bookings = bookingService.getCustomerBookings(currentUser.getUserId());
+                    System.out.println("Loaded " + bookings.size() + " personal bookings for customer: " + currentUser.getUsername());
+                }
             } else {
                 // Fallback to all bookings if no current user (shouldn't happen in normal flow)
                 bookings = bookingService.getAllBookings();

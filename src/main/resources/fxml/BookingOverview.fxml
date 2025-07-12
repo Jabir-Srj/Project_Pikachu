@@ -26,7 +26,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="⚡ Booking Overview">
+            <Text fx:id="titleText" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="⚡ Booking Overview">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
