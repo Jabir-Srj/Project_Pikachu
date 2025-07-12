@@ -86,5 +86,13 @@
     "firstName": "Michael",
     "lastName": "Wang",
     "role": "Customer"
+  },
+  {
+    "userId": "USER_1752306991619",
+    "username": "fattiejb.yt",
+    "email": "fattiejb.yt@gmail.com",
+    "firstName": "Jabir",
+    "lastName": "Iliyas2",
+    "role": "Customer"
   }
 ]

@@ -28,6 +28,8 @@ import service.BookingService;
 import service.FlightService;
 import util.NavigationManager;
 import util.ServiceLocator;
+import util.SampleBookingDataGenerator;
+import dao.BookingDAO;
 
 /**
  * Controller for BookingOverview.fxml
@@ -289,6 +291,10 @@ public class BookingOverviewController implements Initializable {
         }
         
         String selectedStatus = statusFilterComboBox.getValue();
+        if (selectedStatus == null) {
+            return true; // If no status is selected, show all bookings
+        }
+        
         BookingStatus bookingStatus = booking.getStatus();
         
         return bookingStatus != null && 
@@ -311,6 +317,10 @@ public class BookingOverviewController implements Initializable {
         
         LocalDateTime now = LocalDateTime.now();
         String selectedRange = dateRangeComboBox.getValue();
+        
+        if (selectedRange == null) {
+            return true; // If no range is selected, show all bookings
+        }
         
         return switch (selectedRange) {
             case "Today" -> bookingDate.toLocalDate().equals(now.toLocalDate());
@@ -402,6 +412,52 @@ public class BookingOverviewController implements Initializable {
      */
     private void handleRefresh() {
         loadBookings();
+    }
+    
+    /**
+     * Load sample booking data for testing purposes
+     * This method generates and saves comprehensive sample booking data
+     */
+    public void loadSampleBookingData() {
+        try {
+            // Create BookingDAO instance to save bookings directly
+            BookingDAO bookingDAO = new BookingDAO();
+            
+            // Generate sample bookings
+            List<Booking> sampleBookings = SampleBookingDataGenerator.generateSampleBookings();
+            
+            // Generate family booking
+            Booking familyBooking = SampleBookingDataGenerator.generateFamilyBooking();
+            sampleBookings.add(familyBooking);
+            
+            // Save all sample bookings
+            int successCount = 0;
+            for (Booking booking : sampleBookings) {
+                if (bookingDAO.save(booking)) {
+                    successCount++;
+                }
+            }
+            
+            // Refresh the table to show new data
+            loadBookings();
+            
+            // Show success message
+            showAlert("Sample Data Loaded", 
+                String.format("Successfully loaded %d out of %d sample bookings.\n\n" +
+                "The sample data includes:\n" +
+                "• Various booking statuses (Confirmed, Pending, Cancelled, Completed)\n" +
+                "• Single and multiple passenger bookings\n" +
+                "• Different flight routes (Tokyo-Seoul, Singapore-KL, Bangkok-Manila)\n" +
+                "• Realistic passenger and payment information\n" +
+                "• One family booking with adults and child\n" +
+                "• Bookings spread across the last 30 days", 
+                successCount, sampleBookings.size()));
+                
+        } catch (Exception e) {
+            showAlert("Error Loading Sample Data", 
+                "Failed to load sample booking data: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
     
     /**
