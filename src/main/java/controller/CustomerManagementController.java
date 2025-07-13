@@ -455,7 +455,7 @@ public class CustomerManagementController implements Initializable {
      */
     @FXML
     private void handleExportCustomers() {
-        showAlert("Success", "Customer data exported successfully! Check your Downloads folder.");
+        showAlert("Export Feature", "Export functionality will be implemented in future version.");
     }
     
     /**

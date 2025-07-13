@@ -43,7 +43,6 @@
             <Button fx:id="notificationsButton" styleClass="header-button" text="🔔 Notifications" />
             <MenuButton fx:id="adminMenuButton" styleClass="header-button" text="👤 Admin">
                <items>
-                  <MenuItem fx:id="profileMenuItem" text="Profile" />
                   <MenuItem fx:id="settingsMenuItem" text="Settings" />
                   <SeparatorMenuItem />
                   <MenuItem fx:id="logoutMenuItem" text="Logout" />
@@ -233,21 +232,6 @@
                      </HBox>
                   </VBox>
                </GridPane>
-               
-               <!-- Recent Activity Section -->
-               <VBox spacing="20.0">
-                  <HBox alignment="CENTER_LEFT" spacing="15.0">
-                     <Text styleClass="section-title" text="Recent Activity">
-                        <font>
-                           <Font name="System Bold" size="24.0" />
-                        </font>
-                     </Text>
-                     <Region HBox.hgrow="ALWAYS" />
-                     <Button fx:id="viewAllButton" styleClass="button-secondary" text="View All" />
-                  </HBox>
-                  
-                  <ListView fx:id="recentActivityList" styleClass="activity-list" />
-               </VBox>
             </VBox>
          </content>
       </ScrollPane>

@@ -364,7 +364,7 @@ public class FlightDetailsController implements Initializable {
     private void handleExportPassengers() {
         System.out.println("FlightDetailsController: Export passengers button clicked");
         // Implementation for exporting passenger list
-        showAlert("Info", "Export passengers feature coming soon!", Alert.AlertType.INFORMATION);
+        showAlert("Export Feature", "Export functionality will be implemented in future version.", Alert.AlertType.INFORMATION);
     }
 
     @FXML

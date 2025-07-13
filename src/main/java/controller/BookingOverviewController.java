@@ -443,7 +443,7 @@ public class BookingOverviewController implements Initializable {
      * Handle export bookings
      */
     private void handleExportBookings() {
-        showAlert("Info", "Export feature coming soon!");
+        showAlert("Export Feature", "Export functionality will be implemented in future version.");
     }
     
     /**

@@ -97,5 +97,14 @@
     "firstName": "Michael",
     "lastName": "Wang",
     "role": "Customer"
+  },
+  {
+    "userId": "USER_1752391203760",
+    "username": "fattiejb.yt",
+    "password": "HASH_1509745131",
+    "email": "fattiejb.yt@gmail.com",
+    "firstName": "jaboori",
+    "lastName": "mansoori",
+    "role": "Customer"
   }
 ]

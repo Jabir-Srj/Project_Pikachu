@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -24,7 +25,6 @@ public class AdminDashboardController implements Initializable {
     
     @FXML private Label usernameLabel;
     @FXML private MenuButton adminMenuButton;
-    @FXML private MenuItem profileMenuItem;
     @FXML private MenuItem settingsMenuItem;
     @FXML private MenuItem logoutMenuItem;
     @FXML private Button notificationsButton;
@@ -92,13 +92,6 @@ public class AdminDashboardController implements Initializable {
             });
         }
         
-        if (profileMenuItem != null) {
-            profileMenuItem.setOnAction(e -> {
-                System.out.println("Profile clicked");
-                // TODO: Navigate to profile
-            });
-        }
-        
         if (settingsMenuItem != null) {
             settingsMenuItem.setOnAction(e -> {
                 System.out.println("Settings clicked");
@@ -160,8 +153,7 @@ public class AdminDashboardController implements Initializable {
         if (reportsButton != null) {
             reportsButton.setOnAction(e -> {
                 System.out.println("Reports clicked");
-                // Placeholder: show ticket overview as reports
-                navigationManager.showTicketOverview();
+                showReportNotImplementedMessage();
             });
         }
         
@@ -204,8 +196,7 @@ public class AdminDashboardController implements Initializable {
         if (generateReportButton != null) {
             generateReportButton.setOnAction(e -> {
                 System.out.println("Generate Report clicked");
-                // Placeholder: show ticket overview as reports
-                navigationManager.showTicketOverview();
+                showReportNotImplementedMessage();
             });
         }
         
@@ -302,5 +293,16 @@ public class AdminDashboardController implements Initializable {
     private void navigateToSettings() {
         // Navigate to admin settings page
         navigationManager.showAdminSettings();
+    }
+    
+    /**
+     * Show message dialog for report functionality not implemented
+     */
+    private void showReportNotImplementedMessage() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Report Feature");
+        alert.setHeaderText("Feature Not Available");
+        alert.setContentText("Report functionality will be implemented in future version.");
+        alert.showAndWait();
     }
 } 

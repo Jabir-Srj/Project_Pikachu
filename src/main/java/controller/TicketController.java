@@ -738,7 +738,7 @@ public class TicketController implements Initializable {
      */
     @FXML
     private void handleExportTickets() {
-        showAlert("Info", "Export functionality coming soon!");
+        showAlert("Export Feature", "Export functionality will be implemented in future version.");
     }
     
     /**
