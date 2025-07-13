@@ -17,6 +17,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -257,8 +258,7 @@ public class TicketManagementController implements Initializable {
         // Add all replies
         if (ticket.getReplies() != null) {
             for (TicketReply reply : ticket.getReplies()) {
-                String senderName = reply.getResponderName() != null ? reply.getResponderName() : 
-                                  (reply.getResponderId().equals(ticket.getCustomerId()) ? "You" : "Admin");
+                String senderName = getSenderName(reply, ticket);
                 boolean isSystemMessage = reply.getResponderId().equals("SYSTEM");
                 addChatMessage(senderName, reply.getMessage(), reply.getTimestamp(), isSystemMessage);
             }
@@ -267,6 +267,37 @@ public class TicketManagementController implements Initializable {
         // Scroll to bottom
         if (chatScrollPane != null) {
             chatScrollPane.setVvalue(1.0);
+        }
+    }
+    
+    /**
+     * Get the proper sender name for a reply
+     */
+    private String getSenderName(TicketReply reply, Ticket ticket) {
+        // If responder name is already set, use it
+        if (reply.getResponderName() != null && !reply.getResponderName().isEmpty()) {
+            return reply.getResponderName();
+        }
+        
+        // Determine sender name based on responder ID
+        String responderId = reply.getResponderId();
+        
+        if ("SYSTEM".equals(responderId)) {
+            return "System";
+        } else if (responderId.equals(ticket.getCustomerId())) {
+            return ticket.getCustomerName() != null ? ticket.getCustomerName() : "Customer";
+        } else {
+            // Try to get user name from UserService
+            try {
+                Optional<User> responderOpt = userService.findUserById(responderId);
+                if (responderOpt.isPresent()) {
+                    User responder = responderOpt.get();
+                    return responder.getFirstName() + " " + responder.getLastName();
+                }
+            } catch (Exception e) {
+                System.err.println("Error getting user name for ID: " + responderId);
+            }
+            return "Admin";
         }
     }
     
@@ -306,9 +337,16 @@ public class TicketManagementController implements Initializable {
         }
         
         try {
-            // Add reply to ticket
+            // Add reply to ticket with proper responder name
             String repliedBy = currentUser.getUserId();
+            String responderName = currentUser.getFirstName() + " " + currentUser.getLastName();
             selectedTicket.addReply(message, repliedBy);
+            
+            // Set the responder name in the latest reply
+            if (!selectedTicket.getReplies().isEmpty()) {
+                TicketReply latestReply = selectedTicket.getReplies().get(selectedTicket.getReplies().size() - 1);
+                latestReply.setResponderName(responderName);
+            }
             
             // Update the ticket in the system
             if (ticketService.updateTicket(selectedTicket)) {
@@ -354,6 +392,12 @@ public class TicketManagementController implements Initializable {
                 currentUser.getFirstName() + " " + currentUser.getLastName());
             selectedTicket.addReply(statusMessage, "SYSTEM");
             
+            // Set responder name for system message
+            if (!selectedTicket.getReplies().isEmpty()) {
+                TicketReply latestReply = selectedTicket.getReplies().get(selectedTicket.getReplies().size() - 1);
+                latestReply.setResponderName("System");
+            }
+            
             if (ticketService.updateTicket(selectedTicket)) {
                 statusLabel.setText(newStatus.getDisplayName());
                 loadChatMessages(selectedTicket);
@@ -381,6 +425,12 @@ public class TicketManagementController implements Initializable {
             String message = String.format("Ticket marked as completed by %s", 
                 currentUser.getFirstName() + " " + currentUser.getLastName());
             selectedTicket.addReply(message, "SYSTEM");
+            
+            // Set responder name for system message
+            if (!selectedTicket.getReplies().isEmpty()) {
+                TicketReply latestReply = selectedTicket.getReplies().get(selectedTicket.getReplies().size() - 1);
+                latestReply.setResponderName("System");
+            }
             
             if (ticketService.updateTicket(selectedTicket)) {
                 statusLabel.setText(TicketStatus.RESOLVED.getDisplayName());
@@ -434,6 +484,12 @@ public class TicketManagementController implements Initializable {
                 String message = String.format("Ticket rejected by %s. Reason: %s", 
                     currentUser.getFirstName() + " " + currentUser.getLastName(), reason);
                 selectedTicket.addReply(message, "SYSTEM");
+                
+                // Set responder name for system message
+                if (!selectedTicket.getReplies().isEmpty()) {
+                    TicketReply latestReply = selectedTicket.getReplies().get(selectedTicket.getReplies().size() - 1);
+                    latestReply.setResponderName("System");
+                }
                 
                 if (ticketService.updateTicket(selectedTicket)) {
                     statusLabel.setText(TicketStatus.REJECTED.getDisplayName());

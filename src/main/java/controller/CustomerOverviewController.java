@@ -7,9 +7,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import model.User;
+import model.Customer;
+import model.Booking;
+import model.BookingStatus;
+import service.BookingService;
 import util.NavigationManager;
 import util.SessionManager;
+import java.util.List;
 
 /**
  * Controller for the Customer Overview screen
@@ -29,12 +35,17 @@ public class CustomerOverviewController implements Initializable {
     @FXML private Button faqsAction;
     @FXML private Button contactInfoAction;
     
+    // Statistics labels
+    @FXML private Text confirmedFlightsLabel;
+    
     private NavigationManager navigationManager;
     private User currentUser;
+    private BookingService bookingService;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         navigationManager = NavigationManager.getInstance();
+        bookingService = new BookingService();
         
         // Get current user
         currentUser = (User) navigationManager.getSharedData("currentUser");
@@ -45,10 +56,39 @@ public class CustomerOverviewController implements Initializable {
             if (usernameLabel != null) {
                 usernameLabel.setText(currentUser.getUsername());
             }
+            
+            // Load user statistics
+            loadUserStatistics();
         }
         
         // Set up button handlers
         setupButtonHandlers();
+    }
+    
+    /**
+     * Load user statistics including confirmed flights
+     */
+    private void loadUserStatistics() {
+        if (currentUser instanceof Customer) {
+            Customer customer = (Customer) currentUser;
+            List<Booking> customerBookings = bookingService.getCustomerBookings(customer.getUserId());
+            
+            // Count confirmed bookings
+            long confirmedCount = customerBookings.stream()
+                .filter(booking -> booking.getStatus() == BookingStatus.CONFIRMED)
+                .count();
+            
+            if (confirmedFlightsLabel != null) {
+                confirmedFlightsLabel.setText(String.valueOf(confirmedCount));
+            }
+        }
+    }
+    
+    /**
+     * Refresh statistics when returning to this screen
+     */
+    public void refreshStatistics() {
+        loadUserStatistics();
     }
     
     /**

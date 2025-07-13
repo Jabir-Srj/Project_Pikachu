@@ -23,7 +23,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.Flight;
 import model.User;
+import model.Customer;
+import model.Passenger;
+import model.Booking;
+import model.PaymentDetails;
 import service.FlightService;
+import service.BookingService;
 import util.NavigationManager;
 import util.ServiceLocator;
 
@@ -476,8 +481,53 @@ public class FlightSearchController implements Initializable {
     private void selectFlightForBooking(Flight flight) {
         selectedFlight = flight;
         
-        // Navigate to booking overview instead of payment confirmation
-        NavigationManager.getInstance().showBookingOverview();
+        // Create a booking for the selected flight
+        if (currentUser != null && currentUser instanceof Customer) {
+            Customer customer = (Customer) currentUser;
+            
+            // Create a simple passenger for the booking
+            Passenger passenger = new Passenger();
+            passenger.setPassengerId(java.util.UUID.randomUUID().toString());
+            passenger.setFirstName(customer.getFirstName());
+            passenger.setLastName(customer.getLastName());
+            passenger.setSeatNumber("TBD"); // Will be assigned later
+            
+            List<Passenger> passengers = new ArrayList<>();
+            passengers.add(passenger);
+            
+            // Create payment details (simplified for demo)
+            PaymentDetails paymentDetails = new PaymentDetails();
+            paymentDetails.setAmount(flight.getBasePrice());
+            paymentDetails.setCardNumber("DEMO-1234");
+            paymentDetails.setCardholderName(customer.getFirstName() + " " + customer.getLastName());
+            
+            // Create booking through service
+            BookingService bookingService = new BookingService();
+            Booking booking = bookingService.createBooking(customer, flight, passengers, paymentDetails);
+            
+            if (booking != null) {
+                // Confirm the booking immediately for demo purposes
+                bookingService.confirmBooking(booking.getBookingId());
+                
+                // Add to customer's booking history
+                customer.bookFlight(booking);
+                
+                // Show success message
+                showAlert("Flight Confirmed!", 
+                    "Flight " + flight.getFlightNumber() + " has been added to your confirmed flights.\n" +
+                    "Booking ID: " + booking.getBookingId() + "\n" +
+                    "Route: " + flight.getDepartureAirport() + " → " + flight.getArrivalAirport() + "\n" +
+                    "Date: " + flight.getDepartureTime().toLocalDate() + "\n" +
+                    "Status: CONFIRMED", Alert.AlertType.INFORMATION);
+                
+                // Navigate to booking overview to show the new booking
+                NavigationManager.getInstance().showBookingOverview();
+            } else {
+                showAlert("Booking Failed", "Unable to create booking for this flight. Please try again.", Alert.AlertType.ERROR);
+            }
+        } else {
+            showAlert("User Error", "Please log in as a customer to book flights.", Alert.AlertType.WARNING);
+        }
     }
     
     private void displayFlightDetails() {

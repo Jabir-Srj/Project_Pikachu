@@ -66,6 +66,39 @@
             </Text>
          </VBox>
          
+         <!-- Statistics Section -->
+         <VBox spacing="15" styleClass="content-card">
+            <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="📊 Your Flight Statistics">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Text>
+            
+            <HBox spacing="25">
+               <VBox spacing="8" styleClass="stats-card" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <Text fill="#27AE60" strokeType="OUTSIDE" strokeWidth="0.0" text="✅">
+                        <font>
+                           <Font size="24.0" />
+                        </font>
+                     </Text>
+                     <VBox spacing="2">
+                        <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmed Flights">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="confirmedFlightsLabel" fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                     </VBox>
+                  </HBox>
+               </VBox>
+            </HBox>
+         </VBox>
+         
          <!-- Quick Actions -->
          <HBox spacing="25">
             <VBox spacing="15" styleClass="content-card" HBox.hgrow="ALWAYS">

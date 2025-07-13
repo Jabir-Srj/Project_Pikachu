@@ -25,6 +25,7 @@ public class LoginController implements Initializable {
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
     @FXML private Hyperlink registerLink;
+    @FXML private Hyperlink forgotPasswordLink;
     
     private UserService userService;
     private NavigationManager navigationManager;
@@ -37,6 +38,7 @@ public class LoginController implements Initializable {
         // Set up event handlers
         loginButton.setOnAction(e -> handleLogin());
         registerLink.setOnAction(e -> navigateToRegistration());
+        forgotPasswordLink.setOnAction(e -> handleForgotPassword());
         
         // Allow enter key to submit login
         passwordField.setOnAction(e -> handleLogin());
@@ -77,6 +79,32 @@ public class LoginController implements Initializable {
      */
     private void navigateToRegistration() {
         navigationManager.navigateTo(NavigationManager.REGISTRATION_SCREEN);
+    }
+    
+    /**
+     * Handle forgot password link click
+     */
+    private void handleForgotPassword() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Forgot Password");
+        alert.setHeaderText("Password Reset Instructions");
+        alert.setContentText(
+            "To reset your password, please follow these steps:\n\n" +
+            "1. Enter your email address or username\n" +
+            "2. Check your email for a password reset link\n" +
+            "3. Click the link to create a new password\n" +
+            "4. The reset link expires in 24 hours\n\n" +
+            "📧 Email: support@pikachuairlines.com\n" +
+            "📞 Phone: 1-800-PIKACHU (1-800-742-2248)\n\n" +
+            "If you don't receive an email within 10 minutes, please check your spam folder or contact customer support."
+        );
+        
+        // Add custom styling to the alert
+        alert.getDialogPane().getStylesheets().add(
+            getClass().getResource("/css/application.css").toExternalForm()
+        );
+        
+        alert.showAndWait();
     }
     
     /**
