@@ -21,57 +21,47 @@
 <BorderPane styleClass="login-background" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AccountRegistrationController">
 
    <center>
-      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="838.0" prefWidth="616.0" styleClass="main-background">
+      <ScrollPane fitToWidth="true" styleClass="main-background">
          <content>
-            <VBox alignment="CENTER" maxWidth="600" prefHeight="1206.0" prefWidth="499.0" spacing="25" styleClass="container-large">
+            <VBox alignment="CENTER" spacing="30" styleClass="container-large">
                <padding>
-                  <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+                  <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
                </padding>
-               
-               <!-- Logo and Brand Section -->
-               <VBox alignment="CENTER" spacing="15">
-                  <HBox alignment="CENTER" spacing="15">
-                     <Text styleClass="pikachu-logo" text="⚡">
-                        <font>
-                           <Font size="40.0" />
-                        </font>
-                     </Text>
-                     <VBox alignment="CENTER_LEFT" spacing="5">
-                        <Text styleClass="brand-title" text="Pikachu Airlines">
-                           <font>
-                              <Font name="System Bold" size="28.0" />
-                           </font>
-                        </Text>
-                        <Text styleClass="brand-subtitle" text="Premium Travel Experience">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                  </HBox>
-                  
-                  <Text styleClass="welcome-text" text="Join us for exclusive deals and easy booking">
+         
+         <!-- Logo and Brand Section -->
+         <VBox alignment="CENTER" spacing="15">
+            <HBox alignment="CENTER" spacing="15">
+               <Text styleClass="pikachu-logo" text="⚡">
+                  <font>
+                     <Font size="40.0" />
+                  </font>
+               </Text>
+               <VBox alignment="CENTER_LEFT" spacing="5">
+                  <Text styleClass="brand-title" text="Pikachu Airlines">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Text>
+                  <Text styleClass="brand-subtitle" text="Premium Travel Experience">
+                     <font>
+                        <Font size="13.0" />
                      </font>
                   </Text>
                </VBox>
+            </HBox>
+            
+            <Text styleClass="welcome-text" text="Join us for exclusive deals and easy booking">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+         </VBox>
 
-               <!-- Progress Section -->
-               <VBox alignment="CENTER" prefHeight="26.0" prefWidth="559.0" spacing="10" styleClass="demo-info">
-                  <ProgressBar fx:id="progressBar" maxWidth="400.0" prefWidth="400.0" progress="0.0" />
-                  <Text fx:id="stepLabel" styleClass="demo-title" text="Step 1 of 3: Personal Information">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Text>
-               </VBox>
-
-                     <!-- Registration Form Card -->
-               <VBox alignment="CENTER" prefHeight="1323.0" prefWidth="418.0" spacing="20" styleClass="login-card">
-                  <padding>
-                     <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
-                  </padding>
+         <!-- Registration Form Card -->
+         <VBox alignment="CENTER" maxWidth="450" spacing="25" styleClass="login-card">
+            <padding>
+               <Insets bottom="35.0" left="45.0" right="45.0" top="35.0" />
+            </padding>
                   
                         <!-- Form Header -->
                   <VBox alignment="CENTER" spacing="6">
@@ -80,17 +70,18 @@
                            <Font name="System Bold" size="24.0" />
                         </font>
                      </Text>
-                     <Text styleClass="form-subtitle" text="Please fill in the information below">
+                     <Text styleClass="form-subtitle" text="Just a few details to get you started">
                         <font>
                            <Font size="13.0" />
                         </font>
                      </Text>
                   </VBox>
    
-                        <!-- Step 1: Personal Information -->
-                  <VBox fx:id="step1Container" spacing="15">
+                        <!-- Single Registration Form -->
+                  <VBox spacing="22">
+                     <!-- Name Fields -->
                      <HBox spacing="15">
-                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <VBox spacing="8" HBox.hgrow="ALWAYS">
                            <Label styleClass="form-label" text="First Name *">
                               <font>
                                  <Font size="13.0" />
@@ -102,7 +93,7 @@
                               </font>
                            </TextField>
                         </VBox>
-                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <VBox spacing="8" HBox.hgrow="ALWAYS">
                            <Label styleClass="form-label" text="Last Name *">
                               <font>
                                  <Font size="13.0" />
@@ -116,7 +107,8 @@
                         </VBox>
                      </HBox>
                      
-                              <VBox spacing="6">
+                     <!-- Contact Information -->
+                     <VBox spacing="8">
                         <Label styleClass="form-label" text="Email Address *">
                            <font>
                               <Font size="13.0" />
@@ -129,53 +121,78 @@
                         </TextField>
                      </VBox>
                      
-                              <HBox spacing="15">
-                        <VBox spacing="6" HBox.hgrow="ALWAYS">
-                           <Label styleClass="form-label" text="Phone Number *">
-                              <font>
-                                 <Font size="13.0" />
-                              </font>
-                           </Label>
-                           <TextField fx:id="phoneField" promptText="(555) 123-4567" styleClass="form-input">
-                              <font>
-                                 <Font size="13.0" />
-                              </font>
-                           </TextField>
-                        </VBox>
-                        <VBox spacing="6" HBox.hgrow="ALWAYS">
-                           <Label styleClass="form-label" text="Date of Birth">
-                              <font>
-                                 <Font size="13.0" />
-                              </font>
-                           </Label>
-                           <DatePicker fx:id="dobPicker" promptText="Select date" styleClass="form-input" />
-                        </VBox>
-                     </HBox>
-                     
-                              <VBox maxWidth="200" spacing="6">
-                        <Label styleClass="form-label" text="Gender">
+                     <VBox spacing="8">
+                        <Label styleClass="form-label" text="Phone Number *">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="genderComboBox" maxWidth="180" promptText="Select gender" styleClass="form-input" />
+                        <TextField fx:id="phoneField" promptText="(555) 123-4567" styleClass="form-input">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                     </VBox>
+                     
+                     <!-- Password Fields -->
+                     <VBox spacing="8">
+                        <Label styleClass="form-label" text="Password *">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="passwordField" promptText="Create a strong password" styleClass="form-input">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </PasswordField>
+                     </VBox>
+                     
+                     <VBox spacing="8">
+                        <Label styleClass="form-label" text="Confirm Password *">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="confirmPasswordField" promptText="Confirm your password" styleClass="form-input">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </PasswordField>
+                     </VBox>
+                     
+                     <!-- Terms and Conditions -->
+                     <VBox spacing="10" alignment="CENTER_LEFT">
+                        <CheckBox fx:id="termsCheckBox" styleClass="form-checkbox" text="I agree to the Terms and Conditions *">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
                      </VBox>
                   </VBox>
-                  <Button fx:id="nextButton" mnemonicParsing="false" onAction="#handleNext" styleClass="button-primary" text="Next">
+
+                  <!-- Create Account Button -->
+                  <Button fx:id="registerButton" mnemonicParsing="false" onAction="#handleRegister" styleClass="button-primary" text="Create Account">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Text styleClass="secondary-text" text="Already have an account?">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Text>
-                  <Hyperlink fx:id="loginButton" onAction="#handleLoginRedirect" styleClass="form-link-bold" text="Sign In Here">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Hyperlink>
+                  
+                  <!-- Sign In Link -->
+                  <VBox alignment="CENTER" spacing="8">
+                     <Text styleClass="secondary-text" text="Already have an account?">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Text>
+                     <Hyperlink fx:id="loginButton" onAction="#handleLoginRedirect" styleClass="form-link-bold" text="Sign In Here">
+                        <font>
+                           <Font name="System Bold" size="13.0" />
+                        </font>
+                     </Hyperlink>
+                  </VBox>
+                  
+                  <!-- Footer -->
                   <HBox alignment="CENTER" prefHeight="0.0" prefWidth="514.0" spacing="15" styleClass="footer">
                      <padding>
                         <Insets bottom="10.0" top="10.0" />
@@ -196,166 +213,6 @@
                         </font>
                      </Text>
                   </HBox>
-
-                        <!-- Step 2: Account Security -->
-                  <VBox fx:id="step2Container" spacing="15" visible="false">
-                     <VBox spacing="6">
-                        <Label styleClass="form-label" text="Password *">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <PasswordField fx:id="passwordField" promptText="Create a strong password" styleClass="form-input">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </PasswordField>
-                     </VBox>
-                     
-                           <VBox spacing="6">
-                        <Label styleClass="form-label" text="Confirm Password *">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <PasswordField fx:id="confirmPasswordField" promptText="Confirm your password" styleClass="form-input">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </PasswordField>
-                     </VBox>
-                     
-                           <VBox spacing="6">
-                        <Label styleClass="form-label" text="Security Question">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="securityQuestionComboBox" maxWidth="Infinity" promptText="Select a security question" styleClass="form-input" />
-                     </VBox>
-                     
-                           <VBox spacing="6">
-                        <Label styleClass="form-label" text="Security Answer">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="securityAnswerField" promptText="Enter your answer" styleClass="form-input">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                     </VBox>
-                     
-                           <VBox spacing="8" styleClass="demo-info">
-                        <Text styleClass="demo-title" text="Password Requirements:">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="lengthRequirement" styleClass="demo-credentials" text="• At least 8 characters">
-                           <font>
-                              <Font size="11.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="uppercaseRequirement" styleClass="demo-credentials" text="• One uppercase letter">
-                           <font>
-                              <Font size="11.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="numberRequirement" styleClass="demo-credentials" text="• One number">
-                           <font>
-                              <Font size="11.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="specialRequirement" styleClass="demo-credentials" text="• One special character">
-                           <font>
-                              <Font size="11.0" />
-                           </font>
-                        </Text>
-                     </VBox>
-                  </VBox>
-
-                        <!-- Step 3: Preferences and Terms -->
-                  <VBox fx:id="step3Container" spacing="15" visible="false">
-                     <HBox spacing="15">
-                        <VBox spacing="6" HBox.hgrow="ALWAYS">
-                           <Label styleClass="form-label" text="Preferred Language">
-                              <font>
-                                 <Font size="13.0" />
-                              </font>
-                           </Label>
-                           <ComboBox fx:id="languageComboBox" maxWidth="Infinity" promptText="Select language" styleClass="form-input" />
-                        </VBox>
-                        <VBox spacing="6" HBox.hgrow="ALWAYS">
-                           <Label styleClass="form-label" text="Preferred Currency">
-                              <font>
-                                 <Font size="13.0" />
-                              </font>
-                           </Label>
-                           <ComboBox fx:id="currencyComboBox" maxWidth="Infinity" promptText="Select currency" styleClass="form-input" />
-                        </VBox>
-                     </HBox>
-                     
-                           <VBox spacing="10">
-                        <Text styleClass="form-label" text="Communication Preferences:">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Text>
-                        <CheckBox fx:id="emailUpdatesCheckBox" styleClass="form-checkbox" text="Receive email updates about flights and promotions">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </CheckBox>
-                        <CheckBox fx:id="smsNotificationsCheckBox" styleClass="form-checkbox" text="Receive SMS notifications for booking confirmations">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </CheckBox>
-                        <CheckBox fx:id="specialOffersCheckBox" styleClass="form-checkbox" text="Receive special offers and discounts">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </CheckBox>
-                     </VBox>
-                     
-                           <VBox spacing="10">
-                        <CheckBox fx:id="termsCheckBox" styleClass="form-checkbox" text="I agree to the Terms and Conditions *">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </CheckBox>
-                        <CheckBox fx:id="privacyCheckBox" styleClass="form-checkbox" text="I agree to the Privacy Policy *">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </CheckBox>
-                        <CheckBox fx:id="marketingCheckBox" styleClass="form-checkbox" text="I consent to marketing communications">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </CheckBox>
-                     </VBox>
-                  </VBox>
-
-                        <!-- Navigation Buttons -->
-                  <HBox alignment="CENTER_LEFT" spacing="15">
-                     <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBack" styleClass="button-secondary" text="Back" visible="false">
-                        <font>
-                           <Font size="13.0" />
-                        </font>
-                     </Button>
-                     <Region HBox.hgrow="ALWAYS" />
-                     <Button fx:id="registerButton" mnemonicParsing="false" onAction="#handleRegister" styleClass="button-primary" text="Create Account" visible="false">
-                        <font>
-                           <Font name="System Bold" size="13.0" />
-                        </font>
-                     </Button>
-                  </HBox>
-
-                        <!-- Sign In Link -->
-                  <HBox alignment="CENTER" spacing="8" />
                </VBox>
             </VBox>
          </content>
