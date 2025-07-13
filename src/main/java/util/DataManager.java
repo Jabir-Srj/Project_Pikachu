@@ -531,9 +531,46 @@ public class DataManager {
     private boolean saveFlightsToFile(List<Flight> flights) {
         try {
             System.out.println("Saving " + flights.size() + " flights to file");
+            
+            StringBuilder jsonBuilder = new StringBuilder();
+            jsonBuilder.append("[\n");
+            
+            for (int i = 0; i < flights.size(); i++) {
+                Flight flight = flights.get(i);
+                jsonBuilder.append("  {\n");
+                jsonBuilder.append("    \"flightId\": \"").append(escapeJson(flight.getFlightId())).append("\",\n");
+                jsonBuilder.append("    \"flightNumber\": \"").append(escapeJson(flight.getFlightNumber())).append("\",\n");
+                jsonBuilder.append("    \"airline\": \"").append(escapeJson(flight.getAirline())).append("\",\n");
+                jsonBuilder.append("    \"departureAirport\": \"").append(escapeJson(flight.getDepartureAirport())).append("\",\n");
+                jsonBuilder.append("    \"arrivalAirport\": \"").append(escapeJson(flight.getArrivalAirport())).append("\",\n");
+                jsonBuilder.append("    \"departureTime\": \"").append(flight.getDepartureTime() != null ? flight.getDepartureTime().toString() : "").append("\",\n");
+                jsonBuilder.append("    \"arrivalTime\": \"").append(flight.getArrivalTime() != null ? flight.getArrivalTime().toString() : "").append("\",\n");
+                jsonBuilder.append("    \"basePrice\": ").append(flight.getBasePrice()).append(",\n");
+                jsonBuilder.append("    \"totalSeats\": ").append(flight.getTotalSeats()).append(",\n");
+                jsonBuilder.append("    \"availableSeats\": ").append(flight.getAvailableSeats()).append(",\n");
+                jsonBuilder.append("    \"status\": \"").append(flight.getStatus() != null ? flight.getStatus().name() : "SCHEDULED").append("\",\n");
+                jsonBuilder.append("    \"aircraft\": \"").append(escapeJson(flight.getAircraft())).append("\",\n");
+                jsonBuilder.append("    \"duration\": ").append(flight.getDuration()).append("\n");
+                jsonBuilder.append("  }");
+                
+                if (i < flights.size() - 1) {
+                    jsonBuilder.append(",");
+                }
+                jsonBuilder.append("\n");
+            }
+            
+            jsonBuilder.append("]");
+            
+            try (FileWriter writer = new FileWriter(FLIGHTS_FILE)) {
+                writer.write(jsonBuilder.toString());
+            }
+            
+            System.out.println("Successfully saved " + flights.size() + " flights to " + FLIGHTS_FILE);
             return true;
+            
         } catch (Exception e) {
             System.err.println("Error saving flights: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
@@ -1423,12 +1460,22 @@ public class DataManager {
      * Extract value from JSON string for a given key
      */
     private String extractJSONValue(String jsonObject, String key) {
-        String pattern = "\"" + key + "\":\\s*\"([^\"]+)\"";
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
+        // First try to match quoted strings (most common case)
+        String quotedPattern = "\"" + key + "\":\\s*\"([^\"]+)\"";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(quotedPattern);
         java.util.regex.Matcher m = p.matcher(jsonObject);
         if (m.find()) {
             return m.group(1);
         }
+        
+        // If not found, try to match boolean values (like isActive: true)
+        String booleanPattern = "\"" + key + "\":\\s*(true|false)";
+        p = java.util.regex.Pattern.compile(booleanPattern);
+        m = p.matcher(jsonObject);
+        if (m.find()) {
+            return m.group(1);
+        }
+        
         return "";
     }
 

@@ -67,6 +67,7 @@ public class TicketManagementController implements Initializable {
     private Ticket selectedTicket;
     private User currentUser;
     private boolean isAdminView;
+    private boolean isDialogOpen = false; // Track if any dialog is currently open
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -400,13 +401,29 @@ public class TicketManagementController implements Initializable {
     private void markTicketRejected() {
         if (selectedTicket == null) return;
         
+        // Prevent multiple dialogs from being opened
+        if (isDialogOpen) {
+            showAlert("Dialog in Progress", "Please close the current dialog before opening another one.");
+            return;
+        }
+        
+        isDialogOpen = true;
+        
         // Ask for rejection reason
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Reject Ticket");
         dialog.setHeaderText("Please provide a reason for rejecting this ticket:");
         dialog.setContentText("Reason:");
         
+        // Handle dialog close event to reset the flag
+        dialog.setOnCloseRequest(event -> {
+            isDialogOpen = false;
+        });
+        
         dialog.showAndWait().ifPresent(reason -> {
+            // Reset the dialog flag
+            isDialogOpen = false;
+            
             try {
                 selectedTicket.setStatus(TicketStatus.REJECTED);
                 selectedTicket.setUpdatedAt(LocalDateTime.now());
