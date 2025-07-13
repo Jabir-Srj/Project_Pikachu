@@ -22,7 +22,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
+
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -151,21 +151,14 @@ public class CustomerManagementController implements Initializable {
         }
         if (actionsColumn != null) {
             actionsColumn.setCellFactory(column -> new TableCell<Customer, String>() {
-                private final Button viewButton = new Button("👁️ View");
                 private final Button editButton = new Button("✏️ Edit");
                 private final Button toggleButton = new Button("🔄 Toggle");
-                private final HBox buttonBox = new HBox(5, viewButton, editButton, toggleButton);
+                private final HBox buttonBox = new HBox(5, editButton, toggleButton);
 
                 {
                     buttonBox.setAlignment(Pos.CENTER);
-                    viewButton.getStyleClass().add("action-button-primary");
                     editButton.getStyleClass().add("action-button-warning");
                     toggleButton.getStyleClass().add("action-button-danger");
-                    
-                    viewButton.setOnAction(e -> {
-                        Customer customer = getTableView().getItems().get(getIndex());
-                        handleViewCustomer(customer);
-                    });
                     
                     editButton.setOnAction(e -> {
                         Customer customer = getTableView().getItems().get(getIndex());
@@ -191,19 +184,6 @@ public class CustomerManagementController implements Initializable {
                         setGraphic(buttonBox);
                     }
                 }
-            });
-        }
-        
-        // Setup double-click to view customer details
-        if (customersTableView != null) {
-            customersTableView.setRowFactory(tv -> {
-                TableRow<Customer> row = new TableRow<>();
-                row.setOnMouseClicked(event -> {
-                    if (event.getClickCount() == 2 && !row.isEmpty()) {
-                        viewCustomerDetails(row.getItem());
-                    }
-                });
-                return row;
             });
         }
     }
@@ -502,26 +482,6 @@ public class CustomerManagementController implements Initializable {
     @FXML
     private void handleExportCustomers() {
         showAlert("Export Feature", "Export functionality will be implemented in future version.");
-    }
-    
-    /**
-     * View customer details
-     */
-    private void viewCustomerDetails(Customer customer) {
-        if (customer != null) {
-            navigationManager.setSharedData("selectedCustomer", customer);
-            navigationManager.showCustomerOverview();
-        }
-    }
-    
-    /**
-     * Handle view customer action
-     */
-    private void handleViewCustomer(Customer customer) {
-        if (customer != null) {
-            navigationManager.setSharedData("selectedCustomer", customer);
-            navigationManager.showCustomerOverview();
-        }
     }
     
     /**
