@@ -163,6 +163,54 @@
                                <Button fx:id="aiChatAction" styleClass="button-primary" text="Start Chat" />
             </VBox>
          </HBox>
+         
+         <HBox spacing="25">
+            <VBox spacing="15" styleClass="content-card" HBox.hgrow="ALWAYS">
+               <HBox alignment="CENTER_LEFT" spacing="15">
+                  <Text fill="#E74C3C" strokeType="OUTSIDE" strokeWidth="0.0" text="❓">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Text>
+                  <VBox spacing="5">
+                     <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="FAQs">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Find answers to common questions">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </Text>
+                  </VBox>
+               </HBox>
+                               <Button fx:id="faqsAction" styleClass="button-primary" text="View FAQs" />
+            </VBox>
+            
+            <VBox spacing="15" styleClass="content-card" HBox.hgrow="ALWAYS">
+               <HBox alignment="CENTER_LEFT" spacing="15">
+                  <Text fill="#16A085" strokeType="OUTSIDE" strokeWidth="0.0" text="📞">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Text>
+                  <VBox spacing="5">
+                     <Text fill="#2C3E50" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Info">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#7F8C8D" strokeType="OUTSIDE" strokeWidth="0.0" text="Emergency contact information">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </Text>
+                  </VBox>
+               </HBox>
+                               <Button fx:id="contactInfoAction" styleClass="button-primary" text="Contact Details" />
+            </VBox>
+         </HBox>
       </VBox>
    </center>
 </BorderPane> 

@@ -26,6 +26,8 @@ public class CustomerOverviewController implements Initializable {
     @FXML private Button submitTicketAction;
     @FXML private Button viewTicketsAction;
     @FXML private Button aiChatAction;
+    @FXML private Button faqsAction;
+    @FXML private Button contactInfoAction;
     
     private NavigationManager navigationManager;
     private User currentUser;
@@ -81,6 +83,14 @@ public class CustomerOverviewController implements Initializable {
         if (aiChatAction != null) {
             aiChatAction.setOnAction(e -> navigateToAIChat());
         }
+        
+        if (faqsAction != null) {
+            faqsAction.setOnAction(e -> navigateToFAQs());
+        }
+        
+        if (contactInfoAction != null) {
+            contactInfoAction.setOnAction(e -> showContactInfo());
+        }
     }
     
     /**
@@ -125,12 +135,37 @@ public class CustomerOverviewController implements Initializable {
     private void navigateToTicketManagement() {
         navigationManager.showTicketManagement();
     }
-    
-    /**
+      /**
      * Navigate to AI chat
      */
     private void navigateToAIChat() {
         navigationManager.showAIChatbot();
     }
     
+    /**
+     * Navigate to FAQs
+     */
+    private void navigateToFAQs() {
+        navigationManager.showCustomerFAQs();
+    }
+    
+    /**
+     * Show contact information
+     */
+    private void showContactInfo() {
+        // Create a simple contact info dialog
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        alert.setTitle("Contact Information");
+        alert.setHeaderText("Pikachu Airlines Customer Service");
+        alert.setContentText("📞 Phone: 1-800-PIKACHU (1-800-742-2248)\n" +
+                            "📧 Email: support@pikachuairlines.com\n" +
+                            "🌐 Website: www.pikachuairlines.com\n\n" +
+                            "⏰ Customer Service Hours:\n" +
+                            "Monday - Friday: 6:00 AM - 11:00 PM\n" +
+                            "Saturday - Sunday: 7:00 AM - 9:00 PM\n\n" +
+                            "🆘 Emergency Support: Available 24/7\n" +
+                            "📱 Text Support: Text 'HELP' to 555-PIKA");
+        alert.showAndWait();
+    }
+
 }
