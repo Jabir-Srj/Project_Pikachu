@@ -4,6 +4,10 @@
 
 This is a comprehensive JavaFX-based desktop application for airline customer service that provides a complete solution for flight booking, customer management, support ticketing, and AI-powered customer assistance. The application implements a modern, user-friendly interface based on professional Figma designs and follows enterprise-level software architecture patterns.
 
+## Demo Accounts
+admin / 123456
+customer / 123456
+
 ## Recent Updates (July 2025)
 
 ### ✅ Major Fixes Implemented
