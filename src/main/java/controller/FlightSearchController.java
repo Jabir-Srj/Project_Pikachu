@@ -286,7 +286,6 @@ public class FlightSearchController implements Initializable {
             else if (passengerText.contains("3")) passengers = 3;
             else if (passengerText.contains("4")) passengers = 4;
             else if (passengerText.contains("5")) passengers = 5;
-<<<<<<< Updated upstream
         }
         
         // Perform search
@@ -304,12 +303,7 @@ public class FlightSearchController implements Initializable {
         
         if (searchResults.isEmpty()) {
             showAlert("No flights found for the selected criteria.");
-=======
->>>>>>> Stashed changes
         }
-        
-        // Perform search
-        List<Flight> searchResults = flightService.searchFlights(from, to, date, passengers);
         
         // Apply filters and sorting
         searchResults = applyFilters(searchResults);
@@ -368,38 +362,6 @@ public class FlightSearchController implements Initializable {
         
         // Display the results
         displayFlights(sortedResults);
-    }
-    
-    @FXML
-    private void handleReset() {
-        // Clear all search fields
-        if (fromComboBox != null) {
-            fromComboBox.setValue(null);
-        }
-        if (toComboBox != null) {
-            toComboBox.setValue(null);
-        }
-        if (departureDatePicker != null) {
-            departureDatePicker.setValue(LocalDate.now().plusDays(1));
-        }
-        if (passengersComboBox != null) {
-            passengersComboBox.setValue("1 Passenger");
-        }
-        if (sortComboBox != null) {
-            sortComboBox.setValue("Price (Low to High)");
-        }
-        if (filterComboBox != null) {
-            filterComboBox.setValue("All Flights");
-        }
-        
-        // Clear stored search results
-        currentSearchResults = null;
-        
-        // Show all flights
-        List<Flight> allFlights = flightService.getAllFlights();
-        displayFlights(allFlights);
-        
-        showAlert("Search has been reset. Showing all available flights.");
     }
     
     private List<Flight> applyFilters(List<Flight> flights) {
@@ -537,6 +499,18 @@ public class FlightSearchController implements Initializable {
                 break;
             case CANCELLED:
                 statusLabel.getStyleClass().add("status-cancelled-gradient");
+                break;
+            case ON_TIME:
+                statusLabel.getStyleClass().add("status-confirmed-gradient");
+                break;
+            case BOARDING:
+                statusLabel.getStyleClass().add("status-pending-gradient");
+                break;
+            case DEPARTED:
+                statusLabel.getStyleClass().add("status-confirmed-gradient");
+                break;
+            case ARRIVED:
+                statusLabel.getStyleClass().add("status-confirmed-gradient");
                 break;
         }
         
