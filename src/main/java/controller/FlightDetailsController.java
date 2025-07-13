@@ -109,13 +109,15 @@ public class FlightDetailsController implements Initializable {
             "DXB - Dubai International Airport"
         );
 
-        // Setup status combo box
+        // Setup status combo box with all available FlightStatus values
         statusComboBox.getItems().addAll(
             "Scheduled",
+            "Boarding",
+            "Departed",
+            "Arrived",
             "Delayed",
             "Cancelled",
-            "In Flight",
-            "Completed"
+            "On Time"
         );
     }
 
@@ -405,32 +407,87 @@ public class FlightDetailsController implements Initializable {
     }
 
     private void saveFlightChanges() {
-        // Update flight object with form values
-        currentFlight.setAircraft(aircraftTypeField.getText());
-        currentFlight.setDepartureAirport(departureAirportComboBox.getValue());
-        currentFlight.setArrivalAirport(arrivalAirportComboBox.getValue());
-        
-        LocalDate date = departureDatePicker.getValue();
-        LocalTime depTime = LocalTime.parse(departureTimeField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
-        LocalTime arrTime = LocalTime.parse(arrivalTimeField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
-        
-        currentFlight.setDepartureTime(date.atTime(depTime));
-        currentFlight.setArrivalTime(date.atTime(arrTime));
-        
-        // Convert string status to FlightStatus enum
-        String statusString = statusComboBox.getValue();
-        FlightStatus status = FlightStatus.valueOf(statusString.toUpperCase());
-        currentFlight.setStatus(status);
-        
-        currentFlight.setBasePrice(Double.parseDouble(basePriceField.getText()));
-        // Note: Economy and business prices are not stored in the Flight model
-        currentFlight.setTotalSeats(Integer.parseInt(totalCapacityField.getText()));
+        try {
+            // Update flight object with form values
+            currentFlight.setAircraft(aircraftTypeField.getText());
+            currentFlight.setDepartureAirport(departureAirportComboBox.getValue());
+            currentFlight.setArrivalAirport(arrivalAirportComboBox.getValue());
+            
+            // Parse and validate date/time fields
+            LocalDate date = departureDatePicker.getValue();
+            if (date == null) {
+                throw new IllegalArgumentException("Departure date is required");
+            }
+            
+            LocalTime depTime = LocalTime.parse(departureTimeField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
+            LocalTime arrTime = LocalTime.parse(arrivalTimeField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
+            
+            currentFlight.setDepartureTime(date.atTime(depTime));
+            currentFlight.setArrivalTime(date.atTime(arrTime));
+            
+            // Convert string status to FlightStatus enum
+            String statusString = statusComboBox.getValue();
+            FlightStatus status = null;
+            
+            // Map display names to enum values
+            switch (statusString) {
+                case "Scheduled":
+                    status = FlightStatus.SCHEDULED;
+                    break;
+                case "Boarding":
+                    status = FlightStatus.BOARDING;
+                    break;
+                case "Departed":
+                    status = FlightStatus.DEPARTED;
+                    break;
+                case "Arrived":
+                    status = FlightStatus.ARRIVED;
+                    break;
+                case "Delayed":
+                    status = FlightStatus.DELAYED;
+                    break;
+                case "Cancelled":
+                    status = FlightStatus.CANCELLED;
+                    break;
+                case "On Time":
+                    status = FlightStatus.ON_TIME;
+                    break;
+                default:
+                    status = FlightStatus.SCHEDULED; // Default fallback
+                    break;
+            }
+            currentFlight.setStatus(status);
+            
+            // Parse and validate price and capacity fields
+            double basePrice = Double.parseDouble(basePriceField.getText());
+            if (basePrice < 0) {
+                throw new IllegalArgumentException("Base price cannot be negative");
+            }
+            currentFlight.setBasePrice(basePrice);
+            
+            int totalSeats = Integer.parseInt(totalCapacityField.getText());
+            if (totalSeats <= 0) {
+                throw new IllegalArgumentException("Total seats must be greater than 0");
+            }
+            currentFlight.setTotalSeats(totalSeats);
 
-        // Save to database
-        flightDAO.update(currentFlight);
-        
-        // Refresh statistics
-        calculateStatistics();
+            // Save to database
+            boolean updateSuccess = flightDAO.update(currentFlight);
+            if (!updateSuccess) {
+                throw new RuntimeException("Failed to save flight changes to database");
+            }
+            
+            System.out.println("FlightDetailsController: Successfully saved flight changes for flight " + currentFlight.getFlightNumber());
+            
+            // Refresh statistics
+            calculateStatistics();
+            
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid number format in price or capacity fields");
+        } catch (Exception e) {
+            System.err.println("Error saving flight changes: " + e.getMessage());
+            throw e;
+        }
     }
 
     private void showAlert(String title, String message, Alert.AlertType type) {
