@@ -13,15 +13,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import model.Customer;
 import model.User;
@@ -144,8 +148,48 @@ public class CustomerManagementController implements Initializable {
             });
         }
         if (actionsColumn != null) {
-            actionsColumn.setCellValueFactory(cellData -> 
-                new SimpleStringProperty("View | Edit | Deactivate"));
+            actionsColumn.setCellFactory(column -> new TableCell<Customer, String>() {
+                private final Button viewButton = new Button("👁️ View");
+                private final Button editButton = new Button("✏️ Edit");
+                private final Button toggleButton = new Button("🔄 Toggle");
+                private final HBox buttonBox = new HBox(5, viewButton, editButton, toggleButton);
+
+                {
+                    buttonBox.setAlignment(Pos.CENTER);
+                    viewButton.getStyleClass().add("action-button-primary");
+                    editButton.getStyleClass().add("action-button-warning");
+                    toggleButton.getStyleClass().add("action-button-danger");
+                    
+                    viewButton.setOnAction(e -> {
+                        Customer customer = getTableView().getItems().get(getIndex());
+                        handleViewCustomer(customer);
+                    });
+                    
+                    editButton.setOnAction(e -> {
+                        Customer customer = getTableView().getItems().get(getIndex());
+                        handleEditCustomer(customer);
+                    });
+                    
+                    toggleButton.setOnAction(e -> {
+                        Customer customer = getTableView().getItems().get(getIndex());
+                        handleToggleCustomerStatus(customer);
+                    });
+                }
+
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        Customer customer = getTableView().getItems().get(getIndex());
+                        toggleButton.setText(customer.isActive() ? "❌ Deactivate" : "✅ Activate");
+                        toggleButton.getStyleClass().clear();
+                        toggleButton.getStyleClass().add(customer.isActive() ? "action-button-danger" : "action-button-success");
+                        setGraphic(buttonBox);
+                    }
+                }
+            });
         }
         
         // Setup double-click to view customer details
@@ -468,6 +512,69 @@ public class CustomerManagementController implements Initializable {
         }
     }
     
+    /**
+     * Handle view customer action
+     */
+    private void handleViewCustomer(Customer customer) {
+        if (customer != null) {
+            navigationManager.setSharedData("selectedCustomer", customer);
+            navigationManager.showCustomerOverview();
+        }
+    }
+    
+    /**
+     * Handle edit customer action
+     */
+    private void handleEditCustomer(Customer customer) {
+        if (customer != null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Edit Customer");
+            alert.setHeaderText("Edit Customer Information");
+            alert.setContentText("Customer edit functionality will be implemented in future version.\n\nCustomer: " + 
+                customer.getFirstName() + " " + customer.getLastName() + "\nEmail: " + customer.getEmail());
+            alert.showAndWait();
+        }
+    }
+    
+    /**
+     * Handle toggle customer status (activate/deactivate)
+     */
+    private void handleToggleCustomerStatus(Customer customer) {
+        if (customer != null) {
+            boolean newStatus = !customer.isActive();
+            String action = newStatus ? "activate" : "deactivate";
+            String actionPast = newStatus ? "activated" : "deactivated";
+            
+            Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmAlert.setTitle("Confirm Action");
+            confirmAlert.setHeaderText("Customer Status Change");
+            confirmAlert.setContentText("Are you sure you want to " + action + " customer:\n" +
+                customer.getFirstName() + " " + customer.getLastName() + " (" + customer.getEmail() + ")?");
+            
+            confirmAlert.showAndWait().ifPresent(response -> {
+                if (response.getButtonData().isDefaultButton()) {
+                    // Update customer status
+                    customer.setActive(newStatus);
+                    
+                    // Update in service
+                    userService.updateUserProfile(customer);
+                    
+                    // Refresh table view
+                    updateTableView();
+                    updateStatistics();
+                    
+                    // Show success message
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setTitle("Success");
+                    successAlert.setHeaderText("Customer Status Updated");
+                    successAlert.setContentText("Customer " + customer.getFirstName() + " " + 
+                        customer.getLastName() + " has been " + actionPast + " successfully.");
+                    successAlert.showAndWait();
+                }
+            });
+        }
+    }
+
     /**
      * Calculate total amount spent by customer (placeholder implementation)
      */

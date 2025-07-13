@@ -6,7 +6,11 @@
     "email": "admin@airline.com",
     "firstName": "Admin",
     "lastName": "User",
-    "role": "Admin"
+    "phoneNumber": "123-456-7890",
+    "role": "ADMIN",
+    "createdAt": "2025-07-13T16:14:24.698776300",
+    "lastLogin": "2025-07-13T16:23:00.950703700",
+    "isActive": true
   },
   {
     "userId": "ADMIN_002",
@@ -15,7 +19,11 @@
     "email": "support@airline.com",
     "firstName": "Sarah",
     "lastName": "Johnson",
-    "role": "Admin"
+    "phoneNumber": "123-456-7891",
+    "role": "ADMIN",
+    "createdAt": "2025-07-13T16:14:24.699965200",
+    "lastLogin": "",
+    "isActive": true
   },
   {
     "userId": "CUST_001",
@@ -24,7 +32,11 @@
     "email": "customer@email.com",
     "firstName": "John",
     "lastName": "Doe",
-    "role": "Customer"
+    "phoneNumber": "987-654-3210",
+    "role": "CUSTOMER",
+    "createdAt": "2025-07-13T16:14:24.699965200",
+    "lastLogin": "2025-07-13T16:23:08.484530700",
+    "isActive": true
   },
   {
     "userId": "CUST_002",
@@ -33,7 +45,11 @@
     "email": "alice.smith@email.com",
     "firstName": "Alice",
     "lastName": "Smith",
-    "role": "Customer"
+    "phoneNumber": "987-654-3211",
+    "role": "CUSTOMER",
+    "createdAt": "2025-07-13T16:14:24.699965200",
+    "lastLogin": "",
+    "isActive": true
   },
   {
     "userId": "CUST_003",
@@ -42,7 +58,11 @@
     "email": "bob.wilson@gmail.com",
     "firstName": "Bob",
     "lastName": "Wilson",
-    "role": "Customer"
+    "phoneNumber": "987-654-3212",
+    "role": "CUSTOMER",
+    "createdAt": "2025-07-13T16:14:24.699965200",
+    "lastLogin": "",
+    "isActive": true
   },
   {
     "userId": "CUST_004",
@@ -51,7 +71,11 @@
     "email": "emma.brown@yahoo.com",
     "firstName": "Emma",
     "lastName": "Brown",
-    "role": "Customer"
+    "phoneNumber": "987-654-3213",
+    "role": "CUSTOMER",
+    "createdAt": "2025-07-13T16:14:24.699965200",
+    "lastLogin": "",
+    "isActive": true
   },
   {
     "userId": "CUST_005",
@@ -60,7 +84,11 @@
     "email": "david.chen@hotmail.com",
     "firstName": "David",
     "lastName": "Chen",
-    "role": "Customer"
+    "phoneNumber": "987-654-3214",
+    "role": "CUSTOMER",
+    "createdAt": "2025-07-13T16:14:24.699965200",
+    "lastLogin": "",
+    "isActive": true
   },
   {
     "userId": "CUST_006",
@@ -69,7 +97,11 @@
     "email": "maria.garcia@outlook.com",
     "firstName": "Maria",
     "lastName": "Garcia",
-    "role": "Customer"
+    "phoneNumber": "987-654-3215",
+    "role": "CUSTOMER",
+    "createdAt": "2025-07-13T16:14:24.699965200",
+    "lastLogin": "",
+    "isActive": true
   },
   {
     "userId": "CUST_007",
@@ -78,7 +110,11 @@
     "email": "james.miller@email.com",
     "firstName": "James",
     "lastName": "Miller",
-    "role": "Customer"
+    "phoneNumber": "987-654-3216",
+    "role": "CUSTOMER",
+    "createdAt": "2025-07-13T16:14:24.699965200",
+    "lastLogin": "",
+    "isActive": true
   },
   {
     "userId": "CUST_008",
@@ -87,7 +123,11 @@
     "email": "lisa.taylor@gmail.com",
     "firstName": "Lisa",
     "lastName": "Taylor",
-    "role": "Customer"
+    "phoneNumber": "987-654-3217",
+    "role": "CUSTOMER",
+    "createdAt": "2025-07-13T16:14:24.699965200",
+    "lastLogin": "",
+    "isActive": true
   },
   {
     "userId": "CUST_009",
@@ -96,15 +136,23 @@
     "email": "michael.wang@yahoo.com",
     "firstName": "Michael",
     "lastName": "Wang",
-    "role": "Customer"
+    "phoneNumber": "987-654-3218",
+    "role": "CUSTOMER",
+    "createdAt": "2025-07-13T16:14:24.699965200",
+    "lastLogin": "",
+    "isActive": true
   },
   {
-    "userId": "USER_1752391203760",
-    "username": "fattiejb.yt",
-    "password": "HASH_1509745131",
-    "email": "fattiejb.yt@gmail.com",
-    "firstName": "jaboori",
-    "lastName": "mansoori",
-    "role": "Customer"
+    "userId": "USER_1752395199476",
+    "username": "jabirsrj8",
+    "password": "HASH_1428326235",
+    "email": "jabirsrj8@gmail.com",
+    "firstName": "Jabir",
+    "lastName": "Iliyas",
+    "phoneNumber": "123456789",
+    "role": "CUSTOMER",
+    "createdAt": "2025-07-13T16:26:39.472462700",
+    "lastLogin": "2025-07-13T16:27:31.481436500",
+    "isActive": true
   }
 ]

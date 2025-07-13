@@ -270,7 +270,11 @@ public class DataManager {
                     writer.write("    \"email\": \"" + user.getEmail() + "\",\n");
                     writer.write("    \"firstName\": \"" + user.getFirstName() + "\",\n");
                     writer.write("    \"lastName\": \"" + user.getLastName() + "\",\n");
-                    writer.write("    \"role\": \"" + user.getRole() + "\"\n");
+                    writer.write("    \"phoneNumber\": \"" + (user.getPhoneNumber() != null ? user.getPhoneNumber() : "") + "\",\n");
+                    writer.write("    \"role\": \"" + user.getRole().name() + "\",\n");
+                    writer.write("    \"createdAt\": \"" + (user.getCreatedAt() != null ? user.getCreatedAt().toString() : "") + "\",\n");
+                    writer.write("    \"lastLogin\": \"" + (user.getLastLogin() != null ? user.getLastLogin().toString() : "") + "\",\n");
+                    writer.write("    \"isActive\": " + user.isActive() + "\n");
                     writer.write("  }");
                     if (i < existingUsers.size() - 1) {
                         writer.write(",");
@@ -1368,19 +1372,41 @@ public class DataManager {
                     String email = extractJSONValue(userObj, "email");
                     String firstName = extractJSONValue(userObj, "firstName");
                     String lastName = extractJSONValue(userObj, "lastName");
+                    String phoneNumber = extractJSONValue(userObj, "phoneNumber");
                     String role = extractJSONValue(userObj, "role");
+                    String createdAtStr = extractJSONValue(userObj, "createdAt");
+                    String lastLoginStr = extractJSONValue(userObj, "lastLogin");
+                    String isActiveStr = extractJSONValue(userObj, "isActive");
                     
-                    // Create user based on role
+                    // Create user based on role (handle both enum names and display names)
                     User user = null;
-                    if ("Admin".equals(role)) {
+                    if ("ADMIN".equals(role) || "Admin".equals(role)) {
                         user = new Admin(userId, username, password, email, firstName, lastName, 
-                                       "000-000-0000", "General");
-                    } else if ("Customer".equals(role)) {
+                                       phoneNumber != null ? phoneNumber : "", "General");
+                    } else if ("CUSTOMER".equals(role) || "Customer".equals(role)) {
                         user = new Customer(userId, username, password, email, firstName, lastName,
-                                          "000-000-0000", "TEMP123", "USA");
+                                          phoneNumber != null ? phoneNumber : "", "TEMP123", "USA");
                     }
                     
                     if (user != null) {
+                        // Set additional fields
+                        if (createdAtStr != null && !createdAtStr.isEmpty()) {
+                            try {
+                                user.setCreatedAt(LocalDateTime.parse(createdAtStr));
+                            } catch (Exception e) {
+                                // Keep default createdAt if parsing fails
+                            }
+                        }
+                        if (lastLoginStr != null && !lastLoginStr.isEmpty()) {
+                            try {
+                                user.setLastLogin(LocalDateTime.parse(lastLoginStr));
+                            } catch (Exception e) {
+                                // Keep null lastLogin if parsing fails
+                            }
+                        }
+                        if (isActiveStr != null && !isActiveStr.isEmpty()) {
+                            user.setActive(Boolean.parseBoolean(isActiveStr));
+                        }
                         users.add(user);
                     }
                 } catch (Exception e) {
@@ -1404,5 +1430,54 @@ public class DataManager {
             return m.group(1);
         }
         return "";
+    }
+
+    /**
+     * Create demo admin and customer accounts for testing
+     */
+    public void createDemoAccounts() {
+        System.out.println("Creating demo accounts...");
+        
+        // Clear existing users
+        userDatabase.clear();
+        
+        // Password "123456" hashed using the same method as UserService
+        String hashedPassword = "HASH_" + "123456".hashCode();
+        
+        // Create demo admin account
+        Admin demoAdmin = new Admin("ADMIN_DEMO", "admin", hashedPassword, "admin@pikachu-airlines.com",
+                                  "Demo", "Admin", "555-0101", "Customer Service");
+        demoAdmin.setActive(true);
+        userDatabase.add(demoAdmin);
+        
+        // Create demo customer account
+        Customer demoCustomer = new Customer("CUST_DEMO", "customer", hashedPassword, "customer@demo.com",
+                                           "Demo", "Customer", "555-0102", "PASS123", "USA");
+        demoCustomer.setActive(true);
+        userDatabase.add(demoCustomer);
+        
+        // Create additional sample accounts for variety
+        Admin admin2 = new Admin("ADMIN_002", "support.admin", hashedPassword, "support@pikachu-airlines.com",
+                               "Sarah", "Johnson", "555-0103", "Customer Support");
+        admin2.setActive(true);
+        userDatabase.add(admin2);
+        
+        Customer customer2 = new Customer("CUST_002", "john.doe", hashedPassword, "john.doe@email.com",
+                                        "John", "Doe", "555-0104", "ABC789", "USA");
+        customer2.setActive(true);
+        userDatabase.add(customer2);
+        
+        Customer customer3 = new Customer("CUST_003", "jane.smith", hashedPassword, "jane.smith@email.com",
+                                        "Jane", "Smith", "555-0105", "XYZ456", "Canada");
+        customer3.setActive(true);
+        userDatabase.add(customer3);
+        
+        // Save demo accounts to persistent storage
+        saveUsers();
+        
+        System.out.println("Demo accounts created successfully!");
+        System.out.println("Demo Admin - Username: admin, Password: 123456");
+        System.out.println("Demo Customer - Username: customer, Password: 123456");
+        System.out.println("Additional accounts: support.admin, john.doe, jane.smith (all password: 123456)");
     }
 }
