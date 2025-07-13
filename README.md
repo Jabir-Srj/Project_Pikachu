@@ -11,6 +11,7 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 ## Recent Updates (July 2025)
 
 ### ✅ Latest Enhancements
+- **Status Validation**: Enforced strict status validation across all system entities
 - **FAQ System**: Converted to modal alert window for better user experience
 - **Customer Pages**: Added scrollable functionality with custom styling
 - **Booking System**: Complete overhaul with admin/user management and booking creation
@@ -19,6 +20,7 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 - **Navigation**: Improved role-based navigation and modal interactions
 
 ### 🔧 Technical Improvements
+- Strict status validation for bookings, flights, tickets, refunds, and payments
 - Modal dialog implementation for FAQ system (no page navigation required)
 - ScrollPane integration for responsive content handling
 - Enhanced error handling and null checks across all controllers
@@ -38,18 +40,21 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 - **Flight Information**: Detailed flight schedules, pricing, and availability
 - **Flight Details**: Comprehensive flight information including routes, timing, and aircraft details
 - **Real-time Updates**: Flight status tracking and notifications
+- **Status Validation**: Enforced flight status consistency (SCHEDULED, BOARDING, DEPARTED, ARRIVED, DELAYED, CANCELLED, ON_TIME)
 
 ### Booking System
 - **Flight Booking**: Complete booking process with passenger details
 - **Booking Overview**: Comprehensive view of all customer bookings with admin/user functionality
 - **Booking Details**: Detailed booking information with passenger details
 - **Booking Management**: Modify, cancel, or view booking history
+- **Status Validation**: Strict booking status enforcement (PENDING, CONFIRMED, CANCELLED)
 
 ### Payment Processing
 - **Simplified Payment Flow**: Direct booking creation without separate payment confirmation
 - **Booking Integration**: Payment processing handled at booking level
 - **Multiple Payment Methods**: Support for various payment options (planned for future)
 - **Secure Processing**: Payment information handled securely
+- **Status Validation**: Payment status tracking (PENDING, COMPLETED, FAILED, REFUNDED)
 
 ### Support Ticketing System
 - **Ticket Submission**: Easy-to-use support ticket creation
@@ -57,6 +62,7 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 - **Ticket Status Tracking**: Real-time status updates for submitted tickets
 - **Ticket Management**: View, reply, and manage customer support requests
 - **Email Integration**: Automated ticket replies via email
+- **Status Validation**: Ticket status enforcement (OPEN, IN_PROGRESS, ESCALATED, RESOLVED, REJECTED, CLOSED)
 
 ### AI-Powered Customer Support
 - **Modern AI Chatbot**: Intelligent customer support using Langchain4j with streaming responses
@@ -71,6 +77,7 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 - **Refund Tracking**: Status tracking for refund requests
 - **Document Management**: Support for viewing refund-related documents
 - **Admin Notes**: Detailed review comments and approval/rejection reasons
+- **Status Validation**: Refund status enforcement (PENDING, APPROVED, REJECTED, PROCESSED)
 
 ### Admin Dashboard
 - **Customer Management**: Comprehensive customer database management
@@ -199,106 +206,87 @@ Project_Pikachu/
 
 ## Usage Instructions
 
-### Getting Started
-1. **Launch the Application**: Run `AirlineApp.java`
-2. **Login or Register**: Use the authentication screens to access the system
-3. **Choose Your Role**: Select Customer, Admin, or Airline Management based on your access level
-
 ### For Customers
-- **Search Flights**: Use the flight search functionality to find available flights
-- **Book Flights**: Complete the booking process with passenger details (simplified payment flow)
-- **Manage Bookings**: View, modify, or cancel existing bookings
-- **Get Support**: Use the modern AI chatbot or submit support tickets for assistance
-- **Request Refunds**: Submit refund requests for eligible bookings
+1. **Login**: Use customer account credentials
+2. **Search Flights**: Browse available flights with filters
+3. **Book Flights**: Select flights and complete booking process
+4. **Manage Bookings**: View, modify, or cancel existing bookings
+5. **Support**: Submit tickets or use AI chatbot for assistance
+6. **Refunds**: Request refunds for eligible bookings
 
-### For Admins
-- **Dashboard Access**: Use the admin dashboard for system overview
-- **Manage Customers**: View and manage customer accounts
-- **Handle Tickets**: Review and respond to customer support tickets
-- **Approve Refunds**: Process refund requests with detailed review interface
-- **System Management**: Maintain FAQs and system settings
+### For Administrators
+1. **Login**: Use admin account credentials
+2. **Dashboard**: View system overview and statistics
+3. **Customer Management**: Manage customer accounts and data
+4. **Flight Management**: Add, modify, or remove flights
+5. **Booking Oversight**: Monitor and manage all bookings
+6. **Support Management**: Handle customer support tickets
+7. **Refund Approval**: Review and process refund requests
 
-### For Airline Management
-- **Flight Management**: Add, update, and manage flight schedules
-- **Booking Oversight**: Monitor and manage all booking activities
-- **Customer Analytics**: View customer data and booking patterns
-- **System Reports**: Generate reports and analytics
+## Status Validation System
 
-## Configuration
+The application enforces strict status validation across all entities to ensure data consistency:
 
-### Data Files
-The application uses JSON files for data persistence located in `src/main/resources/data/`:
-- `users.json`: User accounts and profiles
-- `flights.json`: Flight schedules and information
-- `bookings.json`: Booking records and details
-- `tickets.json`: Support tickets and responses
-- `faqs.json`: Frequently asked questions
-- `refunds.json`: Refund requests and status
+### Booking Status
+- **PENDING**: Booking created but not yet confirmed
+- **CONFIRMED**: Booking confirmed and active
+- **CANCELLED**: Booking cancelled by user or admin
 
-### AI Chatbot Configuration
-The AI chatbot uses Langchain4j for intelligent responses. Configuration includes:
-- FAQ integration for common queries
-- Natural language processing for user interactions
-- Automated response generation based on context
-- Streaming responses for real-time interaction
+### Flight Status
+- **SCHEDULED**: Flight scheduled for future departure
+- **BOARDING**: Passengers boarding the aircraft
+- **DEPARTED**: Flight has departed from origin
+- **ARRIVED**: Flight has arrived at destination
+- **DELAYED**: Flight delayed from scheduled time
+- **CANCELLED**: Flight cancelled
+- **ON_TIME**: Flight operating on schedule
 
-## Recent Enhancements and Improvements
+### Ticket Status
+- **OPEN**: Support ticket created and awaiting response
+- **IN_PROGRESS**: Ticket being worked on by support team
+- **ESCALATED**: Ticket escalated to higher level support
+- **RESOLVED**: Ticket resolved successfully
+- **REJECTED**: Ticket rejected with reason
+- **CLOSED**: Ticket closed after resolution
 
-### ✅ Completed Features
-1. **FAQ Modal System**: Converted FAQ page to modal dialog for better UX
-2. **Responsive Design**: Scrollable customer pages with custom styling
-3. **Booking System**: Complete overhaul with admin/user management
-4. **Refund Management**: Enhanced approval workflow with admin controls
-5. **AI Assistant**: Modern UI redesign with streaming responses
-6. **Code Cleanup**: Removed unused files and optimized project structure
+### Refund Status
+- **PENDING**: Refund request submitted and under review
+- **APPROVED**: Refund approved for processing
+- **REJECTED**: Refund request rejected
+- **PROCESSED**: Refund processed and completed
 
-### 🔧 Technical Improvements  
-- Modal dialog implementation for improved user experience
-- ScrollPane integration for responsive content handling
-- Enhanced error handling and comprehensive null checks
-- Improved code quality and consistency
-- Optimized project structure with cleanup of unused components
+### Payment Status
+- **PENDING**: Payment initiated but not completed
+- **COMPLETED**: Payment successfully processed
+- **FAILED**: Payment processing failed
+- **REFUNDED**: Payment refunded to customer
 
-## Team Members
-- **Ishaq Arham Mujthaba** (Group Leader) - 0378327
-- **Jabir Iliyas Suraj-Deen** - 0377741
-- **Isabel Sonja Tanudjaja** - 0373125
-- **Hashir Ahmed** - 0375609
-- **Jin Jianuo** - 0376898
-- **Feliz Nicole Perez Rigor** - 0361983
+## Troubleshooting
+
+### Common Issues
+1. **Application won't start**: Ensure Java 23+ and JavaFX are installed
+2. **Login issues**: Verify demo account credentials are correct
+3. **Data not loading**: Check JSON data files are present in resources/data/
+4. **UI rendering issues**: Ensure CSS files are properly loaded
+
+### Performance Tips
+- Close unused application windows to free memory
+- Restart application if experiencing slow performance
+- Ensure adequate system resources for smooth operation
+
+## Contributing
+
+This project follows standard software development practices:
+- Clean code principles
+- Comprehensive error handling
+- Proper documentation
+- Consistent naming conventions
+- Modular architecture design
 
 ## License
-This project is developed as part of an academic assignment for ITS66704 course.
 
-## 🤝 Contributing
-This is an academic project. For any questions or suggestions, please contact the team members listed above.
+This project is developed for educational and demonstration purposes. All rights reserved.
 
----
+## Contact
 
-**Note**: This application is designed for educational purposes and demonstrates modern software engineering practices in Java application development with JavaFX and AI integration. The system has been thoroughly updated and optimized for the July 2025 release.
-
-## 📊 Project Status & Cleanup Summary
-
-### ✅ Code Optimization Completed
-- **Removed Unused Files**: Cleaned up temporary and sample data generation utilities
-- **Updated Documentation**: Comprehensive updates to README and implementation summary
-- **Fixed Compilation Issues**: Resolved all dependency and import errors
-- **Enhanced Features**: FAQ modal system and scrollable pages implemented
-- **Project Structure**: Optimized file organization and removed redundant components
-
-### 🧹 Files Cleaned Up
-- `temp.java` - Temporary testing file removed
-- `QuickSampleBooking.java` - Replaced with existing sample data
-- `SampleBookingDataGenerator.java` - No longer needed with sufficient test data
-- `LoadSampleBookings.java` - Utility no longer required
-- `CustomerFAQs.fxml` - Converted to modal alert system
-- `CustomerFAQsController.java` - Replaced with FAQAlert utility
-
-### 📈 Performance Improvements
-- Reduced project complexity by removing unused utilities
-- Improved user experience with modal FAQ system
-- Enhanced responsive design with scrollable customer pages
-- Streamlined codebase with better maintainability
-- Optimized build process (62 source files compiled successfully)
-
---- 
+For questions or support regarding this airline management system, please refer to the project documentation or contact the development team. 

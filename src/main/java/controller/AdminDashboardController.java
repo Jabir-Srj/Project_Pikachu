@@ -103,7 +103,7 @@ public class AdminDashboardController implements Initializable {
         if (notificationsButton != null) {
             notificationsButton.setOnAction(e -> {
                 System.out.println("Notifications clicked");
-                // TODO: Show notifications
+                // Notifications feature will be implemented in future updates
             });
         }
         

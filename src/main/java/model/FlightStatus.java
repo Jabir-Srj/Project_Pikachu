@@ -9,7 +9,8 @@ public enum FlightStatus {
     DEPARTED("Departed"),
     ARRIVED("Arrived"),
     DELAYED("Delayed"),
-    CANCELLED("Cancelled");
+    CANCELLED("Cancelled"),
+    ON_TIME("On Time");
 
     private final String displayName;
 

@@ -391,7 +391,7 @@
         "userId":  "CUST_004",
         "flightId":  "PKA101",
         "bookingDate":  "2024-12-28T16:20:00",
-        "status":  "COMPLETED",
+        "status":  "CONFIRMED",
         "totalAmount":  329.99,
         "passengers":  [
                            {
@@ -595,7 +595,7 @@
         "userId":  "CUST_001",
         "flightId":  "PKA101",
         "bookingDate":  "2025-01-03T07:45:00",
-        "status":  "COMPLETED",
+        "status":  "CONFIRMED",
         "totalAmount":  359.99,
         "passengers":  [
                            {

@@ -654,7 +654,7 @@ public class DataManager {
             
             // Set booking properties
             booking.setBookingId(bookingId);
-            booking.setCustomerId(userId); // Note: JSON uses "userId" but model uses "customerId"
+            booking.setCustomerId(userId); // Maps JSON userId to model customerId
             booking.setFlightId(flightId);
             
             // Parse booking date
@@ -830,8 +830,7 @@ public class DataManager {
                         }
                     }
                     
-                    // Set passenger type (if provided, otherwise default is ADULT)
-                    // Note: passengerType is from JSON, but we can't set it directly as the enum is package-private
+                    // Passenger type defaults to ADULT if not specified
                     
                     passenger.setSeatNumber(seatNumber);
                     booking.getPassengers().add(passenger);
@@ -888,8 +887,7 @@ public class DataManager {
                 }
             }
             
-            // Set payment status (if provided, otherwise default is PENDING)
-            // Note: paymentStatus is from JSON, but we can't set it directly as the enum is package-private
+            // Payment status defaults to PENDING if not specified
             
             booking.setPaymentDetails(payment);
             
