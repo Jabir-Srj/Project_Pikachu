@@ -42,17 +42,71 @@ public class TicketDAO {
     public boolean update(Ticket ticket) {
         try {
             List<Ticket> tickets = dataManager.loadTickets();
+            
+            // First, try to find by ticket ID
             for (int i = 0; i < tickets.size(); i++) {
                 if (tickets.get(i).getTicketId().equals(ticket.getTicketId())) {
                     tickets.set(i, ticket);
                     return dataManager.saveTickets(tickets);
                 }
             }
+            
+            // If not found by ID, try to find by other unique identifiers
+            // This handles the case where existing tickets have empty IDs
+            for (int i = 0; i < tickets.size(); i++) {
+                Ticket existingTicket = tickets.get(i);
+                if (existingTicket.getTicketId().isEmpty() && 
+                    existingTicket.getSubject().equals(ticket.getSubject()) &&
+                    existingTicket.getCustomerId().equals(ticket.getCustomerId()) &&
+                    existingTicket.getCreatedAt().equals(ticket.getCreatedAt())) {
+                    
+                    // Update the existing ticket with the new ticket's ID and data
+                    ticket.setTicketId(generateTicketId());
+                    tickets.set(i, ticket);
+                    return dataManager.saveTickets(tickets);
+                }
+            }
+            
             return false;
         } catch (Exception e) {
             System.err.println("Error updating ticket: " + e.getMessage());
             return false;
         }
+    }
+
+    /**
+     * Fix existing tickets with empty IDs
+     * @return true if fix successful
+     */
+    public boolean fixEmptyTicketIds() {
+        try {
+            List<Ticket> tickets = dataManager.loadTickets();
+            boolean hasChanges = false;
+            
+            for (Ticket ticket : tickets) {
+                if (ticket.getTicketId() == null || ticket.getTicketId().trim().isEmpty()) {
+                    ticket.setTicketId(generateTicketId());
+                    hasChanges = true;
+                }
+            }
+            
+            if (hasChanges) {
+                return dataManager.saveTickets(tickets);
+            }
+            
+            return true; // No changes needed
+        } catch (Exception e) {
+            System.err.println("Error fixing empty ticket IDs: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Generate a unique ticket ID
+     * @return Generated ticket ID
+     */
+    private String generateTicketId() {
+        return "TKT_" + System.currentTimeMillis();
     }
 
     /**

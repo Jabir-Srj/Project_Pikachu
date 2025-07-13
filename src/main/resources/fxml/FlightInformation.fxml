@@ -55,7 +55,10 @@
                         </VBox>
                         <VBox spacing="5" alignment="BOTTOM_CENTER">
                             <Label text=" " />
-                            <Button fx:id="searchButton" styleClass="button-primary" text="Search Flights" />
+                            <HBox spacing="10">
+                                <Button fx:id="searchButton" styleClass="button-primary" text="Search Flights" />
+                                <Button fx:id="resetButton" styleClass="button-secondary" text="Reset Search" />
+                            </HBox>
                         </VBox>
                     </HBox>
                 </VBox>

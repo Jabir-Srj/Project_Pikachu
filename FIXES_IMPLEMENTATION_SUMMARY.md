@@ -6,6 +6,8 @@ This document summarizes the comprehensive fixes implemented for the Pikachu Air
 2. Refund page in admin dashboard (approval workflow)
 3. AI assistant page remake (modern UI and enhanced features)
 4. Payment system issues (resolved by removal)
+5. Ticket management issues (duplicate ticket creation when updating status)
+6. Flight search enhancements (reset search functionality)
 
 ## 1. Booking Page Fixes ✅ COMPLETED
 
@@ -180,7 +182,89 @@ This document summarizes the comprehensive fixes implemented for the Pikachu Air
 5. No separate payment confirmation screen needed
 ```
 
-## 5. Additional Improvements
+## 5. Ticket Management Issues ✅ COMPLETED
+
+### Issues Addressed:
+- **Duplicate ticket creation**: When rejecting a resolved ticket or resolving a rejected ticket, new tickets were created instead of updating existing ones
+- **Empty ticket IDs**: Existing tickets in JSON had empty IDs causing update failures
+
+### Solutions Implemented:
+
+#### A. Enhanced TicketDAO
+- **File**: `src/main/java/dao/TicketDAO.java`
+- **Status**: ✅ Complete fix implementation
+- **Features Added**:
+  - Enhanced `update()` method to handle tickets with empty IDs
+  - Added `fixEmptyTicketIds()` method to repair existing data
+  - Added `generateTicketId()` method for proper ID generation
+  - Fallback matching by subject, customer ID, and creation date
+
+#### B. TicketService Enhancement
+- **File**: `src/main/java/service/TicketService.java`
+- **Status**: ✅ Automatic fix on service initialization
+- **Features Added**:
+  - Automatic call to `fixEmptyTicketIds()` in constructor
+  - Proper error handling and logging
+  - Maintains backward compatibility
+
+#### C. Key Functionality:
+```java
+// Ticket Update Logic:
+- First tries to find ticket by ID (normal case)
+- If not found, tries to match by subject, customer ID, and creation date
+- Assigns proper ID to existing tickets with empty IDs
+- Updates existing ticket instead of creating new one
+- Maintains all ticket data and history
+```
+
+#### D. Data Fix Utility
+- **File**: `src/main/java/util/TicketDataFixer.java`
+- **Status**: ✅ New utility class
+- **Features**:
+  - Manual fix for existing ticket data
+  - Proper ID generation for empty tickets
+  - Safe data handling with error recovery
+
+## 6. Flight Search Enhancements ✅ COMPLETED
+
+### Issues Addressed:
+- **No reset functionality**: Users couldn't easily clear search criteria
+- **Poor user experience**: No way to return to showing all flights
+
+### Solutions Implemented:
+
+#### A. Reset Button Addition
+- **File**: `src/main/resources/fxml/FlightInformation.fxml`
+- **Status**: ✅ Added reset button next to search button
+- **Features**:
+  - Clean button layout with proper spacing
+  - Consistent styling with existing buttons
+  - Clear visual hierarchy
+
+#### B. Reset Functionality
+- **File**: `src/main/java/controller/FlightSearchController.java`
+- **Status**: ✅ Complete reset implementation
+- **Features Added**:
+  - `handleReset()` method to clear all search fields
+  - Resets date picker to tomorrow's date
+  - Resets passengers to "1 Passenger"
+  - Resets sort and filter to defaults
+  - Shows all available flights
+  - User feedback with confirmation message
+
+#### C. Key Functionality:
+```java
+// Reset Search Features:
+- Clears departure and destination fields
+- Resets date to tomorrow
+- Resets passengers to 1
+- Resets sort to "Price (Low to High)"
+- Resets filter to "All Flights"
+- Displays all available flights
+- Shows confirmation message to user
+```
+
+## 7. Additional Improvements
 
 ### Code Quality Enhancements:
 - ✅ Fixed lambda parameter warnings across all controllers
@@ -200,12 +284,12 @@ This document summarizes the comprehensive fixes implemented for the Pikachu Air
 - ✅ Proper exception handling and user feedback
 - ✅ Consistent styling with application theme
 
-## 6. Technical Implementation Details
+## 8. Technical Implementation Details
 
 ### Architecture:
 ```
 MVC Pattern Implementation:
-├── Models: Booking, RefundRequest, User (existing)
+├── Models: Booking, RefundRequest, User, Ticket (existing)
 ├── Views: Enhanced FXML files with modern UI
 ├── Controllers: New/updated controllers with full functionality
 └── Services: Integration with existing backend services
@@ -223,18 +307,28 @@ MVC Pattern Implementation:
 src/main/java/controller/
 ├── BookingOverviewController.java ✅ Enhanced
 ├── RefundController.java ✅ Enhanced  
-└── ModernChatbotController.java ✅ New
+├── ModernChatbotController.java ✅ New
+├── FlightSearchController.java ✅ Enhanced (Reset functionality)
+└── TicketManagementController.java ✅ Enhanced
 
 src/main/resources/fxml/
 ├── BookingOverview.fxml ✅ Updated
 ├── RefundApproval.fxml ✅ Existing (working)
-└── ModernAIChatbot.fxml ✅ New Modern Design
+├── ModernAIChatbot.fxml ✅ New Modern Design
+└── FlightInformation.fxml ✅ Enhanced (Reset button)
 
 src/main/java/util/
-└── NavigationManager.java ✅ Updated with new routes
+├── NavigationManager.java ✅ Updated with new routes
+└── TicketDataFixer.java ✅ New utility
+
+src/main/java/dao/
+└── TicketDAO.java ✅ Enhanced with fix functionality
+
+src/main/java/service/
+└── TicketService.java ✅ Enhanced with auto-fix
 ```
 
-## 7. Testing and Validation
+## 9. Testing and Validation
 
 ### Functional Testing:
 - ✅ Booking creation and management workflows
@@ -243,6 +337,8 @@ src/main/java/util/
 - ✅ Role-based access control
 - ✅ Navigation between all screens
 - ✅ Flight selection and booking flow (simplified)
+- ✅ Ticket status updates without duplication
+- ✅ Flight search reset functionality
 
 ### Integration Testing:
 - ✅ Service layer connectivity
@@ -250,7 +346,7 @@ src/main/java/util/
 - ✅ Cross-screen data sharing
 - ✅ Error handling and recovery
 
-## 8. Deployment Instructions
+## 10. Deployment Instructions
 
 ### Build and Run:
 ```bash
@@ -267,7 +363,7 @@ cd "c:\Users\Jabir Surajdeen\Documents\GitHub\Project_Pikachu"
 - Windows environment (current setup)
 - OpenAI API key (for AI functionality)
 
-## 9. Future Enhancements
+## 11. Future Enhancements
 
 ### Planned Improvements:
 - **Payment System**: Re-implement payment processing with simpler FXML structure
@@ -283,7 +379,7 @@ cd "c:\Users\Jabir Surajdeen\Documents\GitHub\Project_Pikachu"
 - UI/UX improvements based on user feedback
 - Security enhancements and vulnerability patches
 
-## 10. Conclusion
+## 12. Conclusion
 
 All critical issues have been successfully resolved:
 
@@ -291,6 +387,8 @@ All critical issues have been successfully resolved:
 2. **Refund Page**: ✅ Complete approval workflow implemented
 3. **AI Assistant**: ✅ Modern interface with enhanced features
 4. **Payment System**: ✅ Simplified by removing problematic components
+5. **Ticket Management**: ✅ Fixed duplicate creation issue
+6. **Flight Search**: ✅ Added reset functionality for better UX
 
 ### Key Achievements:
 - **Stable Application**: All core functionality working without errors
@@ -298,5 +396,7 @@ All critical issues have been successfully resolved:
 - **Role-Based Access**: Proper admin and user functionality separation
 - **Simplified Flow**: Removed complex payment system that was causing issues
 - **Maintainable Code**: Clean, well-documented implementation
+- **Data Integrity**: Fixed ticket management issues preventing duplicates
+- **User Experience**: Added reset functionality for flight search
 
-The application now provides a complete airline management system with booking, refund, and AI assistance capabilities, with a simplified but functional payment flow that avoids the FXML parsing issues encountered with the original payment confirmation screen.
+The application now provides a complete airline management system with booking, refund, AI assistance, and ticket management capabilities, with a simplified but functional payment flow and enhanced user experience features.

@@ -1,6 +1,6 @@
 [
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -8,21 +8,31 @@
     "description": "",
     "category": "",
     "priority": "MEDIUM",
-    "status": "REJECTED",
+    "status": "RESOLVED",
     "assignedTo": "",
     "createdAt": "2025-07-12T18:42:04.237017900",
-    "updatedAt": "2025-07-12T18:46:38.189857600",
+    "updatedAt": "2025-07-13T16:33:01.115580800",
     "responses": [
-      {
-        "responderId": "SYSTEM",
-        "responderName": "",
-        "message": "Ticket rejected by Admin User. Reason: not valid",
-        "timestamp": "2025-07-12T18:46:38.189857600"
-      }
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395717719",
+    "customerId": "",
+    "customerName": "",
+    "customerEmail": "",
+    "subject": "",
+    "description": "",
+    "category": "",
+    "priority": "MEDIUM",
+    "status": "OPEN",
+    "assignedTo": "",
+    "createdAt": "2025-07-13T16:35:17.713027300",
+    "updatedAt": "2025-07-13T16:35:17.713027300",
+    "responses": [
+    ]
+  },
+  {
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -38,7 +48,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -54,7 +64,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -70,7 +80,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -86,7 +96,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -102,7 +112,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -118,7 +128,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -134,7 +144,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -150,7 +160,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -166,7 +176,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -182,7 +192,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -198,7 +208,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -214,7 +224,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -230,7 +240,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",
@@ -246,7 +256,7 @@
     ]
   },
   {
-    "ticketId": "",
+    "ticketId": "TKT_1752395487223",
     "customerId": "",
     "customerName": "",
     "customerEmail": "",

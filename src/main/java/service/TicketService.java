@@ -17,6 +17,24 @@ public class TicketService {
 
     public TicketService() {
         this.ticketDAO = new TicketDAO();
+        // Fix any existing tickets with empty IDs
+        fixEmptyTicketIds();
+    }
+
+    /**
+     * Fix existing tickets with empty IDs
+     */
+    private void fixEmptyTicketIds() {
+        try {
+            boolean success = ticketDAO.fixEmptyTicketIds();
+            if (success) {
+                System.out.println("TicketService: Successfully fixed empty ticket IDs");
+            } else {
+                System.err.println("TicketService: Failed to fix empty ticket IDs");
+            }
+        } catch (Exception e) {
+            System.err.println("TicketService: Error fixing empty ticket IDs: " + e.getMessage());
+        }
     }
 
     /**

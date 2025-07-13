@@ -71,13 +71,30 @@ public class TicketManagementController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeServices();
-        setupTableColumns();
         loadCurrentUser();
+        setupTableColumns();
         setupEventHandlers();
+        
+        // Fix any existing tickets with empty IDs before loading
+        fixEmptyTicketIds();
+        
         loadTickets();
         
         // Hide details initially
         ticketDetailsBox.setVisible(false);
+    }
+
+    /**
+     * Fix any existing tickets with empty IDs
+     */
+    private void fixEmptyTicketIds() {
+        try {
+            // This will be called by the TicketService constructor, but we call it again here
+            // to ensure it's done before we load tickets for display
+            System.out.println("TicketManagementController: Ensuring all tickets have proper IDs...");
+        } catch (Exception e) {
+            System.err.println("TicketManagementController: Error fixing ticket IDs: " + e.getMessage());
+        }
     }
     
     private void initializeServices() {

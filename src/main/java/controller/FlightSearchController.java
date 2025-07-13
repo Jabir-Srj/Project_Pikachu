@@ -35,6 +35,7 @@ public class FlightSearchController implements Initializable {
     @FXML private DatePicker departureDatePicker;
     @FXML private ComboBox<String> passengersComboBox;
     @FXML private Button searchButton;
+    @FXML private Button resetButton;
     @FXML private ComboBox<String> sortComboBox;
     @FXML private ComboBox<String> filterComboBox;
     @FXML private VBox flightResultsContainer;
@@ -141,6 +142,10 @@ public class FlightSearchController implements Initializable {
             searchButton.setOnAction(e -> handleSearch());
         }
         
+        if (resetButton != null) {
+            resetButton.setOnAction(e -> handleReset());
+        }
+        
         if (backButton != null) {
             backButton.setOnAction(e -> handleBack());
         }
@@ -242,37 +247,77 @@ public class FlightSearchController implements Initializable {
     
     @FXML
     private void handleSearch() {
+        if (fromComboBox == null || toComboBox == null || departureDatePicker == null) {
+            return;
+        }
+        
         String from = fromComboBox.getValue();
         String to = toComboBox.getValue();
-        LocalDate departureDate = departureDatePicker.getValue();
+        LocalDate date = departureDatePicker.getValue();
         
-        if (from == null || to == null || departureDate == null) {
-            showAlert("Please fill in all search criteria.");
+        if (from == null || to == null || date == null) {
+            showAlert("Please fill in all search fields.");
             return;
         }
         
         if (from.equals(to)) {
-            showAlert("Origin and destination cannot be the same.");
+            showAlert("Departure and destination cannot be the same.");
             return;
         }
         
-        // Search flights
-        List<Flight> flights = flightService.searchFlights(from, to, departureDate, 1);
-        
-        // Apply filters
-        flights = applyFilters(flights);
-        
-        // Apply sorting
-        flights = applySorting(flights);
-        
-        searchResults.clear();
-        searchResults.addAll(flights);
-        
-        displayFlights(flights);
-        
-        if (flights.isEmpty()) {
-            showAlert("No flights found for your search criteria.");
+        // Get number of passengers from combo box
+        int passengers = 1; // Default
+        if (passengersComboBox != null && passengersComboBox.getValue() != null) {
+            String passengerText = passengersComboBox.getValue();
+            if (passengerText.contains("1")) passengers = 1;
+            else if (passengerText.contains("2")) passengers = 2;
+            else if (passengerText.contains("3")) passengers = 3;
+            else if (passengerText.contains("4")) passengers = 4;
+            else if (passengerText.contains("5")) passengers = 5;
         }
+        
+        // Perform search
+        List<Flight> searchResults = flightService.searchFlights(from, to, date, passengers);
+        
+        // Apply filters and sorting
+        searchResults = applyFilters(searchResults);
+        searchResults = applySorting(searchResults);
+        
+        // Display results
+        displayFlights(searchResults);
+        
+        if (searchResults.isEmpty()) {
+            showAlert("No flights found for the selected criteria.");
+        }
+    }
+    
+    @FXML
+    private void handleReset() {
+        // Clear all search fields
+        if (fromComboBox != null) {
+            fromComboBox.setValue(null);
+        }
+        if (toComboBox != null) {
+            toComboBox.setValue(null);
+        }
+        if (departureDatePicker != null) {
+            departureDatePicker.setValue(LocalDate.now().plusDays(1));
+        }
+        if (passengersComboBox != null) {
+            passengersComboBox.setValue("1 Passenger");
+        }
+        if (sortComboBox != null) {
+            sortComboBox.setValue("Price (Low to High)");
+        }
+        if (filterComboBox != null) {
+            filterComboBox.setValue("All Flights");
+        }
+        
+        // Show all flights
+        List<Flight> allFlights = flightService.getAllFlights();
+        displayFlights(allFlights);
+        
+        showAlert("Search has been reset. Showing all available flights.");
     }
     
     private List<Flight> applyFilters(List<Flight> flights) {
