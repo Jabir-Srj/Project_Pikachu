@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
@@ -38,10 +39,11 @@
    </top>
    
    <center>
-      <VBox spacing="30" styleClass="background-gray-light">
-         <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-         </padding>
+      <ScrollPane styleClass="customer-scroll-pane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+         <VBox spacing="30" styleClass="background-gray-light">
+            <padding>
+               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
          
          <!-- Profile Card -->
          <VBox spacing="25" styleClass="content-card">
@@ -167,6 +169,7 @@
                         GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="300" />
             </GridPane>
          </VBox>
-      </VBox>
+         </VBox>
+      </ScrollPane>
    </center>
 </BorderPane> 

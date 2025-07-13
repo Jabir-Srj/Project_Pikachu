@@ -146,7 +146,7 @@ public class CustomerOverviewController implements Initializable {
      * Navigate to FAQs
      */
     private void navigateToFAQs() {
-        navigationManager.showCustomerFAQs();
+        util.FAQAlert.show(currentUser);
     }
     
     /**

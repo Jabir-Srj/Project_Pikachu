@@ -38,7 +38,6 @@ public class NavigationManager {
     public static final String CUSTOMER_DETAILS = "/fxml/CustomerDetails.fxml";
     public static final String CUSTOMER_MANAGEMENT = "/fxml/CustomerManagement.fxml";
     public static final String FLIGHT_DETAILS = "/fxml/FlightDetails.fxml";
-    public static final String CUSTOMER_FAQS = "/fxml/CustomerFAQs.fxml";
     
     private NavigationManager() {
         sharedData = new HashMap<>();
@@ -271,8 +270,5 @@ public class NavigationManager {
     }
     public void showSupportTicketSubmission() {
         navigateTo("/fxml/SupportTicketSubmission.fxml");
-    }
-    public void showCustomerFAQs() {
-        navigateTo(CUSTOMER_FAQS);
     }
 }

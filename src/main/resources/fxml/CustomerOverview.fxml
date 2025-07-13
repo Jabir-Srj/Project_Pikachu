@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
@@ -41,10 +42,11 @@
    </top>
    
    <center>
-      <VBox spacing="25" styleClass="background-gray-light">
-         <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-         </padding>
+      <ScrollPane styleClass="customer-scroll-pane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+         <VBox spacing="25" styleClass="background-gray-light">
+            <padding>
+               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
          
          <!-- Welcome Section -->
          <VBox spacing="20" styleClass="content-card">
@@ -211,6 +213,7 @@
                                <Button fx:id="contactInfoAction" styleClass="button-primary" text="Contact Details" />
             </VBox>
          </HBox>
-      </VBox>
+         </VBox>
+      </ScrollPane>
    </center>
 </BorderPane> 
