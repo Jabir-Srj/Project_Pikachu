@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -65,6 +66,7 @@ public class FlightSearchController implements Initializable {
     private User currentUser;
     private ObservableList<Flight> searchResults;
     private Flight selectedFlight;
+    private List<Flight> currentSearchResults; // Store current search results for filtering/sorting
     
     // Airport codes for dropdown
     private final String[] airports = {
@@ -117,6 +119,10 @@ public class FlightSearchController implements Initializable {
             
             // Set default date to tomorrow
             departureDatePicker.setValue(LocalDate.now().plusDays(1));
+            
+            // Add event handlers for sort and filter
+            sortComboBox.setOnAction(e -> handleSortOrFilterChange());
+            filterComboBox.setOnAction(e -> handleSortOrFilterChange());
         }
         
         // Setup button actions
@@ -188,6 +194,9 @@ public class FlightSearchController implements Initializable {
     private void loadInitialData() {
         // Load all flights
         List<Flight> allFlights = flightService.getAllFlights();
+        
+        // Initialize current search results with all flights
+        currentSearchResults = new ArrayList<>(allFlights);
         
         if (flightResultsContainer != null) {
             // Load flights for customer search results
@@ -282,6 +291,9 @@ public class FlightSearchController implements Initializable {
         // Perform search
         List<Flight> searchResults = flightService.searchFlights(from, to, date, passengers);
         
+        // Store the search results for filtering/sorting
+        currentSearchResults = new ArrayList<>(searchResults);
+        
         // Apply filters and sorting
         searchResults = applyFilters(searchResults);
         searchResults = applySorting(searchResults);
@@ -292,6 +304,24 @@ public class FlightSearchController implements Initializable {
         if (searchResults.isEmpty()) {
             showAlert("No flights found for the selected criteria.");
         }
+    }
+    
+    /**
+     * Handle sort or filter changes independently
+     */
+    private void handleSortOrFilterChange() {
+        if (currentSearchResults == null || currentSearchResults.isEmpty()) {
+            // If no search has been performed, show all flights
+            List<Flight> allFlights = flightService.getAllFlights();
+            currentSearchResults = new ArrayList<>(allFlights);
+        }
+        
+        // Apply current filters and sorting to stored results
+        List<Flight> filteredResults = applyFilters(currentSearchResults);
+        List<Flight> sortedResults = applySorting(filteredResults);
+        
+        // Display the results
+        displayFlights(sortedResults);
     }
     
     @FXML
@@ -316,6 +346,9 @@ public class FlightSearchController implements Initializable {
             filterComboBox.setValue("All Flights");
         }
         
+        // Clear stored search results
+        currentSearchResults = null;
+        
         // Show all flights
         List<Flight> allFlights = flightService.getAllFlights();
         displayFlights(allFlights);
@@ -324,6 +357,10 @@ public class FlightSearchController implements Initializable {
     }
     
     private List<Flight> applyFilters(List<Flight> flights) {
+        if (filterComboBox == null || filterComboBox.getValue() == null) {
+            return flights;
+        }
+        
         String filter = filterComboBox.getValue();
         
         switch (filter) {
@@ -338,27 +375,43 @@ public class FlightSearchController implements Initializable {
                 return flights.stream()
                     .filter(f -> f.getDepartureTime() != null && f.getDepartureTime().getHour() >= 18)
                     .collect(Collectors.toList());
+            case "All Flights":
             default:
                 return flights;
         }
     }
     
     private List<Flight> applySorting(List<Flight> flights) {
+        if (sortComboBox == null || sortComboBox.getValue() == null) {
+            return flights;
+        }
+        
         String sort = sortComboBox.getValue();
         
         switch (sort) {
             case "Price (Low to High)":
                 return flights.stream()
+                    .filter(f -> f.getBasePrice() > 0) // Filter out flights with invalid prices
                     .sorted((f1, f2) -> Double.compare(f1.getBasePrice(), f2.getBasePrice()))
                     .collect(Collectors.toList());
             case "Price (High to Low)":
                 return flights.stream()
+                    .filter(f -> f.getBasePrice() > 0) // Filter out flights with invalid prices
                     .sorted((f1, f2) -> Double.compare(f2.getBasePrice(), f1.getBasePrice()))
                     .collect(Collectors.toList());
             case "Departure Time":
                 return flights.stream()
                     .filter(f -> f.getDepartureTime() != null) // Filter out flights with null departure times
                     .sorted((f1, f2) -> f1.getDepartureTime().compareTo(f2.getDepartureTime()))
+                    .collect(Collectors.toList());
+            case "Duration":
+                return flights.stream()
+                    .filter(f -> f.getDepartureTime() != null && f.getArrivalTime() != null)
+                    .sorted((f1, f2) -> {
+                        long duration1 = java.time.Duration.between(f1.getDepartureTime(), f1.getArrivalTime()).toMinutes();
+                        long duration2 = java.time.Duration.between(f2.getDepartureTime(), f2.getArrivalTime()).toMinutes();
+                        return Long.compare(duration1, duration2);
+                    })
                     .collect(Collectors.toList());
             default:
                 return flights;

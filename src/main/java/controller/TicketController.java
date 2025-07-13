@@ -132,7 +132,6 @@ public class TicketController implements Initializable {
     @FXML private TableColumn<Ticket, String> actionsColumn;
     
     // Overview Actions
-    @FXML private Button newTicketButton;
     @FXML private Button exportButton;
     @FXML private Button refreshButton;
     @FXML private Button previousPageButton;
@@ -610,9 +609,6 @@ public class TicketController implements Initializable {
         if (refreshButton != null) {
             refreshButton.setOnAction(e -> loadAllTickets());
         }
-        if (newTicketButton != null) {
-            newTicketButton.setOnAction(e -> handleNewTicket());
-        }
         if (exportButton != null) {
             exportButton.setOnAction(e -> handleExportTickets());
         }
@@ -723,14 +719,6 @@ public class TicketController implements Initializable {
             int totalPages = Math.max(1, (int) Math.ceil((double) filteredTickets.size() / 100));
             pageInfoLabel.setText("Page 1 of " + totalPages);
         }
-    }
-    
-    /**
-     * Handle new ticket creation
-     */
-    @FXML
-    private void handleNewTicket() {
-        NavigationManager.getInstance().showTicketSubmission();
     }
     
     /**
