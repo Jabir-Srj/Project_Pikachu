@@ -286,6 +286,7 @@ public class FlightSearchController implements Initializable {
             else if (passengerText.contains("3")) passengers = 3;
             else if (passengerText.contains("4")) passengers = 4;
             else if (passengerText.contains("5")) passengers = 5;
+<<<<<<< Updated upstream
         }
         
         // Perform search
@@ -303,7 +304,52 @@ public class FlightSearchController implements Initializable {
         
         if (searchResults.isEmpty()) {
             showAlert("No flights found for the selected criteria.");
+=======
+>>>>>>> Stashed changes
         }
+        
+        // Perform search
+        List<Flight> searchResults = flightService.searchFlights(from, to, date, passengers);
+        
+        // Apply filters and sorting
+        searchResults = applyFilters(searchResults);
+        searchResults = applySorting(searchResults);
+        
+        // Display results
+        displayFlights(searchResults);
+        
+        if (searchResults.isEmpty()) {
+            showAlert("No flights found for the selected criteria.");
+        }
+    }
+    
+    @FXML
+    private void handleReset() {
+        // Clear all search fields
+        if (fromComboBox != null) {
+            fromComboBox.setValue(null);
+        }
+        if (toComboBox != null) {
+            toComboBox.setValue(null);
+        }
+        if (departureDatePicker != null) {
+            departureDatePicker.setValue(LocalDate.now().plusDays(1));
+        }
+        if (passengersComboBox != null) {
+            passengersComboBox.setValue("1 Passenger");
+        }
+        if (sortComboBox != null) {
+            sortComboBox.setValue("Price (Low to High)");
+        }
+        if (filterComboBox != null) {
+            filterComboBox.setValue("All Flights");
+        }
+        
+        // Show all flights
+        List<Flight> allFlights = flightService.getAllFlights();
+        displayFlights(allFlights);
+        
+        showAlert("Search has been reset. Showing all available flights.");
     }
     
     /**
