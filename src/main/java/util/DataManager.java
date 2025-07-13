@@ -604,6 +604,7 @@ public class DataManager {
      */
     private boolean saveBookingsToFile(List<Booking> bookings) {
         try {
+            System.out.println("DataManager: Attempting to save " + bookings.size() + " bookings to file");
             StringBuilder jsonBuilder = new StringBuilder();
             jsonBuilder.append("[\n");
             
@@ -624,11 +625,12 @@ public class DataManager {
                 writer.write(jsonBuilder.toString());
             }
             
-            System.out.println("Saved " + bookings.size() + " bookings to " + BOOKINGS_FILE);
+            System.out.println("DataManager: Successfully saved " + bookings.size() + " bookings to " + BOOKINGS_FILE);
             return true;
             
         } catch (Exception e) {
-            System.err.println("Error saving bookings to file: " + e.getMessage());
+            System.err.println("DataManager: Error saving bookings to file: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }

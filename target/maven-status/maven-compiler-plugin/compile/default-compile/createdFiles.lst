@@ -21,6 +21,7 @@ controller\FAQController.class
 controller\SupportTicketSubmissionController.class
 util\DemoAccountCreator.class
 service\TicketService.class
+util\TicketDataFixer.class
 util\SampleBookingDataGenerator.class
 controller\FlightSearchController$1.class
 model\BookingStatus.class

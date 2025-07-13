@@ -15,7 +15,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.Flight;
 import model.User;
@@ -456,8 +459,108 @@ public class FlightSearchController implements Initializable {
     }
     
     private void editFlight() {
-        // Admin only - open flight edit dialog
-        showAlert("Flight editing functionality will be implemented in future version.");
+        if (selectedFlight == null) {
+            showAlert("No flight selected", "Please select a flight to edit.", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        // Create the edit dialog
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Edit Flight");
+        dialog.setHeaderText("Edit Flight Details for: " + selectedFlight.getFlightNumber());
+        
+        // Create the dialog content
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new javafx.geometry.Insets(20, 150, 10, 10));
+        
+        // Create form fields
+        TextField flightNumberField = new TextField(selectedFlight.getFlightNumber());
+        TextField airlineField = new TextField(selectedFlight.getAirline());
+        TextField departureAirportField = new TextField(selectedFlight.getDepartureAirport());
+        TextField arrivalAirportField = new TextField(selectedFlight.getArrivalAirport());
+        TextField basePriceField = new TextField(String.valueOf(selectedFlight.getBasePrice()));
+        TextField totalSeatsField = new TextField(String.valueOf(selectedFlight.getTotalSeats()));
+        TextField aircraftField = new TextField(selectedFlight.getAircraft());
+        
+        // Add labels and fields to grid
+        grid.add(new Label("Flight Number:"), 0, 0);
+        grid.add(flightNumberField, 1, 0);
+        grid.add(new Label("Airline:"), 0, 1);
+        grid.add(airlineField, 1, 1);
+        grid.add(new Label("Departure Airport:"), 0, 2);
+        grid.add(departureAirportField, 1, 2);
+        grid.add(new Label("Arrival Airport:"), 0, 3);
+        grid.add(arrivalAirportField, 1, 3);
+        grid.add(new Label("Base Price:"), 0, 4);
+        grid.add(basePriceField, 1, 4);
+        grid.add(new Label("Total Seats:"), 0, 5);
+        grid.add(totalSeatsField, 1, 5);
+        grid.add(new Label("Aircraft:"), 0, 6);
+        grid.add(aircraftField, 1, 6);
+        
+        dialog.getDialogPane().setContent(grid);
+        
+        // Add buttons
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        
+        // Show dialog and handle result
+        dialog.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                try {
+                    // Validate and update flight information
+                    String flightNumber = flightNumberField.getText().trim();
+                    String airline = airlineField.getText().trim();
+                    String departureAirport = departureAirportField.getText().trim();
+                    String arrivalAirport = arrivalAirportField.getText().trim();
+                    String aircraft = aircraftField.getText().trim();
+                    
+                    if (flightNumber.isEmpty() || airline.isEmpty() || departureAirport.isEmpty() || 
+                        arrivalAirport.isEmpty() || aircraft.isEmpty()) {
+                        showAlert("Validation Error", "All fields are required.", Alert.AlertType.ERROR);
+                        return;
+                    }
+                    
+                    double basePrice = Double.parseDouble(basePriceField.getText().trim());
+                    int totalSeats = Integer.parseInt(totalSeatsField.getText().trim());
+                    
+                    if (basePrice <= 0 || totalSeats <= 0) {
+                        showAlert("Validation Error", "Price and seats must be positive numbers.", Alert.AlertType.ERROR);
+                        return;
+                    }
+                    
+                    // Update flight object
+                    selectedFlight.setFlightNumber(flightNumber);
+                    selectedFlight.setAirline(airline);
+                    selectedFlight.setDepartureAirport(departureAirport);
+                    selectedFlight.setArrivalAirport(arrivalAirport);
+                    selectedFlight.setBasePrice(basePrice);
+                    selectedFlight.setTotalSeats(totalSeats);
+                    selectedFlight.setAircraft(aircraft);
+                    
+                    // Update available seats if total seats changed
+                    int bookedSeats = selectedFlight.getTotalSeats() - selectedFlight.getAvailableSeats();
+                    selectedFlight.setAvailableSeats(Math.max(0, totalSeats - bookedSeats));
+                    
+                    // Save to database
+                    if (flightService.updateFlight(selectedFlight)) {
+                        // Refresh the display
+                        displayFlightDetails();
+                        loadInitialData();
+                        
+                        showAlert("Success", "Flight details updated successfully.", Alert.AlertType.INFORMATION);
+                    } else {
+                        showAlert("Error", "Failed to update flight details.", Alert.AlertType.ERROR);
+                    }
+                    
+                } catch (NumberFormatException e) {
+                    showAlert("Validation Error", "Price and seats must be valid numbers.", Alert.AlertType.ERROR);
+                } catch (Exception e) {
+                    showAlert("Error", "An error occurred while updating the flight: " + e.getMessage(), Alert.AlertType.ERROR);
+                }
+            }
+        });
     }
     
     private void cancelFlight() {
@@ -509,6 +612,14 @@ public class FlightSearchController implements Initializable {
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Flight Search");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();

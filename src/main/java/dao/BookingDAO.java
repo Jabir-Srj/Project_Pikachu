@@ -24,11 +24,15 @@ public class BookingDAO {
      */
     public boolean save(Booking booking) {
         try {
+            System.out.println("BookingDAO: Attempting to save booking: " + booking.getBookingId());
             List<Booking> bookings = dataManager.loadBookings();
             bookings.add(booking);
-            return dataManager.saveBookings(bookings);
+            boolean result = dataManager.saveBookings(bookings);
+            System.out.println("BookingDAO: Save result for booking " + booking.getBookingId() + ": " + result);
+            return result;
         } catch (Exception e) {
-            System.err.println("Error saving booking: " + e.getMessage());
+            System.err.println("BookingDAO: Error saving booking: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
@@ -42,7 +46,7 @@ public class BookingDAO {
         try {
             List<Booking> bookings = dataManager.loadBookings();
             for (int i = 0; i < bookings.size(); i++) {
-                if (bookings.get(i).getBookingId().equals(booking.getBookingId())) {
+                if (bookings.get(i).getBookingId() != null && bookings.get(i).getBookingId().equals(booking.getBookingId())) {
                     bookings.set(i, booking);
                     return dataManager.saveBookings(bookings);
                 }
@@ -62,7 +66,7 @@ public class BookingDAO {
     public boolean delete(String bookingId) {
         try {
             List<Booking> bookings = dataManager.loadBookings();
-            bookings.removeIf(booking -> booking.getBookingId().equals(bookingId));
+            bookings.removeIf(booking -> booking.getBookingId() != null && booking.getBookingId().equals(bookingId));
             return dataManager.saveBookings(bookings);
         } catch (Exception e) {
             System.err.println("Error deleting booking: " + e.getMessage());
@@ -79,7 +83,7 @@ public class BookingDAO {
         try {
             List<Booking> bookings = dataManager.loadBookings();
             return bookings.stream()
-                .filter(booking -> booking.getBookingId().equals(bookingId))
+                .filter(booking -> booking.getBookingId() != null && booking.getBookingId().equals(bookingId))
                 .findFirst();
         } catch (Exception e) {
             System.err.println("Error finding booking by ID: " + e.getMessage());
@@ -114,7 +118,7 @@ public class BookingDAO {
         try {
             List<Booking> bookings = dataManager.loadBookings();
             return bookings.stream()
-                .filter(booking -> booking.getBookingId().contains(bookingReference))
+                .filter(booking -> booking.getBookingId() != null && booking.getBookingId().contains(bookingReference))
                 .findFirst();
         } catch (Exception e) {
             System.err.println("Error finding booking by reference: " + e.getMessage());
@@ -144,7 +148,7 @@ public class BookingDAO {
         try {
             List<Booking> bookings = dataManager.loadBookings();
             return bookings.stream()
-                .filter(booking -> booking.getFlightId().equals(flightId))
+                .filter(booking -> booking.getFlightId() != null && booking.getFlightId().equals(flightId))
                 .collect(Collectors.toList());
         } catch (Exception e) {
             System.err.println("Error finding bookings by flight ID: " + e.getMessage());

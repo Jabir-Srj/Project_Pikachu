@@ -9,11 +9,7 @@
     "phoneNumber": "123-456-7890",
     "role": "ADMIN",
     "createdAt": "2025-07-13T16:14:24.698776300",
-<<<<<<< Updated upstream
-    "lastLogin": "2025-07-13T16:35:52.622019",
-=======
-    "lastLogin": "2025-07-13T16:31:51.781918900",
->>>>>>> Stashed changes
+    "lastLogin": "2025-07-13T17:04:33.210238600",
     "isActive": true
   },
   {
