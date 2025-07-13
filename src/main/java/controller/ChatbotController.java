@@ -318,7 +318,7 @@ public class ChatbotController implements Initializable {
      */
     private void addUserMessage(String message) {
         VBox messageBox = new VBox(10);
-        messageBox.setStyle("-fx-background-color: #3498db; -fx-background-radius: 15; -fx-padding: 15; " +
+        messageBox.setStyle("-fx-background-color: #F4D03F; -fx-background-radius: 15; -fx-padding: 15; " +
                            "-fx-alignment: center-right; -fx-max-width: 500;");
         
         // Message header
@@ -329,16 +329,16 @@ public class ChatbotController implements Initializable {
         userIcon.setStyle("-fx-font-size: 16px;");
         
         Text userName = new Text("You");
-        userName.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: white;");
+        userName.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: black;");
         
         Text timestamp = new Text(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-        timestamp.setStyle("-fx-font-size: 12px; -fx-fill: #bdc3c7;");
+        timestamp.setStyle("-fx-font-size: 12px; -fx-fill: #333333;");
         
         header.getChildren().addAll(userIcon, userName, timestamp);
         
         // Message content
         Text messageText = new Text(message);
-        messageText.setStyle("-fx-font-size: 16px; -fx-fill: white; -fx-wrap-text: true;");
+        messageText.setStyle("-fx-font-size: 16px; -fx-fill: black; -fx-wrap-text: true;");
         messageText.setWrappingWidth(450);
         
         messageBox.getChildren().addAll(header, messageText);

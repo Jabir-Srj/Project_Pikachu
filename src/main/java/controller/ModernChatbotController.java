@@ -333,7 +333,7 @@ public class ModernChatbotController implements Initializable {
      */
     private void addUserMessage(String message) {
         VBox messageBox = new VBox(8);
-        messageBox.setStyle("-fx-background: linear-gradient(to right, #667eea, #764ba2); " +
+        messageBox.setStyle("-fx-background-color: #F4D03F; " +
                            "-fx-background-radius: 18; -fx-padding: 15; " +
                            "-fx-alignment: center-right; -fx-max-width: 400; " +
                            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 2);");
@@ -346,16 +346,16 @@ public class ModernChatbotController implements Initializable {
         userIcon.setStyle("-fx-font-size: 14px;");
         
         Text userName = new Text("You");
-        userName.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-fill: white;");
+        userName.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-fill: black;");
         
         Text timestamp = new Text(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-        timestamp.setStyle("-fx-font-size: 11px; -fx-fill: rgba(255,255,255,0.8);");
+        timestamp.setStyle("-fx-font-size: 11px; -fx-fill: rgba(0,0,0,0.7);");
         
         header.getChildren().addAll(userIcon, userName, timestamp);
         
         // Message content
         Text messageText = new Text(message);
-        messageText.setStyle("-fx-font-size: 14px; -fx-fill: white; -fx-wrap-text: true;");
+        messageText.setStyle("-fx-font-size: 14px; -fx-fill: black; -fx-wrap-text: true;");
         messageText.setWrappingWidth(350);
         
         messageBox.getChildren().addAll(header, messageText);
