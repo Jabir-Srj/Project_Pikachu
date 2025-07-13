@@ -1,7 +1,7 @@
 [
     {
         "bookingId":  "PKA240001",
-        "userId":  "CUST001",
+        "userId":  "CUST_001",
         "flightId":  "PKA101",
         "bookingDate":  "2024-12-15T10:30:00",
         "status":  "CONFIRMED",
@@ -30,7 +30,7 @@
     },
     {
         "bookingId":  "PKA240002",
-        "userId":  "CUST002",
+        "userId":  "CUST_002",
         "flightId":  "PKA201",
         "bookingDate":  "2024-12-16T14:45:00",
         "status":  "CONFIRMED",
@@ -59,7 +59,7 @@
     },
     {
         "bookingId":  "PKA240003",
-        "userId":  "CUST003",
+        "userId":  "CUST_003",
         "flightId":  "PKA301",
         "bookingDate":  "2024-12-17T09:20:00",
         "status":  "PENDING",
@@ -88,7 +88,7 @@
     },
     {
         "bookingId":  "PKA240004",
-        "userId":  "CUST004",
+        "userId":  "CUST_004",
         "flightId":  "PKA401",
         "bookingDate":  "2024-12-18T16:10:00",
         "status":  "CONFIRMED",
@@ -117,7 +117,7 @@
     },
     {
         "bookingId":  "PKA240005",
-        "userId":  "CUST005",
+        "userId":  "CUST_005",
         "flightId":  "PKA501",
         "bookingDate":  "2024-12-19T11:30:00",
         "status":  "CANCELLED",
@@ -146,7 +146,7 @@
     },
     {
         "bookingId":  "PKA240006",
-        "userId":  "CUST006",
+        "userId":  "CUST_006",
         "flightId":  "PKA601",
         "bookingDate":  "2024-12-20T08:15:00",
         "status":  "CONFIRMED",
@@ -175,7 +175,7 @@
     },
     {
         "bookingId":  "PKA240007",
-        "userId":  "CUST007",
+        "userId":  "CUST_007",
         "flightId":  "PKA701",
         "bookingDate":  "2024-12-21T13:45:00",
         "status":  "CONFIRMED",
@@ -204,7 +204,7 @@
     },
     {
         "bookingId":  "PKA240008",
-        "userId":  "CUST008",
+        "userId":  "CUST_008",
         "flightId":  "PKA801",
         "bookingDate":  "2024-12-22T17:20:00",
         "status":  "CONFIRMED",
@@ -233,7 +233,7 @@
     },
     {
         "bookingId":  "PKA240009",
-        "userId":  "CUST009",
+        "userId":  "CUST_009",
         "flightId":  "PKA901",
         "bookingDate":  "2024-12-23T12:00:00",
         "status":  "PENDING",
@@ -262,7 +262,7 @@
     },
     {
         "bookingId":  "PKA240010",
-        "userId":  "CUST010",
+        "userId":  "CUST_010",
         "flightId":  "PKA1001",
         "bookingDate":  "2024-12-24T15:30:00",
         "status":  "CONFIRMED",

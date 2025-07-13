@@ -261,7 +261,7 @@ public class BookingOverviewController implements Initializable {
                 } else {
                     // Regular customers see only their own bookings
                     bookings = bookingService.getCustomerBookings(currentUser.getUserId());
-                    System.out.println("Loaded " + bookings.size() + " personal bookings for customer: " + currentUser.getUsername());
+                    System.out.println("Loaded " + bookings.size() + " personal bookings for customer: " + currentUser.getUsername() + " (ID: " + currentUser.getUserId() + ")");
                 }
             } else {
                 // Fallback to all bookings if no current user (shouldn't happen in normal flow)
@@ -280,6 +280,7 @@ public class BookingOverviewController implements Initializable {
             
         } catch (Exception e) {
             System.err.println("Error loading bookings: " + e.getMessage());
+            e.printStackTrace();
             showAlert("Error", "Failed to load bookings: " + e.getMessage());
         }
     }

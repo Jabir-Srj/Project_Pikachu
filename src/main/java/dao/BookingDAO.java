@@ -96,10 +96,11 @@ public class BookingDAO {
         try {
             List<Booking> bookings = dataManager.loadBookings();
             return bookings.stream()
-                .filter(booking -> booking.getCustomerId().equals(customerId))
+                .filter(booking -> booking.getCustomerId() != null && booking.getCustomerId().equals(customerId))
                 .collect(Collectors.toList());
         } catch (Exception e) {
             System.err.println("Error finding bookings by customer ID: " + e.getMessage());
+            e.printStackTrace();
             return List.of();
         }
     }
