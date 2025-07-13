@@ -10,18 +10,20 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 
 ## Recent Updates (July 2025)
 
-### ✅ Major Fixes Implemented
+### ✅ Latest Enhancements
+- **FAQ System**: Converted to modal alert window for better user experience
+- **Customer Pages**: Added scrollable functionality with custom styling
 - **Booking System**: Complete overhaul with admin/user management and booking creation
 - **Refund Management**: Enhanced approval workflow with admin controls
 - **AI Assistant**: Modern UI redesign with streaming responses and quick actions
-- **Payment System**: Simplified flow to avoid FXML parsing issues
-- **Navigation**: Improved role-based navigation and back button functionality
+- **Navigation**: Improved role-based navigation and modal interactions
 
 ### 🔧 Technical Improvements
-- Fixed FXML parsing errors and missing expression issues
+- Modal dialog implementation for FAQ system (no page navigation required)
+- ScrollPane integration for responsive content handling
 - Enhanced error handling and null checks across all controllers
 - Improved code quality with consistent naming conventions
-- Added comprehensive integration testing
+- Cleaned up unused files and optimized project structure
 
 ## Key Features
 
@@ -72,10 +74,16 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 
 ### Admin Dashboard
 - **Customer Management**: Comprehensive customer database management
-- **Flight Administration**: Flight scheduling, pricing, and management
+- **Flight Administration**: Flight scheduling, pricing, and management  
 - **Ticket Management**: Support ticket oversight and resolution
 - **System Analytics**: Performance metrics and reporting
-- **FAQ Management**: Maintain and update frequently asked questions
+- **Refund Oversight**: Review and approve customer refund requests
+
+### UI/UX Enhancements
+- **Responsive Design**: Scrollable customer pages with custom styling
+- **Modal Interactions**: FAQ system as modal dialogs for better UX
+- **Modern Components**: Enhanced UI with gradients, shadows, and animations
+- **Consistent Branding**: Pikachu Airlines yellow theme throughout application
 
 ## Technical Architecture
 
@@ -119,7 +127,8 @@ Project_Pikachu/
 │   │   │   ├── controller/         # JavaFX controllers
 │   │   │   │   ├── BookingOverviewController.java ✅ Enhanced
 │   │   │   │   ├── RefundController.java ✅ Enhanced
-│   │   │   │   ├── ModernChatbotController.java ✅ New
+│   │   │   │   ├── ModernChatbotController.java ✅ Modern AI Interface
+│   │   │   │   ├── CustomerOverviewController.java ✅ Scrollable + FAQ Modal
 │   │   │   │   └── ...             # Other controllers
 │   │   │   ├── dao/               # Data access objects
 │   │   │   │   ├── UserDAO.java
@@ -128,16 +137,19 @@ Project_Pikachu/
 │   │   │   │   └── TicketDAO.java
 │   │   │   ├── util/              # Utility classes
 │   │   │   │   ├── DataManager.java
-│   │   │   │   └── NavigationManager.java ✅ Updated
+│   │   │   │   ├── NavigationManager.java ✅ Updated
+│   │   │   │   └── FAQAlert.java ✅ New Modal FAQ System
 │   │   │   └── AirlineApp.java    # Main application entry point
 │   │   └── resources/
 │   │       ├── fxml/              # FXML UI definitions
 │   │       │   ├── BookingOverview.fxml ✅ Updated
 │   │       │   ├── RefundApproval.fxml ✅ Working
-│   │       │   ├── ModernAIChatbot.fxml ✅ New
+│   │       │   ├── ModernAIChatbot.fxml ✅ Modern Interface
+│   │       │   ├── CustomerOverview.fxml ✅ Scrollable
+│   │       │   ├── CustomerProfile.fxml ✅ Scrollable  
 │   │       │   └── ...             # Other FXML files
 │   │       ├── css/               # Stylesheets
-│   │       │   └── application.css ✅ Enhanced
+│   │       │   └── application.css ✅ Enhanced with FAQ & Scroll Styling
 │   │       └── data/              # JSON data files
 │   │           ├── users.json
 │   │           ├── flights.json
@@ -230,20 +242,22 @@ The AI chatbot uses Langchain4j for intelligent responses. Configuration include
 - Automated response generation based on context
 - Streaming responses for real-time interaction
 
-## Recent Fixes and Improvements
+## Recent Enhancements and Improvements
 
-### ✅ Completed Fixes
-1. **Booking System**: Complete overhaul with admin/user management
-2. **Refund Management**: Enhanced approval workflow with admin controls
-3. **AI Assistant**: Modern UI redesign with streaming responses
-4. **Payment System**: Simplified to avoid FXML parsing issues
-5. **Navigation**: Improved role-based navigation
+### ✅ Completed Features
+1. **FAQ Modal System**: Converted FAQ page to modal dialog for better UX
+2. **Responsive Design**: Scrollable customer pages with custom styling
+3. **Booking System**: Complete overhaul with admin/user management
+4. **Refund Management**: Enhanced approval workflow with admin controls
+5. **AI Assistant**: Modern UI redesign with streaming responses
+6. **Code Cleanup**: Removed unused files and optimized project structure
 
-### 🔧 Technical Improvements
-- Fixed FXML parsing errors and missing expression issues
-- Enhanced error handling and null checks
+### 🔧 Technical Improvements  
+- Modal dialog implementation for improved user experience
+- ScrollPane integration for responsive content handling
+- Enhanced error handling and comprehensive null checks
 - Improved code quality and consistency
-- Added comprehensive integration testing
+- Optimized project structure with cleanup of unused components
 
 ## Team Members
 - **Ishaq Arham Mujthaba** (Group Leader) - 0378327
@@ -261,4 +275,30 @@ This is an academic project. For any questions or suggestions, please contact th
 
 ---
 
-**Note**: This application is designed for educational purposes and demonstrates modern software engineering practices in Java application development with JavaFX and AI integration. The recent updates have significantly improved the stability and functionality of the system. 
+**Note**: This application is designed for educational purposes and demonstrates modern software engineering practices in Java application development with JavaFX and AI integration. The system has been thoroughly updated and optimized for the July 2025 release.
+
+## 📊 Project Status & Cleanup Summary
+
+### ✅ Code Optimization Completed
+- **Removed Unused Files**: Cleaned up temporary and sample data generation utilities
+- **Updated Documentation**: Comprehensive updates to README and implementation summary
+- **Fixed Compilation Issues**: Resolved all dependency and import errors
+- **Enhanced Features**: FAQ modal system and scrollable pages implemented
+- **Project Structure**: Optimized file organization and removed redundant components
+
+### 🧹 Files Cleaned Up
+- `temp.java` - Temporary testing file removed
+- `QuickSampleBooking.java` - Replaced with existing sample data
+- `SampleBookingDataGenerator.java` - No longer needed with sufficient test data
+- `LoadSampleBookings.java` - Utility no longer required
+- `CustomerFAQs.fxml` - Converted to modal alert system
+- `CustomerFAQsController.java` - Replaced with FAQAlert utility
+
+### 📈 Performance Improvements
+- Reduced project complexity by removing unused utilities
+- Improved user experience with modal FAQ system
+- Enhanced responsive design with scrollable customer pages
+- Streamlined codebase with better maintainability
+- Optimized build process (62 source files compiled successfully)
+
+--- 

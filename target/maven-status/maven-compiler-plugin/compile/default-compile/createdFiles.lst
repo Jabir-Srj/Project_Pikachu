@@ -1,9 +1,7 @@
 service\BookingService.class
 util\ServiceLocator.class
 model\AirlineManagement.class
-util\LoadSampleBookings.class
 model\TicketStatus.class
-controller\BookingOverviewController.class
 model\TicketPriority.class
 ai\AirlineAIService.class
 dao\BookingDAO.class
@@ -22,7 +20,6 @@ controller\SupportTicketSubmissionController.class
 util\DemoAccountCreator.class
 service\TicketService.class
 util\TicketDataFixer.class
-util\SampleBookingDataGenerator.class
 controller\FlightSearchController$1.class
 model\BookingStatus.class
 controller\CustomerManagementController.class
@@ -66,5 +63,4 @@ controller\TicketController.class
 model\AddOn.class
 controller\RefundController.class
 model\Flight.class
-util\QuickSampleBooking.class
 model\Admin.class
