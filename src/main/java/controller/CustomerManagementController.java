@@ -18,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -25,6 +26,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import model.Customer;
@@ -527,12 +529,95 @@ public class CustomerManagementController implements Initializable {
      */
     private void handleEditCustomer(Customer customer) {
         if (customer != null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Edit Customer");
-            alert.setHeaderText("Edit Customer Information");
-            alert.setContentText("Customer edit functionality will be implemented in future version.\n\nCustomer: " + 
-                customer.getFirstName() + " " + customer.getLastName() + "\nEmail: " + customer.getEmail());
-            alert.showAndWait();
+            // Create the edit dialog
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Edit Customer");
+            dialog.setHeaderText("Edit Customer Information for: " + customer.getFirstName() + " " + customer.getLastName());
+            
+            // Create the dialog content
+            GridPane grid = new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new javafx.geometry.Insets(20, 150, 10, 10));
+            
+            // Create form fields
+            TextField firstNameField = new TextField(customer.getFirstName());
+            TextField lastNameField = new TextField(customer.getLastName());
+            TextField emailField = new TextField(customer.getEmail());
+            TextField phoneField = new TextField(customer.getPhoneNumber());
+            
+            // Add labels and fields to grid
+            grid.add(new Label("First Name:"), 0, 0);
+            grid.add(firstNameField, 1, 0);
+            grid.add(new Label("Last Name:"), 0, 1);
+            grid.add(lastNameField, 1, 1);
+            grid.add(new Label("Email:"), 0, 2);
+            grid.add(emailField, 1, 2);
+            grid.add(new Label("Phone:"), 0, 3);
+            grid.add(phoneField, 1, 3);
+            
+            dialog.getDialogPane().setContent(grid);
+            
+            // Add buttons
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+            
+            // Show dialog and handle result
+            dialog.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    // Validate input
+                    String firstName = firstNameField.getText().trim();
+                    String lastName = lastNameField.getText().trim();
+                    String email = emailField.getText().trim();
+                    String phone = phoneField.getText().trim();
+                    
+                    if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
+                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                        errorAlert.setTitle("Validation Error");
+                        errorAlert.setHeaderText("Required fields missing");
+                        errorAlert.setContentText("First Name, Last Name, and Email are required fields.");
+                        errorAlert.showAndWait();
+                        return;
+                    }
+                    
+                    // Email validation
+                    if (!email.contains("@") || !email.contains(".")) {
+                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                        errorAlert.setTitle("Validation Error");
+                        errorAlert.setHeaderText("Invalid Email");
+                        errorAlert.setContentText("Please enter a valid email address.");
+                        errorAlert.showAndWait();
+                        return;
+                    }
+                    
+                    // Update customer information
+                    customer.setFirstName(firstName);
+                    customer.setLastName(lastName);
+                    customer.setEmail(email);
+                    customer.setPhoneNumber(phone);
+                    
+                    // Save to database
+                    try {
+                        userService.updateUserProfile(customer);
+                        
+                        // Refresh the table
+                        loadCustomerData();
+                        
+                        // Show success message
+                        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                        successAlert.setTitle("Success");
+                        successAlert.setHeaderText("Customer Updated");
+                        successAlert.setContentText("Customer information has been updated successfully.");
+                        successAlert.showAndWait();
+                        
+                    } catch (Exception e) {
+                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                        errorAlert.setTitle("Error");
+                        errorAlert.setHeaderText("Failed to update customer");
+                        errorAlert.setContentText("An error occurred while updating the customer: " + e.getMessage());
+                        errorAlert.showAndWait();
+                    }
+                }
+            });
         }
     }
     
