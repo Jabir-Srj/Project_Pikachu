@@ -12,7 +12,7 @@ import util.NavigationManager;
 import util.SessionManager;
 import dao.FlightDAO;
 import dao.BookingDAO;
-
+import service.FlightService;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -148,7 +148,10 @@ public class FlightDetailsController implements Initializable {
 
     private void loadFlightData() {
         // Get the selected flight from NavigationManager
-        currentFlight = (Flight) NavigationManager.getInstance().getSharedData("selectedFlight");
+        Flight oldFlight = (Flight) NavigationManager.getInstance().getSharedData("selectedFlight");
+        if (oldFlight != null) {
+            currentFlight = new FlightService().getFlightDetails(oldFlight.getFlightNumber()).orElse(null);
+        }
         
         if (currentFlight != null) {
             System.out.println("FlightDetailsController: Loading data for flight " + currentFlight.getFlightNumber());
@@ -472,11 +475,12 @@ public class FlightDetailsController implements Initializable {
             currentFlight.setTotalSeats(totalSeats);
 
             // Save to database
-            boolean updateSuccess = flightDAO.update(currentFlight);
+            FlightService flightService = new FlightService();
+            boolean updateSuccess = flightService.updateFlight(currentFlight);
             if (!updateSuccess) {
                 throw new RuntimeException("Failed to save flight changes to database");
             }
-            
+            NavigationManager.getInstance().setSharedData("selectedFlight", currentFlight);
             System.out.println("FlightDetailsController: Successfully saved flight changes for flight " + currentFlight.getFlightNumber());
             
             // Refresh statistics
