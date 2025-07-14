@@ -85,7 +85,7 @@ public class FlightDetailsController implements Initializable {
         setupPassengersTable();
         loadFlightData();
         setupUserPermissions();
-        
+        setEditMode(false);
         System.out.println("FlightDetailsController: Initialization complete");
     }
 
