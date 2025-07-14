@@ -89,7 +89,13 @@ public class BookingOverviewController implements Initializable {
         
         // Get current user
         currentUser = (User) navigationManager.getSharedData("currentUser");
-        
+        if (newBookingButton != null && currentUser != null) {
+            if (currentUser.getRole() == UserRole.ADMIN || currentUser.getRole() == UserRole.AIRLINE_MANAGEMENT) {
+                newBookingButton.setVisible(false);
+            } else {
+                newBookingButton.setVisible(true);
+            }
+        }
         // Set dynamic title based on user role
         updateTitleBasedOnUserRole();
         
