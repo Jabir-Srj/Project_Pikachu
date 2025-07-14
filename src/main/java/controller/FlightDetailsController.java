@@ -284,18 +284,6 @@ public class FlightDetailsController implements Initializable {
     }
 
     @FXML
-    private void handleEdit() {
-        if (!isAdminUser) {
-            showAlert("Access Denied", "You do not have permission to edit flight details.", Alert.AlertType.WARNING);
-            return;
-        }
-        
-        System.out.println("FlightDetailsController: Edit button clicked");
-        isEditMode = true;
-        setEditMode(true);
-    }
-
-    @FXML
     private void handleSave() {
         if (!isAdminUser) {
             showAlert("Access Denied", "You do not have permission to save flight details.", Alert.AlertType.WARNING);
