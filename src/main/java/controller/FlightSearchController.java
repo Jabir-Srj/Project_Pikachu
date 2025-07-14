@@ -250,15 +250,11 @@ public class FlightSearchController implements Initializable {
             flight.getBasePrice(), flight.getAvailableSeats(), flight.getTotalSeats(), 
             flight.getStatus() != null ? flight.getStatus() : "Unknown"));
         
-        Button editFlightBtn = new Button("Edit Flight");
-        editFlightBtn.getStyleClass().addAll("button-secondary");
-        editFlightBtn.setOnAction(e -> editFlight(flight));
-        
         Button viewDetailsBtn = new Button("View Details");
         viewDetailsBtn.getStyleClass().addAll("button-primary");
         viewDetailsBtn.setOnAction(e -> viewFlightDetails(flight));
         
-        card.getChildren().addAll(flightInfo, timeInfo, detailsInfo, editFlightBtn, viewDetailsBtn);
+        card.getChildren().addAll(flightInfo, timeInfo, detailsInfo, viewDetailsBtn);
         return card;
     }
     
@@ -659,17 +655,5 @@ public class FlightSearchController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-    
-    private void editFlight(Flight flight) {
-        if (flight == null) {
-            showAlert("No flight selected", "Please select a flight to edit.", Alert.AlertType.WARNING);
-            return;
-        }
-        
-        // Set the selected flight and navigate to flight details for editing
-        selectedFlight = flight;
-        NavigationManager.getInstance().setSharedData("selectedFlight", flight);
-        NavigationManager.getInstance().showFlightDetails(flight);
     }
 }
