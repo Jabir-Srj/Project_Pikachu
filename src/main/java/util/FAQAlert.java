@@ -149,10 +149,6 @@ public class FAQAlert {
         VBox headerSection = createHeaderSection();
         mainContent.getChildren().add(headerSection);
         
-        // Quick links section
-        VBox quickLinksSection = createQuickLinksSection();
-        mainContent.getChildren().add(quickLinksSection);
-        
         // FAQ sections
         for (int i = 0; i < FAQ_CATEGORIES.length; i++) {
             VBox faqSection = createFAQSection(FAQ_CATEGORIES[i], FAQ_DATA[i]);
@@ -183,38 +179,6 @@ public class FAQAlert {
         
         header.getChildren().addAll(title, subtitle);
         return header;
-    }
-    
-    /**
-     * Create quick links section
-     */
-    private static VBox createQuickLinksSection() {
-        VBox quickLinks = new VBox(15);
-        quickLinks.getStyleClass().add("content-card");
-        quickLinks.setPadding(new Insets(20));
-        
-        Text title = new Text("🚀 Quick Navigation");
-        title.getStyleClass().add("section-title");
-        title.setFont(Font.font("System Bold", 20));
-        
-        Text description = new Text("Jump to a specific category:");
-        description.getStyleClass().add("text-muted");
-        
-        // Category buttons
-        HBox buttonBox = new HBox(15);
-        String[] categories = {"📋 Booking", "✈️ Flights", "💳 Payment", "🎧 Support", "👤 Account"};
-        
-        for (String category : categories) {
-            Button categoryBtn = new Button(category);
-            categoryBtn.getStyleClass().add("faq-category-button");
-            categoryBtn.setOnAction(_ -> {
-                handleCategoryNavigation(category);
-            });
-            buttonBox.getChildren().add(categoryBtn);
-        }
-        
-        quickLinks.getChildren().addAll(title, description, buttonBox);
-        return quickLinks;
     }
     
     /**
@@ -302,61 +266,4 @@ public class FAQAlert {
         return helpSection;
     }
     
-    /**
-     * Handle navigation for FAQ category buttons
-     */
-    private static void handleCategoryNavigation(String category) {
-        NavigationManager navigationManager = NavigationManager.getInstance();
-        
-        switch (category) {
-            case "📋 Booking":
-                // Navigate to customer bookings page
-                navigationManager.showBookingOverview();
-                break;
-                
-            case "✈️ Flights":
-                // Navigate to flight information page
-                navigationManager.showFlightInformation();
-                break;
-                
-            case "💳 Payment":
-                // Show unavailable alert
-                showUnavailableAlert("Payment Portal", "The payment portal is currently unavailable. Please try again later or contact customer support.");
-                break;
-                
-            case "🎧 Support":
-                // Navigate to ticket page
-                navigationManager.showTicketManagement();
-                break;
-                
-            case "👤 Account":
-                // Navigate to profile page
-                navigationManager.showCustomerProfile();
-                break;
-                
-            default:
-                System.out.println("Navigate to: " + category);
-                break;
-        }
-    }
-    
-    /**
-     * Show unavailable service alert
-     */
-    private static void showUnavailableAlert(String serviceName, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Service Unavailable");
-        alert.setHeaderText(serviceName + " - Temporarily Unavailable");
-        alert.setContentText(message);
-        
-        // Style the alert
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add("/css/application.css");
-        dialogPane.getStyleClass().add("content-card");
-        
-        // Add custom icon
-        alert.setGraphic(null);
-        
-        alert.showAndWait();
-    }
 }
