@@ -231,7 +231,6 @@
             <!-- Action Buttons -->
             <HBox alignment="CENTER" maxWidth="800.0" spacing="15.0">
                <children>
-                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEdit" text="Edit Flight" />
                   <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSave" text="Save Changes" visible="false" />
                   <Button fx:id="cancelEditButton" mnemonicParsing="false" onAction="#handleCancelEdit" text="Cancel" visible="false" />
                   <Button fx:id="cancelFlightButton" mnemonicParsing="false" onAction="#handleCancelFlight" text="Cancel Flight" />

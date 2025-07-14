@@ -53,7 +53,6 @@ public class FlightDetailsController implements Initializable {
 
     // Buttons
     @FXML private Button backButton;
-    @FXML private Button editButton;
     @FXML private Button saveButton;
     @FXML private Button cancelEditButton;
     @FXML private Button cancelFlightButton;
@@ -255,7 +254,6 @@ public class FlightDetailsController implements Initializable {
 
     private void hideAdminButtons() {
         // Hide admin-only buttons for non-admin users
-        editButton.setVisible(false);
         saveButton.setVisible(false);
         cancelEditButton.setVisible(false);
         cancelFlightButton.setVisible(false);
@@ -395,7 +393,6 @@ public class FlightDetailsController implements Initializable {
 
         // Show/hide buttons only for admin users
         if (isAdminUser) {
-            editButton.setVisible(!editMode);
             saveButton.setVisible(editMode);
             cancelEditButton.setVisible(editMode);
         }
