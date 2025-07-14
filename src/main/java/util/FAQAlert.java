@@ -208,8 +208,7 @@ public class FAQAlert {
             Button categoryBtn = new Button(category);
             categoryBtn.getStyleClass().add("faq-category-button");
             categoryBtn.setOnAction(_ -> {
-                // Simple scroll behavior - in a real implementation you'd scroll to the section
-                System.out.println("Navigate to: " + category);
+                handleCategoryNavigation(category);
             });
             buttonBox.getChildren().add(categoryBtn);
         }
@@ -301,5 +300,63 @@ public class FAQAlert {
         
         helpSection.getChildren().addAll(title, description, buttonBox);
         return helpSection;
+    }
+    
+    /**
+     * Handle navigation for FAQ category buttons
+     */
+    private static void handleCategoryNavigation(String category) {
+        NavigationManager navigationManager = NavigationManager.getInstance();
+        
+        switch (category) {
+            case "📋 Booking":
+                // Navigate to customer bookings page
+                navigationManager.showBookingOverview();
+                break;
+                
+            case "✈️ Flights":
+                // Navigate to flight information page
+                navigationManager.showFlightInformation();
+                break;
+                
+            case "💳 Payment":
+                // Show unavailable alert
+                showUnavailableAlert("Payment Portal", "The payment portal is currently unavailable. Please try again later or contact customer support.");
+                break;
+                
+            case "🎧 Support":
+                // Navigate to ticket page
+                navigationManager.showTicketManagement();
+                break;
+                
+            case "👤 Account":
+                // Navigate to profile page
+                navigationManager.showCustomerProfile();
+                break;
+                
+            default:
+                System.out.println("Navigate to: " + category);
+                break;
+        }
+    }
+    
+    /**
+     * Show unavailable service alert
+     */
+    private static void showUnavailableAlert(String serviceName, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Service Unavailable");
+        alert.setHeaderText(serviceName + " - Temporarily Unavailable");
+        alert.setContentText(message);
+        
+        // Style the alert
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add("/css/application.css");
+        dialogPane.getStyleClass().add("content-card");
+        
+        // Add custom icon
+        alert.setGraphic(null);
+        
+        alert.showAndWait();
     }
 }
