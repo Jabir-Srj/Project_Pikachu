@@ -107,7 +107,7 @@ public class FAQAlert {
         dialogPane.getStyleClass().add("content-card");
         
         // Set up the main content
-        VBox mainContent = createMainContent(currentUser);
+        VBox mainContent = createMainContent(currentUser, dialog);
         
         // Wrap in scroll pane for better handling
         ScrollPane scrollPane = new ScrollPane(mainContent);
@@ -140,7 +140,7 @@ public class FAQAlert {
     /**
      * Create the main content for the FAQ dialog
      */
-    private static VBox createMainContent(User currentUser) {
+    private static VBox createMainContent(User currentUser, Dialog<?> dialog) {
         VBox mainContent = new VBox(20);
         mainContent.setPadding(new Insets(20));
         mainContent.getStyleClass().add("background-gray-light");
@@ -156,7 +156,7 @@ public class FAQAlert {
         }
         
         // Help section
-        VBox helpSection = createHelpSection(currentUser);
+        VBox helpSection = createHelpSection(currentUser, dialog);
         mainContent.getChildren().add(helpSection);
         
         return mainContent;
@@ -228,7 +228,7 @@ public class FAQAlert {
     /**
      * Create help section
      */
-    private static VBox createHelpSection(User currentUser) {
+    private static VBox createHelpSection(User currentUser, Dialog<?> dialog) {
         VBox helpSection = new VBox(15);
         helpSection.getStyleClass().addAll("content-card", "help-section");
         helpSection.setPadding(new Insets(20));
@@ -246,18 +246,21 @@ public class FAQAlert {
         submitTicketBtn.getStyleClass().add("button-primary");
         submitTicketBtn.setOnAction(_ -> {
             NavigationManager.getInstance().showTicketSubmission();
+            dialog.close();
         });
         
         Button aiChatBtn = new Button("🤖 AI Assistant");
         aiChatBtn.getStyleClass().add("button-secondary");
         aiChatBtn.setOnAction(_ -> {
             NavigationManager.getInstance().showAIChatbot();
+            dialog.close();
         });
         
         Button viewTicketsBtn = new Button("📋 My Tickets");
         viewTicketsBtn.getStyleClass().add("button-accent");
         viewTicketsBtn.setOnAction(_ -> {
             NavigationManager.getInstance().showTicketManagement();
+            dialog.close();
         });
         
         buttonBox.getChildren().addAll(submitTicketBtn, aiChatBtn, viewTicketsBtn);
