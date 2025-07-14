@@ -1,10 +1,7 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.*;
 import model.User;
 import util.NavigationManager;
 
@@ -36,15 +33,10 @@ public class AdminSettingsController {
         logoutButton.setOnAction(e -> NavigationManager.getInstance().showLogin());
     }
 
-    /**
-     * Handle back to dashboard with role verification
-     */
     private void handleBackToDashboard() {
-        // Only admins should access admin settings - enforce role-based navigation
-        if (currentUser != null && currentUser.getRole() != null && currentUser.getRole().name().equals("ADMIN")) {
+        if (currentUser != null && currentUser.getRole().name().equals("ADMIN")) {
             NavigationManager.getInstance().showAdminDashboard();
         } else {
-            // Non-admin users should not be here - redirect to login for security
             NavigationManager.getInstance().navigateTo(NavigationManager.LOGIN_SCREEN);
         }
     }
