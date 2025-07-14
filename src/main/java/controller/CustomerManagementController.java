@@ -606,6 +606,7 @@ public class CustomerManagementController implements Initializable {
                     
                     // Refresh table view
                     updateTableView();
+                    customersTableView.refresh();
                     updateStatistics();
                     
                     // Show success message
