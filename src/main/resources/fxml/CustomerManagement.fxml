@@ -29,7 +29,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="👥 Customer Management">
+            <Text fill="#2c3e50" strokeType="OUTSIDE" strokeWidth="0.0" text="👥 Customer Management">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
