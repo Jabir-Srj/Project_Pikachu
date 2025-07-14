@@ -64,6 +64,7 @@ public class BookingOverviewController implements Initializable {
     @FXML private TableColumn<Booking, String> flightNumberColumn;
     @FXML private TableColumn<Booking, String> routeColumn;
     @FXML private TableColumn<Booking, String> departureDateColumn;
+    @FXML private TableColumn<Booking, String> flightStatusColumn;
     @FXML private TableColumn<Booking, String> passengersColumn;
     @FXML private TableColumn<Booking, String> statusColumn;
     
@@ -86,6 +87,12 @@ public class BookingOverviewController implements Initializable {
         ServiceLocator serviceLocator = ServiceLocator.getInstance();
         bookingService = serviceLocator.getBookingService();
         flightService = serviceLocator.getFlightService();
+        
+        // Check if flight data was updated by admin
+        if (Boolean.TRUE.equals(navigationManager.getSharedData("flightDataUpdated"))) {
+            navigationManager.setSharedData("flightDataUpdated", false); // Clear flag
+            flightCache.clear(); // Clear flight cache to force refresh
+        }
         
         // Get current user
         currentUser = (User) navigationManager.getSharedData("currentUser");
@@ -164,6 +171,56 @@ public class BookingOverviewController implements Initializable {
                 return new SimpleStringProperty(bookingDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             }
             return new SimpleStringProperty("N/A");
+        });
+        
+        flightStatusColumn.setCellValueFactory(cellData -> {
+            String flightId = cellData.getValue().getFlightId();
+            if (flightId == null) return new SimpleStringProperty("Unknown");
+            
+            // Always get fresh flight data for status (don't use cache for status)
+            Flight flight = flightService.getFlightDetails(flightId).orElse(null);
+            
+            if (flight != null && flight.getStatus() != null) {
+                return new SimpleStringProperty(flight.getStatus().getDisplayName());
+            }
+            return new SimpleStringProperty("Unknown");
+        });
+        
+        // Add styling to flight status column
+        flightStatusColumn.setCellFactory(_ -> {
+            return new javafx.scene.control.TableCell<Booking, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                        setStyle("");
+                    } else {
+                        setText(item);
+                        // Style based on flight status
+                        switch (item) {
+                            case "On Time":
+                            case "Scheduled":
+                                setStyle("-fx-text-fill: #27ae60; -fx-font-weight: bold;");
+                                break;
+                            case "Delayed":
+                            case "Boarding":
+                                setStyle("-fx-text-fill: #f39c12; -fx-font-weight: bold;");
+                                break;
+                            case "Cancelled":
+                                setStyle("-fx-text-fill: #e74c3c; -fx-font-weight: bold;");
+                                break;
+                            case "Departed":
+                            case "Arrived":
+                                setStyle("-fx-text-fill: #3498db; -fx-font-weight: bold;");
+                                break;
+                            default:
+                                setStyle("-fx-text-fill: #7f8c8d;");
+                                break;
+                        }
+                    }
+                }
+            };
         });
         
         passengersColumn.setCellValueFactory(cellData -> {
@@ -476,7 +533,9 @@ public class BookingOverviewController implements Initializable {
      * Handle refresh
      */
     private void handleRefresh() {
+        flightCache.clear(); // Clear flight cache to get fresh flight status data
         loadBookings();
+        System.out.println("BookingOverviewController: Data refreshed with latest flight statuses");
     }
     
     /**

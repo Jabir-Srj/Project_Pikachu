@@ -3,6 +3,7 @@ package controller;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
@@ -88,6 +89,14 @@ public class FlightSearchController implements Initializable {
         flightService = serviceLocator.getFlightService();
         currentUser = (User) NavigationManager.getInstance().getSharedData("currentUser");
         searchResults = FXCollections.observableArrayList();
+        
+        // Check if flight data was updated and refresh if needed
+        Boolean dataUpdated = (Boolean) NavigationManager.getInstance().getSharedData("flightDataUpdated");
+        if (dataUpdated != null && dataUpdated) {
+            // Clear the flag
+            NavigationManager.getInstance().setSharedData("flightDataUpdated", false);
+            System.out.println("FlightSearchController: Detected flight data update, refreshing displays");
+        }
         
         setupUI();
         loadInitialData();
@@ -195,7 +204,7 @@ public class FlightSearchController implements Initializable {
     }
     
     private void loadInitialData() {
-        // Load all flights
+        // Load all flights (always get fresh data from service)
         List<Flight> allFlights = flightService.getAllFlights();
         
         // Initialize current search results with all flights
@@ -456,15 +465,39 @@ public class FlightSearchController implements Initializable {
         Label priceInfo = new Label(String.format("$%.2f | %d seats available", 
             flight.getBasePrice(), flight.getAvailableSeats()));
         
-        Button viewDetailsBtn = new Button("View Details");
-        viewDetailsBtn.getStyleClass().addAll("button-secondary");
-        viewDetailsBtn.setOnAction(e -> viewFlightDetails(flight));
+        // Add status information for customers
+        String status = flight.getStatus() != null ? flight.getStatus().getDisplayName() : "Unknown";
+        Label statusInfo = new Label("Status: " + status);
+        statusInfo.getStyleClass().add("flight-status-label");
         
         Button selectFlightBtn = new Button("⚡ Select Flight");
         selectFlightBtn.getStyleClass().addAll("button-primary", "shadow-subtle");
-        selectFlightBtn.setOnAction(e -> selectFlightForBooking(flight));
+        selectFlightBtn.setOnAction(_ -> selectFlightForBooking(flight));
         
-        card.getChildren().addAll(flightInfo, timeInfo, priceInfo, viewDetailsBtn, selectFlightBtn);
+        // Style status label and update button based on flight status
+        switch (flight.getStatus()) {
+            case SCHEDULED:
+            case ON_TIME:
+                statusInfo.setStyle("-fx-text-fill: #27ae60; -fx-font-weight: bold;");
+                break;
+            case DELAYED:
+            case BOARDING:
+                statusInfo.setStyle("-fx-text-fill: #f39c12; -fx-font-weight: bold;");
+                break;
+            case CANCELLED:
+                statusInfo.setStyle("-fx-text-fill: #e74c3c; -fx-font-weight: bold;");
+                selectFlightBtn.setDisable(true);
+                selectFlightBtn.setText("Flight Cancelled");
+                break;
+            case DEPARTED:
+            case ARRIVED:
+                statusInfo.setStyle("-fx-text-fill: #3498db; -fx-font-weight: bold;");
+                selectFlightBtn.setDisable(true);
+                selectFlightBtn.setText("Flight Departed");
+                break;
+        }
+
+        card.getChildren().addAll(flightInfo, timeInfo, priceInfo, statusInfo, selectFlightBtn);
         return card;
     }
     
@@ -527,6 +560,14 @@ public class FlightSearchController implements Initializable {
     
     private void displayFlightDetails() {
         if (selectedFlight == null) return;
+        
+        // Refresh flight data from database to ensure we have the latest status
+        Optional<Flight> updatedFlightOpt = flightService.getFlightDetails(selectedFlight.getFlightNumber());
+        if (updatedFlightOpt.isPresent()) {
+            selectedFlight = updatedFlightOpt.get();
+            // Update shared data with fresh flight information
+            NavigationManager.getInstance().setSharedData("selectedFlight", selectedFlight);
+        }
         
         flightNumberLabel.setText(selectedFlight.getFlightNumber());
         aircraftLabel.setText(selectedFlight.getAircraft());

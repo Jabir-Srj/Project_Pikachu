@@ -232,8 +232,9 @@
                   <TableColumn fx:id="flightNumberColumn" minWidth="120.0" text="Flight Number" />
                   <TableColumn fx:id="routeColumn" minWidth="180.0" text="Route" />
                   <TableColumn fx:id="departureDateColumn" minWidth="120.0" text="Departure Date" />
+                  <TableColumn fx:id="flightStatusColumn" minWidth="120.0" text="Flight Status" />
                   <TableColumn fx:id="passengersColumn" minWidth="80.0" text="Passengers" />
-                  <TableColumn fx:id="statusColumn" minWidth="100.0" text="Status" />
+                  <TableColumn fx:id="statusColumn" minWidth="100.0" text="Booking Status" />
                   <TableColumn fx:id="totalAmountColumn" minWidth="100.0" text="Total Amount" />
                   <TableColumn fx:id="actionsColumn" minWidth="120.0" text="Actions" />
                </columns>
