@@ -87,6 +87,11 @@ public class BookingController implements Initializable {
     @FXML private Label taxesLabel;
     @FXML private Label totalPriceLabel;
     
+    // Flight Status Elements (for BookingDetails view)
+    @FXML private javafx.scene.text.Text flightStatusLabel;
+    @FXML private javafx.scene.text.Text flightDurationLabel;
+    @FXML private javafx.scene.text.Text aircraftLabel;
+    
     // Payment Action Buttons
     @FXML private Button confirmPaymentButton;
     @FXML private Button cancelBookingButton;
@@ -124,6 +129,15 @@ public class BookingController implements Initializable {
         flightService = serviceLocator.getFlightService();
         currentUser = (User) NavigationManager.getInstance().getSharedData("currentUser");
         selectedFlight = (Flight) NavigationManager.getInstance().getSharedData("selectedFlight");
+        
+        // Check if flight data was updated by admin
+        if (Boolean.TRUE.equals(NavigationManager.getInstance().getSharedData("flightDataUpdated"))) {
+            NavigationManager.getInstance().setSharedData("flightDataUpdated", false); // Clear flag
+            // Refresh flight data if we're showing booking details
+            if (bookingReferenceLabel != null) {
+                loadFlightStatusUpdates();
+            }
+        }
         
         // Initialize UI based on which screen is loaded
         if (passengerNameField != null) {
@@ -408,6 +422,56 @@ public class BookingController implements Initializable {
                     phoneLabel.setText(customer.getPhoneNumber());
                 }
             }
+            
+            // Load flight information and status
+            loadFlightStatusUpdates();
+        }
+    }
+    
+    /**
+     * Load and update flight status information
+     */
+    private void loadFlightStatusUpdates() {
+        if (currentBooking != null && currentBooking.getFlightId() != null) {
+            // Get fresh flight data
+            flightService.getFlightDetails(currentBooking.getFlightId()).ifPresent(flight -> {
+                if (flightNumberLabel != null) {
+                    flightNumberLabel.setText(flight.getFlightNumber());
+                }
+                
+                if (flightStatusLabel != null) {
+                    String statusText = flight.getStatus() != null ? flight.getStatus().getDisplayName() : "Unknown";
+                    flightStatusLabel.setText(statusText);
+                    
+                    // Style the status based on flight status
+                    switch (flight.getStatus()) {
+                        case SCHEDULED:
+                        case ON_TIME:
+                            flightStatusLabel.setFill(javafx.scene.paint.Color.web("#27ae60"));
+                            break;
+                        case DELAYED:
+                        case BOARDING:
+                            flightStatusLabel.setFill(javafx.scene.paint.Color.web("#f39c12"));
+                            break;
+                        case CANCELLED:
+                            flightStatusLabel.setFill(javafx.scene.paint.Color.web("#e74c3c"));
+                            break;
+                        case DEPARTED:
+                        case ARRIVED:
+                            flightStatusLabel.setFill(javafx.scene.paint.Color.web("#3498db"));
+                            break;
+                        default:
+                            flightStatusLabel.setFill(javafx.scene.paint.Color.web("#7f8c8d"));
+                            break;
+                    }
+                }
+                
+                if (aircraftLabel != null && flight.getAircraft() != null) {
+                    aircraftLabel.setText(flight.getAircraft());
+                }
+                
+                System.out.println("BookingController: Flight status updated to " + flight.getStatus());
+            });
         }
     }
     

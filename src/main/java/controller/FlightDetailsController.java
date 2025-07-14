@@ -478,6 +478,9 @@ public class FlightDetailsController implements Initializable {
             NavigationManager.getInstance().setSharedData("selectedFlight", currentFlight);
             System.out.println("FlightDetailsController: Successfully saved flight changes for flight " + currentFlight.getFlightNumber());
             
+            // Notify other views that flight data has been updated
+            NavigationManager.getInstance().setSharedData("flightDataUpdated", true);
+            
             // Refresh statistics
             calculateStatistics();
             
