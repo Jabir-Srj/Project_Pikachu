@@ -166,6 +166,9 @@ cd Project_Pikachu
 
 # Compile and run application
 ./apache-maven-3.9.4/bin/mvn clean compile exec:java -Dexec.mainClass=AirlineApp
+
+# Compile and run application (alternative, make sure you have maven and JavaFX on your device)
+mvn clean compile javafx:run
 ```
 
 ### Demo Credentials
