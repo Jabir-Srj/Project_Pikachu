@@ -273,18 +273,13 @@ public class FlightDetailsController implements Initializable {
     }
 
     @FXML
-    private void handleBack() {
+        private void handleBack() {
         System.out.println("FlightDetailsController: Back button clicked");
-        
-        // Navigate based on user role
         if (SessionManager.getCurrentUser() != null && SessionManager.getCurrentUser().getRole() != null) {
             UserRole userRole = SessionManager.getCurrentUser().getRole();
-            if (userRole == UserRole.ADMIN || userRole == UserRole.AIRLINE_MANAGEMENT) {
-                NavigationManager.getInstance().showAdminDashboard();
-            } else {
-                NavigationManager.getInstance().showCustomerOverview();
+            NavigationManager.getInstance().showFlightInformation();
             }
-        } else {
+        else {
             // If user role is unclear, go to login for security
             NavigationManager.getInstance().navigateTo(NavigationManager.LOGIN_SCREEN);
         }
