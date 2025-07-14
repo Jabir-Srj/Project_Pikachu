@@ -16,7 +16,7 @@
     <top>
         <VBox spacing="20" styleClass="header-top-gradient">
             <HBox alignment="CENTER_LEFT" spacing="20">
-                <Button fx:id="backButton" styleClass="header-accent-button" text=" 190 Back" />
+                <Button fx:id="backButton" styleClass="header-accent-button" text="Back" />
                 <Text text="Add New Customer" styleClass="header-title">
                     <font><Font name="System Bold" size="28" /></font>
                 </Text>
