@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -167,6 +168,8 @@ public class FlightDetailsController implements Initializable {
     }
 
     private void populateFlightFields() {
+        System.out.println("DEBUG: Populating fields with status: " + currentFlight.getStatus() + " (" + currentFlight.getStatus().getDisplayName() + ")");
+        
         flightNumberField.setText(currentFlight.getFlightNumber());
         aircraftTypeField.setText(currentFlight.getAircraft() != null ? currentFlight.getAircraft() : "");
         departureAirportComboBox.setValue(currentFlight.getDepartureAirport());
@@ -175,6 +178,8 @@ public class FlightDetailsController implements Initializable {
         departureTimeField.setText(currentFlight.getDepartureTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
         arrivalTimeField.setText(currentFlight.getArrivalTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
         statusComboBox.setValue(currentFlight.getStatus().getDisplayName());
+        
+        System.out.println("DEBUG: Set ComboBox value to: " + currentFlight.getStatus().getDisplayName());
         
         basePriceField.setText(String.valueOf(currentFlight.getBasePrice()));
         // Load economy and business prices from the model
@@ -494,17 +499,35 @@ public class FlightDetailsController implements Initializable {
             String notes = flightNotesArea.getText();
             currentFlight.setNotes(notes);
 
+            // Debug: Print status before saving
+            System.out.println("DEBUG: Status before saving: " + currentFlight.getStatus() + " (" + currentFlight.getStatus().getDisplayName() + ")");
+            
             // Save to database
             FlightService flightService = new FlightService();
             boolean updateSuccess = flightService.updateFlight(currentFlight);
             if (!updateSuccess) {
                 throw new RuntimeException("Failed to save flight changes to database");
             }
+            
+            // Debug: Verify what was saved
+            System.out.println("DEBUG: Update success: " + updateSuccess);
+            
+            // Reload the flight data from database to ensure we have the latest persisted state
+            Optional<Flight> updatedFlight = flightService.getFlightDetails(currentFlight.getFlightNumber());
+            if (updatedFlight.isPresent()) {
+                Flight reloadedFlight = updatedFlight.get();
+                System.out.println("DEBUG: Status after reloading from DB: " + reloadedFlight.getStatus() + " (" + reloadedFlight.getStatus().getDisplayName() + ")");
+                currentFlight = reloadedFlight;
+            }
+            
             NavigationManager.getInstance().setSharedData("selectedFlight", currentFlight);
             System.out.println("FlightDetailsController: Successfully saved flight changes for flight " + currentFlight.getFlightNumber());
             
             // Notify other views that flight data has been updated
             NavigationManager.getInstance().setSharedData("flightDataUpdated", true);
+            
+            // Refresh the UI fields to show the saved changes
+            populateFlightFields();
             
             // Refresh statistics
             calculateStatistics();
