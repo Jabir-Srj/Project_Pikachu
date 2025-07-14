@@ -180,7 +180,7 @@ public class CustomerManagementController implements Initializable {
                         Customer customer = getTableView().getItems().get(getIndex());
                         toggleButton.setText(customer.isActive() ? "❌ Deactivate" : "✅ Activate");
                         toggleButton.getStyleClass().clear();
-                        toggleButton.getStyleClass().add(customer.isActive() ? "action-button-danger" : "action-button-success");
+                        toggleButton.setStyle("-fx-background-color: transparent; -fx-text-fill: black; -fx-padding: 0;");
                         setGraphic(buttonBox);
                     }
                 }
