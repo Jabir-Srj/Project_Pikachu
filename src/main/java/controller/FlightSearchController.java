@@ -316,17 +316,6 @@ public class FlightSearchController implements Initializable {
         if (searchResults.isEmpty()) {
             showAlert("No flights found for the selected criteria.");
         }
-        
-        // Apply filters and sorting
-        searchResults = applyFilters(searchResults);
-        searchResults = applySorting(searchResults);
-        
-        // Display results
-        displayFlights(searchResults);
-        
-        if (searchResults.isEmpty()) {
-            showAlert("No flights found for the selected criteria.");
-        }
     }
     
     @FXML
