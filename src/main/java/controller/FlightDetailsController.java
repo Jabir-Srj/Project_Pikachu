@@ -46,6 +46,9 @@ public class FlightDetailsController implements Initializable {
     @FXML private TextField availableSeatsField;
     @FXML private TextField bookedSeatsField;
 
+    // Notes Field
+    @FXML private TextArea flightNotesArea;
+
     // Statistics Labels
     @FXML private Label totalRevenueLabel;
     @FXML private Label occupancyRateLabel;
@@ -53,6 +56,7 @@ public class FlightDetailsController implements Initializable {
 
     // Buttons
     @FXML private Button backButton;
+    @FXML private Button editButton;
     @FXML private Button saveButton;
     @FXML private Button cancelEditButton;
     @FXML private Button cancelFlightButton;
@@ -173,13 +177,16 @@ public class FlightDetailsController implements Initializable {
         statusComboBox.setValue(currentFlight.getStatus().getDisplayName());
         
         basePriceField.setText(String.valueOf(currentFlight.getBasePrice()));
-        // Set economy and business prices to base price since they don't exist in model
-        economyPriceField.setText(String.valueOf(currentFlight.getBasePrice()));
-        businessPriceField.setText(String.valueOf(currentFlight.getBasePrice() * 1.5));
+        // Load economy and business prices from the model
+        economyPriceField.setText(String.valueOf(currentFlight.getEconomyPrice() > 0 ? currentFlight.getEconomyPrice() : currentFlight.getBasePrice()));
+        businessPriceField.setText(String.valueOf(currentFlight.getBusinessPrice() > 0 ? currentFlight.getBusinessPrice() : currentFlight.getBasePrice() * 1.5));
         
         totalCapacityField.setText(String.valueOf(currentFlight.getTotalSeats()));
         availableSeatsField.setText(String.valueOf(currentFlight.getAvailableSeats()));
         bookedSeatsField.setText(String.valueOf(currentFlight.getTotalSeats() - currentFlight.getAvailableSeats()));
+        
+        // Load flight notes
+        flightNotesArea.setText(currentFlight.getNotes() != null ? currentFlight.getNotes() : "");
     }
 
     private void loadPassengerData() {
@@ -254,6 +261,7 @@ public class FlightDetailsController implements Initializable {
 
     private void hideAdminButtons() {
         // Hide admin-only buttons for non-admin users
+        editButton.setVisible(false);
         saveButton.setVisible(false);
         cancelEditButton.setVisible(false);
         cancelFlightButton.setVisible(false);
@@ -281,6 +289,18 @@ public class FlightDetailsController implements Initializable {
             // If user role is unclear, go to login for security
             NavigationManager.getInstance().navigateTo(NavigationManager.LOGIN_SCREEN);
         }
+    }
+
+    @FXML
+    private void handleEdit() {
+        if (!isAdminUser) {
+            showAlert("Access Denied", "You do not have permission to edit flight details.", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        System.out.println("FlightDetailsController: Edit button clicked");
+        isEditMode = true;
+        setEditMode(true);
     }
 
     @FXML
@@ -378,9 +398,11 @@ public class FlightDetailsController implements Initializable {
         economyPriceField.setEditable(editMode);  // Keep for UI, even though not persisted
         businessPriceField.setEditable(editMode); // Keep for UI, even though not persisted
         totalCapacityField.setEditable(editMode);
+        flightNotesArea.setEditable(editMode);
 
         // Show/hide buttons only for admin users
         if (isAdminUser) {
+            editButton.setVisible(!editMode);
             saveButton.setVisible(editMode);
             cancelEditButton.setVisible(editMode);
         }
@@ -448,11 +470,29 @@ public class FlightDetailsController implements Initializable {
             }
             currentFlight.setBasePrice(basePrice);
             
+            // Parse and save economy price
+            double economyPrice = Double.parseDouble(economyPriceField.getText());
+            if (economyPrice < 0) {
+                throw new IllegalArgumentException("Economy price cannot be negative");
+            }
+            currentFlight.setEconomyPrice(economyPrice);
+            
+            // Parse and save business price
+            double businessPrice = Double.parseDouble(businessPriceField.getText());
+            if (businessPrice < 0) {
+                throw new IllegalArgumentException("Business price cannot be negative");
+            }
+            currentFlight.setBusinessPrice(businessPrice);
+            
             int totalSeats = Integer.parseInt(totalCapacityField.getText());
             if (totalSeats <= 0) {
                 throw new IllegalArgumentException("Total seats must be greater than 0");
             }
             currentFlight.setTotalSeats(totalSeats);
+            
+            // Save flight notes
+            String notes = flightNotesArea.getText();
+            currentFlight.setNotes(notes);
 
             // Save to database
             FlightService flightService = new FlightService();

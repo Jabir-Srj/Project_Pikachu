@@ -14,11 +14,14 @@ public class Flight {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private double basePrice;
+    private double economyPrice;
+    private double businessPrice;
     private int totalSeats;
     private int availableSeats;
     private FlightStatus status;
     private String aircraft;
     private double duration; // Duration in hours
+    private String notes; // Flight notes for admin use
 
     public Flight() {
         this.status = FlightStatus.SCHEDULED;
@@ -125,6 +128,12 @@ public class Flight {
     public double getBasePrice() { return basePrice; }
     public void setBasePrice(double basePrice) { this.basePrice = basePrice; }
 
+    public double getEconomyPrice() { return economyPrice; }
+    public void setEconomyPrice(double economyPrice) { this.economyPrice = economyPrice; }
+
+    public double getBusinessPrice() { return businessPrice; }
+    public void setBusinessPrice(double businessPrice) { this.businessPrice = businessPrice; }
+
     public int getTotalSeats() { return totalSeats; }
     public void setTotalSeats(int totalSeats) { this.totalSeats = totalSeats; }
 
@@ -139,6 +148,9 @@ public class Flight {
 
     public double getDuration() { return duration; }
     public void setDuration(double duration) { this.duration = duration; }
+
+    public String getNotes() { return notes; }
+    public void setNotes(String notes) { this.notes = notes; }
 
     @Override
     public String toString() {
