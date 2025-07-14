@@ -32,10 +32,8 @@ import service.BookingService;
 import util.NavigationManager;
 import util.ServiceLocator;
 
-/**
- * Controller for FlightInformation.fxml and FlightDetails.fxml
- * Handles flight searches and selection
- */
+ // Controller for FlightInformation.fxml and FlightDetails.fxml
+
 public class FlightSearchController implements Initializable {
     
     // FlightInformation.fxml controls
@@ -350,10 +348,7 @@ public class FlightSearchController implements Initializable {
         
         showAlert("Search has been reset. Showing all available flights.");
     }
-    
-    /**
-     * Handle sort or filter changes independently
-     */
+
     private void handleSortOrFilterChange() {
         if (currentSearchResults == null || currentSearchResults.isEmpty()) {
             // If no search has been performed, show all flights
@@ -514,7 +509,7 @@ public class FlightSearchController implements Initializable {
                 
                 // Show success message
                 showAlert("Flight Confirmed!", 
-                    "Flight " + flight.getFlightNumber() + " has been added to your confirmed flights.\n" +
+                    "Flight " + flight.getFlightNumber() + " has been added to confirmed flights.\n" +
                     "Booking ID: " + booking.getBookingId() + "\n" +
                     "Route: " + flight.getDepartureAirport() + " → " + flight.getArrivalAirport() + "\n" +
                     "Date: " + flight.getDepartureTime().toLocalDate() + "\n" +
