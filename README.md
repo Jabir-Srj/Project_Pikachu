@@ -165,7 +165,7 @@ This is a comprehensive JavaFX-based desktop application for airline customer se
 cd Project_Pikachu
 
 # Compile and run application
-./apache-maven-3.9.4/bin/mvn clean compile exec:java -Dexec.mainClass=AirlineApp
+./apache-maven-3.9.4/bin/mvn clean compile exec:java 
 
 # Compile and run application (alternative, make sure you have maven and JavaFX on your device)
 mvn clean compile javafx:run
