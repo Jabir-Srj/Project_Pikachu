@@ -60,6 +60,13 @@
             <version>2.15.2</version>
         </dependency>
         
+        <!-- Jackson JSR310 for LocalDateTime support -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+        
         <!-- BCrypt for password hashing -->
         <dependency>
             <groupId>org.mindrot</groupId>
