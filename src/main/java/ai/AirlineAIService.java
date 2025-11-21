@@ -81,7 +81,7 @@ public class AirlineAIService {
                 assistant = AiServices.builder(AirlineAssistant.class)
                     .streamingChatModel(streamingModel)
                     .chatMemory(MessageWindowChatMemory.withMaxMessages(10))
-                    .systemMessageProvider(_ -> SYSTEM_PROMPT)
+                    .systemMessageProvider(msgs -> SYSTEM_PROMPT)
                     .build();
                 
                 isInitialized = true;

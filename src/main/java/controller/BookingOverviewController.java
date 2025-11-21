@@ -187,7 +187,7 @@ public class BookingOverviewController implements Initializable {
         });
         
         // Add styling to flight status column
-        flightStatusColumn.setCellFactory(_ -> {
+        flightStatusColumn.setCellFactory(column -> {
             return new javafx.scene.control.TableCell<Booking, String>() {
                 @Override
                 protected void updateItem(String item, boolean empty) {
@@ -243,32 +243,32 @@ public class BookingOverviewController implements Initializable {
      */
     private void setupEventHandlers() {
         if (backButton != null) {
-            backButton.setOnAction(_ -> handleBackToDashboard());
+            backButton.setOnAction(e -> handleBackToDashboard());
         }
         
         if (newBookingButton != null) {
-            newBookingButton.setOnAction(_ -> handleNewBooking());
+            newBookingButton.setOnAction(e -> handleNewBooking());
         }
         
         if (exportButton != null) {
-            exportButton.setOnAction(_ -> handleExportBookings());
+            exportButton.setOnAction(e -> handleExportBookings());
         }
         
         if (searchButton != null) {
-            searchButton.setOnAction(_ -> handleSearch());
+            searchButton.setOnAction(e -> handleSearch());
         }
         
         if (clearButton != null) {
-            clearButton.setOnAction(_ -> handleClearFilters());
+            clearButton.setOnAction(e -> handleClearFilters());
         }
         
         if (refreshButton != null) {
-            refreshButton.setOnAction(_ -> handleRefresh());
+            refreshButton.setOnAction(e -> handleRefresh());
         }
         
         // Double-click to view booking details
         if (bookingsTableView != null) {
-            bookingsTableView.setRowFactory(_ -> {
+            bookingsTableView.setRowFactory(tv -> {
                 var row = new javafx.scene.control.TableRow<Booking>();
                 row.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 2 && !row.isEmpty()) {

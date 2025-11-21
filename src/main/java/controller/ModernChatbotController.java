@@ -95,45 +95,45 @@ public class ModernChatbotController implements Initializable {
     private void setupEventHandlers() {
         // Header buttons
         if (backButton != null) {
-            backButton.setOnAction(_ -> handleBackToDashboard());
+            backButton.setOnAction(e -> handleBackToDashboard());
         }
         
         // Quick action buttons
         if (flightStatusButton != null) {
-            flightStatusButton.setOnAction(_ -> handleQuickAction("What is my flight status?"));
+            flightStatusButton.setOnAction(e -> handleQuickAction("What is my flight status?"));
         }
         if (bookingHelpButton != null) {
-            bookingHelpButton.setOnAction(_ -> handleQuickAction("I need help with my booking"));
+            bookingHelpButton.setOnAction(e -> handleQuickAction("I need help with my booking"));
         }
         if (baggageInfoButton != null) {
-            baggageInfoButton.setOnAction(_ -> handleQuickAction("What are your baggage policies?"));
+            baggageInfoButton.setOnAction(e -> handleQuickAction("What are your baggage policies?"));
         }
         if (checkInButton != null) {
-            checkInButton.setOnAction(_ -> handleQuickAction("How do I check in for my flight?"));
+            checkInButton.setOnAction(e -> handleQuickAction("How do I check in for my flight?"));
         }
         
         // Message input
         if (sendButton != null) {
-            sendButton.setOnAction(_ -> handleSendMessage());
+            sendButton.setOnAction(e -> handleSendMessage());
         }
         if (voiceButton != null) {
-            voiceButton.setOnAction(_ -> handleVoiceInput());
+            voiceButton.setOnAction(e -> handleVoiceInput());
         }
         
         // Suggested responses
         if (suggestion1Button != null) {
-            suggestion1Button.setOnAction(_ -> handleQuickAction("What are your baggage allowances?"));
+            suggestion1Button.setOnAction(e -> handleQuickAction("What are your baggage allowances?"));
         }
         if (suggestion2Button != null) {
-            suggestion2Button.setOnAction(_ -> handleQuickAction("How do I check in online?"));
+            suggestion2Button.setOnAction(e -> handleQuickAction("How do I check in online?"));
         }
         if (suggestion3Button != null) {
-            suggestion3Button.setOnAction(_ -> handleQuickAction("Flight delay compensation?"));
+            suggestion3Button.setOnAction(e -> handleQuickAction("Flight delay compensation?"));
         }
         
         // Action buttons
         if (clearChatButton != null) {
-            clearChatButton.setOnAction(_ -> handleClearChat());
+            clearChatButton.setOnAction(e -> handleClearChat());
         }
     }
     

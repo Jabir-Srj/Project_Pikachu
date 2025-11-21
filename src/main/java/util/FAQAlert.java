@@ -244,21 +244,21 @@ public class FAQAlert {
         
         Button submitTicketBtn = new Button("📝 Submit Ticket");
         submitTicketBtn.getStyleClass().add("button-primary");
-        submitTicketBtn.setOnAction(_ -> {
+        submitTicketBtn.setOnAction(e -> {
             NavigationManager.getInstance().showTicketSubmission();
             dialog.close();
         });
         
         Button aiChatBtn = new Button("🤖 AI Assistant");
         aiChatBtn.getStyleClass().add("button-secondary");
-        aiChatBtn.setOnAction(_ -> {
+        aiChatBtn.setOnAction(e -> {
             NavigationManager.getInstance().showAIChatbot();
             dialog.close();
         });
         
         Button viewTicketsBtn = new Button("📋 My Tickets");
         viewTicketsBtn.getStyleClass().add("button-accent");
-        viewTicketsBtn.setOnAction(_ -> {
+        viewTicketsBtn.setOnAction(e -> {
             NavigationManager.getInstance().showTicketManagement();
             dialog.close();
         });

@@ -450,7 +450,7 @@ public class FlightSearchController implements Initializable {
         
         Button selectFlightBtn = new Button("⚡ Select Flight");
         selectFlightBtn.getStyleClass().addAll("button-primary", "shadow-subtle");
-        selectFlightBtn.setOnAction(_ -> selectFlightForBooking(flight));
+        selectFlightBtn.setOnAction(e -> selectFlightForBooking(flight));
         
         // Style status label and update button based on flight status
         switch (flight.getStatus()) {
