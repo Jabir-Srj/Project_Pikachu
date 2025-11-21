@@ -1,163 +1,112 @@
-# Airline Customer Service System
+# پژوتێ (Pjotê) - Scholarly Publishing Platform
 
 ## Project Overview
 
-This is a comprehensive JavaFX-based desktop application for airline customer service that provides a complete solution for flight booking, customer management, support ticketing, and AI-powered customer assistance. The application implements a modern, user-friendly interface based on professional Figma designs and follows enterprise-level software architecture patterns.
+This is a comprehensive JavaFX-based scholarly publishing platform inspired by the Stanford Encyclopedia of Philosophy, designed for academic and research-grade publishing with modern features for community engagement and discoverability. The platform supports peer-reviewed article publication, editorial workflows, threaded discussions, and author profiles.
 
 ## Demo Accounts
-- admin / 123456
-- customer / 123456
+- admin / 123456 (Administrator - editorial control)
+- customer / 123456 (Reader/Publisher - can read, comment, submit articles)
 
-## Recent Updates (July 2025)
+## Core Features
 
-### ✅ Latest Bug Fixes and Enhancements
-- **Flight Saving**: Fixed admin flight editing to properly save changes to JSON files
-- **Ticket Management**: Resolved multiple dialog creation issue and enhanced chat with user names
-- **User Management**: Fixed deactivate button functionality in admin interface
-- **Confirmed Flights**: Automatic booking creation when users select flights
-- **Admin Chat**: Enhanced chat functionality with proper user names and message history
-- **Password Reset**: Added comprehensive forgot password alert with reset instructions
-- **Booking System**: Complete overhaul with admin/user management and booking creation
-- **Refund Management**: Enhanced approval workflow with admin controls
-- **AI Assistant**: Modern UI redesign with streaming responses and quick actions
-- **Navigation**: Improved role-based navigation and modal interactions
+### Scholarly Publishing
+- **Article Management**: Create, edit, and publish scholarly articles with structured content
+- **Structured Content**: Support for abstract, introduction, sections, references, and conclusions
+- **Academic Citations**: Proper bibliographic formatting with reference management
+- **DOI Generation**: Permanent DOI-style identifiers for all published articles
+- **Version Control**: Track article revisions and updates with version history
+
+### Editorial Workflow
+- **Submission System**: Publishers can submit articles for review
+- **Peer Review**: Admin-managed editorial approval process
+- **Status Tracking**: Draft → Submitted → Under Review → Approved → Published
+- **Revision Requests**: Editorial feedback and revision loops
+- **Publication Queue**: Dashboard for managing pending submissions
+
+### User Roles
+- **Reader**: Browse and read published articles, comment on content (login required)
+- **Publisher (Author/Editor)**: Submit articles, manage drafts, view publication history
+- **Admin**: Editorial control, approve/reject submissions, manage platform content
+
+### Discovery & Metadata
+- **Search Functionality**: Find articles by keyword, title, topic, or author
+- **Categorization**: Organize by disciplines, topics, and research fields
+- **Keyword Tagging**: Rich metadata for improved discoverability
+- **Author Profiles**: Research credentials, affiliations, and publication lists
+
+### Comments & Discussion
+- **Threaded Comments**: Scholarly discussion under each article (login required)
+- **Reply System**: Nested comment threads for deeper engagement
+- **Moderation Tools**: Flag inappropriate content, admin moderation controls
+- **User Attribution**: Comments linked to authenticated user profiles
+
+### Sharing & Citation
+- **Permanent Links**: DOI-style permanent URLs for citation
+- **Citation Export**: Generate citations in APA, BibTeX, and MLA formats
+- **Public Access**: Articles readable without login, commenting requires authentication
+
+## Recent Updates (November 2025)
+
+### ✅ Platform Architecture
+- Complete domain model for scholarly publishing (Article, Author, Comments, Reviews)
+- Data Access Objects (DAOs) for persistence with JSON storage
+- Service layer for business logic (ArticleService, CommentService, AuthorProfileService)
+- Support for backward compatibility with legacy airline system code
 
 ### 🔧 Technical Improvements
-- Complete JSON serialization for flight data persistence
-- Enhanced boolean field parsing for user management
-- Dialog prevention mechanisms for better UX
-- Professional alert windows with detailed information
-- Enhanced error handling and user feedback
-- Improved code quality with consistent naming conventions
-- Cleaned up unused files and optimized project structure
-
-## Key Features
-
-### User Management
-- **Account Registration**: Secure user registration with role assignment
-- **Authentication**: Secure login system with role-based access control
-- **User Roles**: Customer, Admin, and Airline Management with different access levels
-- **Customer Profile Management**: View and edit customer details
-- **Password Reset**: Comprehensive forgot password functionality with clear instructions
-
-### Flight Management
-- **Flight Search**: Advanced search with filters, sorting, and reset functionality
-- **Flight Booking**: Automatic booking creation when flights are selected
-- **Confirmed Flights**: Real-time tracking of confirmed bookings with statistics
-- **Admin Flight Control**: Complete flight management with editing and status updates
-- **Seat Management**: Dynamic seat availability tracking and reservation
-
-### Booking System
-- **Booking Creation**: Streamlined booking workflow for customers
-- **Admin Management**: Complete booking oversight and customer management
-- **Booking History**: Comprehensive booking tracking and management
-- **Status Tracking**: Real-time booking status updates (PENDING, CONFIRMED, CANCELLED)
-- **Search and Filter**: Advanced booking search with multiple criteria
-
-### Support System
-- **Ticket Management**: Complete support ticket system with chat functionality
-- **Admin Chat**: Enhanced chat with proper user names and message history
-- **Ticket Status**: Comprehensive status tracking (OPEN, IN_PROGRESS, RESOLVED, etc.)
-- **Customer Support**: Integrated FAQ system and contact information
-- **File Attachments**: Support for document uploads and management
-
-### AI Assistant
-- **Modern Interface**: Redesigned chat interface with streaming responses
-- **Quick Actions**: Pre-defined buttons for common queries
-- **Connection Status**: Real-time connection monitoring
-- **Voice Input**: Placeholder for future voice integration
-- **Professional Design**: Enhanced UI with modern styling and animations
-
-### Refund Management
-- **Refund Requests**: Easy refund request submission
-- **Enhanced Approval System**: Complete admin approval workflow with detailed review interface
-- **Refund Tracking**: Status tracking for refund requests
-- **Document Management**: Support for viewing refund-related documents
-- **Admin Notes**: Detailed review comments and approval/rejection reasons
-- **Status Validation**: Refund status enforcement (PENDING, APPROVED, REJECTED, PROCESSED)
-
-### Admin Dashboard
-- **Customer Management**: Comprehensive customer database management with deactivate functionality
-- **Flight Administration**: Flight scheduling, pricing, and management with proper save/load
-- **Ticket Management**: Support ticket oversight and resolution with enhanced chat
-- **System Analytics**: Performance metrics and reporting
-- **Refund Oversight**: Review and approve customer refund requests
-- **User Management**: Complete user oversight with role-based access control
-
-### UI/UX Enhancements
-- **Responsive Design**: Scrollable customer pages with custom styling
-- **Modal Interactions**: FAQ system as modal dialogs for better UX
-- **Modern Components**: Enhanced UI with gradients, shadows, and animations
-- **Consistent Branding**: Pikachu Airlines yellow theme throughout application
-- **Professional Alerts**: Comprehensive alert windows with detailed information
+- Adjusted Java compatibility from 23 to 17 for broader support
+- JavaFX downgraded to 17.0.11 for compatibility
+- Added Jackson JSR310 for LocalDateTime serialization
+- Lambda parameter syntax updated for Java 17
+- Multi-role authentication system (Reader, Publisher, Admin)
 
 ## Technical Architecture
 
 ### Design Pattern
 - **Model-View-Controller (MVC)**: Clean separation of concerns
-- **Data Access Object (DAO)**: Abstracted data access layer
+- **Data Access Object (DAO)**: Abstracted data persistence layer
 - **Service Layer**: Business logic encapsulation
 
 ### Technology Stack
-- **Frontend**: JavaFX with FXML for modern UI design
-- **Backend**: Java 23+ with service-oriented architecture
+- **Frontend**: JavaFX 17 with FXML for modern UI design
+- **Backend**: Java 17 with service-oriented architecture
 - **Data Storage**: JSON-based file system for data persistence
-- **AI Integration**: Langchain4j for intelligent chatbot functionality
+- **Dependencies**: Jackson for JSON serialization, BCrypt for password hashing
 
 ### Key Components
 
-#### Controllers
-- `LoginController`: Enhanced with forgot password functionality
-- `FlightSearchController`: Complete flight search with booking integration
-- `TicketManagementController`: Enhanced chat with user names and history
-- `BookingOverviewController`: Comprehensive booking management
-- `CustomerOverviewController`: Statistics tracking and responsive design
-- `ModernChatbotController`: Modern AI chat interface
+#### Models
+- `Article`: Scholarly publication with sections, references, DOI, version tracking
+- `ArticleSection`: Structured content sections (intro, body, conclusion)
+- `Reference`: Academic citations with formatting support
+- `ArticleComment`: Threaded discussion comments
+- `ArticleReview`: Editorial review and feedback
+- `AuthorProfile`: Research credentials and publication history
+- `ArticleStatus`: Workflow states (DRAFT, SUBMITTED, UNDER_REVIEW, PUBLISHED, etc.)
 
 #### Services
-- `UserService`: Enhanced with boolean field parsing and user management
-- `FlightService`: Complete flight management with proper persistence
-- `BookingService`: Automatic booking creation and management
-- `TicketService`: Enhanced chat functionality and ticket management
+- `ArticleService`: Article management and publication workflow
+- `CommentService`: Comment and discussion management
+- `AuthorProfileService`: Author profile management
+- `UserService`: User authentication and role management
+
+#### Controllers
+- `ArticleBrowseController`: Browse and search published articles
+- `ArticleViewController`: Display article with comments
+- `LoginController`: User authentication
 
 #### Data Management
-- `DataManager`: Complete JSON serialization for all entities
-- `NavigationManager`: Role-based navigation and shared data management
-- `SessionManager`: User session management and security
-
-## Recent Bug Fixes
-
-### 1. Flight Saving Issue ✅ FIXED
-- **Problem**: Flights not saving after admin editing
-- **Solution**: Complete JSON serialization implementation
-- **Impact**: Admin can now properly edit and save flight data
-
-### 2. Ticket Chat Issues ✅ FIXED
-- **Problem**: User names not showing, message history disappearing
-- **Solution**: Enhanced user name resolution and message persistence
-- **Impact**: Professional chat experience with proper user identification
-
-### 3. Deactivate Button ✅ FIXED
-- **Problem**: Admin deactivate button not working
-- **Solution**: Enhanced boolean field parsing in JSON
-- **Impact**: Complete user management functionality
-
-### 4. Confirmed Flights ✅ IMPLEMENTED
-- **Problem**: No mechanism to add flights to confirmed bookings
-- **Solution**: Automatic booking creation with immediate confirmation
-- **Impact**: Seamless flight booking workflow
-
-### 5. Forgot Password ✅ IMPLEMENTED
-- **Problem**: No password reset functionality
-- **Solution**: Comprehensive alert window with reset instructions
-- **Impact**: Complete user account recovery system
+- `ArticleDAO`, `CommentDAO`, `AuthorProfileDAO`: JSON-based persistence
+- `ScholarlyServiceLocator`: Centralized service access
+- `NavigationManager`: UI navigation and screen management
+- `SessionManager`: User session and authentication state
 
 ## Installation and Setup
 
 ### Prerequisites
-- Java 23+ with JavaFX runtime
+- Java 17+ with JavaFX runtime
 - Maven 3.9.4+
-- OpenAI API key (for AI functionality)
 
 ### Build and Run
 ```bash
@@ -167,77 +116,63 @@ cd Project_Pikachu
 # Compile and run application
 ./apache-maven-3.9.4/bin/mvn clean compile exec:java 
 
-# Compile and run application (alternative, make sure you have maven and JavaFX on your device)
+# Alternative (if Maven is installed globally)
 mvn clean compile javafx:run
 ```
 
 ### Demo Credentials
 - **Admin**: admin / 123456
-- **Customer**: customer / 123456
+- **Reader/Publisher**: customer / 123456
 
 ## Features Summary
 
 ### ✅ **Completed Features:**
-1. **Flight Management**: Complete save/load functionality
-2. **Ticket Management**: Enhanced chat with user names and history
-3. **User Management**: Deactivate functionality working
-4. **Booking System**: Automatic confirmed flights feature
-5. **Password Reset**: Forgot password alert implementation
-6. **AI Assistant**: Modern chat interface
-7. **Refund System**: Complete admin approval workflow
-8. **Customer Interface**: Responsive scrolling and statistics
+1. **Domain Models**: Complete scholarly publishing data model
+2. **Data Persistence**: JSON-based storage for articles, comments, profiles
+3. **Service Layer**: Business logic for article management, comments, profiles
+4. **User Roles**: Reader, Publisher, Admin with appropriate permissions
+5. **Article Workflow**: Draft → Submit → Review → Publish pipeline
+6. **Citation Support**: APA and BibTeX citation formatting
+7. **DOI Generation**: Permanent identifiers for all articles
 
-### 🔧 **Technical Improvements:**
-- Enhanced data persistence
-- Improved error handling
-- Better user experience
-- Professional UI/UX design
-- Comprehensive validation
-- Role-based access control
+### 🔧 **In Progress:**
+1. **UI Controllers**: Article browser, viewer, editor interfaces
+2. **Admin Dashboard**: Editorial review and approval interface
+3. **Comment System**: Threaded discussion implementation
+4. **Author Profiles**: Research credentials display
+5. **Search Interface**: Advanced article discovery
 
-### 📊 **User Experience Enhancements:**
-- Professional alert dialogs
-- Clear success/error messages
-- Intuitive navigation flows
-- Responsive design elements
-- Modern chat interfaces
-- Comprehensive help systems
+### 📊 **Planned Enhancements:**
+- Advanced search with filters (discipline, date range, author)
+- Export functionality for article downloads (PDF generation)
+- Email notifications for review status updates
+- Analytics dashboard for article views and citations
+- API endpoints for external integration
 
 ## Project Status
 
-### ✅ **Build Status**: Clean compilation (62 source files)
-### ✅ **Application Status**: Fully functional with all features working
-### ✅ **Code Quality**: Optimized with comprehensive error handling
-### ✅ **Documentation**: Updated and comprehensive
-### ✅ **User Experience**: Enhanced with modern UI/UX design
+### ✅ **Build Status**: Clean compilation (74 source files)
+### ✅ **Application Status**: Core infrastructure complete
+### ✅ **Code Quality**: Backward compatible with legacy airline code
+### ✅ **Documentation**: Comprehensive inline documentation
 
-## Future Enhancements
+## UI & Branding
 
-### Planned Improvements
-- **Advanced Search**: Enhanced filtering with regex and smart queries
-- **Voice Input**: Complete voice-to-text integration for AI chat
-- **Notification System**: Real-time updates for booking/refund status
-- **Mobile Responsive**: Adaptive UI for different screen sizes
-- **Reporting**: Advanced analytics and reporting features
-- **API Integration**: External payment and flight data APIs
-
-### Maintenance
-- Regular dependency updates
-- Performance optimization
-- UI/UX improvements based on user feedback
-- Security enhancements and vulnerability patches
+The platform uses the scholarly logo "پژوتێ" (Pjotê - meaning "research" in Kurdish) with color variants:
+- Primary: Orange and Dark Brown on light background
+- Secondary: Orange and Black on white background  
+- Dark Mode: Orange and White on dark background
 
 ## Conclusion
 
-The Pikachu Airlines Customer Service System is now a complete, professional-grade application with:
+The پژوتێ (Pjotê) Scholarly Publishing Platform provides a complete, professional-grade solution for:
 
-- **Complete Functionality**: All core features working seamlessly
-- **Modern UI/UX**: Enhanced user experience with contemporary design
-- **Role-Based Access**: Proper admin and customer functionality separation
-- **Streamlined Workflow**: Intuitive navigation and user interactions
-- **Maintainable Code**: Clean, well-documented implementation
-- **Data Integrity**: Robust data management and validation
-- **User Experience**: Professional alerts and responsive layouts
-- **Status Consistency**: Enforced validation across all system entities
+- **Academic Publishing**: Peer-reviewed article publication with editorial workflow
+- **Community Engagement**: Threaded discussions and scholarly commentary
+- **Discoverability**: Rich metadata, search, and categorization
+- **Author Recognition**: Profile management and publication tracking
+- **Citation Management**: Permanent DOIs and citation export
+- **Access Control**: Role-based permissions for readers, publishers, and admins
 
-The application demonstrates modern software engineering practices with JavaFX and provides an excellent foundation for future enhancements. All implementations are complete and tested with successful compilation! 🎉 
+The application demonstrates modern software engineering practices with JavaFX and provides an excellent foundation for scholarly communication and knowledge dissemination. 📚✨
+
